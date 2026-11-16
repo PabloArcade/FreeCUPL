@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p16p6lcc  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7003
+Partno          R7003
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP28 
+*QF646 
+*G0 
+*F0 
+*L00128 11111111111111111111111101101111
+*L00160 11111111111111111111111110011111
+*L00640 010000
+*C07EB
+*593E

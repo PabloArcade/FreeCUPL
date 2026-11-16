@@ -1,0 +1,16 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p14p4;
+pin 19 = i0;
+pin 1 = !i1;
+pin 4 = i2;
+pin 9 = i3;
+pin 14 = !o0;
+pin 16 = !o1;
+
+o0 = i0;
+o1 = (i2 & i0);
+
+/* @expect
+o0 = i0
+o1 = (i2 and i0)
+*/

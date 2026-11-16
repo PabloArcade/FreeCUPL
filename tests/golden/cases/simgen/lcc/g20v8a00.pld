@@ -1,0 +1,20 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8alcc;
+pin [3,5,12,27] = [a0, !a1, a2, !a3];
+pin 2 = clk;
+pin 20 = q0;
+field fa = [a1..a2];
+t0 = a0;
+t1 = !(a3) # !((!a1 & a1));
+APPEND q0 = t1 & !a2;
+pin 21 = !ta; pin 18 = tb;
+table fa => [ta, tb] {
+  4 => 2;
+}

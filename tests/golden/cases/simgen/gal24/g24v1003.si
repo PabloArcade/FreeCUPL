@@ -1,0 +1,32 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g24v10ms;
+
+ORDER: !clk, a1, a4, a2, !a3, a0, %2, !q0, !q1, !q2;
+
+VECTORS:
+110110 ***
+C01X10 ***
+C01000 ***
+K10010 ***
+0X1X01 ***
+C10010 ***
+P01101 0X0
+C010X1 ***
+C00101 ***
+C11001 HLL
+K10010 ***
+P10101 1X1
+P11011 1X1
+C11101 ***
+C11001 *N*
+C00010 N**
+110000 ***
+C1100X ***
+001001 ***

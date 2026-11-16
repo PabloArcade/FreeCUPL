@@ -1,0 +1,29 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r8;
+/* @flags -jaxf */
+pin 2 = in_x;
+pin 6 = in_y;
+pin 8 = !in_z;
+pin 10 = in_w;
+pin 11 = in_v;
+pin 23 = in_u;
+pin 17 = out_a;
+pin 21 = out_b;
+pin 18 = out_c;
+pin 15 = out_d;
+pin 16 = !out_e;
+out_a.d = ((in_z & out_c & out_c) # (in_w & in_z & in_z) # out_b) $ (!out_b # !(!in_x) # !in_y # out_c);
+!out_c.d = [in_w,in_y,in_u]:&;
+APPEND out_d.d = !in_u & !in_y;
+!out_e.d = (!in_v & !in_y # in_z # in_y & !in_w) $ !in_w $ !(in_v);
+condition {
+  if in_x out out_b;
+  default out out_b;
+}

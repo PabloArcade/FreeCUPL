@@ -1,0 +1,22 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+pin [2,6,10] = [in_x, in_y, in_z];
+pin 1 = clk;
+pin 20 = out_a;
+pin 18 = out_b;
+pin 23 = !out_c;
+out_a = in_x & in_z # !in_z # !in_y & in_z # in_z & !in_x;
+out_c.d = [in_z,in_y,in_x]:#;
+out_c.oe = in_z & !in_y;
+condition {
+  if in_x & !in_y out out_b;
+  default out out_b;
+}
+out_c.sp = in_z;

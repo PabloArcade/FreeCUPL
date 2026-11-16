@@ -1,0 +1,6 @@
+Name set_assi; Partno SET_ASSI; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [20..23] = [d0..3];
+pin 2 = rd;
+[d0..3] = 'h'5;
+[d0..3].oe = rd;

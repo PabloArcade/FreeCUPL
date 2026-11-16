@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device m16v8ac;
+pin 8 = !Designer;
+pin 5 = PRESENT;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = o4;
+
+o0 = (Designer $ PRESENT);
+o0.oe = Designer;
+o1 = ((Designer & PRESENT) # (!Designer & !PRESENT));
+o1.oe = (!Designer & PRESENT);
+o2 = !PRESENT;
+o3 = ((o2 & !Designer & PRESENT) # (PRESENT & !o2 & !Designer) # (Designer & o2));
+o4 = ((PRESENT & o2) # (o2 & !Designer));
+o4.oe = Designer;
+
+/* @expect
+o0 = (Designer ^ PRESENT)
+o0.oe = Designer
+o1 = ((Designer and PRESENT) or ((not Designer) and (not PRESENT)))
+o1.oe = ((not Designer) and PRESENT)
+o2 = (not PRESENT)
+o3 = ((o2 and (not Designer) and PRESENT) or (PRESENT and (not o2) and (not Designer)) or (Designer and o2))
+o4 = ((PRESENT and o2) or (o2 and (not Designer)))
+o4.oe = Designer
+*/

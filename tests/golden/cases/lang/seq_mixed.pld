@@ -1,0 +1,10 @@
+Name seq_mixed; Partno SEQ_MIX; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = a; pin 3 = b;
+pin [22..23] = [q0..1]; pin 21 = y; pin 20 = z;
+field st = [q1..0];
+sequence st {
+  present 0 if a next 1; if b out y; default next 2 out z;
+  present 1 if a out y; default out z; next 0;
+  present 2 next 0 out !z;
+}

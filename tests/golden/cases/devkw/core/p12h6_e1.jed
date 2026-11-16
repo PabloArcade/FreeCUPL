@@ -1,0 +1,20 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p12h6  Library DLIB-h-40-9
+Created         Thu Jan  1 00:00:00 1970
+Name            R7100
+Partno          R7100
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP20 
+*QF384 
+*G0 
+*F0 
+*L00128 00000000000000001111111111111111
+*L00160 10101111000000000000000000000000
+*C02F3
+*5799

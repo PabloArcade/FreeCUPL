@@ -1,0 +1,24 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20rp4a;
+
+ORDER: clk, in_x, !in_v, in_w, in_z, in_y, %2, s0, !out_b, out_c, out_d;
+
+VECTORS:
+101010 ****
+C01000 ****
+$MSG "vector 3";
+C10110 **N*
+C10110 *N**
+C00101 ****
+C11001 HHLL
+C11X00 ****
+K10X11 ****
+K1001X ****
+011110 ****

@@ -1,0 +1,16 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device m16v8a;
+pin 6 = !i0;
+pin 2 = i1;
+pin 5 = i2;
+pin 8 = !i3;
+pin 13 = o0;
+pin 17 = o1;
+
+o0 = (!i3 & i1 & i0);
+o1 = ((i2 & !i0) # (i0 & i2) # (!i1 & i3 & i2));
+
+/* @expect
+o0 = ((not i3) and i1 and i0)
+o1 = ((i2 and (not i0)) or (i0 and i2) or ((not i1) and i3 and i2))
+*/

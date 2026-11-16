@@ -1,0 +1,33 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p1020ev8;
+/* @flags -jaxkb */
+pin 1 = a0;
+pin 3 = a1;
+pin 14 = !a2;
+pin 15 = a3;
+pin 16 = !a4;
+pin 23 = a5;
+pin 8 = !q0;
+pin 17 = !q1;
+pin 20 = q2;
+field fa = [a0..a3];
+t0 = a1 # !((!a4 & !a4 & a4)) # a3;
+t1 = ((!t0 # a2 # !a1) # (a0 # a2) # (a1 & a1) # a2 # !a0 # !a0);
+q0 = t0 & a5 & a3 # !a2 & a4 & a5;
+q1.d = (!q2 & (!q2 # !t1 # a2) # q2 # a5);
+q1.oe = a3;
+q2.d = [a5,a2]:$;
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%6};
+$REPEND
+pin 5 = !ta; pin 21 = tb;
+table fa => [ta, tb] {
+  'b'110 => 'b'10;
+}

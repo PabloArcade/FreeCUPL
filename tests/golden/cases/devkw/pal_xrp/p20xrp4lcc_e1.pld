@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20xrp4lcc;
+pin 11 = !i0;
+pin 7 = i1;
+pin 21 = o0;
+pin 19 = location;
+pin 24 = o2;
+
+o0.d = 'b'0;
+location = i1;
+o2.d = ((!location & i0) # (!o0 & i0));
+
+/* @expect
+o0.d = 0
+location = i1
+o2.d = (((not location) and i0) or ((not o0) and i0))
+*/

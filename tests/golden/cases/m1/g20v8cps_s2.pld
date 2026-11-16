@@ -1,0 +1,16 @@
+Name g20v8cps; Partno G20V8CPS; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g20v8cps;
+
+pin 2 = a;
+pin 5 = b;
+pin 16 = x;
+pin 21 = y;
+pin 19 = !z;
+
+y = a & x;
+z = y # b;
+
+/* @expect
+y = a and x
+z = y or b
+*/

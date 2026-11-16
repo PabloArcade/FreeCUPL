@@ -1,0 +1,14 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rp8alcc;
+pin 6 = i0;
+pin 10 = !i1;
+pin 0 = !o0;
+pin 27 = o1;
+
+o0.d = (i0 # (i0 & i1));
+o1 = ((!o0 & i1) # (i0 & i1));
+
+/* @expect
+o0.d = (i0 or (i0 and i1))
+o1 = (((not o0) and i1) or (i0 and i1))
+*/

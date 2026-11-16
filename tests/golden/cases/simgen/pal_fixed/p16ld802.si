@@ -1,0 +1,36 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16ld8;
+
+ORDER: a0, a2, a1, %2, q0, fo;
+
+VECTORS:
+111 N*
+100 **
+110 **
+101 **
+100 **
+001 **
+000 N*
+011 **
+X00 **
+010 **
+101 **
+100 LH
+000 **
+011 **
+011 **
+X01 **
+000 **
+101 **
+100 **
+110 **
+011 *N
+001 **
+1X0 **

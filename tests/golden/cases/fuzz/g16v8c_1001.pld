@@ -1,0 +1,42 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8c;
+/* @flags -jaxf */
+pin 1 = a0;
+pin 2 = a1;
+pin 4 = !a2;
+pin 5 = a3;
+pin 6 = a4;
+pin 7 = !a5;
+pin 8 = a6;
+pin 18 = q0;
+pin 19 = q1;
+pin 13 = q2;
+pin 16 = q3;
+pin 12 = q4;
+pin 14 = q5;
+field fa = [a0..a5];
+q0 = fa:[3F..3F];
+q1 = fa:[30..3C];
+!q2 = a0;
+q3 = fa:[24,31];
+q3.oe = a5;
+q4 = fa:[30..39];
+q5 = a6 & a3 & a5 # a6 & !a2 & a5 # a1 & a2 # !a1;
+pin 17 = tq0;
+table fa => tq0 {
+  1D => 0;
+  1C => 0;
+  8 => 0;
+  29 => 0;
+}
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

@@ -1,0 +1,27 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cpma;
+
+pin 6 = in_x;
+pin 9 = in_y;
+pin 13 = in_z;
+pin 18 = out_a;
+pin 16 = out_b;
+pin 22 = out_c;
+pin 15 = !out_d;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = 'h'1;
+out_a.oe = in_y;
+out_b = [in_z,in_x,in_y]:#;
+out_b.oe = in_z & !in_y;
+out_c = (!in_y # (in_y & in_x) & !in_x # (in_z $ !in_x));
+out_c.oe = !in_x;
+out_d = fsel(in_y, in_x, in_z);

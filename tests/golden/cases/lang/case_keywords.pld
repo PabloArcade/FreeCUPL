@@ -1,0 +1,6 @@
+Name case_keywords; Partno CASE_KW; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+DEVICE G22V10;
+PIN 2 = a; Pin 3 = b; pIn 23 = y;
+y.OE = a;
+Y_x = b;
+y = Y_x;

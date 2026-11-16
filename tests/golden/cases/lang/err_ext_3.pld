@@ -1,0 +1,4 @@
+Name err_ext_3; Partno ERREXT3; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16r4;
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 18 = y; pin 17 = z;
+pin 17 = q; q.t = a;

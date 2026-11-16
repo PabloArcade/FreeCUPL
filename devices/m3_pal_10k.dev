@@ -1,0 +1,106 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 24-pin PALs with the outputs among pins 4..21 (10H/10K pinout).
+# Generated from probe results; do not edit by hand.
+
+device p1016p8
+descr P1016P8
+partname p1016p8 P1016P8 (24-pin PAL, 10H/10K-style pinout)
+pins 24
+power 12 24
+fuses 2056
+array 32 64
+lines p1 p23 p2 p22 p3 f21 f4 f17 f8 p16 p9 p15 p10 p14 p11 p13
+mc 4 gen sum=8-15 polfuse=2049 polhi=0 reg=0
+mc 5 gen sum=24-31 polfuse=2051 polhi=0 reg=0
+mc 7 gen sum=40-47 polfuse=2053 polhi=0 reg=0
+mc 8 gen sum=56-63 polfuse=2055 polhi=0 reg=0
+mc 17 gen sum=48-55 polfuse=2054 polhi=0 reg=0
+mc 18 gen sum=32-39 polfuse=2052 polhi=0 reg=0
+mc 20 gen sum=16-23 polfuse=2050 polhi=0 reg=0
+mc 21 gen sum=0-7 polfuse=2048 polhi=0 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p1016pe8
+descr P1016PE8
+partname p1016pe8 P1016PE8 (28-pin PAL, 10H/10K-style pinout)
+pins 28
+power 14 28
+fuses 2056
+array 32 64
+lines p1 p27 p2 p26 p3 p20 p4 p19 p10 p18 p11 p17 p12 p16 p13 p15
+mc 5 gen sum=8-15 polfuse=2049 polhi=0 reg=0
+mc 6 gen sum=24-31 polfuse=2051 polhi=0 reg=0
+mc 8 gen sum=40-47 polfuse=2053 polhi=0 reg=0
+mc 9 gen sum=56-63 polfuse=2055 polhi=0 reg=0
+mc 21 gen sum=48-55 polfuse=2054 polhi=0 reg=0
+mc 22 gen sum=32-39 polfuse=2052 polhi=0 reg=0
+mc 24 gen sum=16-23 polfuse=2050 polhi=0 reg=0
+mc 25 gen sum=0-7 polfuse=2048 polhi=0 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p1016rd4
+# Simulator: registers load 0, no C/K/P on pin 1 (B027).
+simdefect regzero
+descr P1016RD4
+partname p1016rd4 P1016RD4 (registered, 10H/10K-style pinout)
+pins 24
+power 12 24
+fuses 2056
+array 32 64
+clock 1
+oepin 13
+lines f5 p23 p2 p22 p3 f21 f4 f17 f8 f20 f7 p15 p10 p14 p11 f18
+mc 4 gen sum=8-15 polfuse=2049 polhi=0 reg=0
+mc 5 gen sum=24-31 polfuse=2051 polhi=0 oe=pin reg=1 pold=1
+mc 7 gen sum=40-47 polfuse=2053 polhi=0 oe=pin reg=1 pold=1
+mc 8 gen sum=56-63 polfuse=2055 polhi=0 reg=0
+mc 17 gen sum=48-55 polfuse=2054 polhi=0 reg=0
+mc 18 gen sum=32-39 polfuse=2052 polhi=0 oe=pin reg=1 pold=1
+mc 20 gen sum=16-23 polfuse=2050 polhi=0 oe=pin reg=1 pold=1
+mc 21 gen sum=0-7 polfuse=2048 polhi=0 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p1016rd8
+# Simulator: registers load 0, no C/K/P on pin 1 (B027).
+simdefect regzero
+descr P1016RD8
+partname p1016rd8 P1016RD8 (registered, 10H/10K-style pinout)
+pins 24
+power 12 24
+fuses 2056
+array 32 64
+clock 1
+oepin 13
+lines f5 p23 p2 p22 p3 f21 f4 f17 f8 f20 f7 p15 p10 p14 p11 f18
+mc 4 gen sum=8-15 polfuse=2049 polhi=0 oe=pin reg=1 pold=1
+mc 5 gen sum=24-31 polfuse=2051 polhi=0 oe=pin reg=1 pold=1
+mc 7 gen sum=40-47 polfuse=2053 polhi=0 oe=pin reg=1 pold=1
+mc 8 gen sum=56-63 polfuse=2055 polhi=0 oe=pin reg=1 pold=1
+mc 17 gen sum=48-55 polfuse=2054 polhi=0 oe=pin reg=1 pold=1
+mc 18 gen sum=32-39 polfuse=2052 polhi=0 oe=pin reg=1 pold=1
+mc 20 gen sum=16-23 polfuse=2050 polhi=0 oe=pin reg=1 pold=1
+mc 21 gen sum=0-7 polfuse=2048 polhi=0 oe=pin reg=1 pold=1
+refdefect kbnoflip      # B001
+end
+
+device p16p8c
+descr P16P8C
+partname p16p8c P16P8C (24-pin, 10H/10K-style pinout)
+pins 24
+power 12 24
+fuses 2056
+array 32 64
+lines p1 p23 p2 p22 p3 f21 f4 f17 f8 p16 p9 p15 p10 p14 p11 p13
+mc 4 gen sum=8-15 polfuse=2049 polhi=0 reg=0
+mc 5 gen sum=24-31 polfuse=2051 polhi=0 reg=0
+mc 7 gen sum=40-47 polfuse=2053 polhi=0 reg=0
+mc 8 gen sum=56-63 polfuse=2055 polhi=0 reg=0
+mc 17 gen sum=48-55 polfuse=2054 polhi=0 reg=0
+mc 18 gen sum=32-39 polfuse=2052 polhi=0 reg=0
+mc 20 gen sum=16-23 polfuse=2050 polhi=0 reg=0
+mc 21 gen sum=0-7 polfuse=2048 polhi=0 reg=0
+refdefect kbnoflip      # B001
+end

@@ -1,0 +1,31 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20v8cplcc;
+
+pin 9 = i0;
+pin 10 = i1;
+pin 16 = !APPEND;
+pin 12 = i3;
+pin 27 = !i4;
+pin 6 = i5;
+pin 25 = !o0;
+pin 20 = o1;
+pin 21 = !o2;
+pin 19 = SEQUENCE;
+
+o0 = ((!APPEND & i1) # i5 # (!i3 & !i5 & !i4));
+o0.oe = (!i1 & i0);
+o1 = (!i1 & i4 & APPEND);
+o1.oe = APPEND;
+o2 = ((!i4 & !i3) # !i1 # !i5);
+o2.oe = i4;
+SEQUENCE = ((!i1 & i3 & !i4) # (!i1 & !APPEND));
+
+/* @expect
+o0 = (((not APPEND) and i1) or i5 or ((not i3) and (not i5) and (not i4)))
+o0.oe = ((not i1) and i0)
+o1 = ((not i1) and i4 and APPEND)
+o1.oe = APPEND
+o2 = (((not i4) and (not i3)) or (not i1) or (not i5))
+o2.oe = i4
+SEQUENCE = (((not i1) and i3 and (not i4)) or ((not i1) and (not APPEND)))
+*/

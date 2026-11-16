@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20g10mlcc;
+pin 9 = !DEFINE;
+pin 6 = FORMAT;
+pin 21 = !o0;
+pin 19 = o1;
+pin 23 = o2;
+
+o0.d = ((!FORMAT & DEFINE) # FORMAT # (!DEFINE & !FORMAT));
+o0.oe = (!DEFINE & FORMAT);
+o1.d = (!DEFINE & FORMAT);
+o2 = !FORMAT;
+
+/* @expect
+o0.d = (((not FORMAT) and DEFINE) or FORMAT or ((not DEFINE) and (not FORMAT)))
+o0.oe = ((not DEFINE) and FORMAT)
+o1.d = ((not DEFINE) and FORMAT)
+o2 = (not FORMAT)
+*/

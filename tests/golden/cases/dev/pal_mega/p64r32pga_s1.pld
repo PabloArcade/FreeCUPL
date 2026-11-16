@@ -1,0 +1,14 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p64r32pga;
+pin 37 = !i0;
+pin 46 = i1;
+pin 64 = o0;
+pin 69 = o1;
+
+o0 = (i1 $ i0);
+o1 = (!i0 & !o0 & !i1);
+
+/* @expect
+o0 = (i1 ^ i0)
+o1 = ((not i0) and (not o0) and (not i1))
+*/

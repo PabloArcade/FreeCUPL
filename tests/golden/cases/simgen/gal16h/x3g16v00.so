@@ -1,0 +1,47 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for G16V8HMSLCC follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: x3g16v00.si
+
+   1: Name G33;
+   2: Partno P33;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g16v8hlcc;
+  10: 
+  11: FIELD st = [s0];
+  12:
+  13: ORDER: clk, a0, a2, !a4, a1, a5, a3, %2, !s0, q1, q2;
+  14: 
+
+=====================
+      c  !     !     
+      laaaaaa  sqq   
+      k024153  012   
+=====================
+0001: CX01110  HLH
+0002: C011100  HLL
+0003: C010000  HLL
+0004: K101011  HLH
+0005: C111100  HLL
+0006: C111100  HLL
+0007: C111100  HLL
+0008: C111100  HLL
+0009: C00110X  HLL
+0010: C110010  HLH
+                ^
+[0019sa] user expected (H) for q1
+
+0011: C101101  HLL
+0012: P111110  01X
+0013: P100011  00X
+0014: C111011  NHH
+0015: C10X101  HNL
+0016: 1010001  HLL

@@ -1,0 +1,25 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p_vp8oe.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16vp8ms;
+   3: ORDER: clk, a, oe, b, %2, q0, q1, c;
+
+==================
+      c           
+      l o   qq    
+      kaeb  01c   
+==================
+0001: 0000  HLL
+0002: 0001  ZZL
+0003: 0011  ZZL
+0004: 0111  ZZH
+0005: 1100  HHL
+0006: 0110  HHL
+0007: C110  HHL
+0008: C010  LLL
+0009: C001  ZZL

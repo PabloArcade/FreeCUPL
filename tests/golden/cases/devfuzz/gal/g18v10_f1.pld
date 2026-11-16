@@ -1,0 +1,32 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g18v10;
+pin [1,2,7,8] = [in_x, in_y, in_z, !in_w];
+pin 19 = !out_a;
+pin 18 = out_b;
+pin 15 = out_c;
+pin 13 = out_d;
+pin 14 = !out_e;
+pin 16 = !out_f;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (in_w $ in_y) # !in_w;
+t1 = !in_y;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a.d = !t0 & !in_x # out_c # !t0;
+out_b.d = !out_e & in_x & out_f # out_d # out_a & in_z & !t1;
+out_b.oe = in_z;
+out_c.d = ((in_x # !out_e # !in_w # (out_b & in_x)) $ out_e $ (out_a # out_a # (in_z $ out_b) # !(out_d)));
+out_d.d = !in_z;
+out_e.d = [in_z,in_y,in_x]:#;
+out_e.oe = 'b'1;
+out_f.d = [in_z,in_x,in_w,in_y]:&;
+out_f.oe = in_x & in_y;

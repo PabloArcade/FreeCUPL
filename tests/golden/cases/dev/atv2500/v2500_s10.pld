@@ -1,0 +1,42 @@
+Name R7010; Partno R7010; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500;
+/* @local */ /* @bypass */
+pin 38 = i0;
+pin 20 = i1;
+pin 3 = i2;
+pin 22 = !i3;
+pin 9 = o0;
+pin 27 = o1;
+pinnode 45 = o2;
+pinnode 62 = o3;
+pin 8 = o4;
+
+o0.d = (!i0 & i2 & i1);
+o1.d = ((i2 & i3) # (!i3 & o0));
+o1.ck = (i1 & i2);
+o1.ar = i1;
+o2.d = ((o0 & i3) # i1);
+o2.ck = !i3;
+o2.ar = !i3;
+o3.d = (!o2 # (o1 & i3));
+o3.ck = (!i2 & !i0);
+o3.ar = !i3;
+o4.d = (!i1 # (o1 & !i0));
+o4.ck = (i3 & !i0);
+o4.ar = (!i2 & i3);
+
+/* @expect
+o0.d = ((not i0) and i2 and i1)
+o1.d = ((i2 and i3) or ((not i3) and o0))
+o1.ck = (i1 and i2)
+o1.ar = i1
+o2.d = ((o0 and i3) or i1)
+o2.ck = (not i3)
+o2.ar = (not i3)
+o3.d = ((not o2) or (o1 and i3))
+o3.ck = ((not i2) and (not i0))
+o3.ar = (not i3)
+o4.d = ((not i1) or (o1 and (not i0)))
+o4.ck = (i3 and (not i0))
+o4.ar = ((not i2) and i3)
+*/

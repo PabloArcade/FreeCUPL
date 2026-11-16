@@ -1,0 +1,21 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20rp4a;
+pin [4,7,8,9,10] = [in_x, in_y, in_z, !in_w, !in_v];
+pin 1 = clk;
+pin 19 = !s0;
+pin 20 = !out_b;
+pin 23 = !out_c;
+pin 15 = !out_d;
+out_b.d = in_z # out_c;
+out_d = [in_v,in_y]:&;
+field st = [s0];
+sequence st {
+  present 1 next 1;
+}

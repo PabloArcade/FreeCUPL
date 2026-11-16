@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p10p8  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            P
+Partno          0
+Revision        01
+Date            01/01/26
+Designer        x
+Company         x
+Assembly        x
+Location        x
+*QP20 
+*QF328 
+*G0 
+*F0 
+*L00256 00000000000000000000000010011010
+*L00288 10101111111101101010101011111111
+*L00320 00000001
+*C0391
+*54E8

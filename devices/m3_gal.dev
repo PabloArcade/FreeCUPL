@@ -1,0 +1,191 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL and GAL-like parts with a fixed configuration per mnemonic.
+# Generated from probe results; do not edit by hand.
+
+device g18v10
+descr G18V10
+partname g18v10 GAL18V10
+pins 20
+power 10 20
+fuses 3540
+array 36 96
+clock 1
+ar 0
+sp 95
+ues 3476 64
+lines p1 f19 p2 f18 p3 f17 p4 f16 p5 f15 p6 f14 p7 f13 p8 f12 f11 f9
+mc 9 gen sum=87-94 oe=86 polfuse=3474 polhi=1 reg=3475 regon=0 fb=nq
+mc 11 gen sum=78-85 oe=77 polfuse=3472 polhi=1 reg=3473 regon=0 fb=nq
+mc 12 gen sum=69-76 oe=68 polfuse=3470 polhi=1 reg=3471 regon=0 fb=nq
+mc 13 gen sum=60-67 oe=59 polfuse=3468 polhi=1 reg=3469 regon=0 fb=nq
+mc 14 gen sum=49-58 oe=48 polfuse=3466 polhi=1 reg=3467 regon=0 fb=nq
+mc 15 gen sum=38-47 oe=37 polfuse=3464 polhi=1 reg=3465 regon=0 fb=nq
+mc 16 gen sum=29-36 oe=28 polfuse=3462 polhi=1 reg=3463 regon=0 fb=nq
+mc 17 gen sum=20-27 oe=19 polfuse=3460 polhi=1 reg=3461 regon=0 fb=nq
+mc 18 gen sum=11-18 oe=10 polfuse=3458 polhi=1 reg=3459 regon=0 fb=nq
+mc 19 gen sum=2-9 oe=1 polfuse=3456 polhi=1 reg=3457 regon=0 fb=nq
+refdefect kbfbinv       # B002
+end
+
+device g20ra10
+descr G20RA10
+partname g20ra10 GAL20RA10
+pins 24
+power 12 24
+fuses 3274
+array 40 80
+oepin 13
+ues 3210 64
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=76-79 oe=72 oepin=1 polfuse=3209 polhi=1 reg=arap ck=73 ar=74 ap=75 fb=pin
+mc 15 gen sum=68-71 oe=64 oepin=1 polfuse=3208 polhi=1 reg=arap ck=65 ar=66 ap=67 fb=pin
+mc 16 gen sum=60-63 oe=56 oepin=1 polfuse=3207 polhi=1 reg=arap ck=57 ar=58 ap=59 fb=pin
+mc 17 gen sum=52-55 oe=48 oepin=1 polfuse=3206 polhi=1 reg=arap ck=49 ar=50 ap=51 fb=pin
+mc 18 gen sum=44-47 oe=40 oepin=1 polfuse=3205 polhi=1 reg=arap ck=41 ar=42 ap=43 fb=pin
+mc 19 gen sum=36-39 oe=32 oepin=1 polfuse=3204 polhi=1 reg=arap ck=33 ar=34 ap=35 fb=pin
+mc 20 gen sum=28-31 oe=24 oepin=1 polfuse=3203 polhi=1 reg=arap ck=25 ar=26 ap=27 fb=pin
+mc 21 gen sum=20-23 oe=16 oepin=1 polfuse=3202 polhi=1 reg=arap ck=17 ar=18 ap=19 fb=pin
+mc 22 gen sum=12-15 oe=8 oepin=1 polfuse=3201 polhi=1 reg=arap ck=9 ar=10 ap=11 fb=pin
+mc 23 gen sum=4-7 oe=0 oepin=1 polfuse=3200 polhi=1 reg=arap ck=1 ar=2 ap=3 fb=pin
+end
+
+device g22v10i
+descr G22V10I
+partname g22v10i 22V10-type GAL, 28 pins (mnemonic g22v10i)
+pins 28
+power 14 28
+fuses 5892
+array 44 132
+clock 1
+ar 0
+sp 131
+ues 5828 64
+lines p2 f27 p3 f26 p4 f25 p5 f24 p6 f23 p7 f21 p9 f20 p10 f19 p11 f18 p12 f17 p13 p16
+mc 17 gen sum=123-130 oe=122 polfuse=5826 polhi=1 reg=5827 regon=0 fb=nq
+mc 18 gen sum=112-121 oe=111 polfuse=5824 polhi=1 reg=5825 regon=0 fb=nq
+mc 19 gen sum=99-110 oe=98 polfuse=5822 polhi=1 reg=5823 regon=0 fb=nq
+mc 20 gen sum=84-97 oe=83 polfuse=5820 polhi=1 reg=5821 regon=0 fb=nq
+mc 21 gen sum=67-82 oe=66 polfuse=5818 polhi=1 reg=5819 regon=0 fb=nq
+mc 23 gen sum=50-65 oe=49 polfuse=5816 polhi=1 reg=5817 regon=0 fb=nq
+mc 24 gen sum=35-48 oe=34 polfuse=5814 polhi=1 reg=5815 regon=0 fb=nq
+mc 25 gen sum=22-33 oe=21 polfuse=5812 polhi=1 reg=5813 regon=0 fb=nq
+mc 26 gen sum=11-20 oe=10 polfuse=5810 polhi=1 reg=5811 regon=0 fb=nq
+mc 27 gen sum=2-9 oe=1 polfuse=5808 polhi=1 reg=5809 regon=0 fb=nq
+refdefect kbfbinv       # B002
+end
+
+device g16vp8ma
+descr G16VP8MA
+partname g16vp8ma GAL16VP8 (complex mode)
+pins 20
+power 10 20
+fuses 2202
+array 32 64
+ues 2056 64
+const 2120 2121 2122 2123 2124 2125 2126 2127 2128 2129 2130 2131 2132 2133 2134 2135 2136 2137 2138 2139 2140 2141 2142 2143 2144 2145 2146 2147 2148 2149 2150 2151 2152 2153 2154 2155 2156 2157 2158 2159 2160 2161 2162 2163 2164 2165 2166 2167 2168 2169 2170 2171 2172 2173 2174 2175 2176 2177 2178 2179 2180 2181 2182 2183 2184 2185 2186 2187 2188 2189 2190 2191 2192 2193 2194 2195 2196 2197 2198 2199 2200 2201
+lines p20 p1 p2 f18 p3 f17 p4 f16 p6 f14 p7 f13 p8 f12 p9 p10
+mc 11 gen sum=57-63 oe=56 polfuse=2055 polhi=1 reg=0
+mc 12 gen sum=49-55 oe=48 polfuse=2054 polhi=1 reg=0
+mc 13 gen sum=41-47 oe=40 polfuse=2053 polhi=1 reg=0
+mc 14 gen sum=33-39 oe=32 polfuse=2052 polhi=1 reg=0
+mc 16 gen sum=25-31 oe=24 polfuse=2051 polhi=1 reg=0
+mc 17 gen sum=17-23 oe=16 polfuse=2050 polhi=1 reg=0
+mc 18 gen sum=9-15 oe=8 polfuse=2049 polhi=1 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2048 polhi=1 reg=0
+tec 19 2194
+tec 18 2195
+tec 17 2196
+tec 16 2197
+tec 14 2198
+tec 13 2199
+tec 12 2200
+tec 11 2201
+refdefect kbnoflip      # B001
+end
+
+device g16vp8s
+descr G16VP8S
+partname g16vp8s GAL16VP8 (simple mode)
+pins 20
+power 10 20
+fuses 2202
+array 32 64
+ues 2056 64
+const 2128 2129 2130 2131 2132 2133 2134 2135 2136 2137 2138 2139 2140 2141 2142 2143 2144 2145 2146 2147 2148 2149 2150 2151 2152 2153 2154 2155 2156 2157 2158 2159 2160 2161 2162 2163 2164 2165 2166 2167 2168 2169 2170 2171 2172 2173 2174 2175 2176 2177 2178 2179 2180 2181 2182 2183 2184 2185 2186 2187 2188 2189 2190 2191 2192 2194 2195 2196 2197 2198 2199 2200 2201
+lines p20 p1 p2 f19 p3 f18 p4 f17 p6 f13 p7 f12 p8 f11 p9 p10
+mc 11 gen sum=56-63 polfuse=2055 polhi=1 reg=0 fbfuse=2127 fbpin=1 cfg=2055,2127 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 12 gen sum=48-55 polfuse=2054 polhi=1 reg=0 fbfuse=2126 fbpin=1 cfg=2054,2126 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 13 gen sum=40-47 polfuse=2053 polhi=1 reg=0 fbfuse=2125 fbpin=1 cfg=2053,2125 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 14 gen sum=32-39 polfuse=2052 polhi=1 reg=0 cfg=2052,2124 cfgu=01 cfgc=10 cfgcn=00
+mc 16 gen sum=24-31 polfuse=2051 polhi=1 reg=0 cfg=2051,2123 cfgu=01 cfgc=10 cfgcn=00
+mc 17 gen sum=16-23 polfuse=2050 polhi=1 reg=0 fbfuse=2122 fbpin=1 cfg=2050,2122 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 18 gen sum=8-15 polfuse=2049 polhi=1 reg=0 fbfuse=2121 fbpin=1 cfg=2049,2121 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 19 gen sum=0-7 polfuse=2048 polhi=1 reg=0 fbfuse=2120 fbpin=1 cfg=2048,2120 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+tec 19 2194
+tec 18 2195
+tec 17 2196
+tec 16 2197
+tec 14 2198
+tec 13 2199
+tec 12 2200
+tec 11 2201
+refdefect kbnoflip      # B001
+end
+
+device g20vp8ma
+descr G20VP8MA
+partname g20vp8ma GAL20VP8 (complex mode)
+pins 24
+power 12 24
+fuses 2714
+array 40 64
+ues 2568 64
+const 2632 2633 2634 2635 2636 2637 2638 2639 2640 2641 2642 2643 2644 2645 2646 2647 2648 2649 2650 2651 2652 2653 2654 2655 2656 2657 2658 2659 2660 2661 2662 2663 2664 2665 2666 2667 2668 2669 2670 2671 2672 2673 2674 2675 2676 2677 2678 2679 2680 2681 2682 2683 2684 2685 2686 2687 2688 2689 2690 2691 2692 2693 2694 2695 2696 2697 2698 2699 2700 2701 2702 2703 2704 2705 2706 2707 2708 2709 2710 2711 2712 2713
+lines p24 p1 p2 p23 p3 f21 p4 f20 p5 f19 p7 f17 p8 f16 p9 f15 p10 p13 p11 p12
+mc 14 gen sum=57-63 oe=56 polfuse=2567 polhi=1 reg=0
+mc 15 gen sum=49-55 oe=48 polfuse=2566 polhi=1 reg=0
+mc 16 gen sum=41-47 oe=40 polfuse=2565 polhi=1 reg=0
+mc 17 gen sum=33-39 oe=32 polfuse=2564 polhi=1 reg=0
+mc 19 gen sum=25-31 oe=24 polfuse=2563 polhi=1 reg=0
+mc 20 gen sum=17-23 oe=16 polfuse=2562 polhi=1 reg=0
+mc 21 gen sum=9-15 oe=8 polfuse=2561 polhi=1 reg=0
+mc 22 gen sum=1-7 oe=0 polfuse=2560 polhi=1 reg=0
+tec 22 2706
+tec 21 2707
+tec 20 2708
+tec 19 2709
+tec 17 2710
+tec 16 2711
+tec 15 2712
+tec 14 2713
+refdefect kbnoflip      # B001
+end
+
+device g20vp8s
+descr G20VP8S
+partname g20vp8s GAL20VP8 (simple mode)
+pins 24
+power 12 24
+fuses 2714
+array 40 64
+ues 2568 64
+const 2640 2641 2642 2643 2644 2645 2646 2647 2648 2649 2650 2651 2652 2653 2654 2655 2656 2657 2658 2659 2660 2661 2662 2663 2664 2665 2666 2667 2668 2669 2670 2671 2672 2673 2674 2675 2676 2677 2678 2679 2680 2681 2682 2683 2684 2685 2686 2687 2688 2689 2690 2691 2692 2693 2694 2695 2696 2697 2698 2699 2700 2701 2702 2703 2704 2706 2707 2708 2709 2710 2711 2712 2713
+lines p24 p1 p2 p23 p3 f22 p4 f21 p5 f20 p7 f16 p8 f15 p9 f14 p10 p13 p11 p12
+mc 14 gen sum=56-63 polfuse=2567 polhi=1 reg=0 fbfuse=2639 fbpin=1 cfg=2567,2639 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 15 gen sum=48-55 polfuse=2566 polhi=1 reg=0 fbfuse=2638 fbpin=1 cfg=2566,2638 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 16 gen sum=40-47 polfuse=2565 polhi=1 reg=0 fbfuse=2637 fbpin=1 cfg=2565,2637 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 17 gen sum=32-39 polfuse=2564 polhi=1 reg=0 cfg=2564,2636 cfgu=01 cfgc=10 cfgcn=00
+mc 19 gen sum=24-31 polfuse=2563 polhi=1 reg=0 cfg=2563,2635 cfgu=01 cfgc=10 cfgcn=00
+mc 20 gen sum=16-23 polfuse=2562 polhi=1 reg=0 fbfuse=2634 fbpin=1 cfg=2562,2634 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 21 gen sum=8-15 polfuse=2561 polhi=1 reg=0 fbfuse=2633 fbpin=1 cfg=2561,2633 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+mc 22 gen sum=0-7 polfuse=2560 polhi=1 reg=0 fbfuse=2632 fbpin=1 cfg=2560,2632 cfgu=01 cfgi=01 cfgc=10 cfgcn=00
+tec 22 2706
+tec 21 2707
+tec 20 2708
+tec 19 2709
+tec 17 2710
+tec 16 2711
+tec 15 2712
+tec 14 2713
+refdefect kbnoflip      # B001
+end

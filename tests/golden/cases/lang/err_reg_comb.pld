@@ -1,0 +1,4 @@
+Name err_reg_; Partno ERR_REG_; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16r4;
+pin 2 = a; pin 17 = y;
+y = a;

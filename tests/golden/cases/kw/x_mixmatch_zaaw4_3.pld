@@ -1,0 +1,9 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+pin 2 = zz;
+pin 3 = a1;
+pin 4 = a3;
+pin 5 = ww;
+pin 23 = y;
+field st = [zz,a1,a3,ww];
+y = st:[0..2];

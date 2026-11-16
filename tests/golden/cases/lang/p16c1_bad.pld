@@ -1,0 +1,7 @@
+Name p16c1_ba; Partno P16C1_BA; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16c1;
+/* @bug B005: freecupl rejects two different equations on the shared sum (owner decision) */
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 16 = y; pin 15 = z;
+y = a & b;
+z = c;

@@ -1,0 +1,32 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16r6alcc;
+/* @flags -jaxkb */
+pin 2 = a0;
+pin 3 = a1;
+pin 4 = a2;
+pin 25 = a3;
+pin 26 = a4;
+pin 27 = a5;
+pin 28 = a6;
+pin 10 = s0;
+pin 16 = q1;
+pin 22 = q2;
+pin 8 = q3;
+pin 12 = q4;
+field fa = [a0..a1];
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q3 = ((!a4 # a1 # a0 # a0 # !a2 # (a0 $ !a2)) # (a4 $ a3) # (a1 $ !a3) # !a4);
+APPEND q4.d = !a3;
+field st = [s0];
+sequence st {
+  present 0 if a6 & !a1 next 0; out q2;
+}

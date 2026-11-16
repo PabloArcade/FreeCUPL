@@ -1,0 +1,5 @@
+Name case_sensitive; Partno CASE_SEN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = A; pin 3 = a; pin 23 = Y; pin 22 = y;
+Y = A & !a;
+y = a;

@@ -1,0 +1,21 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22vp10;
+pin 5 = in_x;
+pin 8 = in_y;
+pin 10 = !in_z;
+pin 13 = in_w;
+pin 1 = clk;
+pin 22 = !out_a;
+t0 = (in_w $ in_y);
+t1 = (!((!in_x & t0)) & !(in_w) & !(in_z) & (in_w $ !in_y));
+t2 = !(((in_w & t1) & (!t1 # in_y) & !(in_x)));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!out_a = in_z # t1 & in_x # t2 & t1 & in_y # t2;

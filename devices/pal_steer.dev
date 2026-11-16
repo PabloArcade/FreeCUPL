@@ -1,0 +1,287 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Product-term steering PALs.  Outputs with the same sum rows share them;
+# the steering fuse of shared row j is steer + 2j (1 = the term reaches the
+# output).  Rows are given out in strcmp order of the output names.
+# steershare 1: a term in both sums is written once, with neither fuse.
+# Generated from probe results; do not edit by hand.
+
+device p20s10
+descr P20S10 (product-term steering)
+partname p20s10 PAL20S10
+pins 24
+power 12 24
+fuses 3322
+array 40 80
+lines p2 p1 p3 p22 p4 p21 p5 p20 p6 p19 p7 p18 p8 p17 p9 p16 p10 p15 p11 p13
+mc 23 gen sum=1-7 oe=0 polfuse=3200 polhi=1 reg=0
+mc 22 gen sum=9-22 oe=8 polfuse=3201 polhi=1 reg=0 steer=3211 steerstep=2
+mc 21 gen sum=9-22 oe=23 polfuse=3202 polhi=1 reg=0 steer=3210 steerstep=2
+mc 20 gen sum=25-38 oe=24 polfuse=3203 polhi=1 reg=0 steer=3239 steerstep=2
+mc 19 gen sum=25-38 oe=39 polfuse=3204 polhi=1 reg=0 steer=3238 steerstep=2
+mc 18 gen sum=41-54 oe=40 polfuse=3205 polhi=1 reg=0 steer=3267 steerstep=2
+mc 17 gen sum=41-54 oe=55 polfuse=3206 polhi=1 reg=0 steer=3266 steerstep=2
+mc 16 gen sum=57-70 oe=56 polfuse=3207 polhi=1 reg=0 steer=3295 steerstep=2
+mc 15 gen sum=57-70 oe=71 polfuse=3208 polhi=1 reg=0 steer=3294 steerstep=2
+mc 14 gen sum=72-78 oe=79 polfuse=3209 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rs10
+descr P20RS10 (product-term steering)
+partname p20rs10 PAL20RS10
+pins 24
+power 12 24
+fuses 3338
+array 40 80
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 23 gen sum=0-7 oe=pin polfuse=3200 polhi=1 reg=1 pold=1
+mc 22 gen sum=8-23 oe=pin polfuse=3201 polhi=1 reg=1 pold=1 steer=3211 steerstep=2
+mc 21 gen sum=8-23 oe=pin polfuse=3202 polhi=1 reg=1 pold=1 steer=3210 steerstep=2
+mc 20 gen sum=24-39 oe=pin polfuse=3203 polhi=1 reg=1 pold=1 steer=3243 steerstep=2
+mc 19 gen sum=24-39 oe=pin polfuse=3204 polhi=1 reg=1 pold=1 steer=3242 steerstep=2
+mc 18 gen sum=40-55 oe=pin polfuse=3205 polhi=1 reg=1 pold=1 steer=3275 steerstep=2
+mc 17 gen sum=40-55 oe=pin polfuse=3206 polhi=1 reg=1 pold=1 steer=3274 steerstep=2
+mc 16 gen sum=56-71 oe=pin polfuse=3207 polhi=1 reg=1 pold=1 steer=3307 steerstep=2
+mc 15 gen sum=56-71 oe=pin polfuse=3208 polhi=1 reg=1 pold=1 steer=3306 steerstep=2
+mc 14 gen sum=72-79 oe=pin polfuse=3209 polhi=1 reg=1 pold=1
+refdefect kbnoflip      # B001
+end
+
+device p20rs8
+descr P20RS8 (product-term steering)
+partname p20rs8 PAL20RS8
+pins 24
+power 12 24
+fuses 3338
+array 40 80
+clock 1
+oepin 13
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 23 gen sum=1-7 oe=0 polfuse=3200 polhi=1 reg=0
+mc 22 gen sum=8-23 oe=pin polfuse=3201 polhi=1 reg=1 pold=1 steer=3211 steerstep=2
+mc 21 gen sum=8-23 oe=pin polfuse=3202 polhi=1 reg=1 pold=1 steer=3210 steerstep=2
+mc 20 gen sum=24-39 oe=pin polfuse=3203 polhi=1 reg=1 pold=1 steer=3243 steerstep=2
+mc 19 gen sum=24-39 oe=pin polfuse=3204 polhi=1 reg=1 pold=1 steer=3242 steerstep=2
+mc 18 gen sum=40-55 oe=pin polfuse=3205 polhi=1 reg=1 pold=1 steer=3275 steerstep=2
+mc 17 gen sum=40-55 oe=pin polfuse=3206 polhi=1 reg=1 pold=1 steer=3274 steerstep=2
+mc 16 gen sum=56-71 oe=pin polfuse=3207 polhi=1 reg=1 pold=1 steer=3307 steerstep=2
+mc 15 gen sum=56-71 oe=pin polfuse=3208 polhi=1 reg=1 pold=1 steer=3306 steerstep=2
+mc 14 gen sum=72-78 oe=79 polfuse=3209 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rs4
+descr P20RS4 (product-term steering)
+partname p20rs4 PAL20RS4
+pins 24
+power 12 24
+fuses 3330
+array 40 80
+clock 1
+oepin 13
+lines p2 p23 p3 p22 p4 p21 p5 f20 p6 f19 p7 f18 p8 f17 p9 p16 p10 p15 p11 p14
+mc 23 gen sum=1-7 oe=0 polfuse=3200 polhi=1 reg=0
+mc 22 gen sum=9-22 oe=8 polfuse=3201 polhi=1 reg=0 steer=3211 steerstep=2
+mc 21 gen sum=9-22 oe=23 polfuse=3202 polhi=1 reg=0 steer=3210 steerstep=2
+mc 20 gen sum=24-39 oe=pin polfuse=3203 polhi=1 reg=1 pold=1 steer=3239 steerstep=2
+mc 19 gen sum=24-39 oe=pin polfuse=3204 polhi=1 reg=1 pold=1 steer=3238 steerstep=2
+mc 18 gen sum=40-55 oe=pin polfuse=3205 polhi=1 reg=1 pold=1 steer=3271 steerstep=2
+mc 17 gen sum=40-55 oe=pin polfuse=3206 polhi=1 reg=1 pold=1 steer=3270 steerstep=2
+mc 16 gen sum=57-70 oe=56 polfuse=3207 polhi=1 reg=0 steer=3303 steerstep=2
+mc 15 gen sum=57-70 oe=71 polfuse=3208 polhi=1 reg=0 steer=3302 steerstep=2
+mc 14 gen sum=72-78 oe=79 polfuse=3209 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rsp8
+descr P20RSP8 (product-term steering)
+partname p20rsp8 PAL20RSP8
+pins 24
+power 12 24
+fuses 2696
+array 40 64
+clock 1
+oepin 13
+steershare 1
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 22 gen sum=0-15 oe=pin polfuse=2560 polhi=1 reg=1 pold=1 steer=2569 steerstep=2
+mc 21 gen sum=0-15 oe=pin polfuse=2561 polhi=1 reg=1 pold=1 steer=2568 steerstep=2
+mc 20 gen sum=16-31 oe=pin polfuse=2562 polhi=1 reg=1 pold=1 steer=2601 steerstep=2
+mc 19 gen sum=16-31 oe=pin polfuse=2563 polhi=1 reg=1 pold=1 steer=2600 steerstep=2
+mc 18 gen sum=32-47 oe=pin polfuse=2564 polhi=1 reg=1 pold=1 steer=2633 steerstep=2
+mc 17 gen sum=32-47 oe=pin polfuse=2565 polhi=1 reg=1 pold=1 steer=2632 steerstep=2
+mc 16 gen sum=48-63 oe=pin polfuse=2566 polhi=1 reg=1 pold=1 steer=2665 steerstep=2
+mc 15 gen sum=48-63 oe=pin polfuse=2567 polhi=1 reg=1 pold=1 steer=2664 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p20rsp6
+descr P20RSP6 (product-term steering)
+partname p20rsp6 PAL20RSP6
+pins 24
+power 12 24
+fuses 2692
+array 40 64
+clock 1
+oepin 13
+steershare 1
+lines p2 p23 p3 p22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p15 p11 p14
+mc 22 gen sum=1-15 oe=0 polfuse=2560 polhi=1 reg=0 steer=2569 steerstep=2
+mc 21 gen sum=1-15 oe=pin polfuse=2561 polhi=1 reg=1 pold=1 steer=2568 steerstep=2
+mc 20 gen sum=16-31 oe=pin polfuse=2562 polhi=1 reg=1 pold=1 steer=2599 steerstep=2
+mc 19 gen sum=16-31 oe=pin polfuse=2563 polhi=1 reg=1 pold=1 steer=2598 steerstep=2
+mc 18 gen sum=32-47 oe=pin polfuse=2564 polhi=1 reg=1 pold=1 steer=2631 steerstep=2
+mc 17 gen sum=32-47 oe=pin polfuse=2565 polhi=1 reg=1 pold=1 steer=2630 steerstep=2
+mc 16 gen sum=48-62 oe=pin polfuse=2566 polhi=1 reg=1 pold=1 steer=2663 steerstep=2
+mc 15 gen sum=48-62 oe=63 polfuse=2567 polhi=1 reg=0 steer=2662 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p20rsp4
+descr P20RSP4 (product-term steering)
+partname p20rsp4 PAL20RSP4
+pins 24
+power 12 24
+fuses 2688
+array 40 64
+clock 1
+oepin 13
+steershare 1
+lines p2 p23 p3 p22 p4 p21 p5 f20 p6 f19 p7 f18 p8 f17 p9 p16 p10 p15 p11 p14
+mc 22 gen sum=1-14 oe=0 polfuse=2560 polhi=1 reg=0 steer=2569 steerstep=2
+mc 21 gen sum=1-14 oe=15 polfuse=2561 polhi=1 reg=0 steer=2568 steerstep=2
+mc 20 gen sum=16-31 oe=pin polfuse=2562 polhi=1 reg=1 pold=1 steer=2597 steerstep=2
+mc 19 gen sum=16-31 oe=pin polfuse=2563 polhi=1 reg=1 pold=1 steer=2596 steerstep=2
+mc 18 gen sum=32-47 oe=pin polfuse=2564 polhi=1 reg=1 pold=1 steer=2629 steerstep=2
+mc 17 gen sum=32-47 oe=pin polfuse=2565 polhi=1 reg=1 pold=1 steer=2628 steerstep=2
+mc 16 gen sum=49-62 oe=48 polfuse=2566 polhi=1 reg=0 steer=2661 steerstep=2
+mc 15 gen sum=49-62 oe=63 polfuse=2567 polhi=1 reg=0 steer=2660 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p20sp8
+descr P20SP8 (product-term steering)
+partname p20sp8 PAL20SP8
+pins 24
+power 12 24
+fuses 2680
+array 40 64
+steershare 1
+lines p2 p1 p3 p23 p4 p21 p5 p20 p6 p19 p7 p18 p8 p17 p9 p16 p10 p14 p11 p13
+mc 22 gen sum=1-14 oe=0 polfuse=2560 polhi=1 reg=0 steer=2569 steerstep=2
+mc 21 gen sum=1-14 oe=15 polfuse=2561 polhi=1 reg=0 steer=2568 steerstep=2
+mc 20 gen sum=17-30 oe=16 polfuse=2562 polhi=1 reg=0 steer=2597 steerstep=2
+mc 19 gen sum=17-30 oe=31 polfuse=2563 polhi=1 reg=0 steer=2596 steerstep=2
+mc 18 gen sum=33-46 oe=32 polfuse=2564 polhi=1 reg=0 steer=2625 steerstep=2
+mc 17 gen sum=33-46 oe=47 polfuse=2565 polhi=1 reg=0 steer=2624 steerstep=2
+mc 16 gen sum=49-62 oe=48 polfuse=2566 polhi=1 reg=0 steer=2653 steerstep=2
+mc 15 gen sum=49-62 oe=63 polfuse=2567 polhi=1 reg=0 steer=2652 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p16rsp8
+descr P16RSP8 (product-term steering)
+partname p16rsp8 PAL16RSP8
+pins 20
+power 10 20
+fuses 2184
+array 32 64
+clock 1
+oepin 11
+steershare 1
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 19 gen sum=0-15 oe=pin polfuse=2048 polhi=1 reg=1 pold=1 steer=2057 steerstep=2
+mc 18 gen sum=0-15 oe=pin polfuse=2049 polhi=1 reg=1 pold=1 steer=2056 steerstep=2
+mc 17 gen sum=16-31 oe=pin polfuse=2050 polhi=1 reg=1 pold=1 steer=2089 steerstep=2
+mc 16 gen sum=16-31 oe=pin polfuse=2051 polhi=1 reg=1 pold=1 steer=2088 steerstep=2
+mc 15 gen sum=32-47 oe=pin polfuse=2052 polhi=1 reg=1 pold=1 steer=2121 steerstep=2
+mc 14 gen sum=32-47 oe=pin polfuse=2053 polhi=1 reg=1 pold=1 steer=2120 steerstep=2
+mc 13 gen sum=48-63 oe=pin polfuse=2054 polhi=1 reg=1 pold=1 steer=2153 steerstep=2
+mc 12 gen sum=48-63 oe=pin polfuse=2055 polhi=1 reg=1 pold=1 steer=2152 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p16rsp6
+descr P16RSP6 (product-term steering)
+partname p16rsp6 PAL16RSP6
+pins 20
+power 10 20
+fuses 2180
+array 32 64
+clock 1
+oepin 11
+steershare 1
+lines p2 p19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p12
+mc 19 gen sum=1-15 oe=0 polfuse=2048 polhi=1 reg=0 steer=2057 steerstep=2
+mc 18 gen sum=1-15 oe=pin polfuse=2049 polhi=1 reg=1 pold=1 steer=2056 steerstep=2
+mc 17 gen sum=16-31 oe=pin polfuse=2050 polhi=1 reg=1 pold=1 steer=2087 steerstep=2
+mc 16 gen sum=16-31 oe=pin polfuse=2051 polhi=1 reg=1 pold=1 steer=2086 steerstep=2
+mc 15 gen sum=32-47 oe=pin polfuse=2052 polhi=1 reg=1 pold=1 steer=2119 steerstep=2
+mc 14 gen sum=32-47 oe=pin polfuse=2053 polhi=1 reg=1 pold=1 steer=2118 steerstep=2
+mc 13 gen sum=48-62 oe=pin polfuse=2054 polhi=1 reg=1 pold=1 steer=2151 steerstep=2
+mc 12 gen sum=48-62 oe=63 polfuse=2055 polhi=1 reg=0 steer=2150 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p16rsp4
+descr P16RSP4 (product-term steering)
+partname p16rsp4 PAL16RSP4
+pins 20
+power 10 20
+fuses 2176
+array 32 64
+clock 1
+oepin 11
+steershare 1
+lines p2 p19 p3 p18 p4 f17 p5 f16 p6 f15 p7 f14 p8 p13 p9 p12
+mc 19 gen sum=1-14 oe=0 polfuse=2048 polhi=1 reg=0 steer=2057 steerstep=2
+mc 18 gen sum=1-14 oe=15 polfuse=2049 polhi=1 reg=0 steer=2056 steerstep=2
+mc 17 gen sum=16-31 oe=pin polfuse=2050 polhi=1 reg=1 pold=1 steer=2085 steerstep=2
+mc 16 gen sum=16-31 oe=pin polfuse=2051 polhi=1 reg=1 pold=1 steer=2084 steerstep=2
+mc 15 gen sum=32-47 oe=pin polfuse=2052 polhi=1 reg=1 pold=1 steer=2117 steerstep=2
+mc 14 gen sum=32-47 oe=pin polfuse=2053 polhi=1 reg=1 pold=1 steer=2116 steerstep=2
+mc 13 gen sum=49-62 oe=48 polfuse=2054 polhi=1 reg=0 steer=2149 steerstep=2
+mc 12 gen sum=49-62 oe=63 polfuse=2055 polhi=1 reg=0 steer=2148 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p16sp8
+descr P16SP8 (product-term steering)
+partname p16sp8 PAL16SP8
+pins 20
+power 10 20
+fuses 2168
+array 32 64
+steershare 1
+lines p2 p1 p3 p18 p4 p17 p5 p16 p6 p15 p7 p14 p8 p13 p9 p11
+mc 19 gen sum=1-14 oe=0 polfuse=2048 polhi=1 reg=0 steer=2057 steerstep=2
+mc 18 gen sum=1-14 oe=15 polfuse=2049 polhi=1 reg=0 steer=2056 steerstep=2
+mc 17 gen sum=17-30 oe=16 polfuse=2050 polhi=1 reg=0 steer=2085 steerstep=2
+mc 16 gen sum=17-30 oe=31 polfuse=2051 polhi=1 reg=0 steer=2084 steerstep=2
+mc 15 gen sum=33-46 oe=32 polfuse=2052 polhi=1 reg=0 steer=2113 steerstep=2
+mc 14 gen sum=33-46 oe=47 polfuse=2053 polhi=1 reg=0 steer=2112 steerstep=2
+mc 13 gen sum=49-62 oe=48 polfuse=2054 polhi=1 reg=0 steer=2141 steerstep=2
+mc 12 gen sum=49-62 oe=63 polfuse=2055 polhi=1 reg=0 steer=2140 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p1020p8
+descr P1020P8 (product-term steering)
+partname p1020p8 P1020P8 (product-term steering)
+pins 24
+power 12 24
+fuses 1352
+array 40 32
+lines p2 p1 p3 p4 p9 p5 p10 p7 p11 p8 p13 p17 p14 p18 p15 p20 p16 p21 p22 p23
+mc 21 gen sum=24-31 oe=always polfuse=1287 polhi=0 reg=0 steer=1336 steerstep=2
+mc 20 gen sum=24-31 oe=always polfuse=1286 polhi=0 reg=0 steer=1337 steerstep=2
+mc 18 gen sum=16-23 oe=always polfuse=1285 polhi=0 reg=0 steer=1320 steerstep=2
+mc 17 gen sum=16-23 oe=always polfuse=1284 polhi=0 reg=0 steer=1321 steerstep=2
+mc 8 gen sum=8-15 oe=always polfuse=1283 polhi=0 reg=0 steer=1304 steerstep=2
+mc 7 gen sum=8-15 oe=always polfuse=1282 polhi=0 reg=0 steer=1305 steerstep=2
+mc 5 gen sum=0-7 oe=always polfuse=1281 polhi=0 reg=0 steer=1288 steerstep=2
+mc 4 gen sum=0-7 oe=always polfuse=1280 polhi=0 reg=0 steer=1289 steerstep=2
+refdefect kbnoflip      # B001
+end

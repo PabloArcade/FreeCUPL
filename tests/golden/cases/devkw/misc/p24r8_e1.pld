@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p24r8;
+pin 8 = i0;
+pin 28 = i1;
+pin 13 = !i2;
+pin 11 = i3;
+pin 27 = !NEXT;
+pin 5 = i5;
+pin 22 = device;
+pin 25 = o1;
+pin 20 = o2;
+
+device.d = (i5 $ i3);
+o1.d = ((i3 & !device & !NEXT) # i2 # !i0);
+o2.d = (i3 # (NEXT & i1 & !i5) # (!i2 & o1 & !NEXT));
+
+/* @expect
+device.d = (i5 ^ i3)
+o1.d = ((i3 and (not device) and (not NEXT)) or i2 or (not i0))
+o2.d = (i3 or (NEXT and i1 and (not i5)) or ((not i2) and o1 and (not NEXT)))
+*/

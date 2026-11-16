@@ -1,0 +1,11 @@
+Name B030; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v2500b;
+ORDER: clk, a, en, q;
+VECTORS:
+P01 0
+011 *
+C11 *
+C01 *
+C00 *
+C10 *
+C11 *

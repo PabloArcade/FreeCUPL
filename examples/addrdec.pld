@@ -1,0 +1,38 @@
+Name     addrdec;
+Partno   EX004;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   p16l8;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Memory and I/O address decoder for a small 8-bit computer:
+     memory  0000-3FFF  ROM        I/O  00-7F  (none)
+             4000-BFFF  RAM             80-BF  UART
+             C000-C7FF  video RAM       C0-FF  parallel port
+             C800-FFFF  (none)
+   Shows: active-low pins, fields named after the address bits, range
+   matching (field:[lo..hi]) and single-value matching (field:value). */
+
+pin 1  = !mreq;                  /* memory request */
+pin [2..7] = [a15..10];          /* memory address, upper bits */
+pin [8..9] = [a7..6];            /* I/O address, upper bits */
+pin 11 = !iorq;                  /* I/O request */
+
+pin 19 = !rom_cs;
+pin 18 = !ram_cs;
+pin 17 = !vid_cs;
+pin 16 = !uart_cs;
+pin 15 = !pio_cs;
+
+field maddr = [a15..10];
+field ioaddr = [a7..6];
+
+rom_cs  = mreq & maddr:[0000..3FFF];
+ram_cs  = mreq & maddr:[4000..BFFF];
+vid_cs  = mreq & maddr:[C000..C7FF];
+uart_cs = iorq & ioaddr:80;
+pio_cs  = iorq & ioaddr:C0;

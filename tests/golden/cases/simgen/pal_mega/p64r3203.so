@@ -1,0 +1,45 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P64R32 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p64r3203.si
+
+   1: Name G9005;
+   2: Partno P9005;
+   3: Date 01/01/26;
+   4: Designer gen;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device p64r32;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: ORDER: clk, oe, !a4, a3, a0, a1, a2, %2, q0;
+  11: 
+
+===================
+      c !          
+      loaaaaa  q   
+      ke43012  0   
+===================
+0001: 1000010  L
+0002: 1011011  H
+0003: 0000X01  H
+0004: 1000111  H
+0005: 1000010  L
+0006: 1001000  L
+0007: 1010101  H
+0008: 1001100  L
+0009: 0001100  L
+0010: 0001000  L
+0011: 1100010  L
+0012: 000X110  N
+0013: 0011110  H
+0014: 11X1011  H
+0015: 0000000  L
+0016: 010X101  H
+0017: 10100X1  H
+0018: X110010  H
+0019: 0001010  L

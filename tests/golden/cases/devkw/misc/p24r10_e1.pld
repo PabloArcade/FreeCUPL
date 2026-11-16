@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p24r10;
+pin 8 = i0;
+pin 28 = i1;
+pin 13 = !i2;
+pin 11 = default;
+pin 27 = !i4;
+pin 5 = i5;
+pin 22 = o0;
+pin 25 = o1;
+pin 20 = o2;
+
+o0.d = (i5 $ default);
+o1.d = ((default & !o0 & !i4) # i2 # !i0);
+o2.d = (default # (i4 & i1 & !i5) # (!i2 & o1 & !i4));
+
+/* @expect
+o0.d = (i5 ^ default)
+o1.d = ((default and (not o0) and (not i4)) or i2 or (not i0))
+o2.d = (default or (i4 and i1 and (not i5)) or ((not i2) and o1 and (not i4)))
+*/

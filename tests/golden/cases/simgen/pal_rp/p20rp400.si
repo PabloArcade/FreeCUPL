@@ -1,0 +1,31 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20rp4;
+
+ORDER: a1, a2, a0, %2, q0, fo;
+
+VECTORS:
+101 **
+100 **
+010 **
+000 **
+111 **
+000 **
+111 **
+011 **
+110 **
+001 HL
+110 **
+000 **
+100 **
+100 **
+011 **
+000 **
+111 **
+111 **

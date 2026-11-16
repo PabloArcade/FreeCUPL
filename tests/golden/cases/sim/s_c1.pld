@@ -1,0 +1,8 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8;
+pin 2 = a; pin 3 = b; pin 4 = e;
+pin 18 = y1; pin 17 = y2; pin 16 = y3; pin 15 = io;
+y1 = a;
+y2 = y1 & b;
+y3 = y2;
+io = b; io.oe = e;

@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p1020p8lcc;
+pin 17 = !i0;
+pin 26 = i1;
+pin 6 = o0;
+pin 24 = Out;
+pin 20 = o2;
+pin 10 = o3;
+pin 5 = NEXT;
+
+o0 = (i0 $ i1);
+Out = 'b'0;
+o2 = Out;
+o3 = ((Out & o2 & !o0) # o0 # !i0);
+NEXT = (i1 # (!o0 & i1 & o2) # (!i1 & o0 & o3));
+
+/* @expect
+o0 = (i0 ^ i1)
+Out = 0
+o2 = Out
+o3 = ((Out and o2 and (not o0)) or o0 or (not i0))
+NEXT = (i1 or ((not o0) and i1 and o2) or ((not i1) and o0 and o3))
+*/

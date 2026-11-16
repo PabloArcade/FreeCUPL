@@ -1,0 +1,33 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10lcc;
+pin 2 = in_x;
+pin 5 = in_y;
+pin 11 = in_z;
+pin 12 = in_w;
+pin 19 = out_a;
+pin 25 = out_b;
+pin 24 = out_c;
+t0 = ((in_w $ in_x) # !in_z # in_w & !in_w);
+t1 = !((t0 $ in_z));
+t2 = ((t0 & in_x & in_x) & !in_z);
+!out_a.d = !t0 & in_z & !in_w # !in_w & t0 & !t1;
+out_a.oe = in_y;
+APPEND out_b = !in_y;
+APPEND out_b = !in_y;
+condition {
+  if in_w & !in_y out out_c;
+}
+out_a.sp = !in_w & in_z;
+pin 23 = c0; pin 20 = !c1;
+condition {
+  if in_w & in_y out c1;
+  if in_z & !in_x out [c0, c1];
+  if !in_z out c1;
+}

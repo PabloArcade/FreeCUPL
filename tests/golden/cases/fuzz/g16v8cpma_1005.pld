@@ -1,0 +1,38 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cpma;
+/* @flags -jaxm0 */
+pin 1 = !in_x;
+pin 3 = in_y;
+pin 5 = in_z;
+pin 11 = in_w;
+pin 14 = out_a;
+pin 19 = out_b;
+pin 17 = !out_c;
+pin 12 = !out_d;
+pin 16 = out_e;
+pin 15 = out_f;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = in_z;
+t1 = (in_z $ in_y);
+t2 = !(in_w);
+out_a = (out_f & out_c & !t2 & (out_f $ t2) & in_y & !in_w # t2 # !t0 & t0);
+out_b = t1;
+out_d = (((!out_a & !t0) # (out_f & !in_z & in_z) # (in_y # in_x # !t2)) # !out_a);
+out_e = [in_w,in_y]:&;
+out_e.oe = !in_z & in_w;
+out_f = t0 & in_w # t0 & t2 & in_z # t2 & t1;
+condition {
+  if in_z & in_w out out_c;
+}

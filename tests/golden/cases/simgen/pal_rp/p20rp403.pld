@@ -1,0 +1,36 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20rp4a;
+pin 2 = in_x;
+pin 5 = in_y;
+pin 7 = in_z;
+pin 9 = in_w;
+pin 10 = in_v;
+pin 11 = in_u;
+pin 1 = clk;
+pin 13 = !oe;
+pin 18 = out_a;
+pin 23 = out_b;
+pin 16 = out_c;
+pin 14 = out_d;
+pin 22 = out_e;
+pin 19 = out_f;
+out_a.d = ((in_w $ in_u) & !(in_x) # in_w & !in_y);
+out_b.oe = in_z & in_x;
+out_c = [in_y,in_z,in_v]:#;
+out_c.oe = !in_w & in_z;
+out_d = (in_x & !in_z & (in_z # !in_y # in_u # (in_x $ !in_u)));
+out_d.oe = !in_u & in_w;
+out_e = [in_u,in_y,in_z]:#;
+out_f.d = in_z;
+condition {
+  if in_z out out_b;
+  default out out_b;
+}
+min out_c = 3;

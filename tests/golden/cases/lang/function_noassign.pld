@@ -1,0 +1,7 @@
+Name function; Partno FUNCTION; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 23 = y; pin 22 = z;
+function side(p, q) {
+  z = p & q;
+}
+y = a # side(a, b);

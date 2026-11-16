@@ -1,0 +1,56 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p24r1001.si
+
+   1: Name G9008;
+   2: Partno P9008;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Device p24r10;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: ORDER: clk, a3, a0, !a1, !a2, !a5, a4, %2, q0, q1, q2, q3, q4;
+  11: 
+
+=======================
+      c  !!!           
+      laaaaaa  qqqqq   
+      k301254  01234   
+=======================
+0001: C00000X  LHHLH
+0002: C010101  XLXLL
+vector 3
+0003: C111X01  XLHLN
+0004: P101001  10111
+0005: C111001  XHHLH
+0006: C100001  LLHLH
+0007: C110010  XLHLL
+0008: C011011  NLHLH
+0009: C001011  LLHLN
+0010: C001000  LLHLL
+0011: 0000000  LLHLN
+0012: C010110  XLHLL
+0013: 1101110  XLHLL
+               ^^ ^^
+[0019sa] user expected (H) for q0
+[0019sa] user expected (H) for q1
+[0019sa] user expected (H) for q3
+[0019sa] user expected (H) for q4
+
+0014: P101000  01010
+0015: K101010  LHHLL
+0016: K110110  XLHLL
+0017: C100X11  XLHLL
+0018: C101110  XLHLL
+0019: C001111  LLLLL
+0020: 1111011  HLHLH
+0021: CX00101  HLHLH
+0022: C0X1110  XLXLX
+0023: P100010  01100
+0024: K100100  HLNLH

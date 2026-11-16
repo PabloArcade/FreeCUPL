@@ -1,0 +1,29 @@
+Name G1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cma;
+/* @flags -jaxm4 */
+pin [2,3,4,7,8,9,11] = [!a0, !a1, !a2, a3, !a4, a5, !a6];
+pin 1 = clk;
+pin 19 = !q0;
+pin 16 = q1;
+pin 12 = q2;
+pin 17 = q3;
+pin 13 = q4;
+pin 15 = q5;
+field fa = [a0..a2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0 = !(a6 # !a6) $ ((a1 # a1) & q5 # q5 & (a6 $ q1)) $ q1;
+!q1 = (!((q5 & !a6 & a4)) & (!a4 & (a2 # a2 # a6)) & a4);
+q2 = fa:'d'3;
+q2.oe = !a2 & !a1;
+q3 = fa:[3,7];
+q3.oe = !a5;
+q4 = q5;
+q4.oe = a0;
+q5 = !a6 & !q1 # !q1 & !a6 # !a0 & !a1 & a6 # a2;

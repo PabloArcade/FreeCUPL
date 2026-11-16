@@ -1,0 +1,22 @@
+Name G9009;
+Partno P9009;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Assembly x;
+Location x;
+Device m16v8as;
+/* @flags -jaxkb */
+pin [1,2,5,6,8,11] = [in_x, !in_y, !in_z, in_w, in_v, in_u];
+pin 19 = out_a;
+pin 12 = out_b;
+pin 15 = !out_c;
+pin 16 = out_d;
+pin 18 = out_e;
+t0 = (!(in_y) # (!in_z # in_w # in_z # in_z));
+t1 = !(!((in_z $ in_w)));
+out_a = !in_z & t1 & !in_v # !in_x;
+out_b = [in_u,in_w]:$;
+out_c = in_z;
+out_d = !(in_u & !(t0) & (in_y & in_w & in_x));
+!out_e = in_u & in_y & in_x;

@@ -1,0 +1,27 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Company gen;
+Assembly x;
+Location x;
+Device p64r32pga;
+
+ORDER: a6, a3, a1, a5, !a4, a2, a0, %2, q0, q1, q2;
+
+VECTORS:
+1111110 ***
+0100100 ***
+$MSG "vector 3";
+0100X10 ***
+0010101 ***
+1100010 ***
+X1X0000 ***
+0001010 ***
+0000010 LLL
+1001010 ***
+1111X01 ***
+01001X0 ***
+1X01101 ***
+0110011 ***
+1110010 ***

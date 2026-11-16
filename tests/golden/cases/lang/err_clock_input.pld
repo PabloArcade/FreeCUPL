@@ -1,0 +1,4 @@
+Name err_cloc; Partno ERR_CLOC; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+pin 1 = clk; pin 2 = a; pin 19 = y; pin 18 = z;
+y.d = a & clk;

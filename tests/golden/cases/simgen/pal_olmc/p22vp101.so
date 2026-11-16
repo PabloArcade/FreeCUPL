@@ -1,0 +1,43 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p22vp101.si
+
+   1: Name G9008;
+   2: Partno P9008;
+   3: Revision 01;
+   4: Designer gen;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device p22vp10;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: ORDER: clk, in_x, in_w, in_y, in_z, %2, out_a;
+  11: 
+
+=================
+             o   
+       iiii  u   
+      cnnnn  t   
+      l____  _   
+      kxwyz  a   
+=================
+0001: 00111  L
+0002: 10100  L
+vector 3
+0003: 10X01  L
+0004: X1111  L
+0005: 00101  L
+0006: 00111  L
+0007: 10101  L
+0008: 11101  L
+0009: 01X01  L
+0010: 01011  L
+0011: 10000  L
+0012: 11100  L
+0013: 000X1  N
+0014: 010X1  L
+0015: 00010  L

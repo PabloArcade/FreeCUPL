@@ -1,0 +1,5 @@
+Name err_lin3; Partno ERR_LIN3; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 23 = y;
+$DEFINE LONGNAME a # b # a # b
+y = LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME # LONGNAME;

@@ -1,0 +1,23 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20rp4;
+pin 2 = a0;
+pin 8 = a1;
+pin 9 = a2;
+pin 16 = q0;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+!q0 = ((a0 $ a2) # !a2 # (a1 # !a0 # a0) & (a1 # a1 # a1));
+q0.oe = a2 & !a0;
+pin 22 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a1, a2, a0, fflag) # fflag;

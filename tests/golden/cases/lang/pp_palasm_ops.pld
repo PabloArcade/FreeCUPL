@@ -1,0 +1,8 @@
+Name pp_palas; Partno PP_PALAS; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16l8;
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 19 = y; pin 18 = z;
+$DEFINE + #
+$DEFINE :+: $
+y = a & b + c;
+z = a :+: b;

@@ -1,0 +1,61 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P32R16LCC follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p32r1602.si
+
+   1: Name G9003;
+   2: Partno P9003;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p32r16lcc;
+  10: 
+  11: FIELD st = [s0];
+  12:
+  13: ORDER: in_x, in_z, in_y, %2, !s0, out_b;
+  14: 
+
+================
+            o   
+      iii   u   
+      nnn  !t   
+      ___  s_   
+      xzy  0b   
+================
+0001: 010  XX
+0002: 101  XX
+vector 3
+0003: 011  XX
+0004: 110  XX
+0005: 001  XX
+0006: 001  XX
+0007: 001  XX
+0008: 000  XX
+0009: 000  XX
+0010: 111  XX
+0011: 101  XX
+0012: 011  XX
+0013: 001  XX
+0014: 101  XX
+0015: 00X  XX
+           ^^
+[0019sa] user expected (H) for s0
+[0019sa] user expected (L) for out_b
+
+0016: 010  XX
+0017: 101  XX
+0018: 001  XX
+0019: 110  XX
+0020: 001  XX
+0021: 000  XX
+0022: X01  XX
+0023: 001  XX
+0024: 000  XX
+0025: 10X  XX
+0026: 001  XX

@@ -1,0 +1,41 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p_lx4.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g22v10;
+   3: ORDER: s, r, e, %2, q, w, v;
+
+=================
+      sre  qwv   
+=================
+0001: 001  XXH
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0002: 101  HHL
+0003: 00X  XXH
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+

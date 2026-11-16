@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20l2lcc;
+pin 20 = !ELSE;
+pin 27 = i1;
+pin 23 = o0;
+
+o0 = (!i1 & ELSE);
+
+/* @expect
+o0 = ((not i1) and ELSE)
+*/

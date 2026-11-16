@@ -1,0 +1,167 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 20- and 24-pin PALs with 64 product terms, 8 per output.  Inverting
+# outputs, /Q feedback, OE on pin 11 or 13.
+
+device p16l8
+descr PAL16L8: 10 inputs, 8 combinational active-low outputs (6 I/O)
+partname p16l8 PAL16L8
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+lines p2 p1 p3 p18 p4 p17 p5 p16 p6 p15 p7 p14 p8 p13 p9 p11
+mc 19 comb oe=0 sum=1-7 pol=l
+mc 18 comb oe=8 sum=9-15 pol=l
+mc 17 comb oe=16 sum=17-23 pol=l
+mc 16 comb oe=24 sum=25-31 pol=l
+mc 15 comb oe=32 sum=33-39 pol=l
+mc 14 comb oe=40 sum=41-47 pol=l
+mc 13 comb oe=48 sum=49-55 pol=l
+mc 12 comb oe=56 sum=57-63 pol=l
+libtag p16l8 DLIB-h-40-8
+end
+
+device p16r4
+descr PAL16R4: 4 registered + 4 combinational I/O outputs
+partname p16r4 PAL16R4
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+clock 1
+oepin 11
+lines p2 p19 p3 p18 p4 f17 p5 f16 p6 f15 p7 f14 p8 p13 p9 p12
+mc 19 comb oe=0 sum=1-7 pol=l
+mc 18 comb oe=8 sum=9-15 pol=l
+mc 17 reg sum=16-23 pol=l
+mc 16 reg sum=24-31 pol=l
+mc 15 reg sum=32-39 pol=l
+mc 14 reg sum=40-47 pol=l
+mc 13 comb oe=48 sum=49-55 pol=l
+mc 12 comb oe=56 sum=57-63 pol=l
+libtag p16r4 DLIB-h-40-11
+end
+
+device p16r6
+descr PAL16R6: 6 registered + 2 combinational I/O outputs
+partname p16r6 PAL16R6
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+clock 1
+oepin 11
+lines p2 p19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p12
+mc 19 comb oe=0 sum=1-7 pol=l
+mc 18 reg sum=8-15 pol=l
+mc 17 reg sum=16-23 pol=l
+mc 16 reg sum=24-31 pol=l
+mc 15 reg sum=32-39 pol=l
+mc 14 reg sum=40-47 pol=l
+mc 13 reg sum=48-55 pol=l
+mc 12 comb oe=56 sum=57-63 pol=l
+libtag p16r6 DLIB-h-40-14
+end
+
+device p16r8
+descr PAL16R8: 8 registered outputs
+partname p16r8 PAL16R8
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 19 reg sum=0-7 pol=l
+mc 18 reg sum=8-15 pol=l
+mc 17 reg sum=16-23 pol=l
+mc 16 reg sum=24-31 pol=l
+mc 15 reg sum=32-39 pol=l
+mc 14 reg sum=40-47 pol=l
+mc 13 reg sum=48-55 pol=l
+mc 12 reg sum=56-63 pol=l
+libtag p16r8 DLIB-h-40-10
+end
+
+device p20l8
+descr PAL20L8: 14 inputs, 8 combinational active-low outputs (6 I/O)
+partname p20l8 PAL20L8
+pins 24
+power 12 24
+fuses 2560
+array 40 64
+lines p2 p1 p3 p23 p4 p21 p5 p20 p6 p19 p7 p18 p8 p17 p9 p16 p10 p14 p11 p13
+mc 22 comb oe=0 sum=1-7 pol=l
+mc 21 comb oe=8 sum=9-15 pol=l
+mc 20 comb oe=16 sum=17-23 pol=l
+mc 19 comb oe=24 sum=25-31 pol=l
+mc 18 comb oe=32 sum=33-39 pol=l
+mc 17 comb oe=40 sum=41-47 pol=l
+mc 16 comb oe=48 sum=49-55 pol=l
+mc 15 comb oe=56 sum=57-63 pol=l
+libtag p20l8 DLIB-h-40-8
+end
+
+device p20r4
+descr PAL20R4: 4 registered + 4 combinational I/O outputs
+partname p20r4 PAL20R4
+pins 24
+power 12 24
+fuses 2560
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 p22 p4 p21 p5 f20 p6 f19 p7 f18 p8 f17 p9 p16 p10 p15 p11 p14
+mc 22 comb oe=0 sum=1-7 pol=l
+mc 21 comb oe=8 sum=9-15 pol=l
+mc 20 reg sum=16-23 pol=l
+mc 19 reg sum=24-31 pol=l
+mc 18 reg sum=32-39 pol=l
+mc 17 reg sum=40-47 pol=l
+mc 16 comb oe=48 sum=49-55 pol=l
+mc 15 comb oe=56 sum=57-63 pol=l
+libtag p20r4 DLIB-h-40-10
+end
+
+device p20r6
+descr PAL20R6: 6 registered + 2 combinational I/O outputs
+partname p20r6 PAL20R6
+pins 24
+power 12 24
+fuses 2560
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 p22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p15 p11 p14
+mc 22 comb oe=0 sum=1-7 pol=l
+mc 21 reg sum=8-15 pol=l
+mc 20 reg sum=16-23 pol=l
+mc 19 reg sum=24-31 pol=l
+mc 18 reg sum=32-39 pol=l
+mc 17 reg sum=40-47 pol=l
+mc 16 reg sum=48-55 pol=l
+mc 15 comb oe=56 sum=57-63 pol=l
+libtag p20r6 DLIB-h-40-10
+end
+
+device p20r8
+descr PAL20R8: 8 registered outputs
+partname p20r8 PAL20R8
+pins 24
+power 12 24
+fuses 2560
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 22 reg sum=0-7 pol=l
+mc 21 reg sum=8-15 pol=l
+mc 20 reg sum=16-23 pol=l
+mc 19 reg sum=24-31 pol=l
+mc 18 reg sum=32-39 pol=l
+mc 17 reg sum=40-47 pol=l
+mc 16 reg sum=48-55 pol=l
+mc 15 reg sum=56-63 pol=l
+libtag p20r8 DLIB-h-40-9
+end

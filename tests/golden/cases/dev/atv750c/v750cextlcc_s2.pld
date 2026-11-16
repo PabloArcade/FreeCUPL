@@ -1,0 +1,37 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cextlcc;
+
+/* @local */ /* @bypass */
+pin 11 = i0;
+pin 10 = i1;
+pin 13 = i2;
+pin 6 = i3;
+pin 17 = o0;
+pinnode 35 = o1;
+pin 25 = o2;
+pin 20 = o3;
+pinnode 38 = o4;
+
+o0 = ((i2 & i1 & !i0) # i3);
+o1.t = (o0 $ i3);
+o1.ck = i2;
+o1.ar = i3;
+o2.d = ((!o0 & i2 & !i0) # (!o0 & i1 & i0) # (i2 & !o0 & !i3));
+o2.ck = !i3;
+o2.ar = (!i0 & i1);
+o3.t = (o0 $ i2);
+o3.ck = (i3 & i2);
+o4.t = !o0;
+
+/* @expect
+o0 = ((i2 and i1 and (not i0)) or i3)
+o1.t = (o0 ^ i3)
+o1.ck = i2
+o1.ar = i3
+o2.d = (((not o0) and i2 and (not i0)) or ((not o0) and i1 and i0) or (i2 and (not o0) and (not i3)))
+o2.ck = (not i3)
+o2.ar = ((not i0) and i1)
+o3.t = (o0 ^ i2)
+o3.ck = (i3 and i2)
+o4.t = (not o0)
+*/

@@ -1,0 +1,267 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# ATV2500.  24 macrocells, each with an output register (also PINNODE
+# 65..88) and a buried register (PINNODE 41..64).  17 rows per macrocell:
+# a 12-row sum in three groups of 4, AR and CK of each register, OE.  The
+# .SP terms are shared by groups of 2 or 4 macrocells and ORed together.
+# Configuration fuses from 71552, 4 per macrocell: own sum of the output
+# register when used through its alias, third group joined to the pin sum,
+# combinational pin, polarity.  The array reads both registers as Q.
+# Without .CK a register is never clocked.
+
+device v2500
+descr ATV2500
+partname v2500 ATV2500
+pins 40
+power 30 10
+fuses 71648
+array 172 416
+nodfb
+lines f59 f31 p31 f60 f32 p32 f61 f33 p33 f62 f34 p34 f63 f35 p35 f64 f36 p36 p37 p38 p39 p40 p1 p2 p3 f41 f4 p4 f42 f5 p5 f43 f6 p6 f44 f7 p7 f45 f8 p8 f46 f9 p9 f58 f29 p29 f57 f28 p28 f56 f27 p27 f55 f26 p26 f54 f25 p25 f53 f24 p24 p23 p22 p21 p20 p19 p18 p17 f52 f16 p16 f51 f15 p15 f50 f14 p14 f49 f13 p13 f48 f12 p12 f47 f11 p11
+mc 29 gen sum=0-11 oe=16 polfuse=71555 polhi=1 reg=71554 regon=0 regidle=1 ck=13 ar=12 sp=34 alwaysreg=1 fb=q split=71553 splitval=0 splitout=1 half=0-7 qsplit=71552 qhalf=0-3 qsum=4-7
+mc 58 gen node=1 sum=8-11 reg=1 ck=14 ar=15 sp=34 fb=q
+mc 28 gen sum=17-28 oe=33 polfuse=71559 polhi=1 reg=71558 regon=0 regidle=1 ck=30 ar=29 sp=34 alwaysreg=1 fb=q split=71557 splitval=0 splitout=1 half=17-24 qsplit=71556 qhalf=17-20 qsum=21-24
+mc 57 gen node=1 sum=25-28 reg=1 ck=31 ar=32 sp=34 fb=q
+mc 27 gen sum=35-46 oe=51 polfuse=71563 polhi=1 reg=71562 regon=0 regidle=1 ck=48 ar=47 sp=103 alwaysreg=1 fb=q split=71561 splitval=0 splitout=1 half=35-42 qsplit=71560 qhalf=35-38 qsum=39-42
+mc 56 gen node=1 sum=43-46 reg=1 ck=49 ar=50 sp=103 fb=q
+mc 26 gen sum=52-63 oe=68 polfuse=71567 polhi=1 reg=71566 regon=0 regidle=1 ck=65 ar=64 sp=103 alwaysreg=1 fb=q split=71565 splitval=0 splitout=1 half=52-59 qsplit=71564 qhalf=52-55 qsum=56-59
+mc 55 gen node=1 sum=60-63 reg=1 ck=66 ar=67 sp=103 fb=q
+mc 25 gen sum=69-80 oe=85 polfuse=71571 polhi=1 reg=71570 regon=0 regidle=1 ck=82 ar=81 sp=103 alwaysreg=1 fb=q split=71569 splitval=0 splitout=1 half=69-76 qsplit=71568 qhalf=69-72 qsum=73-76
+mc 54 gen node=1 sum=77-80 reg=1 ck=83 ar=84 sp=103 fb=q
+mc 24 gen sum=86-97 oe=102 polfuse=71575 polhi=1 reg=71574 regon=0 regidle=1 ck=99 ar=98 sp=103 alwaysreg=1 fb=q split=71573 splitval=0 splitout=1 half=86-93 qsplit=71572 qhalf=86-89 qsum=90-93
+mc 53 gen node=1 sum=94-97 reg=1 ck=100 ar=101 sp=103 fb=q
+mc 11 gen sum=104-115 oe=120 polfuse=71579 polhi=1 reg=71578 regon=0 regidle=1 ck=117 ar=116 sp=138 alwaysreg=1 fb=q split=71577 splitval=0 splitout=1 half=104-111 qsplit=71576 qhalf=104-107 qsum=108-111
+mc 47 gen node=1 sum=112-115 reg=1 ck=118 ar=119 sp=138 fb=q
+mc 12 gen sum=121-132 oe=137 polfuse=71583 polhi=1 reg=71582 regon=0 regidle=1 ck=134 ar=133 sp=138 alwaysreg=1 fb=q split=71581 splitval=0 splitout=1 half=121-128 qsplit=71580 qhalf=121-124 qsum=125-128
+mc 48 gen node=1 sum=129-132 reg=1 ck=135 ar=136 sp=138 fb=q
+mc 13 gen sum=139-150 oe=155 polfuse=71587 polhi=1 reg=71586 regon=0 regidle=1 ck=152 ar=151 sp=207 alwaysreg=1 fb=q split=71585 splitval=0 splitout=1 half=139-146 qsplit=71584 qhalf=139-142 qsum=143-146
+mc 49 gen node=1 sum=147-150 reg=1 ck=153 ar=154 sp=207 fb=q
+mc 14 gen sum=156-167 oe=172 polfuse=71591 polhi=1 reg=71590 regon=0 regidle=1 ck=169 ar=168 sp=207 alwaysreg=1 fb=q split=71589 splitval=0 splitout=1 half=156-163 qsplit=71588 qhalf=156-159 qsum=160-163
+mc 50 gen node=1 sum=164-167 reg=1 ck=170 ar=171 sp=207 fb=q
+mc 15 gen sum=173-184 oe=189 polfuse=71595 polhi=1 reg=71594 regon=0 regidle=1 ck=186 ar=185 sp=207 alwaysreg=1 fb=q split=71593 splitval=0 splitout=1 half=173-180 qsplit=71592 qhalf=173-176 qsum=177-180
+mc 51 gen node=1 sum=181-184 reg=1 ck=187 ar=188 sp=207 fb=q
+mc 16 gen sum=190-201 oe=206 polfuse=71599 polhi=1 reg=71598 regon=0 regidle=1 ck=203 ar=202 sp=207 alwaysreg=1 fb=q split=71597 splitval=0 splitout=1 half=190-197 qsplit=71596 qhalf=190-193 qsum=194-197
+mc 52 gen node=1 sum=198-201 reg=1 ck=204 ar=205 sp=207 fb=q
+mc 31 gen sum=208-219 oe=224 polfuse=71603 polhi=1 reg=71602 regon=0 regidle=1 ck=221 ar=220 sp=242 alwaysreg=1 fb=q split=71601 splitval=0 splitout=1 half=208-215 qsplit=71600 qhalf=208-211 qsum=212-215
+mc 59 gen node=1 sum=216-219 reg=1 ck=222 ar=223 sp=242 fb=q
+mc 32 gen sum=225-236 oe=241 polfuse=71607 polhi=1 reg=71606 regon=0 regidle=1 ck=238 ar=237 sp=242 alwaysreg=1 fb=q split=71605 splitval=0 splitout=1 half=225-232 qsplit=71604 qhalf=225-228 qsum=229-232
+mc 60 gen node=1 sum=233-236 reg=1 ck=239 ar=240 sp=242 fb=q
+mc 33 gen sum=243-254 oe=259 polfuse=71611 polhi=1 reg=71610 regon=0 regidle=1 ck=256 ar=255 sp=311 alwaysreg=1 fb=q split=71609 splitval=0 splitout=1 half=243-250 qsplit=71608 qhalf=243-246 qsum=247-250
+mc 61 gen node=1 sum=251-254 reg=1 ck=257 ar=258 sp=311 fb=q
+mc 34 gen sum=260-271 oe=276 polfuse=71615 polhi=1 reg=71614 regon=0 regidle=1 ck=273 ar=272 sp=311 alwaysreg=1 fb=q split=71613 splitval=0 splitout=1 half=260-267 qsplit=71612 qhalf=260-263 qsum=264-267
+mc 62 gen node=1 sum=268-271 reg=1 ck=274 ar=275 sp=311 fb=q
+mc 35 gen sum=277-288 oe=293 polfuse=71619 polhi=1 reg=71618 regon=0 regidle=1 ck=290 ar=289 sp=311 alwaysreg=1 fb=q split=71617 splitval=0 splitout=1 half=277-284 qsplit=71616 qhalf=277-280 qsum=281-284
+mc 63 gen node=1 sum=285-288 reg=1 ck=291 ar=292 sp=311 fb=q
+mc 36 gen sum=294-305 oe=310 polfuse=71623 polhi=1 reg=71622 regon=0 regidle=1 ck=307 ar=306 sp=311 alwaysreg=1 fb=q split=71621 splitval=0 splitout=1 half=294-301 qsplit=71620 qhalf=294-297 qsum=298-301
+mc 64 gen node=1 sum=302-305 reg=1 ck=308 ar=309 sp=311 fb=q
+mc 9 gen sum=312-323 oe=328 polfuse=71627 polhi=1 reg=71626 regon=0 regidle=1 ck=325 ar=324 sp=346 alwaysreg=1 fb=q split=71625 splitval=0 splitout=1 half=312-319 qsplit=71624 qhalf=312-315 qsum=316-319
+mc 46 gen node=1 sum=320-323 reg=1 ck=326 ar=327 sp=346 fb=q
+mc 8 gen sum=329-340 oe=345 polfuse=71631 polhi=1 reg=71630 regon=0 regidle=1 ck=342 ar=341 sp=346 alwaysreg=1 fb=q split=71629 splitval=0 splitout=1 half=329-336 qsplit=71628 qhalf=329-332 qsum=333-336
+mc 45 gen node=1 sum=337-340 reg=1 ck=343 ar=344 sp=346 fb=q
+mc 7 gen sum=347-358 oe=363 polfuse=71635 polhi=1 reg=71634 regon=0 regidle=1 ck=360 ar=359 sp=415 alwaysreg=1 fb=q split=71633 splitval=0 splitout=1 half=347-354 qsplit=71632 qhalf=347-350 qsum=351-354
+mc 44 gen node=1 sum=355-358 reg=1 ck=361 ar=362 sp=415 fb=q
+mc 6 gen sum=364-375 oe=380 polfuse=71639 polhi=1 reg=71638 regon=0 regidle=1 ck=377 ar=376 sp=415 alwaysreg=1 fb=q split=71637 splitval=0 splitout=1 half=364-371 qsplit=71636 qhalf=364-367 qsum=368-371
+mc 43 gen node=1 sum=372-375 reg=1 ck=378 ar=379 sp=415 fb=q
+mc 5 gen sum=381-392 oe=397 polfuse=71643 polhi=1 reg=71642 regon=0 regidle=1 ck=394 ar=393 sp=415 alwaysreg=1 fb=q split=71641 splitval=0 splitout=1 half=381-388 qsplit=71640 qhalf=381-384 qsum=385-388
+mc 42 gen node=1 sum=389-392 reg=1 ck=395 ar=396 sp=415 fb=q
+mc 4 gen sum=398-409 oe=414 polfuse=71647 polhi=1 reg=71646 regon=0 regidle=1 ck=411 ar=410 sp=415 alwaysreg=1 fb=q split=71645 splitval=0 splitout=1 half=398-405 qsplit=71644 qhalf=398-401 qsum=402-405
+mc 41 gen node=1 sum=406-409 reg=1 ck=412 ar=413 sp=415 fb=q
+nodealias 65 4
+nodealias 66 5
+nodealias 67 6
+nodealias 68 7
+nodealias 69 8
+nodealias 70 9
+nodealias 71 11
+nodealias 72 12
+nodealias 73 13
+nodealias 74 14
+nodealias 75 15
+nodealias 76 16
+nodealias 77 24
+nodealias 78 25
+nodealias 79 26
+nodealias 80 27
+nodealias 81 28
+nodealias 82 29
+nodealias 83 31
+nodealias 84 32
+nodealias 85 33
+nodealias 86 34
+nodealias 87 35
+nodealias 88 36
+libtag v2500 DLIB-h-40-7
+refdefect kbfbinv       # B002
+end
+
+# 44-pin package: buried registers 45..68, output registers 69..92.
+device v2500lcc
+inherit v2500
+descr ATV2500 in a 44-pin package
+partname v2500lcc ATV2500 (PLCC44)
+pins 44
+pinmap 1=1 2=2 3=3 4=5 5=6 6=7 7=8 8=9 9=10 10=11 11=13 12=14 13=15 14=16 15=17 16=18 17=19 18=20 19=21 20=22 21=23 22=24 23=25 24=27 25=28 26=29 27=30 28=31 29=32 30=33 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48 45=49 46=50 47=51 48=52 49=53 50=54 51=55 52=56 53=57 54=58 55=59 56=60 57=61 58=62 59=63 60=64 61=65 62=66 63=67 64=68 65=69 66=70 67=71 68=72 69=73 70=74 71=75 72=76 73=77 74=78 75=79 76=80 77=81 78=82 79=83 80=84 81=85 82=86 83=87 84=88 85=89 86=90 87=91 88=92
+# PINNODE declared active low: equation kept, node read complemented
+# (B015).
+refdefect nodeneg
+libtag v2500lcc DLIB-h-40-8
+end
+
+# ATV2500B.  ATV2500 map plus 97 fuses from 71649, 4 per macrocell: output
+# register T, buried register T, output register CE, buried register CE.
+# With .CE the register is clocked by pin 1 and its CK row is the enable;
+# .CE with .CK is rejected (0006cc).  The third row group joins the pin sum
+# only when needed.  .DFB is rejected (0012cb).
+device v2500b
+inherit v2500
+descr ATV2500B
+partname v2500b ATV2500B
+fuses 71745
+# Combinational equation on a buried register: B016.
+refdefect nodecomb
+mc 29 gen sum=0-11 oe=16 polfuse=71555 polhi=1 reg=71554 regon=0 regidle=1 ck=13 ar=12 sp=34 alwaysreg=1 fb=q split=71553 splitval=0 splitout=1 half=0-7 qsplit=71552 qhalf=0-3 qsum=4-7 splitneed=1 tfuse=71649 tval=1 cefuse=71651
+mc 58 gen node=1 sum=8-11 reg=1 ck=14 ar=15 sp=34 fb=q tfuse=71650 tval=1 cefuse=71652
+mc 28 gen sum=17-28 oe=33 polfuse=71559 polhi=1 reg=71558 regon=0 regidle=1 ck=30 ar=29 sp=34 alwaysreg=1 fb=q split=71557 splitval=0 splitout=1 half=17-24 qsplit=71556 qhalf=17-20 qsum=21-24 splitneed=1 tfuse=71653 tval=1 cefuse=71655
+mc 57 gen node=1 sum=25-28 reg=1 ck=31 ar=32 sp=34 fb=q tfuse=71654 tval=1 cefuse=71656
+mc 27 gen sum=35-46 oe=51 polfuse=71563 polhi=1 reg=71562 regon=0 regidle=1 ck=48 ar=47 sp=103 alwaysreg=1 fb=q split=71561 splitval=0 splitout=1 half=35-42 qsplit=71560 qhalf=35-38 qsum=39-42 splitneed=1 tfuse=71657 tval=1 cefuse=71659
+mc 56 gen node=1 sum=43-46 reg=1 ck=49 ar=50 sp=103 fb=q tfuse=71658 tval=1 cefuse=71660
+mc 26 gen sum=52-63 oe=68 polfuse=71567 polhi=1 reg=71566 regon=0 regidle=1 ck=65 ar=64 sp=103 alwaysreg=1 fb=q split=71565 splitval=0 splitout=1 half=52-59 qsplit=71564 qhalf=52-55 qsum=56-59 splitneed=1 tfuse=71661 tval=1 cefuse=71663
+mc 55 gen node=1 sum=60-63 reg=1 ck=66 ar=67 sp=103 fb=q tfuse=71662 tval=1 cefuse=71664
+mc 25 gen sum=69-80 oe=85 polfuse=71571 polhi=1 reg=71570 regon=0 regidle=1 ck=82 ar=81 sp=103 alwaysreg=1 fb=q split=71569 splitval=0 splitout=1 half=69-76 qsplit=71568 qhalf=69-72 qsum=73-76 splitneed=1 tfuse=71665 tval=1 cefuse=71667
+mc 54 gen node=1 sum=77-80 reg=1 ck=83 ar=84 sp=103 fb=q tfuse=71666 tval=1 cefuse=71668
+mc 24 gen sum=86-97 oe=102 polfuse=71575 polhi=1 reg=71574 regon=0 regidle=1 ck=99 ar=98 sp=103 alwaysreg=1 fb=q split=71573 splitval=0 splitout=1 half=86-93 qsplit=71572 qhalf=86-89 qsum=90-93 splitneed=1 tfuse=71669 tval=1 cefuse=71671
+mc 53 gen node=1 sum=94-97 reg=1 ck=100 ar=101 sp=103 fb=q tfuse=71670 tval=1 cefuse=71672
+mc 11 gen sum=104-115 oe=120 polfuse=71579 polhi=1 reg=71578 regon=0 regidle=1 ck=117 ar=116 sp=138 alwaysreg=1 fb=q split=71577 splitval=0 splitout=1 half=104-111 qsplit=71576 qhalf=104-107 qsum=108-111 splitneed=1 tfuse=71673 tval=1 cefuse=71675
+mc 47 gen node=1 sum=112-115 reg=1 ck=118 ar=119 sp=138 fb=q tfuse=71674 tval=1 cefuse=71676
+mc 12 gen sum=121-132 oe=137 polfuse=71583 polhi=1 reg=71582 regon=0 regidle=1 ck=134 ar=133 sp=138 alwaysreg=1 fb=q split=71581 splitval=0 splitout=1 half=121-128 qsplit=71580 qhalf=121-124 qsum=125-128 splitneed=1 tfuse=71677 tval=1 cefuse=71679
+mc 48 gen node=1 sum=129-132 reg=1 ck=135 ar=136 sp=138 fb=q tfuse=71678 tval=1 cefuse=71680
+mc 13 gen sum=139-150 oe=155 polfuse=71587 polhi=1 reg=71586 regon=0 regidle=1 ck=152 ar=151 sp=207 alwaysreg=1 fb=q split=71585 splitval=0 splitout=1 half=139-146 qsplit=71584 qhalf=139-142 qsum=143-146 splitneed=1 tfuse=71681 tval=1 cefuse=71683
+mc 49 gen node=1 sum=147-150 reg=1 ck=153 ar=154 sp=207 fb=q tfuse=71682 tval=1 cefuse=71684
+mc 14 gen sum=156-167 oe=172 polfuse=71591 polhi=1 reg=71590 regon=0 regidle=1 ck=169 ar=168 sp=207 alwaysreg=1 fb=q split=71589 splitval=0 splitout=1 half=156-163 qsplit=71588 qhalf=156-159 qsum=160-163 splitneed=1 tfuse=71685 tval=1 cefuse=71687
+mc 50 gen node=1 sum=164-167 reg=1 ck=170 ar=171 sp=207 fb=q tfuse=71686 tval=1 cefuse=71688
+mc 15 gen sum=173-184 oe=189 polfuse=71595 polhi=1 reg=71594 regon=0 regidle=1 ck=186 ar=185 sp=207 alwaysreg=1 fb=q split=71593 splitval=0 splitout=1 half=173-180 qsplit=71592 qhalf=173-176 qsum=177-180 splitneed=1 tfuse=71689 tval=1 cefuse=71691
+mc 51 gen node=1 sum=181-184 reg=1 ck=187 ar=188 sp=207 fb=q tfuse=71690 tval=1 cefuse=71692
+mc 16 gen sum=190-201 oe=206 polfuse=71599 polhi=1 reg=71598 regon=0 regidle=1 ck=203 ar=202 sp=207 alwaysreg=1 fb=q split=71597 splitval=0 splitout=1 half=190-197 qsplit=71596 qhalf=190-193 qsum=194-197 splitneed=1 tfuse=71693 tval=1 cefuse=71695
+mc 52 gen node=1 sum=198-201 reg=1 ck=204 ar=205 sp=207 fb=q tfuse=71694 tval=1 cefuse=71696
+mc 31 gen sum=208-219 oe=224 polfuse=71603 polhi=1 reg=71602 regon=0 regidle=1 ck=221 ar=220 sp=242 alwaysreg=1 fb=q split=71601 splitval=0 splitout=1 half=208-215 qsplit=71600 qhalf=208-211 qsum=212-215 splitneed=1 tfuse=71697 tval=1 cefuse=71699
+mc 59 gen node=1 sum=216-219 reg=1 ck=222 ar=223 sp=242 fb=q tfuse=71698 tval=1 cefuse=71700
+mc 32 gen sum=225-236 oe=241 polfuse=71607 polhi=1 reg=71606 regon=0 regidle=1 ck=238 ar=237 sp=242 alwaysreg=1 fb=q split=71605 splitval=0 splitout=1 half=225-232 qsplit=71604 qhalf=225-228 qsum=229-232 splitneed=1 tfuse=71701 tval=1 cefuse=71703
+mc 60 gen node=1 sum=233-236 reg=1 ck=239 ar=240 sp=242 fb=q tfuse=71702 tval=1 cefuse=71704
+mc 33 gen sum=243-254 oe=259 polfuse=71611 polhi=1 reg=71610 regon=0 regidle=1 ck=256 ar=255 sp=311 alwaysreg=1 fb=q split=71609 splitval=0 splitout=1 half=243-250 qsplit=71608 qhalf=243-246 qsum=247-250 splitneed=1 tfuse=71705 tval=1 cefuse=71707
+mc 61 gen node=1 sum=251-254 reg=1 ck=257 ar=258 sp=311 fb=q tfuse=71706 tval=1 cefuse=71708
+mc 34 gen sum=260-271 oe=276 polfuse=71615 polhi=1 reg=71614 regon=0 regidle=1 ck=273 ar=272 sp=311 alwaysreg=1 fb=q split=71613 splitval=0 splitout=1 half=260-267 qsplit=71612 qhalf=260-263 qsum=264-267 splitneed=1 tfuse=71709 tval=1 cefuse=71711
+mc 62 gen node=1 sum=268-271 reg=1 ck=274 ar=275 sp=311 fb=q tfuse=71710 tval=1 cefuse=71712
+mc 35 gen sum=277-288 oe=293 polfuse=71619 polhi=1 reg=71618 regon=0 regidle=1 ck=290 ar=289 sp=311 alwaysreg=1 fb=q split=71617 splitval=0 splitout=1 half=277-284 qsplit=71616 qhalf=277-280 qsum=281-284 splitneed=1 tfuse=71713 tval=1 cefuse=71715
+mc 63 gen node=1 sum=285-288 reg=1 ck=291 ar=292 sp=311 fb=q tfuse=71714 tval=1 cefuse=71716
+mc 36 gen sum=294-305 oe=310 polfuse=71623 polhi=1 reg=71622 regon=0 regidle=1 ck=307 ar=306 sp=311 alwaysreg=1 fb=q split=71621 splitval=0 splitout=1 half=294-301 qsplit=71620 qhalf=294-297 qsum=298-301 splitneed=1 tfuse=71717 tval=1 cefuse=71719
+mc 64 gen node=1 sum=302-305 reg=1 ck=308 ar=309 sp=311 fb=q tfuse=71718 tval=1 cefuse=71720
+mc 9 gen sum=312-323 oe=328 polfuse=71627 polhi=1 reg=71626 regon=0 regidle=1 ck=325 ar=324 sp=346 alwaysreg=1 fb=q split=71625 splitval=0 splitout=1 half=312-319 qsplit=71624 qhalf=312-315 qsum=316-319 splitneed=1 tfuse=71721 tval=1 cefuse=71723
+mc 46 gen node=1 sum=320-323 reg=1 ck=326 ar=327 sp=346 fb=q tfuse=71722 tval=1 cefuse=71724
+mc 8 gen sum=329-340 oe=345 polfuse=71631 polhi=1 reg=71630 regon=0 regidle=1 ck=342 ar=341 sp=346 alwaysreg=1 fb=q split=71629 splitval=0 splitout=1 half=329-336 qsplit=71628 qhalf=329-332 qsum=333-336 splitneed=1 tfuse=71725 tval=1 cefuse=71727
+mc 45 gen node=1 sum=337-340 reg=1 ck=343 ar=344 sp=346 fb=q tfuse=71726 tval=1 cefuse=71728
+mc 7 gen sum=347-358 oe=363 polfuse=71635 polhi=1 reg=71634 regon=0 regidle=1 ck=360 ar=359 sp=415 alwaysreg=1 fb=q split=71633 splitval=0 splitout=1 half=347-354 qsplit=71632 qhalf=347-350 qsum=351-354 splitneed=1 tfuse=71729 tval=1 cefuse=71731
+mc 44 gen node=1 sum=355-358 reg=1 ck=361 ar=362 sp=415 fb=q tfuse=71730 tval=1 cefuse=71732
+mc 6 gen sum=364-375 oe=380 polfuse=71639 polhi=1 reg=71638 regon=0 regidle=1 ck=377 ar=376 sp=415 alwaysreg=1 fb=q split=71637 splitval=0 splitout=1 half=364-371 qsplit=71636 qhalf=364-367 qsum=368-371 splitneed=1 tfuse=71733 tval=1 cefuse=71735
+mc 43 gen node=1 sum=372-375 reg=1 ck=378 ar=379 sp=415 fb=q tfuse=71734 tval=1 cefuse=71736
+mc 5 gen sum=381-392 oe=397 polfuse=71643 polhi=1 reg=71642 regon=0 regidle=1 ck=394 ar=393 sp=415 alwaysreg=1 fb=q split=71641 splitval=0 splitout=1 half=381-388 qsplit=71640 qhalf=381-384 qsum=385-388 splitneed=1 tfuse=71737 tval=1 cefuse=71739
+mc 42 gen node=1 sum=389-392 reg=1 ck=395 ar=396 sp=415 fb=q tfuse=71738 tval=1 cefuse=71740
+mc 4 gen sum=398-409 oe=414 polfuse=71647 polhi=1 reg=71646 regon=0 regidle=1 ck=411 ar=410 sp=415 alwaysreg=1 fb=q split=71645 splitval=0 splitout=1 half=398-405 qsplit=71644 qhalf=398-401 qsum=402-405 splitneed=1 tfuse=71741 tval=1 cefuse=71743
+mc 41 gen node=1 sum=406-409 reg=1 ck=412 ar=413 sp=415 fb=q tfuse=71742 tval=1 cefuse=71744
+libtag v2500b DLIB-h-40-4
+end
+
+device v2500blcc
+inherit v2500b
+descr ATV2500B in a 44-pin package
+partname v2500blcc ATV2500B (PLCC44)
+pins 44
+pinmap 1=1 2=2 3=3 4=5 5=6 6=7 7=8 8=9 9=10 10=11 11=13 12=14 13=15 14=16 15=17 16=18 17=19 18=20 19=21 20=22 21=23 22=24 23=25 24=27 25=28 26=29 27=30 28=31 29=32 30=33 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48 45=49 46=50 47=51 48=52 49=53 50=54 51=55 52=56 53=57 54=58 55=59 56=60 57=61 58=62 59=63 60=64 61=65 62=66 63=67 64=68 65=69 66=70 67=71 68=72 69=73 70=74 71=75 72=76 73=77 74=78 75=79 76=80 77=81 78=82 79=83 80=84 81=85 82=86 83=87 84=88 85=89 86=90 87=91 88=92
+libtag v2500blcc DLIB-h-40-4
+end
+
+# ATF2500C.  ATV2500B map extended to 71816 fuses; 71746..71809 always
+# programmed.  Unused macrocells are registered, not driven.  The third
+# sum term is never joined (B017).
+device v2500c
+inherit v2500b
+descr ATF2500C
+partname v2500c ATF2500C
+fuses 71816
+refdefect nojoin
+const 71746 71747 71748 71749 71750 71751 71752 71753 71754 71755 71756 71757 71758 71759 71760 71761 71762 71763 71764 71765 71766 71767 71768 71769 71770 71771 71772 71773 71774 71775 71776 71777 71778 71779 71780 71781 71782 71783 71784 71785 71786 71787 71788 71789 71790 71791 71792 71793 71794 71795 71796 71797 71798 71799 71800 71801 71802 71803 71804 71805 71806 71807 71808 71809
+mc 29 gen sum=0-11 oe=16 polfuse=71555 polhi=1 reg=71554 regon=0 regidle=0 ck=13 ar=12 sp=34 alwaysreg=1 fb=q split=71553 splitval=0 splitout=1 half=0-7 qsplit=71552 qhalf=0-3 qsum=4-7 splitneed=1 tfuse=71649 tval=1 cefuse=71651
+mc 58 gen node=1 sum=8-11 reg=1 ck=14 ar=15 sp=34 fb=q tfuse=71650 tval=1 cefuse=71652
+mc 28 gen sum=17-28 oe=33 polfuse=71559 polhi=1 reg=71558 regon=0 regidle=0 ck=30 ar=29 sp=34 alwaysreg=1 fb=q split=71557 splitval=0 splitout=1 half=17-24 qsplit=71556 qhalf=17-20 qsum=21-24 splitneed=1 tfuse=71653 tval=1 cefuse=71655
+mc 57 gen node=1 sum=25-28 reg=1 ck=31 ar=32 sp=34 fb=q tfuse=71654 tval=1 cefuse=71656
+mc 27 gen sum=35-46 oe=51 polfuse=71563 polhi=1 reg=71562 regon=0 regidle=0 ck=48 ar=47 sp=103 alwaysreg=1 fb=q split=71561 splitval=0 splitout=1 half=35-42 qsplit=71560 qhalf=35-38 qsum=39-42 splitneed=1 tfuse=71657 tval=1 cefuse=71659
+mc 56 gen node=1 sum=43-46 reg=1 ck=49 ar=50 sp=103 fb=q tfuse=71658 tval=1 cefuse=71660
+mc 26 gen sum=52-63 oe=68 polfuse=71567 polhi=1 reg=71566 regon=0 regidle=0 ck=65 ar=64 sp=103 alwaysreg=1 fb=q split=71565 splitval=0 splitout=1 half=52-59 qsplit=71564 qhalf=52-55 qsum=56-59 splitneed=1 tfuse=71661 tval=1 cefuse=71663
+mc 55 gen node=1 sum=60-63 reg=1 ck=66 ar=67 sp=103 fb=q tfuse=71662 tval=1 cefuse=71664
+mc 25 gen sum=69-80 oe=85 polfuse=71571 polhi=1 reg=71570 regon=0 regidle=0 ck=82 ar=81 sp=103 alwaysreg=1 fb=q split=71569 splitval=0 splitout=1 half=69-76 qsplit=71568 qhalf=69-72 qsum=73-76 splitneed=1 tfuse=71665 tval=1 cefuse=71667
+mc 54 gen node=1 sum=77-80 reg=1 ck=83 ar=84 sp=103 fb=q tfuse=71666 tval=1 cefuse=71668
+mc 24 gen sum=86-97 oe=102 polfuse=71575 polhi=1 reg=71574 regon=0 regidle=0 ck=99 ar=98 sp=103 alwaysreg=1 fb=q split=71573 splitval=0 splitout=1 half=86-93 qsplit=71572 qhalf=86-89 qsum=90-93 splitneed=1 tfuse=71669 tval=1 cefuse=71671
+mc 53 gen node=1 sum=94-97 reg=1 ck=100 ar=101 sp=103 fb=q tfuse=71670 tval=1 cefuse=71672
+mc 11 gen sum=104-115 oe=120 polfuse=71579 polhi=1 reg=71578 regon=0 regidle=0 ck=117 ar=116 sp=138 alwaysreg=1 fb=q split=71577 splitval=0 splitout=1 half=104-111 qsplit=71576 qhalf=104-107 qsum=108-111 splitneed=1 tfuse=71673 tval=1 cefuse=71675
+mc 47 gen node=1 sum=112-115 reg=1 ck=118 ar=119 sp=138 fb=q tfuse=71674 tval=1 cefuse=71676
+mc 12 gen sum=121-132 oe=137 polfuse=71583 polhi=1 reg=71582 regon=0 regidle=0 ck=134 ar=133 sp=138 alwaysreg=1 fb=q split=71581 splitval=0 splitout=1 half=121-128 qsplit=71580 qhalf=121-124 qsum=125-128 splitneed=1 tfuse=71677 tval=1 cefuse=71679
+mc 48 gen node=1 sum=129-132 reg=1 ck=135 ar=136 sp=138 fb=q tfuse=71678 tval=1 cefuse=71680
+mc 13 gen sum=139-150 oe=155 polfuse=71587 polhi=1 reg=71586 regon=0 regidle=0 ck=152 ar=151 sp=207 alwaysreg=1 fb=q split=71585 splitval=0 splitout=1 half=139-146 qsplit=71584 qhalf=139-142 qsum=143-146 splitneed=1 tfuse=71681 tval=1 cefuse=71683
+mc 49 gen node=1 sum=147-150 reg=1 ck=153 ar=154 sp=207 fb=q tfuse=71682 tval=1 cefuse=71684
+mc 14 gen sum=156-167 oe=172 polfuse=71591 polhi=1 reg=71590 regon=0 regidle=0 ck=169 ar=168 sp=207 alwaysreg=1 fb=q split=71589 splitval=0 splitout=1 half=156-163 qsplit=71588 qhalf=156-159 qsum=160-163 splitneed=1 tfuse=71685 tval=1 cefuse=71687
+mc 50 gen node=1 sum=164-167 reg=1 ck=170 ar=171 sp=207 fb=q tfuse=71686 tval=1 cefuse=71688
+mc 15 gen sum=173-184 oe=189 polfuse=71595 polhi=1 reg=71594 regon=0 regidle=0 ck=186 ar=185 sp=207 alwaysreg=1 fb=q split=71593 splitval=0 splitout=1 half=173-180 qsplit=71592 qhalf=173-176 qsum=177-180 splitneed=1 tfuse=71689 tval=1 cefuse=71691
+mc 51 gen node=1 sum=181-184 reg=1 ck=187 ar=188 sp=207 fb=q tfuse=71690 tval=1 cefuse=71692
+mc 16 gen sum=190-201 oe=206 polfuse=71599 polhi=1 reg=71598 regon=0 regidle=0 ck=203 ar=202 sp=207 alwaysreg=1 fb=q split=71597 splitval=0 splitout=1 half=190-197 qsplit=71596 qhalf=190-193 qsum=194-197 splitneed=1 tfuse=71693 tval=1 cefuse=71695
+mc 52 gen node=1 sum=198-201 reg=1 ck=204 ar=205 sp=207 fb=q tfuse=71694 tval=1 cefuse=71696
+mc 31 gen sum=208-219 oe=224 polfuse=71603 polhi=1 reg=71602 regon=0 regidle=0 ck=221 ar=220 sp=242 alwaysreg=1 fb=q split=71601 splitval=0 splitout=1 half=208-215 qsplit=71600 qhalf=208-211 qsum=212-215 splitneed=1 tfuse=71697 tval=1 cefuse=71699
+mc 59 gen node=1 sum=216-219 reg=1 ck=222 ar=223 sp=242 fb=q tfuse=71698 tval=1 cefuse=71700
+mc 32 gen sum=225-236 oe=241 polfuse=71607 polhi=1 reg=71606 regon=0 regidle=0 ck=238 ar=237 sp=242 alwaysreg=1 fb=q split=71605 splitval=0 splitout=1 half=225-232 qsplit=71604 qhalf=225-228 qsum=229-232 splitneed=1 tfuse=71701 tval=1 cefuse=71703
+mc 60 gen node=1 sum=233-236 reg=1 ck=239 ar=240 sp=242 fb=q tfuse=71702 tval=1 cefuse=71704
+mc 33 gen sum=243-254 oe=259 polfuse=71611 polhi=1 reg=71610 regon=0 regidle=0 ck=256 ar=255 sp=311 alwaysreg=1 fb=q split=71609 splitval=0 splitout=1 half=243-250 qsplit=71608 qhalf=243-246 qsum=247-250 splitneed=1 tfuse=71705 tval=1 cefuse=71707
+mc 61 gen node=1 sum=251-254 reg=1 ck=257 ar=258 sp=311 fb=q tfuse=71706 tval=1 cefuse=71708
+mc 34 gen sum=260-271 oe=276 polfuse=71615 polhi=1 reg=71614 regon=0 regidle=0 ck=273 ar=272 sp=311 alwaysreg=1 fb=q split=71613 splitval=0 splitout=1 half=260-267 qsplit=71612 qhalf=260-263 qsum=264-267 splitneed=1 tfuse=71709 tval=1 cefuse=71711
+mc 62 gen node=1 sum=268-271 reg=1 ck=274 ar=275 sp=311 fb=q tfuse=71710 tval=1 cefuse=71712
+mc 35 gen sum=277-288 oe=293 polfuse=71619 polhi=1 reg=71618 regon=0 regidle=0 ck=290 ar=289 sp=311 alwaysreg=1 fb=q split=71617 splitval=0 splitout=1 half=277-284 qsplit=71616 qhalf=277-280 qsum=281-284 splitneed=1 tfuse=71713 tval=1 cefuse=71715
+mc 63 gen node=1 sum=285-288 reg=1 ck=291 ar=292 sp=311 fb=q tfuse=71714 tval=1 cefuse=71716
+mc 36 gen sum=294-305 oe=310 polfuse=71623 polhi=1 reg=71622 regon=0 regidle=0 ck=307 ar=306 sp=311 alwaysreg=1 fb=q split=71621 splitval=0 splitout=1 half=294-301 qsplit=71620 qhalf=294-297 qsum=298-301 splitneed=1 tfuse=71717 tval=1 cefuse=71719
+mc 64 gen node=1 sum=302-305 reg=1 ck=308 ar=309 sp=311 fb=q tfuse=71718 tval=1 cefuse=71720
+mc 9 gen sum=312-323 oe=328 polfuse=71627 polhi=1 reg=71626 regon=0 regidle=0 ck=325 ar=324 sp=346 alwaysreg=1 fb=q split=71625 splitval=0 splitout=1 half=312-319 qsplit=71624 qhalf=312-315 qsum=316-319 splitneed=1 tfuse=71721 tval=1 cefuse=71723
+mc 46 gen node=1 sum=320-323 reg=1 ck=326 ar=327 sp=346 fb=q tfuse=71722 tval=1 cefuse=71724
+mc 8 gen sum=329-340 oe=345 polfuse=71631 polhi=1 reg=71630 regon=0 regidle=0 ck=342 ar=341 sp=346 alwaysreg=1 fb=q split=71629 splitval=0 splitout=1 half=329-336 qsplit=71628 qhalf=329-332 qsum=333-336 splitneed=1 tfuse=71725 tval=1 cefuse=71727
+mc 45 gen node=1 sum=337-340 reg=1 ck=343 ar=344 sp=346 fb=q tfuse=71726 tval=1 cefuse=71728
+mc 7 gen sum=347-358 oe=363 polfuse=71635 polhi=1 reg=71634 regon=0 regidle=0 ck=360 ar=359 sp=415 alwaysreg=1 fb=q split=71633 splitval=0 splitout=1 half=347-354 qsplit=71632 qhalf=347-350 qsum=351-354 splitneed=1 tfuse=71729 tval=1 cefuse=71731
+mc 44 gen node=1 sum=355-358 reg=1 ck=361 ar=362 sp=415 fb=q tfuse=71730 tval=1 cefuse=71732
+mc 6 gen sum=364-375 oe=380 polfuse=71639 polhi=1 reg=71638 regon=0 regidle=0 ck=377 ar=376 sp=415 alwaysreg=1 fb=q split=71637 splitval=0 splitout=1 half=364-371 qsplit=71636 qhalf=364-367 qsum=368-371 splitneed=1 tfuse=71733 tval=1 cefuse=71735
+mc 43 gen node=1 sum=372-375 reg=1 ck=378 ar=379 sp=415 fb=q tfuse=71734 tval=1 cefuse=71736
+mc 5 gen sum=381-392 oe=397 polfuse=71643 polhi=1 reg=71642 regon=0 regidle=0 ck=394 ar=393 sp=415 alwaysreg=1 fb=q split=71641 splitval=0 splitout=1 half=381-388 qsplit=71640 qhalf=381-384 qsum=385-388 splitneed=1 tfuse=71737 tval=1 cefuse=71739
+mc 42 gen node=1 sum=389-392 reg=1 ck=395 ar=396 sp=415 fb=q tfuse=71738 tval=1 cefuse=71740
+mc 4 gen sum=398-409 oe=414 polfuse=71647 polhi=1 reg=71646 regon=0 regidle=0 ck=411 ar=410 sp=415 alwaysreg=1 fb=q split=71645 splitval=0 splitout=1 half=398-405 qsplit=71644 qhalf=398-401 qsum=402-405 splitneed=1 tfuse=71741 tval=1 cefuse=71743
+mc 41 gen node=1 sum=406-409 reg=1 ck=412 ar=413 sp=415 fb=q tfuse=71742 tval=1 cefuse=71744
+libtag v2500c DLIB-h-40-4
+end
+
+device v2500clcc
+inherit v2500c
+descr ATF2500C in a 44-pin package
+partname v2500clcc ATF2500C (PLCC44)
+pins 44
+pinmap 1=1 2=2 3=3 4=5 5=6 6=7 7=8 8=9 9=10 10=11 11=13 12=14 13=15 14=16 15=17 16=18 17=19 18=20 19=21 20=22 21=23 22=24 23=25 24=27 25=28 26=29 27=30 28=31 29=32 30=33 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48 45=49 46=50 47=51 48=52 49=53 50=54 51=55 52=56 53=57 54=58 55=59 56=60 57=61 58=62 59=63 60=64 61=65 62=66 63=67 64=68 65=69 66=70 67=71 68=72 69=73 70=74 71=75 72=76 73=77 74=78 75=79 76=80 77=81 78=82 79=83 80=84 81=85 82=86 83=87 84=88 85=89 86=90 87=91 88=92
+libtag v2500clcc DLIB-h-40-4
+end
+
+# ATF2500C-PPK: fuse 71745 also programmed.
+device v2500cppk
+inherit v2500c
+descr ATF2500C-PPK
+partname v2500cppk ATF2500C-PPK
+const 71745 71746 71747 71748 71749 71750 71751 71752 71753 71754 71755 71756 71757 71758 71759 71760 71761 71762 71763 71764 71765 71766 71767 71768 71769 71770 71771 71772 71773 71774 71775 71776 71777 71778 71779 71780 71781 71782 71783 71784 71785 71786 71787 71788 71789 71790 71791 71792 71793 71794 71795 71796 71797 71798 71799 71800 71801 71802 71803 71804 71805 71806 71807 71808 71809
+libtag v2500cppk DLIB-h-40-4
+end
+
+device v2500cppklcc
+inherit v2500cppk
+descr ATF2500C-PPK in a 44-pin package
+partname v2500cppklcc ATF2500C-PPK (PLCC44)
+pins 44
+pinmap 1=1 2=2 3=3 4=5 5=6 6=7 7=8 8=9 9=10 10=11 11=13 12=14 13=15 14=16 15=17 16=18 17=19 18=20 19=21 20=22 21=23 22=24 23=25 24=27 25=28 26=29 27=30 28=31 29=32 30=33 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48 45=49 46=50 47=51 48=52 49=53 50=54 51=55 52=56 53=57 54=58 55=59 56=60 57=61 58=62 59=63 60=64 61=65 62=66 63=67 64=68 65=69 66=70 67=71 68=72 69=73 70=74 71=75 72=76 73=77 74=78 75=79 76=80 77=81 78=82 79=83 80=84 81=85 82=86 83=87 84=88 85=89 86=90 87=91 88=92
+libtag v2500cppklcc DLIB-h-40-4
+end

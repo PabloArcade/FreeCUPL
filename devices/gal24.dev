@@ -1,0 +1,53 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL24V10-type part, 28 pins: 10 OLMCs of 8 rows, 24 input lines, the
+# GAL16V8 architecture.  XOR 3840+i, AC1 3850+i (i = OLMC from pin 26 down
+# to 16), SYN 3860, AC0 3861, signature 3862..3925.  Clock pin 1, OE pin
+# 15.  Simple mode: pins 16 and 26 cannot be read back.
+# Registered mode: 64 ones from fuse 2640 (B011).
+
+device g24v10
+alias g24v10 auto simple=g24v10s complex=g24v10ma registered=g24v10ms
+partname g24v10 24V10-type GAL, 28 pins (automatic mode)
+alias g24v10s simple
+partname g24v10s 24V10-type GAL, 28 pins (simple mode)
+alias g24v10ma complex
+partname g24v10ma 24V10-type GAL, 28 pins (complex mode)
+alias g24v10ms registered
+partname g24v10ms 24V10-type GAL, 28 pins (registered mode)
+descr GAL24V10 (simple / complex / registered)
+pins 28
+power 7 21
+fuses 3942
+array 48 80
+clock 1
+oepin 15
+fuse syn 3860
+fuse ac0 3861
+ues 3862 64
+mode simple syn=1 ac0=0
+mode complex syn=1 ac0=1
+mode registered syn=0 ac0=1
+lines simple p2 p28 p3 p27 p4 p1 p5 p25 p6 p24 p8 p23 p9 p22 p10 p20 p11 p19 p12 p18 p13 p17 p14 p15
+lines complex p2 p28 p3 p27 p4 p1 p5 f25 p6 f24 p8 f23 p9 f22 p10 f20 p11 f19 p12 f18 p13 f17 p14 p15
+lines registered p2 p28 p3 p27 p4 f26 p5 f25 p6 f24 p8 f23 p9 f22 p10 f20 p11 f19 p12 f18 p13 f17 p14 f16
+mc 26 gal rows=0-7 xor=3840 ac1=3850
+mc 25 gal rows=8-15 xor=3841 ac1=3851
+mc 24 gal rows=16-23 xor=3842 ac1=3852
+mc 23 gal rows=24-31 xor=3843 ac1=3853
+mc 22 gal rows=32-39 xor=3844 ac1=3854
+mc 20 gal rows=40-47 xor=3845 ac1=3855
+mc 19 gal rows=48-55 xor=3846 ac1=3856
+mc 18 gal rows=56-63 xor=3847 ac1=3857
+mc 17 gal rows=64-71 xor=3848 ac1=3858
+mc 16 gal rows=72-79 xor=3849 ac1=3859
+refdefect registered 19
+refdefect ones 2640 64     # B011
+refdefect shift 100
+libtag g24v10s DLIB-h-40-2
+libtag g24v10ma DLIB-h-40-2
+libtag g24v10ms DLIB-h-40-2
+libtag g24v10 DLIB-h-40-2
+# Registered mode, combinational output on pins 19..16 with 8 rows: B012.
+refdefect combfull 19 18 17 16
+refdefect kbnoflip simple complex registered/reg   # B001
+end

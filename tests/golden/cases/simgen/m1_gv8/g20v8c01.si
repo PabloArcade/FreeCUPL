@@ -1,0 +1,32 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cpma;
+
+ORDER: in_y, in_z, in_x, %2, !out_a, out_b, out_c, out_d;
+
+VECTORS:
+110 ****
+100 ****
+000 ****
+101 ****
+$REPEAT 3;
+000 ****
+100 ****
+000 *N**
+101 ****
+X01 ****
+000 LHLH
+111 ****
+001 ****
+110 ****
+001 **N*
+100 ****
+100 *N**
+001 ****
+10X ****

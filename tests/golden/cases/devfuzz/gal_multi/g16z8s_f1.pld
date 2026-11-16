@@ -1,0 +1,36 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16z8s;
+/* @flags -jaxm0kb */
+pin 4 = !a0;
+pin 5 = !a1;
+pin 7 = !a2;
+pin 15 = q0;
+pin 20 = !q1;
+pin 22 = q2;
+pin 21 = q3;
+pin 19 = !q4;
+pin 17 = q5;
+field fa = [a0..a2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !(a0 # (a1 # a0));
+APPEND q0 = !a1;
+q1 = a0 & t0;
+q2 = a2 & !a0 & t0 # !a0 & !a2;
+APPEND q3 = a2;
+q4 = fa:4;
+q5 = [a0,a1,a2]:&;
+pin 16 = tq0;
+table fa => tq0 {
+  3 => 0;
+  4 => 0;
+  0 => 0;
+  6 => 0;
+}

@@ -1,0 +1,27 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f16v8d;
+/* @flags -jaxm2 */
+pin [2,5,7,9] = [in_x, !in_y, in_z, !in_w];
+pin 16 = s0;
+pin 19 = out_b;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = (in_x $ !((in_y & in_z)) $ (in_x $ in_y));
+t1 = in_y;
+out_b = [in_w,in_y,in_z,in_x]:#;
+field st = [s0];
+sequence st {
+  present 1 if in_z next 0; default next 1;
+  present 0 if !in_x next 0; if in_z & !in_w next 1;
+}

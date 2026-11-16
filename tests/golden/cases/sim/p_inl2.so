@@ -1,0 +1,39 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P19R4T follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p_inl2.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device p19r4t;
+   3: ORDER: clk, a, le, %2, o15, o17;
+
+================
+      c    oo   
+      l l  11   
+      kae  57   
+================
+0001: 000  XX
+0002: 001  LX
+0003: 011  HX
+0004: 001  LX
+0005: 011  HX
+0006: 010  HX
+0007: 000  HX
+0008: 010  HX
+0009: 011  HX
+0010: 111  HH
+0011: 101  LH
+0012: 001  LH
+0013: 000  LH
+0014: 100  LL
+0015: 010  LL
+0016: C10  LL
+0017: 011  HL
+0018: C00  HH
+0019: C10  HH
+0020: 0X1  XH
+0021: 000  XH
+0022: 01X  XH

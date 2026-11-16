@@ -1,0 +1,30 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16ra8;
+/* @local */ /* @bypass */
+pin 2 = i0;
+pin 5 = i1;
+pin 12 = o0;
+pin 16 = o1;
+pin 19 = o2;
+pin 18 = o3;
+pin 14 = !o4;
+
+o0 = (i0 # (i0 & i1) # i0);
+o0.oe = !i1;
+o1 = !i1;
+o2.d = (!i1 & !o1);
+o2.ck = (i0 & !i1);
+o3 = ((o2 & !i0 & !o1) # (o2 & !i0 & !i1) # (i1 & o1));
+o4 = (o3 # (o1 & o3));
+o4.oe = !i1;
+
+/* @expect
+o0 = (i0 or (i0 and i1) or i0)
+o0.oe = (not i1)
+o1 = (not i1)
+o2.d = ((not i1) and (not o1))
+o2.ck = (i0 and (not i1))
+o3 = ((o2 and (not i0) and (not o1)) or (o2 and (not i0) and (not i1)) or (i1 and o1))
+o4 = (o3 or (o1 and o3))
+o4.oe = (not i1)
+*/

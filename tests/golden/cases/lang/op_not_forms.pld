@@ -1,0 +1,11 @@
+Name op_not_f; Partno OP_NOT_F; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 1 = clk;
+pin 23 = y0; pin 22 = y1; pin 21 = y2; pin 20 = y3; pin 19 = y4;
+y0.d = !(a & b);
+y1.d = !!a;
+y2.d = !(!(a & b));
+y3.d = !(a $ b);
+y4.d = !(a # b) # c;
+[y0, y1, y2, y3, y4].ar = c & a;

@@ -1,0 +1,7 @@
+Name polarity; Partno POLARITY; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p10h8;
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 19 = y0; pin 18 = !y1; pin 17 = y2;
+y0 = a # b;
+y1 = a & b;
+y2 = !(a & b);

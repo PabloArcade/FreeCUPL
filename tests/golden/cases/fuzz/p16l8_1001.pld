@@ -1,0 +1,24 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16l8;
+/* @flags -jaxm3 */
+pin 2 = !in_x;
+pin 3 = in_y;
+pin 4 = in_z;
+pin 5 = in_w;
+pin 6 = in_v;
+pin 7 = in_u;
+pin 13 = out_a;
+pin 17 = out_b;
+pin 15 = out_c;
+out_a = [in_w,in_z]:&;
+out_b = ('b'0 & (in_v & in_u & in_w) $ in_u);
+out_c = [in_x,in_v,in_u]:&;
+out_c.oe = !in_v;
+out_a.t = in_x;

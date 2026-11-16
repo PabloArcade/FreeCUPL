@@ -1,0 +1,29 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20c1;
+
+ORDER: in_y, in_x, in_z, %2, !out_a;
+
+VECTORS:
+110 *
+0X1 *
+000 *
+01X *
+001 *
+111 *
+0X1 *
+1X1 *
+010 H
+X01 *
+011 *
+XXX *
+011 *
+000 N
+100 *
+110 *

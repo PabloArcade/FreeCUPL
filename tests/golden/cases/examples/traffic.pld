@@ -1,0 +1,60 @@
+Name     traffic;
+Partno   EX003;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g16v8;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Traffic-light controller for a main road and a side road: the main
+   road stays green until a car waits on the side road, then the lights
+   cycle through yellow to the side road and back.  rst returns to the
+   main-road green state at the next clock.
+   Shows: a SEQUENCE state machine (registered mode of the GAL16V8),
+   conditional and default transitions, state outputs (OUT) and $DEFINE
+   for the state codes. */
+
+pin 1  = clk;
+pin 2  = car;                    /* a car waits on the side road */
+pin 3  = rst;                    /* synchronous reset */
+pin 11 = !oe;                    /* output enable of the registered outputs */
+
+pin [15..14] = [s1..0];          /* state register */
+pin 16 = main_g;
+pin 17 = main_y;
+pin 18 = main_r;
+pin 19 = side_g;
+pin 13 = side_y;
+pin 12 = side_r;
+
+field state = [s1..0];
+
+$DEFINE MG 'b'00                 /* main green, side red  */
+$DEFINE MY 'b'01                 /* main yellow, side red */
+$DEFINE SG 'b'11                 /* main red, side green  */
+$DEFINE SY 'b'10                 /* main red, side yellow */
+
+sequence state {
+present MG
+    if car & !rst next MY;
+    default next MG;
+    out main_g;
+    out side_r;
+present MY
+    if rst next MG;
+    default next SG;
+    out main_y;
+    out side_r;
+present SG
+    if rst next MG;
+    default next SY;
+    out main_r;
+    out side_g;
+present SY
+    next MG;
+    out main_r;
+    out side_y;
+}

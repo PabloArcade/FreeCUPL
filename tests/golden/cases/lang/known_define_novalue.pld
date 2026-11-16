@@ -1,0 +1,11 @@
+Name known_define_novalue; Partno KN_DEFNV; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+/* @bug B006: $DEFINE without value in an LF file: reference swallows the next line */
+$DEFINE FLAG
+$IFDEF FLAG
+pin 2 = a;
+$ELSE
+pin 3 = a;
+$ENDIF
+pin 23 = y;
+y = a;

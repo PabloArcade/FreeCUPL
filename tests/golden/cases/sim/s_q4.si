@@ -1,0 +1,10 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+BASE: decimal;
+FIELD f = [i7..0];
+ORDER: f, %1, o7..0;
+VECTORS:
+'99' "99"
+'12' "12"
+'255' "255"
+'7' "7"

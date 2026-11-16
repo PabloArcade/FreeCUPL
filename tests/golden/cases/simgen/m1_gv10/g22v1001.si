@@ -1,0 +1,29 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+
+ORDER: a0, a1, !a3, a2, a4, %2, s0;
+
+VECTORS:
+C0000 *
+K0000 *
+$MSG "vector 3";
+P0000 0
+K1000 *
+10001 *
+10010 *
+11000 *
+C0101 L
+00010 *
+C0100 *
+00010 *
+C10X1 *
+C10X0 *
+C0X10 *
+K1100 *

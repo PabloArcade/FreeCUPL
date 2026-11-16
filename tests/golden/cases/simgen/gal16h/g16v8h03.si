@@ -1,0 +1,35 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hs;
+
+ORDER: in_z, in_x, in_y, %2, out_a, out_b, out_c, out_d, out_e, out_f, fo;
+
+VECTORS:
+011 *******
+010 *******
+11X **N****
+110 ****N**
+101 *******
+010 *******
+101 *******
+010 *******
+100 *******
+011 *******
+01X *******
+101 LLHLHLH
+111 *******
+10X *******
+111 *******
+110 **N****
+101 *******
+10X *******
+100 ****N**
+001 *****N*
+001 *******
+01X *******

@@ -1,0 +1,44 @@
+Name G9007;
+Partno P9007;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device v2500cppk;
+/* @flags -jaxkb */
+
+pin 18 = in_x;
+pin 19 = in_y;
+pin 23 = in_z;
+pin 37 = in_w;
+pin 38 = in_v;
+pin 40 = in_u;
+pin 4 = out_a;
+pinnode 50 = out_b;
+pinnode 62 = out_c;
+pinnode 47 = out_d;
+pinnode 81 = out_e;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a.d = !(!((!out_d # in_v)));
+out_a.ck = !in_w;
+out_a.ar = in_z & in_y;
+out_a.sp = in_y & !in_x;
+out_b.t = out_d;
+out_b.ck = in_u;
+out_c.t = (!(!in_x) # in_w # ('h'1 # (in_y $ in_x)));
+out_c.ce = in_x & in_z;
+out_c.ar = !in_y;
+APPEND out_d.d = out_b & out_a;
+out_d.ar = in_y & in_w;
+APPEND out_e.t = in_y;
+out_e.ck = in_u & in_v;
+pin 16 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_w, in_v, in_z, fflag) # fflag;

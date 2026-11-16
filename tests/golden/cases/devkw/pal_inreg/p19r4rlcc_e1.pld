@@ -1,0 +1,27 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p19r4rlcc;
+pin 11 = !i0;
+pin 7 = JUMP;
+pin 19 = o0;
+pin 25 = o1;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+o0 = (i0 $ JUMP);
+o0.oe = i0;
+o1 = ((i0 & JUMP) # (!i0 & !JUMP));
+o1.oe = (!i0 & JUMP);
+o2.d = !JUMP;
+o3.d = (!o2 & !i0);
+o4 = ((o3 & !JUMP) # !o2 # i0);
+
+/* @expect
+o0 = (i0 ^ JUMP)
+o0.oe = i0
+o1 = ((i0 and JUMP) or ((not i0) and (not JUMP)))
+o1.oe = ((not i0) and JUMP)
+o2.d = (not JUMP)
+o3.d = ((not o2) and (not i0))
+o4 = ((o3 and (not JUMP)) or (not o2) or i0)
+*/

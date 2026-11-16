@@ -1,0 +1,22 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p12l6;
+/* @flags -jaxf */
+pin 1 = a0;
+pin 5 = a1;
+pin 19 = a2;
+pin 17 = q0;
+pin 18 = !q1;
+pin 14 = q2;
+t0 = !((!(a1) # (a2 # !a1)));
+t1 = a1;
+t2 = !(a2);
+q0 = t1 # a0 & !t1;
+q1 = t1 & !a1 # t1 & !t0 # !a1 & t0;
+q2 = a1 # !a1 & t1;

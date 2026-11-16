@@ -1,0 +1,56 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20ra103.si
+
+   1: Name G9006;
+   2: Partno P9006;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20ra10;
+  10: 
+  11: FIELD fa = [a0,a1,a2,a3];
+  12: FIELD st = [s0];
+  13:
+  14: ORDER: a0, a2, !a3, a1, %2, q0, q1, s0, !q3, q4, q5, ta, !tb;
+  15: 
+
+=======================
+        !      !   !   
+      aaaa  qqsqqqtt   
+      0231  010345ab   
+=======================
+0001: 00X1  HHXHXXLH
+0002: 0011  HHXHXHLH
+0003: 0000  XHXXXLLH
+0004: 1111  HHXLXHLH
+0005: 1110  XHXLXHNH
+0006: 1010  XHXXXLLL
+0007: 0110  XHXLXHLH
+0008: 1X01  HHXXXLXH
+0009: 0110  XHXLXHLH
+0010: 0XX0  XXXXXXLH
+0011: 000X  XHXXXLLH
+0012: X111  HHXLXHLH
+            ^ ^ ^ ^
+[0019sa] user expected (L) for q0
+[0019sa] user expected (H) for s0
+[0019sa] user expected (L) for q4
+[0019sa] user expected (H) for ta
+
+0013: 0001  HNXHXLLH
+0014: 0100  XHXLXLLH
+0015: 0010  XHXXXLLH
+0016: 1110  XHXLXNLH
+0017: X101  HHXLXLLH
+0018: 0000  XHXXNLLH
+0019: 1100  XHXLXNLH
+0020: 1110  XHXLXHLN
+0021: 1001  HHXHXLHH
+0022: 1X01  HHXXXLXH

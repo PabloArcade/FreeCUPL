@@ -1,0 +1,27 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g24v10ma;
+pin 3 = !a0;
+pin 12 = a1;
+pin 14 = !a2;
+pin 27 = a3;
+pin [23,25,26,16,20,18] = [q0,q1,q2,!q3,q4,!q5];
+field fa = [a2..1];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+APPEND q0 = a0 & q5;
+APPEND q0 = !a2;
+q1 = 'b'0 # a0 # !a1 # !a3 # !(a2) & a1 # !a1 # a0 & (a3 $ !a2) # !a0;
+q2 = ((a2 & a0 & (a0 $ a2)) # !(a2) # (!a0 # !a2 # a1 & !a1 # a3 & a1));
+q3 = !a0 & a3;
+q3.oe = a3;
+q4 = q0 & a1 & q1 # !a1 & !q5 & a2 # q1 & a3 # !a2;
+q4.oe = a1 & a0;
+q5 = !a3 # a1 # a3 & a1 & a2 # !a1;
+min q3 = 0;

@@ -1,0 +1,32 @@
+Name G9010;
+Partno P9010;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device m16v8ar;
+pin 2 = in_x;
+pin 4 = in_y;
+pin 5 = in_z;
+pin 6 = in_w;
+pin 7 = in_v;
+pin 8 = in_u;
+pin 9 = !in_t;
+pin 12 = out_a;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = ((in_v & !in_w) # (in_v # in_x # in_v)) & (in_u # in_u # (in_x # in_v)) & (!in_x & !in_u);
+t1 = !in_z;
+t2 = ((in_y $ !in_w) # ((!in_z & in_t & !in_x) & !(!in_t) & !in_w) # (in_u # !in_w & (in_v & t1) & in_y));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = in_x & in_v & !in_w # t1 & t2;

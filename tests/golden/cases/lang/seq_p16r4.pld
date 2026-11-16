@@ -1,0 +1,10 @@
+Name seq_p16r; Partno SEQ_P16R; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16r4;
+pin 1 = clk; pin 2 = up; pin 11 = !oe;
+pin [14..17] = [q0..3];
+field c = [q3..0];
+sequence c {
+$REPEAT i = [0..15]
+  present {i} if up next {(i+1)%16}; default next {(i+15)%16};
+$REPEND
+}

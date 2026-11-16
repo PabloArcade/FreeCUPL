@@ -1,0 +1,18 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8s;
+/* @flags -jaxm0kb */
+pin 1 = in_x;
+pin 7 = in_y;
+pin 8 = in_z;
+pin 12 = in_w;
+pin 13 = in_v;
+pin 24 = in_u;
+pin 20 = out_a;
+out_a = [in_x,in_y,in_u,in_z]:#;

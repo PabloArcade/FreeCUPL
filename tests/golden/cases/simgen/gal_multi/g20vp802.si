@@ -1,0 +1,27 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8mslcc;
+
+ORDER: clk, in_v, in_w, in_u, in_y, in_x, in_z, %2, out_a, out_b, fo;
+
+VECTORS:
+C000000 ***
+C101100 *N*
+P111001 1XX
+P110010 1XX
+PX011X0 1XX
+C101000 ***
+CX00001 ***
+CX10100 LLL
+10010X1 ***
+C011110 ***
+C001011 ***
+1100010 ***
+0010010 ***
+K001010 ***

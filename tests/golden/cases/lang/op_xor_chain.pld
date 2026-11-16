@@ -1,0 +1,5 @@
+Name op_xor_c; Partno OP_XOR_C; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+pin [2..5] = [a0..3];
+pin 19 = y;
+y = a0 $ a1 $ a2;

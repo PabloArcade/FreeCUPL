@@ -1,0 +1,925 @@
+FreeCUPL 1.0.0 USER GUIDE
+
+FreeCUPL consists of two programs with the command lines of the WinCUPL
+5.0a command-line tools.  freecupl compiles CUPL source (.pld) into a
+JEDEC fuse file (.jed) and optionally a documentation file (.doc), a
+listing (.lst), a macro expansion (.mx) and an absolute file (.abs);
+with -s it also runs the simulator.  freecsim applies test vectors
+(.si) to a compiled design (.abs) and writes a listing (.so), a waveform
+file (.wo) and optionally the test vectors into the JEDEC file.  The
+helper tools jedsim, equiv and jedtool are described in section 7.
+
+  1. freecupl
+  2. freecsim
+  3. Files
+  4. Messages
+  5. WinCUPL bugs and -fix
+  6. Limitations
+  7. Helper tools
+  8. Supported devices
+
+
+1. FREECUPL
+
+    freecupl [-flags] [library] [device] file[.pld]
+
+If file has no extension and does not exist as given, file.pld and then
+file.PLD are tried.  device is a mnemonic from section 8 and overrides
+the Device statement of the source.  library is accepted and ignored;
+an argument is taken as the library when -u is given, when there are
+three positional arguments, or when it ends in .dl.
+
+Single-letter flags may be combined after one dash (-jaxf), in either
+case.
+
+Output flags:
+
+  -j     write the JEDEC file NAME.jed.  It is also written when none
+         of -x -l -e -a is given.
+  -x     write the documentation file NAME.doc (expanded product terms,
+         symbol table)
+  -f     add the fuse plot to NAME.doc (writes NAME.doc without -x too)
+  -l     write the listing SOURCE.lst (numbered source and messages)
+  -e     write the macro expansion SOURCE.mx (source after the
+         preprocessor)
+  -a     write the absolute file NAME.abs for freecsim
+  -s     compile, write NAME.abs and simulate SOURCE.si, writing
+         SOURCE.so and SOURCE.wo; with -j the test vectors are appended
+         to the JEDEC file
+  -n     name the outputs after the source file, not the Name item
+
+NAME is the value of the Name header item.  With -n, or when there is no
+Name item, the source file name without extension is used; with no Name
+and no -n the name is no_name and warning 0009cc is given.  SOURCE is
+always the source file name without extension.  Outputs are written in
+the directory of the source file.
+
+Compilation flags:
+
+  -m0    no minimisation
+  -m1    quick minimisation (default), with WinCUPL's term counts
+  -m2 -m3 -m4
+         stronger minimisation (Espresso-style cover).  May
+         fit designs that WinCUPL rejects for too many product terms.
+  -kb    choose for each output the polarity needing fewer product
+         terms (see bugs B001 and B002)
+  -g     program the security fuse (*G1)
+  -u     the next positional argument is the library (ignored)
+
+The MIN statement sets the minimisation level of single variables.
+
+The flags -w -b -h -i -p -c -d -r -o -q -kd -ks -kx are accepted so
+that existing command lines keep working.  They have no effect; the
+WinCUPL output formats they select are not implemented.  Any other
+letter, or -m5 and above, is rejected with [0007ck] invalid flag.
+
+Options given as separate arguments:
+
+  -fix               correct the WinCUPL 5.0a bugs instead of
+                     reproducing them (section 5)
+  -compat-refdefect  the default: reproduce WinCUPL 5.0a's behaviour,
+                     including its bugs
+  -simlatch          with -s, simulate latched outputs and registered or
+                     latched inputs (timing not verified; by default
+                     they show X, as in WinCUPL's simulator)
+  -devices           print the supported mnemonics and exit
+  -V, --version      print "FreeCUPL 1.0.0 (DARKSOFT)" and exit
+
+Without arguments freecupl prints a usage summary and exits with 1.
+
+The exit status is 0 when the requested outputs were written; warnings
+do not change it.  It is 1 on errors, on an invalid flag, or when the
+simulation run by -s reported errors.  After an error only the listing
+and the macro expansion are written, if requested.
+
+Examples:
+
+    freecupl -jxf counter.pld      JEDEC and .doc with fuse plot
+    freecupl -jn g22v10 counter    compile for g22v10, counter.jed
+    freecupl -jas counter          compile and simulate counter.si
+    freecupl -fix -jx counter      compile with the bugs corrected
+
+The language is WinCUPL's, including what it accepts and rejects.  The
+words APPEND, CONDITION, DEFAULT, FIELD, FLD, FUNCTION, GROUP, IF, MIN,
+NEXT, NODE, OUT, PIN, PINNODE, PRESENT, PROPERTY, SEQUENCE, SEQUENCED,
+SEQUENCEJK, SEQUENCERS, SEQUENCET, TABLE and the header item names
+cannot be used as names, in any letter case.  ELSE, JUMP and MACRO
+can.  FUSE is only accepted as a name in PIN and PINNODE statements.
+docs/BUGS.txt, part A, has the details.
+
+
+2. FREECSIM
+
+    freecsim [-flags] [library] [device] file[.si]
+
+freecsim reads file.si and the absolute file file.abs written by
+freecupl -a or -s.  Each name is tried in lower case, then in upper
+case.  device, when given, must be the device of the absolute file
+([0010sa] expecting device; [0007sa] for an unknown mnemonic).  library
+is ignored.  The waveform file file.wo is always written.  The formats
+of .si, .so, .wo and .abs and the simulation rules are described in
+docs/SIMFMT.txt.
+
+  -l     write the listing file.so
+  -v     also show the listing on the terminal (writes file.so)
+  -j     append the test vectors to NAME.jed (NAME from the design's
+         Name item), or to file.jed with -n
+  -n     see -j
+  -u     the next positional argument is the library (ignored)
+  -w -d  accepted, no effect (there is no waveform display)
+
+Options given as separate arguments:
+
+  -fix               correct the bugs of WinCUPL's simulator (B025 to
+                     B028, B030)
+  -compat-refdefect  the default: reproduce WinCUPL 5.0a's behaviour,
+                     including its bugs
+  -simlatch          simulate latched outputs and registered or latched
+                     inputs (timing not verified)
+  -fuses FILE.jed    simulate the fuse map of FILE.jed instead of the one
+                     in the absolute file; the fuse count must match
+  -info              print the signals of the design (name, pin,
+                     polarity, role) and exit
+  -V, --version      print the version and exit
+
+Other flags are rejected with [0007sk] invalid flag.  The exit status is
+0 when the simulation ran without errors and 1 otherwise, including a
+failed expected value ([0019sa] user expected ...).
+
+Some simulation models follow WinCUPL's simulator and cannot be checked
+against the fuse map: the RA parts, the MegaPALs, parts with latches
+only, the PEEL18CV8 reset levels, and input registers and latches.  For
+these the listing says "simulation model for <device> follows WinCUPL
+and is not verified against the data sheet".
+
+
+3. FILES
+
+The source (.pld) is CUPL as accepted by WinCUPL 5.0a: header items,
+PIN, PINNODE, NODE, FIELD, equations with extensions, TABLE, SEQUENCE,
+SEQUENCED, SEQUENCEJK, SEQUENCERS, SEQUENCET, CONDITION, FUNCTION,
+APPEND, MIN, FUSE, PROPERTY, and the preprocessor commands $DEFINE
+$UNDEF $INCLUDE $IFDEF $IFNDEF $ELSE $ENDIF $REPEAT $REPEND $MACRO $MEND
+and {arithmetic}.  LF and CRLF line ends are both read.  An $INCLUDE file
+is looked for in the current directory, then in the source's directory.
+
+The simulation input (.si) is in CSIM format: header, ORDER:, BASE:,
+VECTORS:, the commands $MSG $REPEAT $TRACE $SIMOFF $SIMON $EXIT $OUT, and
+the test values 0 1 C K P L H Z X N * and quoted field values.
+
+Output files:
+
+  .jed   freecupl -j   JEDEC (JESD3) fuse file: header, QP QF G F L C
+                       fields, transmission checksum; test vectors (QV
+                       P V) with -s
+  .doc   freecupl -x   expanded product terms, symbol table, fuse plot
+                       with -f
+  .lst   freecupl -l   numbered source and messages
+  .mx    freecupl -e   source after the preprocessor
+  .abs   freecupl -a   the compiled design for freecsim, in FreeCUPL's
+                       own text format (docs/SIMFMT.txt); WinCUPL's
+                       binary absolute files cannot be read
+  .so    freecsim -l   simulation listing (also freecupl -s)
+  .wo    freecsim      waveform data (also freecupl -s)
+
+The headers of .jed, .doc, .lst and .so name the version, "FreeCUPL
+1.0.0 (DARKSOFT)", and the creation date.
+
+If the environment variable SOURCE_DATE_EPOCH is set to a number of
+seconds since 1970-01-01 UTC, that time is written as the creation date
+instead of the current local time.  SOURCE_DATE_EPOCH=0 gives "Thu Jan
+1 00:00:00 1970".  The JEDEC checksums do not depend on the date.
+
+
+4. MESSAGES
+
+Messages have the WinCUPL form "[nnnnXX] text", with line(n) when they
+refer to a source line.  The two letters give the stage: ck command
+line, cx preprocessor, ca parser, cb fitter, cc output and fitting
+limits, sk and sa simulator.  Messages starting with "Please note:" or
+"Warning:" do not stop the compilation.  Any other message is an error;
+the compilation ends with "Fatal errors encountered ... compilation
+aborted" and exit status 1.
+
+Codes 0901 to 0908 are FreeCUPL's own.  They report a place where
+WinCUPL 5.0a does something its language reference does not describe,
+and what FreeCUPL does there.
+
+Compiler messages (E error, W warning, N note):
+
+  0001ck E  could not open (source)
+  0001cx E  could not open ($INCLUDE file)
+  0002ca E  invalid number
+  0003cx E  no label given for command
+  0004cx E  already defined ($DEFINE, $MACRO)
+  0006ca E  device not in library
+  0006cc E  excessive number of product terms
+  0006cx E  $ELSE without $IFDEF
+  0007ca E  invalid syntax
+  0007ck E  invalid flag
+  0007cx E  $ENDIF without $IFDEF
+  0008cc E  pin can not be used as input
+  0008cx E  $IFDEF nesting too deep
+  0009ca E  missing symbol
+  0009cb E  pin/node redeclared
+  0009cc W  header name undefined, using no_name
+  0009cx E  missing $ENDIF
+  0010cb E  pin/node invalid output
+  0010cc E  disk write error
+  0010cx E  invalid preprocessor command
+  0011ca E  expression already assigned to a variable
+  0011cb E  unknown extension
+  0012ca E  vector size mismatch
+  0012cb E  pin/node invalid usage
+  0013cb E  pin/node invalid output extension or usage
+  0013cc E  conflicting usage of pinnode, or of a pin's registered and
+            combinational equations
+  0014ca E  variable already declared
+  0014cb E  invalid input (read, but not available as an input)
+  0014cx E  unexpected symbol (preprocessor)
+  0015cb E  out of memory: too many variables
+  0015cx E  $REPEAT nesting too deep
+  0016ca E  invalid number of function arguments
+  0016cb N  no expression assigned to an extension (.AR, .SP unused)
+  0016cx E  duplicate macro function name
+  0017cx E  missing macro name
+  0018ca E  intermediate variable not assigned an expression
+  0018cx E  incorrect number of macro parameters
+  0021ca E  header item already declared
+  0021cb E  no expression allowed for this variable
+  0022ca N  missing header item(s)
+  0023ca E  invalid range arguments
+  0025cb E  output mutually excluded by a previous output
+  0025cx E  unexpected end-of-file
+  0026ca E  invalid table statement
+  0026cx E  reached end-of-file before ending comment
+  0027cx E  invalid syntax for $MACRO or $REPEAT
+  0030ca E  intermediate variable dependent on itself
+  0031ca E  invalid minimisation level (MIN)
+  0032ca E  invalid next state
+  0035ca E  multiple unconditional statements for a state
+  0036ca E  device does not support synchronous state machines
+  0037ca E  duplicate present state
+  0038ca E  target device not specified
+  0039ca E  line exceeds maximum length
+  0041ca W  don't care not allowed in a decimal number, treated as 0
+  0042ca N  range or match list completely don't cared, decoded to 0
+  0044ca E  unexpected end-of-file
+  0901cb W  GAL simple mode: an output read back is made an input (the
+            mode has no output feedback)
+  0901cx W  $DEFINE with nothing after the name (B006)
+  0902cb W/E PAL16C1/20C1: the two outputs share one sum (B005)
+  0903ca W  '!' directly before a number (B003)
+  0904ca W  a FUSE statement sets a fuse directly
+  0905cb W/N the design meets a WinCUPL bug (section 5) or a device
+            behaviour FreeCUPL copies; the text names the pin
+  0906cb W  a product term reads one signal in both polarities through
+            two names (B014)
+  0907cb E  the device cannot implement the design (with -fix, where
+            WinCUPL writes a wrong fuse map: B012, B016, B019, B020,
+            B021)
+  0908cb W  a pin read through both .IO and .DFB; both read the pin, as
+            in WinCUPL
+
+Simulator messages:
+
+  0001sa E  could not open (.si, .abs or -fuses file)
+  0007sa E  device not in library
+  0007sk E  invalid flag
+  0009sa E  invalid syntax
+  0010sa E  expecting device (argument differs from the design)
+  0011sa E  unknown symbol
+  0013sa E  excessive test value
+  0014sa E  insufficient test values
+  0019sa E  user expected value differs from the simulated one
+  0020sa E  unstable output
+  0021sa E  invalid test value
+  0022sa E  bad fault id
+  0025sa N  inconsistent header information
+  0026sa N  missing header item(s)
+  0029sa E  invalid trace level
+  0033sa E  pin number is undefined
+  0905sa W  the simulation meets a bug of WinCUPL's simulator
+
+
+5. WINCUPL BUGS AND -FIX
+
+FreeCUPL 1.0.0 reproduces WinCUPL 5.0a.  For every design WinCUPL
+compiles it writes a JEDEC file that makes the device behave as
+WinCUPL's does, and the simulator gives the same listing and test
+vectors, also where WinCUPL is wrong.  Programmed parts and existing
+test benches keep their behaviour.
+
+The known bugs are numbered B001 to B033 and described with an example
+and the correct behaviour in docs/BUGS.txt.  When a design meets one, a
+message names it:
+
+    [0905cb] Warning: WinCUPL bug #B013: F18V8ZS: the output enable of
+    pin 19 (y) is left false when no .OE is given; use -fix for the
+    corrected result
+
+With -fix the corrected result is written and the message reads:
+
+    [0905cb] Warning: deviates from WinCUPL (bug #B013 fixed): F18V8ZS:
+    output enable of pin 19 (y) without .OE: always enabled (CUPL
+    default)
+
+Where the device cannot do what the source asks and WinCUPL writes a
+wrong fuse map, -fix rejects the design (0902cb, 0907cb, 0013cc).
+Where WinCUPL stops with an error (B008, B029), the default mode stops
+with the same error and -fix gives the documented result.  -fix works
+for the compiler and the simulator (freecupl -fix -s, freecsim -fix).
+
+Behaviour that WinCUPL documents, or that is odd but not shown to be
+wrong, is not treated as a bug and is the same in both modes (see
+docs/BUGS.txt, parts A and B).
+
+Version 2 will be the same program with -fix as the default.
+
+
+6. LIMITATIONS
+
+FreeCUPL supports the 307 mnemonics of section 8.  WinCUPL 5.0a compiles
+113 more mnemonics to a JEDEC file without an external fitter; these
+are not described yet and are rejected with [0006ca] device not in
+library:
+
+  37  PLS/IFL sequencer and FPLA parts (complement array, S/R/J/K
+      buried registers)
+  24  parts beyond the generic macrocell (S/R/T or latch registers,
+      observability, buried logic): 18U8, 22IP6, 22V10S, 23S8, 29M16,
+      32VX10, PC224, PLX448, XL78C800, some LCC variants
+  13  parts with latched outputs
+  13  GAL20XV10, GAL6001/6002, GAL26CV12, GDS22 layouts
+  12  EPLDs EP300 to EP1800
+  14  others with irregular arrays or unverified features, among them
+      the ATV5000
+
+Devices for which WinCUPL calls an external fitter (the ATF15xx CPLDs
+and others), PROMs and the virtual device are not supported.
+
+Latched outputs and registered or latched inputs simulate as X, as in
+WinCUPL's simulator.  -simlatch simulates them, but its timing has not
+been checked against hardware.
+
+With -kb, the polarity WinCUPL picks is not reproduced on a few designs
+(ranges, XOR lists, some registered PEEL, RA and ATV outputs at -m0).
+The JEDEC file is then correct for the source with bug B001 applied,
+but may differ from WinCUPL's.
+
+-m2 to -m4 can find smaller covers than WinCUPL and so fit designs that
+WinCUPL rejects with 0006cc.
+
+Not implemented: the output formats of -b -h -i -p -c -d -r -o -q,
+reading WinCUPL's binary absolute files, the waveform display, the GUI.
+
+The macOS build is only tested by the project's continuous integration.
+
+
+7. HELPER TOOLS
+
+These take a JEDEC file of any supported device.  The device comes from
+the file's Device line or from -d.
+
+    jedsim [-d device] [-D file.dev] [-l | -c | -L] [file.jed]
+
+Fuse-level simulator.  -l prints the decoded configuration as equations
+per pin, -c checks the checksums, -L lists the device descriptions.
+Otherwise it reads commands from standard input: "v <chars>" with one
+character per pin (0 or 1 drive, C clock pulse, H L Z expected), "set
+P=V ...", "preload P=V ...", "clock", "eval", "state".
+
+    equiv [-d device] [-D file.dev] [-n bits] [-r points] [-S seqs]
+          [-s seed] [-i pins] [-q] a.jed b.jed
+
+Compares the behaviour of two JEDEC files for one device.  The check is
+exhaustive when the relevant inputs and register bits number at most
+-n (22), otherwise it uses random points and clocked sequences.  -i
+gives pins to ignore.  Exit status 0 equivalent, 1 different, 2 error.
+
+    jedtool check FILE | fuses FILE | rewrite IN OUT | diff A B |
+            flip IN OUT N... | stdheader IN OUT
+
+JEDEC utilities: check the checksums, print the fuse map, write a file
+again, list differing fuses, invert fuses.
+
+
+8. SUPPORTED DEVICES
+
+The mnemonic goes in the Device statement or on the command line.
+freecupl -devices prints the same list.  The PLCC/LCC package variant of
+a part has the suffix lcc.  The mode column gives the GAL operating
+mode a mnemonic selects: auto (chosen by the compiler from the design),
+simple, complex or registered; "-" for parts with one configuration.
+
+(device list generated by tools/mkdevlist.sh)
+
+22V10 (PAL22V10, GAL22V10, ATF22V10B/C)
+
+  mnemonic       pins  fuses  mode       part
+  p22v10           24   5828  -          PAL22V10
+  g22v10           24   5892  -          GAL22V10 / ATF22V10B / ATF22V10C
+  g22v10cp         24   5893  -          ATF22V10C-PD (power-down)
+
+GAL16V8 / GAL20V8 and equivalents
+
+  mnemonic       pins  fuses  mode       part
+  g16v8            20   2194  auto       GAL16V8 (automatic mode)
+  g16v8s           20   2194  simple     GAL16V8 (simple mode, non-A)
+  g16v8ma          20   2194  complex    GAL16V8 (complex mode)
+  g16v8ms          20   2194  registered GAL16V8 (registered mode)
+  g16v8a           20   2194  auto       GAL16V8A / ATF16V8B (automatic
+                                         mode)
+  g16v8as          20   2194  simple     GAL16V8A / ATF16V8B (simple mode)
+  g16v8c           20   2194  auto       GAL16V8C (automatic mode)
+  g16v8cas         20   2194  simple     GAL16V8C (simple mode)
+  g16v8cma         20   2194  complex    GAL16V8C (complex mode)
+  g16v8cms         20   2194  registered GAL16V8C (registered mode)
+  g16v8cp          20   2195  auto       ATF16V8C-PD (power-down, automatic
+                                         mode)
+  g16v8cpas        20   2195  simple     ATF16V8C-PD (power-down, simple
+                                         mode)
+  g16v8cpma        20   2195  complex    ATF16V8C-PD (power-down, complex
+                                         mode)
+  g16v8cpms        20   2195  registered ATF16V8C-PD (power-down, registered
+                                         mode)
+  g20v8            24   2706  auto       GAL20V8 (automatic mode)
+  g20v8s           24   2706  simple     GAL20V8 (simple mode, non-A)
+  g20v8ma          24   2706  complex    GAL20V8 (complex mode)
+  g20v8ms          24   2706  registered GAL20V8 (registered mode)
+  g20v8a           24   2706  auto       GAL20V8A / ATF20V8B (automatic
+                                         mode)
+  g20v8as          24   2706  simple     GAL20V8A / ATF20V8B (simple mode)
+  g20v8cp          24   2707  auto       ATF20V8C-PD (power-down, automatic
+                                         mode)
+  g20v8cps         24   2707  simple     ATF20V8C-PD (power-down, simple
+                                         mode)
+  g20v8cpma        24   2707  complex    ATF20V8C-PD (power-down, complex
+                                         mode)
+  g20v8cpms        24   2707  registered ATF20V8C-PD (power-down, registered
+                                         mode)
+
+GAL16VP8 / GAL20VP8
+
+  mnemonic       pins  fuses  mode       part
+  g16vp8           20   2202  auto       GAL16VP8 (automatic mode)
+  g16vp8ms         20   2202  registered GAL16VP8 (registered mode)
+  g20vp8           24   2714  auto       GAL20VP8 (automatic mode)
+  g20vp8ms         24   2714  registered GAL20VP8 (registered mode)
+  g20vp8lcc        28   2714  auto       GAL20VP8 (automatic mode, PLCC28)
+  g20vp8mslcc      28   2714  registered GAL20VP8 (registered mode, PLCC28)
+  g20vp8slcc       28   2714  -          GAL20VP8 (simple mode, PLCC28)
+  g20vp8malcc      28   2714  -          GAL20VP8 (complex mode, PLCC28)
+
+GAL16Z8 / GAL20Z8 (zero-power)
+
+  mnemonic       pins  fuses  mode       part
+  g16z8            24   2195  auto       GAL16Z8 (zero-power, automatic
+                                         mode)
+  g16z8s           24   2195  simple     GAL16Z8 (zero-power, simple mode)
+  g16z8ma          24   2195  complex    GAL16Z8 (zero-power, complex mode)
+  g16z8ms          24   2195  registered GAL16Z8 (zero-power, registered
+                                         mode)
+  f16v8            20   2617  auto       16V8-type part, f series (automatic
+                                         mode)
+  f20v8            24   3193  auto       20V8-type part, f series (automatic
+                                         mode)
+  g16z8lcc         28   2195  auto       GAL16Z8 (zero-power, automatic
+                                         mode, PLCC28)
+  g16z8slcc        28   2195  simple     GAL16Z8 (zero-power, simple mode,
+                                         PLCC28)
+  g16z8malcc       28   2195  complex    GAL16Z8 (zero-power, complex mode,
+                                         PLCC28)
+  g16z8mslcc       28   2195  registered GAL16Z8 (zero-power, registered
+                                         mode, PLCC28)
+
+GAL16V8 variants with input latches (24 pins)
+
+  mnemonic       pins  fuses  mode       part
+  g16v8hms         24   2226  registered GAL16V8H (24 pins, input latches,
+                                         registered mode)
+  g16v8hs          24   2226  simple     GAL16V8H (24 pins, input latches,
+                                         simple mode)
+  g16v8hma         24   2226  complex    GAL16V8H (24 pins, input latches,
+                                         complex mode)
+  g16v8h           24   2226  auto       GAL16V8H (24 pins, input latches,
+                                         automatic mode)
+  g16v8hslcc       28   2226  simple     GAL16V8H (input latches, simple
+                                         mode, PLCC28)
+  g16v8hmalcc      28   2226  complex    GAL16V8H (input latches, complex
+                                         mode, PLCC28)
+  g16v8hmslcc      28   2226  registered GAL16V8H (input latches, registered
+                                         mode, PLCC28)
+  g16v8hlcc        28   2226  auto       GAL16V8H (input latches, automatic
+                                         mode, PLCC28)
+
+MMI-type 16V8
+
+  mnemonic       pins  fuses  mode       part
+  m16v8as          20   3136  simple     MMI-type 16V8 (simple mode)
+  m16v8ac          20   3136  complex    MMI-type 16V8 (complex mode)
+  m16v8ar          20   3136  registered MMI-type 16V8 (registered mode)
+  m16v8a           20   3136  auto       MMI-type 16V8 (automatic mode)
+
+GAL24V10-type
+
+  mnemonic       pins  fuses  mode       part
+  g24v10           28   3942  auto       24V10-type GAL, 28 pins (automatic
+                                         mode)
+  g24v10s          28   3942  simple     24V10-type GAL, 28 pins (simple
+                                         mode)
+  g24v10ma         28   3942  complex    24V10-type GAL, 28 pins (complex
+                                         mode)
+  g24v10ms         28   3942  registered 24V10-type GAL, 28 pins (registered
+                                         mode)
+
+PEEL18CV8-type
+
+  mnemonic       pins  fuses  mode       part
+  f18v8zd          20   2689  registered PEEL18CV8-type zero-power part
+                                         (registered)
+  f18v8zs          20   2689  simple     PEEL18CV8-type zero-power part
+                                         (combinational)
+  f18v8z           20   2689  auto       PEEL18CV8-type zero-power part
+                                         (automatic mode)
+
+ATV750 / ATF750C family
+
+  mnemonic       pins  fuses  mode       part
+  v750             24  14394  -          ATV750
+  v750lcc          28  14394  -          ATV750 (PLCC28)
+  v750b            24  14435  -          ATV750B
+  v750blcc         28  14435  -          ATV750B (PLCC28)
+  v750c            24  14504  -          ATF750C
+  v750clcc         28  14504  -          ATF750C (PLCC28)
+  v750cext         24  14504  -          ATF750C-PD (power-down variant)
+  v750cextlcc      28  14504  -          ATF750C-PD (power-down variant,
+                                         PLCC28)
+  v750cextppklcc   28  14504  -          ATF750C-PD_PPK (power-down variant,
+                                         PLCC28)
+  v750cextppk      24  14504  -          ATF750C-PD_PPK (power-down variant)
+  v750cppklcc      28  14504  -          ATF750C-PPK (PLCC28)
+  v750cppk         24  14504  -          ATF750C-PPK
+
+ATV2500 / ATF2500C family
+
+  mnemonic       pins  fuses  mode       part
+  v2500            40  71648  -          ATV2500
+  v2500lcc         44  71648  -          ATV2500 (PLCC44)
+  v2500b           40  71745  -          ATV2500B
+  v2500blcc        44  71745  -          ATV2500B (PLCC44)
+  v2500c           40  71816  -          ATF2500C
+  v2500clcc        44  71816  -          ATF2500C (PLCC44)
+  v2500cppk        40  71816  -          ATF2500C-PPK
+  v2500cppklcc     44  71816  -          ATF2500C-PPK (PLCC44)
+
+Small 20-pin combinational PALs
+
+  mnemonic       pins  fuses  mode       part
+  p10h8            20    320  -          PAL10H8
+  p10l8            20    320  -          PAL10L8
+  p12h6            20    384  -          PAL12H6
+  p12l6            20    384  -          PAL12L6
+  p14h4            20    448  -          PAL14H4
+  p14l4            20    448  -          PAL14L4
+  p16h2            20    512  -          PAL16H2
+  p16l2            20    512  -          PAL16L2
+  p16c1            20    512  -          PAL16C1
+
+20- and 24-pin PALs with 64 product terms
+
+  mnemonic       pins  fuses  mode       part
+  p16l8            20   2048  -          PAL16L8
+  p16r4            20   2048  -          PAL16R4
+  p16r6            20   2048  -          PAL16R6
+  p16r8            20   2048  -          PAL16R8
+  p20l8            24   2560  -          PAL20L8
+  p20r4            24   2560  -          PAL20R4
+  p20r6            24   2560  -          PAL20R6
+  p20r8            24   2560  -          PAL20R8
+
+Product-term steering PALs
+
+  mnemonic       pins  fuses  mode       part
+  p20s10           24   3322  -          PAL20S10
+  p20rs10          24   3338  -          PAL20RS10
+  p20rs8           24   3338  -          PAL20RS8
+  p20rs4           24   3330  -          PAL20RS4
+  p20rsp8          24   2696  -          PAL20RSP8
+  p20rsp6          24   2692  -          PAL20RSP6
+  p20rsp4          24   2688  -          PAL20RSP4
+  p20sp8           24   2680  -          PAL20SP8
+  p16rsp8          20   2184  -          PAL16RSP8
+  p16rsp6          20   2180  -          PAL16RSP6
+  p16rsp4          20   2176  -          PAL16RSP4
+  p16sp8           20   2168  -          PAL16SP8
+  p1020p8          24   1352  -          P1020P8 (product-term steering)
+
+PAL20XRP registered XOR PALs with programmable polarity
+
+  mnemonic       pins  fuses  mode       part
+  p20xrp4          24   3450  -          PAL20XRP4
+  p20xrp6          24   3370  -          PAL20XRP6
+  p20xrp8          24   3290  -          PAL20XRP8
+  p20xrp10         24   3210  -          PAL20XRP10
+  p22xp10          24   3970  -          PAL22XP10
+  p22rx8           24   3616  -          PAL22RX8
+
+MegaPAL (PAL32R16 / PAL64R32)
+
+  mnemonic       pins  fuses  mode       part
+  p32r16           40   8466  -          PAL32R16 (MegaPAL)
+  p64r32           84  33316  -          PAL64R32 (MegaPAL)
+  p20rs4mlcc       28   3338  -          PAL20RS4 (LCC28, alternative pin
+                                         numbering)
+  p32r16lcc        44   8466  -          PAL32R16 (MegaPAL, PLCC44)
+  p64r32pga        88  33316  -          PAL64R32 (MegaPAL, PGA88)
+
+Other GAL and GAL-like parts
+
+  mnemonic       pins  fuses  mode       part
+  g18v10           20   3540  -          GAL18V10
+  g20ra10          24   3274  -          GAL20RA10
+  g22v10i          28   5892  -          22V10-type GAL, 28 pins (mnemonic
+                                         g22v10i)
+  g16vp8ma         20   2202  -          GAL16VP8 (complex mode)
+  g16vp8s          20   2202  -          GAL16VP8 (simple mode)
+  g20vp8ma         24   2714  -          GAL20VP8 (complex mode)
+  g20vp8s          24   2714  -          GAL20VP8 (simple mode)
+
+Fixed-polarity combinational PALs
+
+  mnemonic       pins  fuses  mode       part
+  p12l10           24    480  -          PAL12L10
+  p14l8            24    560  -          PAL14L8
+  p16l6            24    640  -          PAL16L6
+  p16h8            20   2048  -          PAL16H8
+  p16hd8           20   2048  -          PAL16HD8
+  p16n8            20    512  -          PAL16N8
+  p18n8            20    304  -          PAL18N8
+  p16ld8           20   2048  -          PAL16LD8
+  p18l4            24    720  -          PAL18L4
+  p20l2            24    640  -          PAL20L2
+  p20l10           24   1600  -          PAL20L10
+  p24l10           28   3840  -          PAL24L10
+  p20c1            24    640  -          PAL20C1
+
+Programmable-polarity combinational PALs
+
+  mnemonic       pins  fuses  mode       part
+  p10p8            20    328  -          PAL10P8
+  p10p8v           20    664  -          PAL10P8V
+  p12p6            20    390  -          PAL12P6
+  p12p6v           20    786  -          PAL12P6V
+  p14p4            20    452  -          PAL14P4
+  p14p4v           20    908  -          PAL14P4V
+  p16p2            20    514  -          PAL16P2
+  p16p2v           20   1030  -          PAL16P2V
+  p16p6            24    646  -          PAL16P6
+  p16p8            20   2056  -          PAL16P8
+  p16p8h           20   2056  -          PAL16P8H
+  p16p8v           20   2072  -          PAL16P8V
+  p18p4            24    724  -          PAL18P4
+  p18p8            20   2600  -          PAL18P8
+  p12p10           24    490  -          PAL12P10
+  p14p8            24    568  -          PAL14P8
+  p20p2            24    642  -          PAL20P2
+  p20p8            24   2568  -          PAL20P8
+
+Registered PALs with programmable polarity
+
+  mnemonic       pins  fuses  mode       part
+  p16rp4           20   2056  -          PAL16RP4
+  p16rp4v          20   2072  -          PAL16RP4V
+  p16rp6           20   2056  -          PAL16RP6
+  p16rp6v          20   2072  -          PAL16RP6V
+  p16rp8           20   2056  -          PAL16RP8
+  p16rp8v          20   2072  -          PAL16RP8V
+  p20rp4           24   2568  -          PAL20RP4
+  p20rp6           24   2568  -          PAL20RP6
+  p20rp8           24   2568  -          PAL20RP8
+  p20rp4a          24   3450  -          PAL20RP4A
+  p20rp6a          24   3370  -          PAL20RP6A
+  p20rp8a          24   3290  -          PAL20RP8A
+  p20rp10a         24   3210  -          PAL20RP10A
+
+PALs with configurable output macrocells
+
+  mnemonic       pins  fuses  mode       part
+  p20cg10          24   4088  -          P20CG10 (configurable output
+                                         macrocells)
+  p1020ev8         24   3616  -          P1020EV8 (configurable output
+                                         macrocells)
+  p18g8            20   2624  -          P18G8 (configurable output
+                                         macrocells)
+  p22cv10z         24   5873  -          P22CV10Z (zero-power 22V10-type)
+  p22vp10          24   5838  -          PAL22VP10
+  p18cv8           20   2696  -          P18CV8 (configurable output
+                                         macrocells)
+  p20g10           24   3990  -          P20G10 (configurable output
+                                         macrocells)
+  p18v8            20   2752  -          P18V8 (configurable output
+                                         macrocells)
+  p22p10a          24   3970  -          PAL22P10A
+
+24-pin PALs with the 10H/10K-style pinout
+
+  mnemonic       pins  fuses  mode       part
+  p1016p8          24   2056  -          P1016P8 (24-pin PAL, 10H/10K-style
+                                         pinout)
+  p1016pe8         28   2056  -          P1016PE8 (28-pin PAL, 10H/10K-style
+                                         pinout)
+  p1016rd4         24   2056  -          P1016RD4 (registered, 10H/10K-style
+                                         pinout)
+  p1016rd8         24   2056  -          P1016RD8 (registered, 10H/10K-style
+                                         pinout)
+  p16p8c           24   2056  -          P16P8C (24-pin, 10H/10K-style
+                                         pinout)
+
+PALs with registered or latched inputs
+
+  mnemonic       pins  fuses  mode       part
+  p19l8r           24   2443  -          PAL19L8R (registered inputs)
+  p19r4r           24   2443  -          PAL19R4R (registered inputs)
+  p19r6r           24   2443  -          PAL19R6R (registered inputs)
+  p19r8r           24   2443  -          PAL19R8R (registered inputs)
+  p19l8t           24   2443  -          PAL19L8T (latched inputs)
+  p19r4t           24   2443  -          PAL19R4T (latched inputs)
+  p19r6t           24   2443  -          PAL19R6T (latched inputs)
+  p19r8t           24   2443  -          PAL19R8T (latched inputs)
+
+PALs with latched outputs
+
+  mnemonic       pins  fuses  mode       part
+  p1016ld8         24   2056  -          P1016LD8 (latched outputs)
+  plsi1016ld4      24   2056  -          PLSI1016LD4 (latched outputs)
+  p1016et6         24   1542  -          P1016ET6 (latched outputs)
+  pc508            28    256  -          PC508 (28 pins, latched outputs)
+
+Registered XOR PALs
+
+  mnemonic       pins  fuses  mode       part
+  p20x4            24   1600  -          PAL20X4
+  p20x8            24   1600  -          PAL20X8
+  p20x10           24   1600  -          PAL20X10
+
+Asynchronous registered PALs
+
+  mnemonic       pins  fuses  mode       part
+  p16ra8           20   2056  -          PAL16RA8
+  p20ra10          24   3210  -          PAL20RA10
+
+Other directly compiled parts
+
+  mnemonic       pins  fuses  mode       part
+  p24r4            28   3840  -          PAL24R4 (28 pins)
+  p24r8            28   3840  -          PAL24R8 (28 pins)
+  p24r10           28   3840  -          PAL24R10 (28 pins)
+  f16v8s           20   2617  -          16V8-type part, f series (simple
+                                         mode)
+  f20v8s           24   3193  -          20V8-type part, f series (simple
+                                         mode)
+  f162             24    165  -          24-pin programmable logic part
+                                         (mnemonic f162)
+  f163             24    225  -          24-pin programmable logic part
+                                         (mnemonic f163)
+  p26v12           28   7848  -          PAL26V12 (28 pins)
+  f16v8d           20   2617  -          16V8-type part, f series
+                                         (registered mode)
+  f20v8d           24   3193  -          20V8-type part, f series
+                                         (registered mode)
+
+LCC/PLCC package variants (22V10, GAL16V8/20V8, PAL16/20 series)
+
+  mnemonic       pins  fuses  mode       part
+  p16l8alcc        28   2048  -          PAL16L8A (PLCC28)
+  p16r4alcc        28   2048  -          PAL16R4A (PLCC28)
+  p16r6alcc        28   2048  -          PAL16R6A (PLCC28)
+  p16r8alcc        28   2048  -          PAL16R8A (PLCC28)
+  p20l8lcc         28   2560  -          PAL20L8 (PLCC28)
+  p20l8mlcc        28   2560  -          PAL20L8 (LCC28, alternative pin
+                                         numbering)
+  p20r4lcc         28   2560  -          PAL20R4 (PLCC28)
+  p20r4mlcc        28   2560  -          PAL20R4 (LCC28, alternative pin
+                                         numbering)
+  p20r6lcc         28   2560  -          PAL20R6 (PLCC28)
+  p20r6mlcc        28   2560  -          PAL20R6 (LCC28, alternative pin
+                                         numbering)
+  p20r8lcc         28   2560  -          PAL20R8 (PLCC28)
+  p20r8mlcc        28   2560  -          PAL20R8 (LCC28, alternative pin
+                                         numbering)
+  p22v10lcc        28   5828  -          PAL22V10 (PLCC28)
+  p22v10tlcc       28   5828  -          PAL22V10 (LCC28, alternative pin
+                                         numbering)
+  g22v10lcc        28   5892  -          GAL22V10 / ATF22V10B / ATF22V10C
+                                         (PLCC28)
+  g22v10cplcc      28   5893  -          ATF22V10C-PD (power-down, PLCC28)
+  g20v8lcc         28   2706  auto       GAL20V8 (automatic mode, PLCC28)
+  g20v8slcc        28   2706  simple     GAL20V8 (simple mode, non-A,
+                                         PLCC28)
+  g20v8malcc       28   2706  complex    GAL20V8 (complex mode, PLCC28)
+  g20v8mslcc       28   2706  registered GAL20V8 (registered mode, PLCC28)
+  g20v8alcc        28   2706  auto       GAL20V8A / ATF20V8B (automatic
+                                         mode, PLCC28)
+  g20v8aslcc       28   2706  simple     GAL20V8A / ATF20V8B (simple mode,
+                                         PLCC28)
+  g20v8cplcc       28   2707  auto       ATF20V8C-PD (power-down, automatic
+                                         mode, PLCC28)
+  g20v8cpslcc      28   2707  simple     ATF20V8C-PD (power-down, simple
+                                         mode, PLCC28)
+  g20v8cpmalcc     28   2707  complex    ATF20V8C-PD (power-down, complex
+                                         mode, PLCC28)
+  g20v8cpmslcc     28   2707  registered ATF20V8C-PD (power-down, registered
+                                         mode, PLCC28)
+  p20rp8lcc        28   2568  -          PAL20RP8 (PLCC28)
+  p19r4rlcc        28   2443  -          PAL19R4R (registered inputs,
+                                         PLCC28)
+  p19r4tlcc        28   2443  -          PAL19R4T (latched inputs, PLCC28)
+  p19r6rlcc        28   2443  -          PAL19R6R (registered inputs,
+                                         PLCC28)
+  p19r6tlcc        28   2443  -          PAL19R6T (latched inputs, PLCC28)
+  p19r8rlcc        28   2443  -          PAL19R8R (registered inputs,
+                                         PLCC28)
+  p19r8tlcc        28   2443  -          PAL19R8T (latched inputs, PLCC28)
+
+LCC/PLCC package variants of the other families
+
+  mnemonic       pins  fuses  mode       part
+  p1020ev8lcc      28   3616  -          P1020EV8 (configurable output
+                                         macrocells, PLCC28)
+  p1020p8lcc       28   1352  -          P1020P8 (product-term steering,
+                                         PLCC28)
+  p12l10lcc        28    480  -          PAL12L10 (PLCC28)
+  p12l10mlcc       28    480  -          PAL12L10 (LCC28, alternative pin
+                                         numbering)
+  p12p10lcc        28    490  -          PAL12P10 (PLCC28)
+  p14l8lcc         28    560  -          PAL14L8 (PLCC28)
+  p14l8mlcc        28    560  -          PAL14L8 (LCC28, alternative pin
+                                         numbering)
+  p14p8lcc         28    568  -          PAL14P8 (PLCC28)
+  p16l6lcc         28    640  -          PAL16L6 (PLCC28)
+  p16l6mlcc        28    640  -          PAL16L6 (LCC28, alternative pin
+                                         numbering)
+  p16p6lcc         28    646  -          PAL16P6 (PLCC28)
+  p16p8clcc        28   2056  -          P16P8C (PLCC28)
+  p18l4lcc         28    720  -          PAL18L4 (PLCC28)
+  p18l4mlcc        28    720  -          PAL18L4 (LCC28, alternative pin
+                                         numbering)
+  p18p4lcc         28    724  -          PAL18P4 (PLCC28)
+  p19l8rlcc        28   2443  -          PAL19L8R (registered inputs,
+                                         PLCC28)
+  p19l8tlcc        28   2443  -          PAL19L8T (latched inputs, PLCC28)
+  p20g10lcc        28   3990  -          P20G10 (PLCC28)
+  p20g10mlcc       28   3990  -          P20G10 (LCC28, alternative pin
+                                         numbering)
+  p20g10slcc       28   3990  -          P20G10 (LCC28, another pin
+                                         numbering)
+  p20l10lcc        28   1600  -          PAL20L10 (PLCC28)
+  p20l10mlcc       28   1600  -          PAL20L10 (LCC28, alternative pin
+                                         numbering)
+  p20l2lcc         28    640  -          PAL20L2 (PLCC28)
+  p20l2mlcc        28    640  -          PAL20L2 (LCC28, alternative pin
+                                         numbering)
+  p20p2lcc         28    642  -          PAL20P2 (PLCC28)
+  p20p8lcc         28   2568  -          PAL20P8 (PLCC28)
+  p20rp10alcc      28   3210  -          PAL20RP10A (PLCC28)
+  p20rp4alcc       28   3450  -          PAL20RP4A (PLCC28)
+  p20rp4lcc        28   2568  -          PAL20RP4 (PLCC28)
+  p20rp6alcc       28   3370  -          PAL20RP6A (PLCC28)
+  p20rp6lcc        28   2568  -          PAL20RP6 (PLCC28)
+  p20rp8alcc       28   3290  -          PAL20RP8A (PLCC28)
+  p20rs10lcc       28   3338  -          PAL20RS10 (PLCC28)
+  p20rs10mlcc      28   3338  -          PAL20RS10 (LCC28, alternative pin
+                                         numbering)
+  p20rs4lcc        28   3330  -          PAL20RS4 (PLCC28)
+  p20rs8lcc        28   3338  -          PAL20RS8 (PLCC28)
+  p20rs8mlcc       28   3338  -          PAL20RS8 (LCC28, alternative pin
+                                         numbering)
+  p20rsp4lcc       28   2688  -          PAL20RSP4 (PLCC28)
+  p20rsp6lcc       28   2692  -          PAL20RSP6 (PLCC28)
+  p20rsp8lcc       28   2696  -          PAL20RSP8 (PLCC28)
+  p20s10lcc        28   3322  -          PAL20S10 (PLCC28)
+  p20s10mlcc       28   3322  -          PAL20S10 (LCC28, alternative pin
+                                         numbering)
+  p20sp8lcc        28   2680  -          PAL20SP8 (PLCC28)
+  p20x10lcc        28   1600  -          PAL20X10 (PLCC28)
+  p20x10mlcc       28   1600  -          PAL20X10 (LCC28, alternative pin
+                                         numbering)
+  p20x4lcc         28   1600  -          PAL20X4 (PLCC28)
+  p20x4mlcc        28   1600  -          PAL20X4 (LCC28, alternative pin
+                                         numbering)
+  p20x8lcc         28   1600  -          PAL20X8 (PLCC28)
+  p20x8mlcc        28   1600  -          PAL20X8 (LCC28, alternative pin
+                                         numbering)
+  p20xrp10lcc      28   3210  -          PAL20XRP10 (PLCC28)
+  p20xrp4lcc       28   3450  -          PAL20XRP4 (PLCC28)
+  p20xrp6lcc       28   3370  -          PAL20XRP6 (PLCC28)
+  p20xrp8lcc       28   3290  -          PAL20XRP8 (PLCC28)
+  p22p10alcc       28   3970  -          PAL22P10A (PLCC28)
+  p22rx8lcc        28   3616  -          PAL22RX8 (PLCC28)
+  p22vp10lcc       28   5838  -          PAL22VP10 (PLCC28)
+  p22xp10lcc       28   3970  -          PAL22XP10 (PLCC28)
+
+307 mnemonics.
+
+(end of device list)

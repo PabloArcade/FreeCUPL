@@ -1,0 +1,6 @@
+Name range_pa; Partno RANGE_PA; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..5] = [a12..15];
+pin 23 = sel;
+field address = [a15..12];
+sel = address:[A000..DFFF];

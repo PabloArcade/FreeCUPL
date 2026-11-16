@@ -1,0 +1,7 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+FIELD o = [o7..0];
+ORDER: i7..0, %1, !o;
+VECTORS:
+'0F' "0F"
+'0F' HHHHLLLL

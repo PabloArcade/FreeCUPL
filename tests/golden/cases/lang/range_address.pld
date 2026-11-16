@@ -1,0 +1,8 @@
+Name range_ad; Partno RANGE_AD; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..5] = [a12..15];
+pin [21..23] = [ram, rom, io];
+field address = [a15..12];
+ram = address:[1000..2FFF];
+rom = address:[5000..CFFF];
+io = address:F000;

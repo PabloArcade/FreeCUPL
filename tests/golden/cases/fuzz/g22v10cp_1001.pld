@@ -1,0 +1,26 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+/* @flags -jaxm3 */
+pin 1 = !a0;
+pin 2 = a1;
+pin 5 = a2;
+pin 9 = a3;
+pin 11 = a4;
+pin 16 = s0;
+field fa = [a4..0];
+t0 = !(a4);
+t1 = (a1 # a1 & t0 # (!(a0) & a3 & (a3 & !t0 & a4)));
+t2 = (a2 & (a1 # (!a2 & t0 & a1) # !a2 # t1));
+field st = [s0];
+sequenced st {
+  present 0 next 1;
+  present 1 next 0;
+}
+s0.sp = !a1;

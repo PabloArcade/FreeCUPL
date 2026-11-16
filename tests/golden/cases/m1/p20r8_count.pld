@@ -1,0 +1,16 @@
+Name p20r8_co; Partno P20R8_CO; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p20r8;
+pin 2 = en;
+pin 15 = q0;
+pin 16 = !q1;
+pin 17 = q2;
+
+q0.d = q0 $ en;
+q1.d = q1 $ (q0 & en);
+q2.d = q2 $ (q1 & q0 & en);
+
+/* @expect
+q0.d = q0 ^ en
+q1.d = q1 ^ (q0 and en)
+q2.d = q2 ^ (q1 and q0 and en)
+*/

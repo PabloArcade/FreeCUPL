@@ -1,0 +1,24 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8ms;
+/* @flags -jaxf */
+pin [4,5,23] = [in_x, in_y, in_z];
+pin 1 = clk;
+pin 13 = !oe;
+pin 19 = out_a;
+pin 22 = !out_b;
+pin 17 = out_c;
+t0 = !((in_y $ in_z));
+t1 = (in_z $ in_x);
+out_a.d = [in_z,in_x,in_y]:$;
+out_b.d = [in_x,in_y,in_z]:#;
+!out_c = [in_z,in_x]:$;
+out_c.oe = in_y;
+bad_int = in_x & undefined_var;
+out_a.oe = bad_int;

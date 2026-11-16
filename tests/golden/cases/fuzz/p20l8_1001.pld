@@ -1,0 +1,22 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20l8;
+/* @flags -jaxf */
+pin [3,4,6,8,13,23] = [a0, !a1, a2, a3, !a4, !a5];
+pin 15 = q0;
+pin 16 = !q1;
+pin 18 = !q2;
+field fa = [a0..a3];
+q0 = (a2 $ a5) $ ('h'1 # (a2 & !q2)) $ (!q1 & a3 # !a3 & a0 & q1 # !(!q2));
+q0.oe = !a1;
+q1 = !a5 # q2 # a2 # !a3 & a5;
+q2 = a4 # !a1 & q1;
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%6};
+$REPEND

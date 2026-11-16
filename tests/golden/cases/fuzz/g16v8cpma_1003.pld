@@ -1,0 +1,23 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cpma;
+/* @flags -jaxm4 */
+pin 3 = in_x;
+pin 7 = in_y;
+pin 11 = in_z;
+pin 18 = out_a;
+pin 19 = out_b;
+pin 15 = out_c;
+pin 16 = out_d;
+pin 13 = out_e;
+out_a = [in_z,in_y,in_x]:$;
+out_b = (((in_x $ !in_y) & (!in_z # in_z)) $ (in_y & !in_y & !in_y & in_y));
+out_c = in_z;
+out_d = [in_x,in_y]:&;
+out_e = out_a # !in_x & out_c # !out_d;

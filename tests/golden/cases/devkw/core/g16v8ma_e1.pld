@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16v8ma;
+pin 8 = !Undef;
+pin 5 = i1;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = vectors;
+pin 15 = o3;
+pin 12 = o4;
+
+o0 = (Undef $ i1);
+o0.oe = Undef;
+o1 = ((Undef & i1) # (!Undef & !i1));
+o1.oe = (!Undef & i1);
+vectors = !i1;
+o3 = ((vectors & !Undef & i1) # (i1 & !vectors & !Undef) # (Undef & vectors));
+o4 = ((i1 & vectors) # (vectors & !Undef));
+o4.oe = Undef;
+
+/* @expect
+o0 = (Undef ^ i1)
+o0.oe = Undef
+o1 = ((Undef and i1) or ((not Undef) and (not i1)))
+o1.oe = ((not Undef) and i1)
+vectors = (not i1)
+o3 = ((vectors and (not Undef) and i1) or (i1 and (not vectors) and (not Undef)) or (Undef and vectors))
+o4 = ((i1 and vectors) or (vectors and (not Undef)))
+o4.oe = Undef
+*/

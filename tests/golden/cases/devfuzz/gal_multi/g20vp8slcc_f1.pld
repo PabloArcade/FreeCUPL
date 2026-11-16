@@ -1,0 +1,29 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Location x;
+Device g20vp8slcc;
+pin 2 = a0;
+pin 21 = a1;
+pin 25 = a2;
+pin 11 = q0;
+pin 10 = q1;
+pin 17 = q2;
+pin 19 = q3;
+pin 16 = q4;
+pin 13 = q5;
+t0 = (a0 $ a2);
+APPEND q0 = !a1 & !t0;
+APPEND q0 = !a0;
+!q3 = ((a0 $ a1) & (t0 # a0) & (!a2 & !a2) # !a2 # (a1 $ !t0));
+!q4 = [a1,a0,a2]:$;
+!q5 = a0;
+q1.tec = 'b'0;
+q4.tec = 'b'0;
+condition {
+  if !a1 out q1;
+  if a1 out q2;
+}

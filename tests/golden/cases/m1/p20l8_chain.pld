@@ -1,0 +1,22 @@
+Name p20l8_ch; Partno P20L8_CH; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p20l8;
+pin 1 = a;
+pin 2 = b;
+pin 3 = c;
+pin 4 = d;
+pin 16 = !y1;
+pin 17 = y2;
+pin 18 = !y3;
+pin 22 = y4;
+
+y1 = a & b;
+y2 = y1 # c;
+y3 = !y2 & d;
+y4 = y3 $ y1;
+
+/* @expect
+y1 = a and b
+y2 = y1 or c
+y3 = not y2 and d
+y4 = y3 ^ y1
+*/

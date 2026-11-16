@@ -1,0 +1,22 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r8mlcc;
+pin 4 = !a0;
+pin 7 = a1;
+pin 9 = !a2;
+pin 12 = a3;
+pin 17 = a4;
+pin 27 = a5;
+pin 25 = !q0;
+APPEND q0.d = a3 & a0;
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)
+q0 = a0;

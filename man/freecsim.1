@@ -1,0 +1,100 @@
+.\" SPDX-License-Identifier: GPL-3.0-or-later
+.TH FREECSIM 1 2026-11-16 "FreeCUPL 1.0.0" "User Commands"
+.SH NAME
+freecsim \- CSIM compatible PLD simulator
+.SH SYNOPSIS
+.B freecsim
+.RI [ \-flags ]
+.RI [ options ]
+.RI [ library ]
+.RI [ device ]
+.IR file [ .si ]
+.SH DESCRIPTION
+.B freecsim
+applies the test vectors of
+.IB file .si
+to the design compiled by
+.BR freecupl (1)
+into the absolute file
+.IB file .abs\fR,
+writes the waveform file
+.IB file .wo
+and, on request, the listing
+.IB file .so
+and test vectors appended to the JEDEC file.
+Its command line follows the simulator of WinCUPL 5.0a.
+.PP
+Each input name is tried in lower case first, then in upper case.
+.IR device ,
+when given, must be the device of the absolute file.
+.I library
+is accepted and ignored.
+.PP
+The same simulation is run by
+.BR "freecupl \-s" .
+.SH FLAGS
+.TP
+.B \-l
+Write the listing
+.IB file .so\fR.
+.TP
+.B \-v
+Also show the listing on the terminal.
+.TP
+.B \-j
+Append the test vectors to the JEDEC file named after the design's
+.B Name
+header item, or
+.IB file .jed
+with
+.BR \-n .
+.TP
+.B \-n
+See
+.BR \-j .
+.TP
+.B \-u
+The next positional argument is the library (ignored).
+.TP
+.B \-w \-d
+Accepted; no effect.
+.SH OPTIONS
+.TP
+.B \-fix
+Correct the bugs of WinCUPL 5.0a's simulator instead of reproducing them.
+.TP
+.B \-compat\-refdefect
+The default: reproduce WinCUPL 5.0a's behaviour, including its bugs.
+.TP
+.B \-simlatch
+Simulate latched outputs and registered or latched inputs (timing not
+verified); by default they show X.
+.TP
+.BI \-fuses " FILE.jed"
+Simulate the fuse map of
+.I FILE.jed
+instead of the one in the absolute file.
+.TP
+.B \-info
+Print the design's signals (name, pin, polarity, role) and exit.
+.TP
+.BR \-V ", " \-\-version
+Print the version and exit.
+.SH ENVIRONMENT
+.TP
+.B SOURCE_DATE_EPOCH
+When set to a number of seconds since 1970-01-01 UTC, that time is
+written as the creation date in the listing instead of the current time.
+.SH EXIT STATUS
+0 when the simulation ran without errors; 1 when a file could not be
+read, on an invalid flag, or when the simulation reported errors (for
+example an expected value that differs,
+.BR [0019sa] ).
+.SH SEE ALSO
+.BR freecupl (1);
+docs/USERGUIDE.txt, docs/SIMFMT.txt and docs/BUGS.txt in the FreeCUPL
+distribution.
+.SH COPYRIGHT
+Copyright (C) 2026 DARKSOFT.
+License GPLv3+: GNU GPL version 3 or later.
+This is free software; there is NO WARRANTY.

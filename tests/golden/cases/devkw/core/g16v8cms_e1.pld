@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16v8cms;
+pin 5 = i0;
+pin 4 = !i1;
+pin 3 = !i2;
+pin 9 = !i3;
+pin 13 = device;
+pin 18 = !o1;
+pin 16 = !sequencejk;
+pin 15 = !o3;
+pin 12 = !o4;
+
+device.d = (!i2 & i1);
+o1.d = (device # (!device & !i3));
+sequencejk.d = (i3 & !o1);
+o3 = (!i1 # (!o1 & !sequencejk & i1) # (!sequencejk & device));
+o4.d = (i0 & i2 & !i1);
+
+/* @expect
+device.d = ((not i2) and i1)
+o1.d = (device or ((not device) and (not i3)))
+sequencejk.d = (i3 and (not o1))
+o3 = ((not i1) or ((not o1) and (not sequencejk) and i1) or ((not sequencejk) and device))
+o4.d = (i0 and i2 and (not i1))
+*/

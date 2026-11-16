@@ -1,0 +1,24 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f18v8zs;
+
+ORDER: !in_w, in_v, in_z, in_y, in_x, %2, out_a;
+
+VECTORS:
+00011 *
+01101 *
+1X000 *
+11XX1 *
+00111 *
+11110 H
+10100 *
+00101 *
+00001 *
+00001 *
+00010 *

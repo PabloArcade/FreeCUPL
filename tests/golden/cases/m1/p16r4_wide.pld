@@ -1,0 +1,35 @@
+Name p16r4_wi; Partno P16R4_WI; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16r4;
+pin 2 = a;
+pin 3 = b;
+pin 4 = c;
+pin 5 = d;
+pin 17 = !q;
+pin 12 = y;
+pin 19 = !z;
+
+q.d = a & !b & !c & !d
+    # !a & b & !c & !d
+    # !a & !b & c & !d
+    # a & b & c & !d
+    # !a & !b & !c & d
+    # a & b & !c & d
+    # a & !b & c & d
+    # !a & b & c & d;
+y = q & a;
+z = !q # b;
+z.oe = c;
+
+/* @expect
+q.d = (a and not b and not c and not d)
+    or (not a and b and not c and not d)
+    or (not a and not b and c and not d)
+    or (a and b and c and not d)
+    or (not a and not b and not c and d)
+    or (a and b and not c and d)
+    or (a and not b and c and d)
+    or (not a and b and c and d)
+y = q and a
+z = not q or b
+z.oe = c
+*/

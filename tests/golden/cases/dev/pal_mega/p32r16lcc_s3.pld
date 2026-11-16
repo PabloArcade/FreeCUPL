@@ -1,0 +1,18 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p32r16lcc;
+pin 34 = i0;
+pin 30 = i1;
+pin 37 = i2;
+pin 31 = i3;
+pin 7 = i4;
+pin 13 = !i5;
+pin 21 = o0;
+pin 43 = o1;
+
+o0.d = (!i3 # i3 # (i5 & i0 & i4));
+o1.d = (i0 & !i1 & i5);
+
+/* @expect
+o0.d = ((not i3) or i3 or (i5 and i0 and i4))
+o1.d = (i0 and (not i1) and i5)
+*/

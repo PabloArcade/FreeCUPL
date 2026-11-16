@@ -1,0 +1,266 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# PALs with registered (r, .DQ) or latched (t, .LQ) inputs.  One flag fuse
+# per input pin, set when the pin is read directly.
+# Generated from probe results; do not edit by hand.
+
+device p19l8r
+descr P19L8R
+partname p19l8r PAL19L8R (registered inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+lines p2 p23 p3 p1 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p13 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=49-55 oe=48 pol=l reg=0
+mc 17 gen sum=41-47 oe=40 pol=l reg=0
+mc 18 gen sum=33-39 oe=32 pol=l reg=0
+mc 19 gen sum=25-31 oe=24 pol=l reg=0
+mc 20 gen sum=17-23 oe=16 pol=l reg=0
+mc 21 gen sum=9-15 oe=8 pol=l reg=0
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+inflag dq
+end
+
+device p19r4r
+descr P19R4R
+partname p19r4r PAL19R4R (registered inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=49-55 oe=48 pol=l reg=0
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=9-15 oe=8 pol=l reg=0
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+inflag dq
+end
+
+device p19r6r
+descr P19R6R
+partname p19r6r PAL19R6R (registered inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=48-55 pol=l oe=pin reg=1
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=8-15 pol=l oe=pin reg=1
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+inflag dq
+end
+
+device p19r8r
+descr P19R8R
+partname p19r8r PAL19R8R (registered inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=56-63 pol=l oe=pin reg=1
+mc 16 gen sum=48-55 pol=l oe=pin reg=1
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=8-15 pol=l oe=pin reg=1
+mc 22 gen sum=0-7 pol=l oe=pin reg=1
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+inflag dq
+end
+
+device p19l8t
+# Simulator: input latches transparent while pin 2 is high.
+simle 2
+descr P19L8T
+partname p19l8t PAL19L8T (latched inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+lines p2 p23 p3 p1 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p13 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=49-55 oe=48 pol=l reg=0
+mc 17 gen sum=41-47 oe=40 pol=l reg=0
+mc 18 gen sum=33-39 oe=32 pol=l reg=0
+mc 19 gen sum=25-31 oe=24 pol=l reg=0
+mc 20 gen sum=17-23 oe=16 pol=l reg=0
+mc 21 gen sum=9-15 oe=8 pol=l reg=0
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+end
+
+device p19r4t
+# Simulator: input latches transparent while pin 2 is high.
+simle 2
+descr P19R4T
+partname p19r4t PAL19R4T (latched inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=49-55 oe=48 pol=l reg=0
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=9-15 oe=8 pol=l reg=0
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+end
+
+device p19r6t
+# Simulator: input latches transparent while pin 2 is high.
+simle 2
+descr P19R6T
+partname p19r6t PAL19R6T (latched inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=57-63 oe=56 pol=l reg=0
+mc 16 gen sum=48-55 pol=l oe=pin reg=1
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=8-15 pol=l oe=pin reg=1
+mc 22 gen sum=1-7 oe=0 pol=l reg=0
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+end
+
+device p19r8t
+# Simulator: input latches transparent while pin 2 is high.
+simle 2
+descr P19R8T
+partname p19r8t PAL19R8T (latched inputs)
+pins 24
+power 12 24
+fuses 2443
+array 38 64
+clock 1
+oepin 13
+const 2433
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11
+mc 15 gen sum=56-63 pol=l oe=pin reg=1
+mc 16 gen sum=48-55 pol=l oe=pin reg=1
+mc 17 gen sum=40-47 pol=l oe=pin reg=1
+mc 18 gen sum=32-39 pol=l oe=pin reg=1
+mc 19 gen sum=24-31 pol=l oe=pin reg=1
+mc 20 gen sum=16-23 pol=l oe=pin reg=1
+mc 21 gen sum=8-15 pol=l oe=pin reg=1
+mc 22 gen sum=0-7 pol=l oe=pin reg=1
+inflag 23 2432
+inflag 2 2433
+inflag 3 2434
+inflag 4 2435
+inflag 5 2436
+inflag 6 2437
+inflag 7 2438
+inflag 8 2439
+inflag 9 2440
+inflag 10 2441
+inflag 11 2442
+end

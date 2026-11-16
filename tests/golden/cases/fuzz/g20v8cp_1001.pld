@@ -1,0 +1,36 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cp;
+
+pin 2 = !a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 7 = a3;
+pin 10 = a4;
+pin 14 = a5;
+pin 16 = q0;
+pin 21 = !s0;
+pin 22 = q2;
+pin 19 = s1;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = !a2;
+q2 = [a3,a1]:&;
+field st = [s0,s1];
+sequence st {
+  present 1 if a5 next 0; if !a5 next 2;
+  present 3 next 1;
+}
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

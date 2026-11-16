@@ -1,0 +1,35 @@
+Name     addrdec;
+Partno   EX004;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   p16l8;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* The address is given as a hex value for the field maddr (6 bits:
+   a15..a10) and ioaddr (2 bits: a7..a6).  The chip selects are listed
+   by name, so H means "selected". */
+
+ORDER: mreq, iorq, %2, maddr, %2, ioaddr, %2,
+       rom_cs, ram_cs, vid_cs, uart_cs, pio_cs;
+
+VECTORS:
+$MSG "no request: nothing selected";
+0 0 '00' '0' LLLLL
+0 0 '3F' '3' LLLLL
+$MSG "memory: ROM, RAM, video, unused";
+1 0 '00' '0' HLLLL
+1 0 '0F' '0' HLLLL
+1 0 '10' '0' LHLLL
+1 0 '2F' '0' LHLLL
+1 0 '30' '0' LLHLL
+1 0 '31' '0' LLHLL
+1 0 '32' '0' LLLLL
+1 0 '3F' '0' LLLLL
+$MSG "I/O: none, UART, parallel port";
+0 1 '00' '1' LLLLL
+0 1 '00' '2' LLLHL
+0 1 '00' '3' LLLLH

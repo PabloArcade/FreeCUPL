@@ -1,0 +1,24 @@
+Name G1002;
+Partno P1002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16h2;
+
+ORDER: a0, a1, a2, %2, q0;
+
+VECTORS:
+00X *
+100 *
+000 *
+101 N
+001 *
+000 L
+001 *
+101 *
+101 *
+100 *
+X01 *

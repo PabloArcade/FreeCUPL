@@ -1,0 +1,22 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p1016ld8;
+/* @flags -jaxm0 */
+pin 2 = !in_x;
+pin 3 = in_y;
+pin 11 = in_z;
+pin 14 = in_w;
+pin 15 = in_v;
+pin 22 = in_u;
+pin 23 = in_t;
+pin 1 = clk;
+pin 5 = out_a;
+t0 = in_t;
+t1 = ((in_w $ !in_u) $ (!(!t0) & in_y & !(!in_w)) $ (in_w # !in_x # !in_v) # !(in_y) # in_z);
+!out_a.l = in_y;

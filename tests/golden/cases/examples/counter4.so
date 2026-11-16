@@ -1,0 +1,58 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: counter4.si
+
+   1: Name     counter4;
+   2: Partno   EX002;
+   3: Revision 01;
+   4: Date     11/16/26;
+   5: Designer DARKSOFT;
+   6: Company  FreeCUPL;
+   7: Assembly None;
+   8: Location None;
+   9: Device   g22v10;
+  10: 
+  11: /* SPDX-License-Identifier: GPL-3.0-or-later */
+  12: /* reset, count up through the wrap, hold, count down, preset */
+  13: 
+  14: FIELD count = [q3,q2,q1,q0];
+  15:
+  16: ORDER: clk, %1, rst, pre, en, dir, %2, count, %2, tc;
+  17: 
+
+========================
+      c rp d            
+      l srei        t   
+      k tenr  count c   
+========================
+reset
+0001: 0 1000  LLLL  H
+count up
+0002: C 0011  LLLH  L
+0003: C 0011  LLHL  L
+0004: C 0011  LLHH  L
+0005: C 0011  LHLL  L
+0006: C 0011  LHLH  L
+0007: C 0011  LHHL  L
+0008: C 0011  LHHH  L
+0009: C 0011  HLLL  L
+0010: C 0011  HLLH  L
+0011: C 0011  HLHL  L
+0012: C 0011  HLHH  L
+0013: C 0011  HHLL  L
+0014: C 0011  HHLH  L
+0015: C 0011  HHHL  L
+0016: C 0011  HHHH  H
+0017: C 0011  LLLL  L
+hold
+0018: C 0001  LLLL  L
+count down
+0019: C 0010  HHHH  L
+0020: C 0010  HHHL  L
+preset
+0021: C 0100  HHHH  L
+asynchronous reset
+0022: 0 1000  LLLL  H

@@ -1,0 +1,23 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16l2;
+pin 3 = a0;
+pin 12 = a1;
+pin 17 = a2;
+pin 15 = q0;
+pin 16 = !q1;
+field fa = [a0..a1];
+t0 = !((!(a1) # (a2 # !a1)));
+t1 = a1;
+t2 = !(a2);
+q0 = t1 # a0 & !t1 # t1;
+condition {
+  if a2 & !a0 out q1;
+  default out q1;
+}

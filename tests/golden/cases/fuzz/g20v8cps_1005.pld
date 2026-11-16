@@ -1,0 +1,31 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cps;
+
+pin 1 = a0;
+pin 3 = a1;
+pin 4 = a2;
+pin 8 = a3;
+pin 9 = a4;
+pin 11 = a5;
+pin 14 = a6;
+pin 1 = clk;
+pin 19 = q0;
+pin 16 = !q1;
+pin 20 = q2;
+pin 18 = q3;
+field fa = [a0..a4];
+t0 = !a5 & !(a2) # (a2 # !a6) # !a2 & !a6 & !a6 & !a0;
+q0 = t0;
+!q1 = a4 $ !(a6) $ 'h'1;
+q2 = a3;
+q3 = (((!a4 # a5) & (t0 # a1 # !a6)) $ !a5);
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%7};
+$REPEND

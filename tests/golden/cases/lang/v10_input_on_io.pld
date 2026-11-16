@@ -1,0 +1,4 @@
+Name v10_inpu; Partno V10_INPU; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 23 = b; pin 22 = y; pin 14 = c;
+y = a & b # c;

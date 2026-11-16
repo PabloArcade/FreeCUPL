@@ -1,0 +1,27 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Assembly x;
+Location x;
+Device p16l2;
+
+ORDER: a0, !a2, a1, a3, %2, q0;
+
+VECTORS:
+0101 *
+1001 *
+0101 *
+00X0 *
+$REPEAT 4;
+1101 *
+001X N
+1110 *
+X001 L
+1100 *
+1100 N
+1011 *
+1111 *
+0110 *
+1X10 *

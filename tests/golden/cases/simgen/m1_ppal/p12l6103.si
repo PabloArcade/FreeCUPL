@@ -1,0 +1,34 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p12l6;
+
+ORDER: a0, a1, a2, %2, q0, q1, q2;
+
+VECTORS:
+000 ***
+110 ***
+$MSG "vector 3";
+001 ***
+100 ***
+100 ***
+011 ***
+100 ***
+X00 N**
+001 ***
+111 ***
+10X HLH
+X01 ***
+100 *N*
+101 ***
+110 ***
+01X ***
+000 ***
+1X1 ***
+110 ***
+000 ***

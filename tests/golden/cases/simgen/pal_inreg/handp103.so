@@ -1,0 +1,38 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P19R8T follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: handp103.si
+
+   1: Name P;
+   2: Device p19r8t;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: clk, i5, i11, i8, i23, %2, !o15, o22;
+   5: 
+
+==================
+             !    
+      c i i  oo   
+      li1i2  12   
+      k5183  52   
+==================
+0001: C0100  XX
+0002: C0110  XX
+vector 3
+0003: C1001  XX
+0004: C0011  XX
+0005: C1110  XX
+0006: CXXX0  XX
+0007: C0010  XX
+             ^^
+[0019sa] user expected (H) for o15
+[0019sa] user expected (L) for o22
+
+0008: C1001  XX
+0009: C0110  XN
+0010: C1111  XN
+0011: KX011  XX
+0012: C1011  XX

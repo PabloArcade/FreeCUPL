@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p1016rd4;
+pin 11 = Base;
+pin 10 = !i1;
+pin 3 = !i2;
+pin 23 = !i3;
+pin 5 = o0;
+pin 20 = vectors;
+pin 17 = o2;
+pin 8 = o3;
+pin 4 = o4;
+
+o0.d = (i1 $ i3);
+vectors.d = 'b'0;
+o2 = i3;
+o3 = ((i3 & !o2 & !o0) # i2 # !Base);
+o4 = (i3 # (o0 & i1 & !vectors) # (!i2 & o3 & !o0));
+
+/* @expect
+o0.d = (i1 ^ i3)
+vectors.d = 0
+o2 = i3
+o3 = ((i3 and (not o2) and (not o0)) or i2 or (not Base))
+o4 = (i3 or (o0 and i1 and (not vectors)) or ((not i2) and o3 and (not o0)))
+*/

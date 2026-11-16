@@ -1,0 +1,17 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r6mlcc;
+pin [6,10,27] = [in_x, in_y, in_z];
+pin 24 = out_a;
+pin 25 = !out_b;
+pin 23 = out_c;
+t0 = !(!(!(!in_z)));
+out_a.d = [in_y,in_x,in_z]:$;
+APPEND out_b.d = !t0;
+out_c.d = (!(t0) # (in_y & out_a & out_a) # (out_a $ in_z)) & in_y & in_x;

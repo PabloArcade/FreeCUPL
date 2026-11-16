@@ -1,0 +1,42 @@
+Name     shift8;
+Partno   EX005;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g22v10;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* 8-bit serial-in, parallel-out shift register with shift enable and
+   clear, a "not zero" flag and a three-state serial output.
+   Shows: $REPEAT with preprocessor arithmetic ({i-1}), APPEND to build
+   a sum term by term, .AR, and an output enable (.OE) from a pin. */
+
+pin 1  = clk;
+pin 2  = sin;                    /* serial input */
+pin 3  = sh;                     /* 1 = shift on the clock, 0 = hold */
+pin 4  = clr;                    /* asynchronous clear */
+pin 5  = soe;                    /* serial output enable */
+pin [14..21] = ![q0..7];         /* parallel outputs */
+pin 22 = nz;                     /* 1 when any bit is set */
+pin 23 = sout;                   /* serial output (q7), three-state */
+
+field data = [q7..0];
+
+q0.d = sh & sin # !sh & q0;
+$REPEAT i = [1..7]
+q{i}.d = sh & q{i-1} # !sh & q{i};
+$REPEND
+
+data.ar = clr;
+data.sp = 'h'0;                  /* no synchronous preset */
+
+nz = q0;
+$REPEAT i = [1..7]
+APPEND nz = q{i};
+$REPEND
+
+sout = q7;
+sout.oe = soe;

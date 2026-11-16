@@ -1,0 +1,53 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20ra100.si
+
+   1: Name G9004;
+   2: Partno P9004;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20ra10;
+  10: 
+  11: ORDER: a3, a4, a1, a0, a2, %2, q0, q1, q2;
+  12: 
+
+===================
+      aaaaa  qqq   
+      34102  012   
+===================
+0001: 0X000  XZL
+0002: 01111  XXL
+0003: 00001  XZL
+0004: 01111  XXL
+0005: 0001X  XXL
+0006: 0001X  XXL
+0007: 0001X  XXL
+0008: 010X1  XXL
+0009: 01111  XXL
+0010: 011X0  XXL
+0011: 11100  XZL
+0012: 10001  XZL
+0013: 11001  XZL
+0014: 01101  XZL
+             ^^
+[0019sa] user expected (L) for q0
+[0019sa] user expected (L) for q1
+
+0015: 11001  XZL
+0016: 00100  XZL
+0017: 00001  XZL
+0018: 01011  NXL
+0019: 01111  XXL
+0020: 11111  XXL
+0021: 01001  XZL
+0022: 01100  XZL
+0023: 10101  XZL
+0024: 10001  XZL
+0025: 01111  XXL

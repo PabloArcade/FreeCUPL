@@ -1,0 +1,40 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g22v1000.si
+
+   1: Name G1003;
+   2: Partno P1003;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g22v10cp;
+  10: 
+  11: ORDER: clk, !in_x, in_y, in_z, %2, !out_a, out_b, out_c;
+  12: 
+
+==================
+            !     
+       !    ooo   
+       iii  uuu   
+      cnnn  ttt   
+      l___  ___   
+      kxyz  abc   
+==================
+0001: 1X01  LXH
+0002: 0001  LHH
+0003: 01X0  LHZ
+0004: C000  LNZ
+0005: C000  LHZ
+0006: C011  LHZ
+0007: C101  LHH
+0008: C001  LHH
+0009: C111  NHZ
+0010: PX11  XX1
+0011: C101  LHH
+0012: KX00  LXZ

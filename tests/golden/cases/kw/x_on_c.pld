@@ -1,0 +1,6 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16sp8;
+pin 1 = a0; pin 2 = a1; pin 3 = a2; pin 18 = y; pin 19 = w;
+field fa = [a0..a1];
+ON = (!a1 $ 'b'1);
+y = fa:[3..3];

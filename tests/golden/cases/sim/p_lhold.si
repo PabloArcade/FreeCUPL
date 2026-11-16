@@ -1,0 +1,14 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+ORDER: s, r, e, %2, q;
+VECTORS:
+$TRACE 1;
+101 *
+001 *
+001 *
+011 *
+001 *
+000 *
+001 *
+101 *
+100 *

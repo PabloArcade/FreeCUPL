@@ -1,0 +1,31 @@
+Name G1006;
+Partno P1006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8ms;
+
+ORDER: !clk, a1, a2, a3, a0, %2, !q0, q1, q2, q3, q4;
+
+VECTORS:
+C0111 N****
+00001 *****
+C0001 *****
+11001 *****
+C0111 *****
+K1000 *****
+C1X10 ****N
+0011X *****
+C0001 *****
+C0011 HHLHH
+K0111 *****
+P1010 0XX0X
+10111 *****
+C0111 *****
+P10X0 0XX1X
+01110 *****
+11110 *****
+0X00X *****

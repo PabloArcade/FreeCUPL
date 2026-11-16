@@ -1,0 +1,44 @@
+Name     counter4;
+Partno   EX002;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g22v10;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* reset, count up through the wrap, hold, count down, preset */
+
+ORDER: clk, %1, rst, pre, en, dir, %2, count, %2, tc;
+
+VECTORS:
+$MSG "reset";
+0 1000 LLLL H
+$MSG "count up";
+C 0011 LLLH L
+C 0011 LLHL L
+C 0011 LLHH L
+C 0011 LHLL L
+C 0011 LHLH L
+C 0011 LHHL L
+C 0011 LHHH L
+C 0011 HLLL L
+C 0011 HLLH L
+C 0011 HLHL L
+C 0011 HLHH L
+C 0011 HHLL L
+C 0011 HHLH L
+C 0011 HHHL L
+C 0011 HHHH H
+C 0011 LLLL L
+$MSG "hold";
+C 0001 LLLL L
+$MSG "count down";
+C 0010 HHHH L
+C 0010 HHHL L
+$MSG "preset";
+C 0100 HHHH L
+$MSG "asynchronous reset";
+0 1000 LLLL H

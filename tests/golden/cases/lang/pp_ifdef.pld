@@ -1,0 +1,20 @@
+Name pp_ifdef; Partno PP_IFDEF; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+$DEFINE PROTO x
+pin 2 = a; pin 3 = b;
+$IFDEF PROTO
+pin 19 = y;
+$ELSE
+pin 18 = y;
+$ENDIF
+$IFNDEF PROTO
+y = a;
+$ELSE
+y = b;
+$ENDIF
+$IFDEF NOTDEFINED
+this is ignored entirely ;
+$IFDEF PROTO
+nested also ignored ;
+$ENDIF
+$ENDIF

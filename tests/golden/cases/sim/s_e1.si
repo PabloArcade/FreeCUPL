@@ -1,0 +1,15 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+/* comment */
+ORDER: a, b, %2, y, z;
+VECTORS:
+00 LL
+$MSG "hello";
+01 LL /* c */
+10 LH
+$MSG "";
+11 HH
+ORDER: a, %1, b, %1, c, %1, d, %3, y, %1, z, %1, w;
+VECTORS:
+0 0 0 0 L L L
+1 1 1 1 H H L

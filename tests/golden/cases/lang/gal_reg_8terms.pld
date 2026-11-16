@@ -1,0 +1,6 @@
+Name galr8; Partno X; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8ms;
+/* registered mode: a register may use all 8 rows */
+pin 1 = clk; pin 2 = x; pin 3 = y; pin 4 = z; pin 5 = v; pin 6 = t; pin 11 = oe;
+pin 15 = q;
+q.d = ((t $ x) & (y # x # z) & (z $ y)) $ v;

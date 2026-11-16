@@ -1,0 +1,27 @@
+Name G33;
+Partno P33;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hlcc;
+
+ORDER: clk, a0, a2, !a4, a1, a5, a3, %2, !s0, q1, q2;
+
+VECTORS:
+CX01110 ***
+C011100 ***
+C010000 ***
+K101011 ***
+$REPEAT 4;
+C111100 ***
+C00110X ***
+C110010 HHH
+C101101 ***
+P111110 01X
+P100011 00X
+C111011 N**
+C10X101 *N*
+1010001 ***

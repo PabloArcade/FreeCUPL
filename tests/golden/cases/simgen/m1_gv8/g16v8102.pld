@@ -1,0 +1,19 @@
+Name G1002;
+Partno P1002;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8;
+/* @flags -jaxm3 */
+pin [2,4,5,6,7,8,9] = [!a0, a1, a2, a3, a4, a5, a6];
+pin 18 = !q0;
+pin 19 = q1;
+pin 13 = q2;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a1;
+q0 = (a2 $ a5);
+q1 = a6 & a0 # !a2 # a1 & a4;
+q2 = ((a2 $ a4) # !(a5)) # (a1 $ a3) # (a5 # !a3) # t0 # a3 # !a3 # !a3;

@@ -1,0 +1,18 @@
+Name R7010; Partno R7010; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750;
+/* @local */ /* @bypass */
+pin 13 = i0;
+pin 3 = i1;
+pin 9 = i2;
+pin 4 = !i3;
+pinnode 30 = o0;
+
+o0.d = ((!i0 & !i3) # (i1 & !i0 & !i2) # (i1 & !i3 & i0));
+o0.ck = i0;
+o0.ar = i0;
+
+/* @expect
+o0.d = (((not i0) and (not i3)) or (i1 and (not i0) and (not i2)) or (i1 and (not i3) and i0))
+o0.ck = i0
+o0.ar = i0
+*/

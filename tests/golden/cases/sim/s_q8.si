@@ -1,0 +1,10 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+FIELD fa = [i7..5];
+FIELD gb = [i4..0];
+FIELD o = [o7..0];
+ORDER: fa, %1, gb, %1, o;
+VECTORS:
+'5' '3' "A3"
+'1''1'"1"
+'1'00000 "FF"

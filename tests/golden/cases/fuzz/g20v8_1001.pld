@@ -1,0 +1,25 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8;
+/* @flags -jaxm3 */
+pin 3 = a0;
+pin 5 = a1;
+pin 6 = !a2;
+pin 9 = a3;
+pin 13 = a4;
+pin 1 = clk;
+pin 21 = !q0;
+field fa = [a1..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0 = [a4,a2,a0]:&;
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

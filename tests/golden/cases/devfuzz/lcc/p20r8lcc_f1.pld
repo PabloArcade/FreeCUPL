@@ -1,0 +1,27 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r8lcc;
+/* @flags -jaxm0kb */
+pin 3 = !a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 9 = a3;
+pin 10 = !a4;
+pin 13 = a5;
+pin 27 = a6;
+pin 26 = s0;
+field fa = [a0..a5];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (!a3 # a2 # !(a1) # !(!a2) # (a1 $ a0));
+t1 = (a5 $ !a4);
+field st = [s0];
+sequence st {
+  present 1 next 1;
+}

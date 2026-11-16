@@ -1,0 +1,222 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL16V8 variant in 24 pins with input and I/O latches (H).  One
+# description per mode: the mode fuses are the same in simple and complex
+# mode, so the mode is taken from the mnemonic.
+# XOR 2048+i, AC1 2120+i, PTE 2128..2191 (always 1), SYN 2192, AC0 2193,
+# signature 2056..2119, 2210..2217 always 1, D/T select 2218+i (1 = D),
+# i = OLMC from pin 23 down to 13.  Clock pin 1, OE pin 10.
+# Input flag fuses 2194..2209, one per line: 1 when the pin is read
+# directly, 0 when unused or read through its latch (.LQ, .IOL).
+# .TEC = 'b'0 clears fuse 2210+i.  In registered mode unused OLMCs keep
+# AC1 = 0 and the array reads the pin (fb=pin).  The automatic mnemonic
+# accepts .D but not .T.
+
+device g16v8hms
+alias g16v8hms registered
+partname g16v8hms GAL16V8H (24 pins, input latches, registered mode)
+descr GAL16V8H registered mode (D or T flip-flops)
+pins 24
+power 12 24
+fuses 2226
+array 32 64
+clock 1
+oepin 10
+fuse syn 2192
+fuse ac0 2193
+ptd 2128
+ues 2056 64
+const 2210-2217
+galregunused 0
+mode registered syn=0 ac0=1
+lines registered p2 f23 p3 f22 p4 f20 p5 f19 p6 f16 p7 f15 p8 f14 p9 f13
+mc 23 gal rows=0-7 xor=2048 ac1=2120 tfuse=2218 tval=0 fb=pin
+mc 22 gal rows=8-15 xor=2049 ac1=2121 tfuse=2219 tval=0 fb=pin
+mc 20 gal rows=16-23 xor=2050 ac1=2122 tfuse=2220 tval=0 fb=pin
+mc 19 gal rows=24-31 xor=2051 ac1=2123 tfuse=2221 tval=0 fb=pin
+mc 16 gal rows=32-39 xor=2052 ac1=2124 tfuse=2222 tval=0 fb=pin
+mc 15 gal rows=40-47 xor=2053 ac1=2125 tfuse=2223 tval=0 fb=pin
+mc 14 gal rows=48-55 xor=2054 ac1=2126 tfuse=2224 tval=0 fb=pin
+mc 13 gal rows=56-63 xor=2055 ac1=2127 tfuse=2225 tval=0 fb=pin
+inflag 2 2194
+inflag 23 2202
+inflag 3 2195
+inflag 22 2203
+inflag 4 2196
+inflag 20 2204
+inflag 5 2197
+inflag 19 2205
+inflag 6 2198
+inflag 16 2206
+inflag 7 2199
+inflag 15 2207
+inflag 8 2200
+inflag 14 2208
+inflag 9 2201
+inflag 13 2209
+libtag g16v8hms DLIB-h-40-4
+tec 23 2210
+tec 22 2211
+tec 20 2212
+tec 19 2213
+tec 16 2214
+tec 15 2215
+tec 14 2216
+tec 13 2217
+refdefect kbnoflip      # B001
+end
+
+device g16v8hs
+alias g16v8hs simple
+partname g16v8hs GAL16V8H (24 pins, input latches, simple mode)
+descr GAL16V8H simple mode
+pins 24
+power 12 24
+fuses 2226
+array 32 64
+clock 1
+oepin 10
+fuse syn 2192
+fuse ac0 2193
+ptd 2128
+ues 2056 64
+const 2210-2217
+mode simple syn=1 ac0=0
+lines simple p2 p1 p3 p23 p4 p22 p5 p20 p6 p15 p7 p14 p8 p13 p9 p10
+mc 23 gal rows=0-7 xor=2048 ac1=2120 tfuse=2218 tval=0
+mc 22 gal rows=8-15 xor=2049 ac1=2121 tfuse=2219 tval=0
+mc 20 gal rows=16-23 xor=2050 ac1=2122 tfuse=2220 tval=0
+mc 19 gal rows=24-31 xor=2051 ac1=2123 tfuse=2221 tval=0
+mc 16 gal rows=32-39 xor=2052 ac1=2124 tfuse=2222 tval=0
+mc 15 gal rows=40-47 xor=2053 ac1=2125 tfuse=2223 tval=0
+mc 14 gal rows=48-55 xor=2054 ac1=2126 tfuse=2224 tval=0
+mc 13 gal rows=56-63 xor=2055 ac1=2127 tfuse=2225 tval=0
+inflag 2 2194
+inflag 1 2202
+inflag 3 2195
+inflag 23 2203
+inflag 4 2196
+inflag 22 2204
+inflag 5 2197
+inflag 20 2205
+inflag 6 2198
+inflag 15 2206
+inflag 7 2199
+inflag 14 2207
+inflag 8 2200
+inflag 13 2208
+inflag 9 2201
+inflag 10 2209
+libtag g16v8hs DLIB-h-40-4
+tec 23 2210
+tec 22 2211
+tec 20 2212
+tec 19 2213
+tec 16 2214
+tec 15 2215
+tec 14 2216
+tec 13 2217
+refdefect kbnoflip      # B001
+end
+
+device g16v8hma
+alias g16v8hma complex
+partname g16v8hma GAL16V8H (24 pins, input latches, complex mode)
+descr GAL16V8H complex mode
+pins 24
+power 12 24
+fuses 2226
+array 32 64
+clock 1
+oepin 10
+fuse syn 2192
+fuse ac0 2193
+ptd 2128
+ues 2056 64
+const 2210-2217
+mode complex syn=1 ac0=0
+lines complex p2 p1 p3 f22 p4 f20 p5 f19 p6 f16 p7 f15 p8 f14 p9 p10
+mc 23 gal rows=0-7 xor=2048 ac1=2120 tfuse=2218 tval=0
+mc 22 gal rows=8-15 xor=2049 ac1=2121 tfuse=2219 tval=0
+mc 20 gal rows=16-23 xor=2050 ac1=2122 tfuse=2220 tval=0
+mc 19 gal rows=24-31 xor=2051 ac1=2123 tfuse=2221 tval=0
+mc 16 gal rows=32-39 xor=2052 ac1=2124 tfuse=2222 tval=0
+mc 15 gal rows=40-47 xor=2053 ac1=2125 tfuse=2223 tval=0
+mc 14 gal rows=48-55 xor=2054 ac1=2126 tfuse=2224 tval=0
+mc 13 gal rows=56-63 xor=2055 ac1=2127 tfuse=2225 tval=0
+inflag 2 2194
+inflag 1 2202
+inflag 3 2195
+inflag 22 2203
+inflag 4 2196
+inflag 20 2204
+inflag 5 2197
+inflag 19 2205
+inflag 6 2198
+inflag 16 2206
+inflag 7 2199
+inflag 15 2207
+inflag 8 2200
+inflag 14 2208
+inflag 9 2201
+inflag 10 2209
+libtag g16v8hma DLIB-h-40-4
+tec 23 2210
+tec 22 2211
+tec 20 2212
+tec 19 2213
+tec 16 2214
+tec 15 2215
+tec 14 2216
+tec 13 2217
+refdefect kbnoflip      # B001
+end
+
+device g16v8h_auto
+inherit g16v8hms
+alias g16v8h auto simple=g16v8hs complex=g16v8hma registered=g16v8hms autofb=simple via=1
+partname g16v8h GAL16V8H (24 pins, input latches, automatic mode)
+refdefect kbnoflip      # B001
+end
+
+# 28-pin packages.  In the simple-mode variant the line-15 input is on
+# pin 20.
+device g16v8hslcc
+inherit g16v8hs
+alias g16v8hslcc simple
+partname g16v8hslcc GAL16V8H (input latches, simple mode, PLCC28)
+descr G16V8HS in a 28-pin package
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=20 11=0 12=0 13=16 14=17 15=18 16=19 17=0 18=0 19=23 20=24 21=0 22=26 23=27 24=0
+# No .LQ on pin 20 in this package.
+nolatch 20
+libtag g16v8hslcc DLIB-h-40-4
+refdefect kbnoflip      # B001
+end
+
+device g16v8hmalcc
+inherit g16v8hma
+alias g16v8hmalcc complex
+partname g16v8hmalcc GAL16V8H (input latches, complex mode, PLCC28)
+descr G16V8HMA in a 28-pin package
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+libtag g16v8hmalcc DLIB-h-40-4
+end
+
+device g16v8hmslcc
+inherit g16v8hms
+alias g16v8hmslcc registered
+partname g16v8hmslcc GAL16V8H (input latches, registered mode, PLCC28)
+descr G16V8HMS in a 28-pin package
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+libtag g16v8hmslcc DLIB-h-40-4
+refdefect kbnoflip      # B001
+end
+
+device g16v8hlcc_auto
+inherit g16v8hmslcc
+alias g16v8hlcc auto simple=g16v8hslcc complex=g16v8hmalcc registered=g16v8hmslcc autofb=simple via=1
+partname g16v8hlcc GAL16V8H (input latches, automatic mode, PLCC28)
+refdefect kbnoflip      # B001
+end

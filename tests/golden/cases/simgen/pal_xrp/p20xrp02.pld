@@ -1,0 +1,30 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20xrp4lcc;
+pin 4 = a0;
+pin 5 = a1;
+pin 10 = !a2;
+pin 12 = a3;
+pin 2 = clk;
+pin 19 = q0;
+pin 23 = q1;
+field fa = [a3..2];
+t0 = a2;
+t1 = (a1 & a3);
+t2 = !t0;
+APPEND q0 = !t1;
+APPEND q0 = t1 & !a2;
+q0.oe = a1;
+q1.d = !t2 & a0 # a0 & !t0 & !t1 # !a1 # a2 & !t1;
+pin 26 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a3, a2, a1, fflag) # fflag;

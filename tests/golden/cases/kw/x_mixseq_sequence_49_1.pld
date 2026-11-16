@@ -1,0 +1,13 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = a0; pin 3 = a1;
+pin 23 = !ww;
+pin 22 = s3;
+pin 21 = zz;
+pin 20 = s0;
+pin 19 = y;
+field st = [ww,s3,zz,s0];
+sequence st {
+  present 12 next 12;
+  present 6 if a1 next 6 out y;
+}

@@ -1,0 +1,9 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 3 = a0; pin 5 = a1;
+pin 23 = s0; pin 22 = s1; pin 21 = s2;
+field st = [s0,s1,s2];
+sequenced st {
+  present 0 next 1;
+  present 1 if a1 & !a0 next 1; default next 0;
+}

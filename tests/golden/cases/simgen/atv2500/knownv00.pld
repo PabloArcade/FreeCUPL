@@ -1,0 +1,16 @@
+/* @bug B015: reference defect: in the 44-pin ATV2500 library the reference
+   writes the equation of q (PINNODE 45, declared active low) exactly
+   like that of r (PINNODE 46, active high) but reads q through the
+   complementary column, so x = q shows !(i1 & i3) after a clock while y
+   = r shows i1 & i3; the same design on the DIP v2500 (same fuse map)
+   complements q's equation and both outputs show i1 & i3 (see
+   hand_neg_v2500_41.pld); CUPLREF (Node Declaration Statements): '!'
+   defines the polarity of the internal signal */
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v2500lcc;
+PIN 1 = i1; PIN 2 = i2; PIN 3 = i3;
+PINNODE 45 = !q; PINNODE 46 = r; PIN 6 = x; PIN 7 = y;
+q.d = i1 & i3; q.ck = i2;
+r.d = i1 & i3; r.ck = i2;
+x = q;
+y = r;

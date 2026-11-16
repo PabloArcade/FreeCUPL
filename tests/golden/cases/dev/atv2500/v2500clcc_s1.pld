@@ -1,0 +1,21 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500clcc;
+
+/* @local */ /* @bypass */
+pin 22 = i0;
+pin 19 = !i1;
+pin 20 = i2;
+pin 38 = o0;
+pinnode 47 = o1;
+
+o0 = (i2 $ i1);
+o1.t = ((i1 & !i2 & !i0) # (i2 & i1) # (i0 & !o0));
+o1.ck = (i0 & !i1);
+o1.ar = (i2 & i0);
+
+/* @expect
+o0 = (i2 ^ i1)
+o1.t = ((i1 and (not i2) and (not i0)) or (i2 and i1) or (i0 and (not o0)))
+o1.ck = (i0 and (not i1))
+o1.ar = (i2 and i0)
+*/

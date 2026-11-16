@@ -1,0 +1,35 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16z8;
+
+ORDER: in_x, in_z, in_w, !in_u, in_v, in_y, %2, out_a, out_b, !out_c, dq;
+
+VECTORS:
+00X110 ****
+010011 N***
+000000 ****
+010000 ****
+$REPEAT 4;
+010010 **N*
+0010X1 ****
+110011 ****
+101000 ****
+101000 ****
+X1001X ****
+101000 LHHL
+110011 ****
+010000 ****
+000001 ****
+X10010 ****
+11000X ****
+100001 ****
+010001 ****
+0010XX ****
+100000 ****
+110000 ***N

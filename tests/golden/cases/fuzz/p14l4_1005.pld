@@ -1,0 +1,38 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p14l4;
+/* @flags -jaxf */
+pin 3 = a0;
+pin 4 = !a1;
+pin 7 = a2;
+pin 19 = a3;
+pin 16 = q0;
+pin 17 = q1;
+pin 14 = q2;
+field fa = [a0..a1];
+t0 = (a1 $ a0);
+t1 = !((!a0 # !a1 # !a0)) & (a1 $ !a0) & !((a1 & a3));
+t2 = (!a3 $ t0 $ a3);
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+APPEND q0 = !a0;
+!q1 = !(t1 # (t2 $ !t0) # t1 & !t1);
+q2 = fa:[3..3];
+pin 15 = tq0;
+table fa => tq0 {
+  2 => 1;
+  1 => 1;
+  0 => 0;
+  3 => 1;
+}
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

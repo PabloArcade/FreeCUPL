@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p12h6  Library DLIB-h-40-9
+Created         Thu Jan  1 00:00:00 1970
+Name            P
+Partno          0
+Revision        01
+Date            01/01/26
+Designer        x
+Company         x
+Assembly        x
+Location        x
+*QP20 
+*QF384 
+*G0 
+*F0 
+*L00288 10011011101010111111111101101011
+*L00320 10101011111111111010011110101011
+*L00352 11111111000000000000000000000000
+*C0810
+*5C1B

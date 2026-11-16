@@ -1,0 +1,7 @@
+Name gal_20v8; Partno GAL_20V8; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g20v8cp;
+
+pin 2 = a; pin 3 = b; pin 5 = c;
+pin 22 = y; pin 21 = z;
+y = a & b # c;
+z = y;

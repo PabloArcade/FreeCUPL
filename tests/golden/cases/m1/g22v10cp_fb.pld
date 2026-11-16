@@ -1,0 +1,25 @@
+Name g22v10cp; Partno G22V10CP; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10cp;
+pin 2 = a;
+pin 3 = b;
+pin 5 = c;
+pin 6 = d;
+pin 23 = y1;
+pin 22 = !y2;
+pin 20 = y3;
+pin 15 = y4;
+pin 14 = !y5;
+
+y1 = a & b;
+y2 = y1 # c;
+y3 = y2 $ d;
+y4 = !y3 & y1;
+y5 = y4 # !a;
+
+/* @expect
+y1 = a and b
+y2 = y1 or c
+y3 = y2 ^ d
+y4 = not y3 and y1
+y5 = y4 or not a
+*/

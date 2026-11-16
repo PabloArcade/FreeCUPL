@@ -1,0 +1,41 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g20v8a00.si
+
+   1: Name G9004;
+   2: Partno P9004;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g20v8alcc;
+  10: 
+  11: FIELD fa = [a1,a2];
+  12:
+  13: ORDER: clk, a1, !a3, a0, a2, %2, q0, ta, tb;
+  14: 
+
+===================
+      c !          
+      laaaa  qtt   
+      k1302  0ab   
+===================
+0001: 00000  NLL
+0002: 00111  LHL
+0003: 00000  HLL
+0004: 1X011  LXL
+0005: 110X0  HLL
+0006: 01100  HLL
+0007: 10110  HLL
+0008: 01001  LLL
+0009: 00X01  LHL
+0010: 01101  LLL
+0011: 00100  HLL
+0012: 01X00  HLL
+0013: 10100  HLL
+0014: X1100  HLL

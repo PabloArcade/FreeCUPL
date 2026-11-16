@@ -1,0 +1,9 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+FIELD abcde = [i7..5];
+FIELD efg = [i4..3];
+FIELD nopq = [i2..0];
+FIELD oabcdefgh = [o7..0];
+ORDER: abcde, %2, efg, %3, nopq, oabcdefgh;
+VECTORS:
+00000000 ********

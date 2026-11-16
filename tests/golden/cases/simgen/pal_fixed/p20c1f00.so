@@ -1,0 +1,44 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20c1f00.si
+
+   1: Name G9002;
+   2: Partno P9002;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20c1;
+  10: 
+  11: ORDER: in_y, in_x, in_z, %2, !out_a;
+  12: 
+
+===============
+           !   
+           o   
+      iii  u   
+      nnn  t   
+      ___  _   
+      yxz  a   
+===============
+0001: 110  H
+0002: 0X1  L
+0003: 000  H
+0004: 01X  X
+0005: 001  L
+0006: 111  L
+0007: 0X1  L
+0008: 1X1  L
+0009: 010  H
+0010: X01  L
+0011: 011  L
+0012: XXX  X
+0013: 011  L
+0014: 000  N
+0015: 100  H
+0016: 110  H

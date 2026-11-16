@@ -1,0 +1,41 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16z8;
+pin 3 = a0;
+pin 4 = a1;
+pin 5 = a2;
+pin 7 = a3;
+pin 8 = !a4;
+pin 9 = a5;
+pin 10 = !a6;
+pin 15 = s0;
+pin 21 = s1;
+pin 19 = q2;
+field fa = [a0..a2];
+t0 = !((a1 $ !a0));
+t1 = a0;
+t2 = (!a5 # a3);
+!q2.d = !a5 # !a0 # a0 & !a6 # s1;
+field st = [s0,s1];
+sequenced st {
+  present 3 if a1 next 3; if !a0 next 0;
+  present 1 next 3;
+  present 0 next 1;
+  present 2 if !a4 & a1 next 3; default next 3;
+}
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)
+pin 16 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a5, a2, a6, fflag) # fflag;

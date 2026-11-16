@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16z8ms;
+pin 6 = i0;
+pin 5 = !i1;
+pin 4 = !i2;
+pin 10 = !i3;
+pin 16 = endif;
+pin 21 = !o1;
+pin 19 = !o2;
+pin 18 = !o3;
+pin 15 = !o4;
+
+endif.d = (!i2 & i1);
+o1.d = (endif # (!endif & !i3));
+o2.d = (i3 & !o1);
+o3 = (!i1 # (!o1 & !o2 & i1) # (!o2 & endif));
+o4.d = (i0 & i2 & !i1);
+
+/* @expect
+endif.d = ((not i2) and i1)
+o1.d = (endif or ((not endif) and (not i3)))
+o2.d = (i3 and (not o1))
+o3 = ((not i1) or ((not o1) and (not o2) and i1) or ((not o2) and endif))
+o4.d = (i0 and i2 and (not i1))
+*/

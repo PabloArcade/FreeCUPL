@@ -1,0 +1,5 @@
+Name known_not_number; Partno KN_NOTN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+/* @bug B003: reference ignores '!' directly before a number */
+pin 2 = a; pin 19 = y;
+y = a & !'b'1;

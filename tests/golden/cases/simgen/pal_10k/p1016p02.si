@@ -1,0 +1,39 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p1016p8;
+
+ORDER: in_z, in_y, in_x, %2, out_a;
+
+VECTORS:
+101 *
+101 *
+$MSG "vector 3";
+110 *
+001 *
+$REPEAT 3;
+010 *
+X10 *
+001 *
+000 *
+X01 *
+010 *
+010 *
+100 *
+101 H
+01X *
+001 *
+110 *
+010 *
+X11 *
+X00 *
+000 *
+111 *
+010 *
+101 *
+010 *

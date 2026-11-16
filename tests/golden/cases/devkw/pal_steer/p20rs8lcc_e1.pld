@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rs8lcc;
+pin 11 = !off;
+pin 7 = IFDEF;
+pin 21 = o0;
+pin 19 = o1;
+pin 24 = o2;
+
+o0.d = 'b'0;
+o1.d = IFDEF;
+o2.d = ((!o1 & !IFDEF & !o0) # (!o0 & off) # (!o1 & !IFDEF & !off));
+
+/* @expect
+o0.d = 0
+o1.d = IFDEF
+o2.d = (((not o1) and (not IFDEF) and (not o0)) or ((not o0) and off) or ((not o1) and (not IFDEF) and (not off)))
+*/

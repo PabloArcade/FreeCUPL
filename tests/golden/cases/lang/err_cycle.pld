@@ -1,0 +1,5 @@
+Name err_cycl; Partno ERR_CYCL; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+pin 2 = a; pin 19 = y;
+x = w & a; w = x # a;
+y = x;

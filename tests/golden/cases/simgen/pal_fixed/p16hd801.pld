@@ -1,0 +1,40 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16hd8;
+/* @flags -jaxm0 */
+pin 2 = a0;
+pin 3 = a1;
+pin 6 = a2;
+pin 8 = !a3;
+pin 9 = a4;
+pin 17 = q0;
+pin 18 = q1;
+pin 12 = q2;
+field fa = [a3..a4];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = !((a0 # (a2 # a4 # a4) # (a2 # a3 # !a3)));
+t1 = ((a0 & !a4 & t0) & !(!a0)) # (a3 # !(a3));
+q1 = !t0;
+q2 = ((t1 & (q1 # t0)) # (t1 $ a1) # (!a2 & t0 & a1) # !(a0));
+condition {
+  if a1 out q0;
+}
+pin 16 = tq0;
+table fa => tq0 {
+  12 => 1;
+  6 => 0;
+  3 => 1;
+  1D => 0;
+}

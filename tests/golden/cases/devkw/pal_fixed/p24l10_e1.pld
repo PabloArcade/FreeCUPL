@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p24l10;
+pin 6 = i0;
+pin 8 = i1;
+pin 12 = !i2;
+pin 10 = i3;
+pin 27 = !repend;
+pin 4 = i5;
+pin 22 = o0;
+pin 25 = Sequencet;
+pin 20 = o2;
+
+o0 = (i5 $ i3);
+Sequencet = ((i5 & !repend) # (o0 & i0));
+Sequencet.oe = (i3 & !i5);
+o2 = (!i5 & o0 & i1);
+
+/* @expect
+o0 = (i5 ^ i3)
+Sequencet = ((i5 and (not repend)) or (o0 and i0))
+Sequencet.oe = (i3 and (not i5))
+o2 = ((not i5) and o0 and i1)
+*/

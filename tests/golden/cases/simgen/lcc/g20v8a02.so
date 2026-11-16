@@ -1,0 +1,59 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g20v8a02.si
+
+   1: Name G9003;
+   2: Partno P9003;
+   3: Revision 01;
+   4: Designer gen;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device g20v8aslcc;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: ORDER: in_x, in_z, !in_w, in_y, %2, out_a, out_b, out_c, out_d, fo;
+  11: 
+
+====================
+        !   oooo    
+      iiii  uuuu    
+      nnnn  tttt    
+      ____  ____f   
+      xzwy  abcdo   
+====================
+0001: 0111  HHHLL
+0002: 01X1  XXXXX
+vector 3
+0003: X011  HLHLH
+0004: 1111  HLHHL
+0005: 101X  HLXLX
+0006: 101X  HLXLX
+0007: 101X  HLXLX
+0008: 101X  HLXLX
+0009: 0000  LHHHL
+0010: 1111  HLHNL
+0011: 1110  HNLHL
+0012: 1010  HLLLL
+0013: 1001  LHLHH
+0014: 1111  HLHHL
+0015: 1101  LHLHH
+0016: 111X  HLXHL
+            ^ ^
+[0019sa] user expected (L) for out_a
+[0019sa] user expected (L) for out_c
+
+0017: 0100  LHHHH
+0018: 1000  LHHHL
+0019: 1000  LHHHL
+0020: 0000  LHHHL
+0021: 1001  LHLHH
+0022: 0100  LHNHH
+0023: 1110  HLLHL
+0024: 1000  LHHHL
+0025: 1011  HLHLH
+0026: 01X0  XXXXX
+0027: 0101  LHLHH

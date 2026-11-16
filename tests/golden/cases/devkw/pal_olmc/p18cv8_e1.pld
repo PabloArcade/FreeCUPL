@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p18cv8;
+pin 8 = !define;
+pin 5 = i1;
+pin 13 = !o0;
+pin 18 = !o1;
+pin 16 = !o2;
+pin 15 = Jump;
+pin 12 = !o4;
+
+o0 = (!i1 # define # (define & i1));
+o0.oe = (!i1 & !define);
+o1.d = (i1 & !define);
+o2 = (!define # (o1 & !define & i1) # (i1 & !o1 & !define));
+o2.oe = define;
+Jump = ((i1 & o1) # (i1 & o1));
+Jump.oe = (!define & !i1);
+o4 = ((!define & !o1 & !i1) # o1 # (i1 & o1));
+
+/* @expect
+o0 = ((not i1) or define or (define and i1))
+o0.oe = ((not i1) and (not define))
+o1.d = (i1 and (not define))
+o2 = ((not define) or (o1 and (not define) and i1) or (i1 and (not o1) and (not define)))
+o2.oe = define
+Jump = ((i1 and o1) or (i1 and o1))
+Jump.oe = ((not define) and (not i1))
+o4 = (((not define) and (not o1) and (not i1)) or o1 or (i1 and o1))
+*/

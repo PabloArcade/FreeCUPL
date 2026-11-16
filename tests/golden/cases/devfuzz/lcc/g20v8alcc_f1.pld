@@ -1,0 +1,35 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8alcc;
+/* @flags -jaxf */
+pin 6 = in_x;
+pin 10 = in_y;
+pin 13 = in_z;
+pin 2 = clk;
+pin 19 = !out_a;
+pin 25 = out_b;
+pin 20 = !out_c;
+pin 24 = out_d;
+pin 23 = out_e;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = in_x & !in_z & (!(!in_y) # in_z & in_y);
+t1 = in_x;
+t2 = (in_x $ ((t1 # !t1) # in_z) $ ((in_y # !in_z) # !(!t1)));
+out_a.d = !t0;
+out_b.d = OFF & out_d # ON;
+out_c = [in_x,in_y,in_z]:$;
+out_d.d = [in_y,in_z]:&;
+APPEND out_e.d = in_x & out_d;
+pin 26 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_x, in_y, in_z, fflag) # fflag;

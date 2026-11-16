@@ -1,0 +1,14 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p12p6;
+pin 8 = !i0;
+pin 12 = MACRO;
+pin 17 = o0;
+pin 16 = o1;
+
+o0 = 'b'0;
+o1 = (!MACRO & i0);
+
+/* @expect
+o0 = 0
+o1 = ((not MACRO) and i0)
+*/

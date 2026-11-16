@@ -1,0 +1,33 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8ma;
+pin 1 = a0;
+pin 3 = a1;
+pin 6 = !a2;
+pin 8 = a3;
+pin 13 = a4;
+pin 23 = a5;
+pin 20 = q0;
+pin 16 = !q1;
+pin 17 = q2;
+pin 18 = !q3;
+pin 22 = q4;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+!q0 = a0 & a1 # a4 & a2 & a0 # !a4 & a5 & !a3 # a4;
+!q1 = OFF & a4 # ON;
+q1.oe = 'b'1;
+APPEND q2 = !a4;
+q2.oe = a3;
+q4 = a0 & !a3 & a4;
+condition {
+  if a5 out q3;
+}
+bad_int = a0 & undefined_var;
+q0.oe = bad_int;

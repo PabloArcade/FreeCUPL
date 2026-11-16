@@ -1,0 +1,36 @@
+Name p12h6_ga; Partno P12H6_GA; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p12h6;
+pin 1 = i0;
+pin 2 = i1;
+pin 3 = i2;
+pin 4 = i3;
+pin 5 = i4;
+pin 6 = i5;
+pin 7 = i6;
+pin 8 = i7;
+pin 9 = i8;
+pin 11 = i9;
+pin 12 = i10;
+pin 19 = i11;
+pin 18 = y0;
+pin 17 = y1;
+pin 16 = y2;
+pin 15 = y3;
+pin 14 = y4;
+pin 13 = y5;
+
+y0 = i0 & i1;
+y1 = i0 # i2;
+y2 = !i1 & i3;
+y3 = i2 $ i3;
+y4 = !(i0 & i4);
+y5 = i5 & !i6 # i7;
+
+/* @expect
+y0 = i0 and i1
+y1 = i0 or i2
+y2 = not i1 and i3
+y3 = i2 ^ i3
+y4 = not (i0 and i4)
+y5 = i5 and not i6 or i7
+*/

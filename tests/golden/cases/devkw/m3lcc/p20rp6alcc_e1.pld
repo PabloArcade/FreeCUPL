@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rp6alcc;
+pin 11 = !i0;
+pin 7 = ELSE;
+pin 21 = o0;
+pin 19 = o1;
+pin 24 = pinnode;
+
+o0.d = 'b'0;
+o1.d = ELSE;
+pinnode.d = ((!o1 & !ELSE & !o0) # (!o0 & i0) # (!o1 & !ELSE & !i0));
+
+/* @expect
+o0.d = 0
+o1.d = ELSE
+pinnode.d = (((not o1) and (not ELSE) and (not o0)) or ((not o0) and i0) or ((not o1) and (not ELSE) and (not i0)))
+*/

@@ -1,0 +1,27 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device f16v8;
+pin 5 = APPEND;
+pin 4 = !i1;
+pin 3 = !i2;
+pin 9 = !order;
+pin 13 = !o0;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = !o4;
+
+o0 = (!i2 # APPEND # (i1 & APPEND));
+o0.oe = (order & i2);
+o1.d = ((!i1 & APPEND) # (!order & i2) # (!i2 & APPEND & order));
+o2 = !order;
+o3.d = !i1;
+o4 = (o1 # (order & o3));
+
+/* @expect
+o0 = ((not i2) or APPEND or (i1 and APPEND))
+o0.oe = (order and i2)
+o1.d = (((not i1) and APPEND) or ((not order) and i2) or ((not i2) and APPEND and order))
+o2 = (not order)
+o3.d = (not i1)
+o4 = (o1 or (order and o3))
+*/

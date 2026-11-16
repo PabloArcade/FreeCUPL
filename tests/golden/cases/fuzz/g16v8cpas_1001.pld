@@ -1,0 +1,31 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cpas;
+/* @flags -jaxm2 */
+pin 1 = a0;
+pin 2 = a1;
+pin 3 = a2;
+pin 6 = a3;
+pin 11 = a4;
+pin 19 = !q0;
+pin 12 = q1;
+pin 16 = q2;
+pin 15 = !q3;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0 = !((a3 # !a4 # a4)) & !(a4) # !a4 & !a4 & !a0 # 'B'0;
+!q2 = OFF & a4 # OFF;
+q3 = [a0,a2,a4,a3]:#;
+condition {
+  if a3 & !a2 out q1;
+  default out q1;
+}
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%5};
+$REPEND

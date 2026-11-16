@@ -1,0 +1,217 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# ATV750.  10 macrocells with two D registers each: the output register
+# (also PINNODE 35..44) and a buried register (PINNODE 25..34), each with
+# its own sum, CK and AR terms.  One OE term per macrocell, one global SP
+# term (row 170).  The two sums are ORed into the output when the buried
+# register is unused (split fuse 0).  True literals on the odd columns.
+# Per macrocell (pin 23 down to 14) three fuses from 14364: combinational,
+# split, polarity (1 = active high).  Rows after the sum: AR0, CK0, CK1,
+# AR1, OE.  Without .CK a register is never clocked (0016cb).
+
+device v750
+nodedt reject
+descr ATV750
+partname v750 ATV750
+pins 24
+power 12 24
+fuses 14394
+array 84 171
+truecol odd
+sp 170
+lines p13 p11 f25 f14 p14 p10 f26 f15 p15 p9 f27 f16 p16 p8 f28 f17 p17 p7 f29 f18 p18 p6 f30 f19 p19 p5 f31 f20 p20 p4 f32 f21 p21 p3 f33 f22 p22 p2 f34 f23 p23 p1
+mc 14 gen sum=157-164 oe=169 polfuse=14393 polhi=1 reg=14391 regon=0 ck=166 ar=165 alwaysreg=1 split=14392 half=157-160
+mc 25 gen node=1 sum=161-164 reg=1 ck=167 ar=168
+mc 15 gen sum=142-151 oe=156 polfuse=14390 polhi=1 reg=14388 regon=0 ck=153 ar=152 alwaysreg=1 split=14389 half=142-146
+mc 26 gen node=1 sum=147-151 reg=1 ck=154 ar=155
+mc 16 gen sum=125-136 oe=141 polfuse=14387 polhi=1 reg=14385 regon=0 ck=138 ar=137 alwaysreg=1 split=14386 half=125-130
+mc 27 gen node=1 sum=131-136 reg=1 ck=139 ar=140
+mc 17 gen sum=106-119 oe=124 polfuse=14384 polhi=1 reg=14382 regon=0 ck=121 ar=120 alwaysreg=1 split=14383 half=106-112
+mc 28 gen node=1 sum=113-119 reg=1 ck=122 ar=123
+mc 18 gen sum=85-100 oe=105 polfuse=14381 polhi=1 reg=14379 regon=0 ck=102 ar=101 alwaysreg=1 split=14380 half=85-92
+mc 29 gen node=1 sum=93-100 reg=1 ck=103 ar=104
+mc 19 gen sum=64-79 oe=84 polfuse=14378 polhi=1 reg=14376 regon=0 ck=81 ar=80 alwaysreg=1 split=14377 half=64-71
+mc 30 gen node=1 sum=72-79 reg=1 ck=82 ar=83
+mc 20 gen sum=45-58 oe=63 polfuse=14375 polhi=1 reg=14373 regon=0 ck=60 ar=59 alwaysreg=1 split=14374 half=45-51
+mc 31 gen node=1 sum=52-58 reg=1 ck=61 ar=62
+mc 21 gen sum=28-39 oe=44 polfuse=14372 polhi=1 reg=14370 regon=0 ck=41 ar=40 alwaysreg=1 split=14371 half=28-33
+mc 32 gen node=1 sum=34-39 reg=1 ck=42 ar=43
+mc 22 gen sum=13-22 oe=27 polfuse=14369 polhi=1 reg=14367 regon=0 ck=24 ar=23 alwaysreg=1 split=14368 half=13-17
+mc 33 gen node=1 sum=18-22 reg=1 ck=25 ar=26
+mc 23 gen sum=0-7 oe=12 polfuse=14366 polhi=1 reg=14364 regon=0 ck=9 ar=8 alwaysreg=1 split=14365 half=0-3
+mc 34 gen node=1 sum=4-7 reg=1 ck=10 ar=11
+nodealias 35 14
+nodealias 36 15
+nodealias 37 16
+nodealias 38 17
+nodealias 39 18
+nodealias 40 19
+nodealias 41 20
+nodealias 42 21
+nodealias 43 22
+nodealias 44 23
+# PINNODE declared active low: B015.
+refdefect nodeneg
+libtag v750 ATV750
+refdefect kbfbinv       # B002
+end
+
+# 28-pin package: buried registers PINNODE 29..38, output registers
+# 39..48.
+device v750lcc
+inherit v750
+descr ATV750 in a 28-pin package
+partname v750lcc ATV750 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28 25=29 26=30 27=31 28=32 29=33 30=34 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48
+libtag v750lcc ATV750
+end
+
+# ATV750B.  ATV750 map plus 41 fuses from 14394.  Per macrocell (pin 23
+# down to 14, from 14395 + 4i): clock select of the output and of the
+# buried register (1 = pin 1, set only for .CKMUX), then the T select of
+# each.  Fuse 14394 stays 0.
+device v750b
+inherit v750
+descr ATV750B
+partname v750b ATV750B
+fuses 14435
+clock 1
+mc 14 gen sum=157-164 oe=169 polfuse=14393 polhi=1 reg=14391 regon=0 ck=166 ar=165 alwaysreg=1 split=14392 half=157-160 ckmux=14431 tfuse=14433 tval=1
+mc 25 gen node=1 sum=161-164 reg=1 ck=167 ar=168 ckmux=14432 tfuse=14434 tval=1
+mc 15 gen sum=142-151 oe=156 polfuse=14390 polhi=1 reg=14388 regon=0 ck=153 ar=152 alwaysreg=1 split=14389 half=142-146 ckmux=14427 tfuse=14429 tval=1
+mc 26 gen node=1 sum=147-151 reg=1 ck=154 ar=155 ckmux=14428 tfuse=14430 tval=1
+mc 16 gen sum=125-136 oe=141 polfuse=14387 polhi=1 reg=14385 regon=0 ck=138 ar=137 alwaysreg=1 split=14386 half=125-130 ckmux=14423 tfuse=14425 tval=1
+mc 27 gen node=1 sum=131-136 reg=1 ck=139 ar=140 ckmux=14424 tfuse=14426 tval=1
+mc 17 gen sum=106-119 oe=124 polfuse=14384 polhi=1 reg=14382 regon=0 ck=121 ar=120 alwaysreg=1 split=14383 half=106-112 ckmux=14419 tfuse=14421 tval=1
+mc 28 gen node=1 sum=113-119 reg=1 ck=122 ar=123 ckmux=14420 tfuse=14422 tval=1
+mc 18 gen sum=85-100 oe=105 polfuse=14381 polhi=1 reg=14379 regon=0 ck=102 ar=101 alwaysreg=1 split=14380 half=85-92 ckmux=14415 tfuse=14417 tval=1
+mc 29 gen node=1 sum=93-100 reg=1 ck=103 ar=104 ckmux=14416 tfuse=14418 tval=1
+mc 19 gen sum=64-79 oe=84 polfuse=14378 polhi=1 reg=14376 regon=0 ck=81 ar=80 alwaysreg=1 split=14377 half=64-71 ckmux=14411 tfuse=14413 tval=1
+mc 30 gen node=1 sum=72-79 reg=1 ck=82 ar=83 ckmux=14412 tfuse=14414 tval=1
+mc 20 gen sum=45-58 oe=63 polfuse=14375 polhi=1 reg=14373 regon=0 ck=60 ar=59 alwaysreg=1 split=14374 half=45-51 ckmux=14407 tfuse=14409 tval=1
+mc 31 gen node=1 sum=52-58 reg=1 ck=61 ar=62 ckmux=14408 tfuse=14410 tval=1
+mc 21 gen sum=28-39 oe=44 polfuse=14372 polhi=1 reg=14370 regon=0 ck=41 ar=40 alwaysreg=1 split=14371 half=28-33 ckmux=14403 tfuse=14405 tval=1
+mc 32 gen node=1 sum=34-39 reg=1 ck=42 ar=43 ckmux=14404 tfuse=14406 tval=1
+mc 22 gen sum=13-22 oe=27 polfuse=14369 polhi=1 reg=14367 regon=0 ck=24 ar=23 alwaysreg=1 split=14368 half=13-17 ckmux=14399 tfuse=14401 tval=1
+mc 33 gen node=1 sum=18-22 reg=1 ck=25 ar=26 ckmux=14400 tfuse=14402 tval=1
+mc 23 gen sum=0-7 oe=12 polfuse=14366 polhi=1 reg=14364 regon=0 ck=9 ar=8 alwaysreg=1 split=14365 half=0-3 ckmux=14395 tfuse=14397 tval=1
+mc 34 gen node=1 sum=4-7 reg=1 ck=10 ar=11 ckmux=14396 tfuse=14398 tval=1
+libtag v750b ATV750B
+end
+
+device v750blcc
+inherit v750b
+descr ATV750B in a 28-pin package
+partname v750blcc ATV750B (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28 25=29 26=30 27=31 28=32 29=33 30=34 31=35 32=36 33=37 34=38 35=39 36=40 37=41 38=42 39=43 40=44 41=45 42=46 43=47 44=48
+libtag v750blcc ATV750B
+end
+
+# ATF750C.  ATV750B map extended to 14504 fuses; 14437 and 14438 always
+# 1.  The DIP v750c, v750cppk and v750cextppk read the output register
+# after the polarity XOR (mcfb xq); the 28-pin variants and v750cext read
+# Q.  .TFB reads the register like .DFB and sets its T select (B024).
+device v750c
+inherit v750b
+descr ATF750C
+fuses 14504
+const 14437 14438
+tfb
+mcfb xq
+alias v750c
+partname v750c ATF750C
+libtag v750c ATF750C
+end
+
+device v750clcc
+inherit v750blcc
+tfb
+descr ATF750C in a 28-pin package
+fuses 14504
+const 14437 14438
+mcfb q
+fbkind 19 nq
+fbkind 24 nq
+alias v750clcc
+partname v750clcc ATF750C (PLCC28)
+libtag v750clcc ATF750C
+refdefect aliasread 17 18 20 21 23 25 26 27
+end
+
+# ATF750C-PD: power-down pin 4 (fuse 14499 always 1); register read as Q.
+device v750cext
+inherit v750b
+tfb
+descr ATF750C-PD
+fuses 14504
+const 14437 14438
+pd 14499 4
+mcfb q
+alias v750cext
+partname v750cext ATF750C-PD (power-down variant)
+libtag v750cext ATF750C-PD
+refdefect aliasread
+end
+
+device v750cextlcc
+inherit v750blcc
+tfb
+descr ATF750C-PD in a 28-pin package
+fuses 14504
+const 14437 14438
+pd 14499 5
+mcfb q
+alias v750cextlcc
+partname v750cextlcc ATF750C-PD (power-down variant, PLCC28)
+libtag v750cextlcc ATF750C-PD
+refdefect aliasread
+end
+
+# PPK variants: fuse 14500 (pin keeper) also programmed.
+device v750cextppklcc
+inherit v750cextlcc
+descr ATF750C-PD_PPK in a 28-pin package
+partname v750cextppklcc ATF750C-PD_PPK (power-down variant, PLCC28)
+const 14500
+libtag v750cextppklcc DLIB-h-40-2
+end
+
+# ATF750C-PD_PPK: the DIP part reads the register after the polarity,
+# the 28-pin part reads Q.
+device v750cextppk
+inherit v750cext
+descr ATF750C-PD_PPK
+mcfb xq
+const 14500
+alias v750cextppk
+partname v750cextppk ATF750C-PD_PPK (power-down variant)
+libtag v750cextppk ATF750C-PD_PPK
+refdefect aliasread off   # alias read like the pin
+end
+
+# ATF750C-PPK, 28 pins: register read as Q.
+device v750cppklcc
+inherit v750clcc
+descr ATF750C-PPK in a 28-pin package
+const 14500
+fbkind 19 q
+fbkind 24 q
+alias v750cppklcc
+partname v750cppklcc ATF750C-PPK (PLCC28)
+libtag v750cppklcc ATF750C-PPK
+refdefect aliasread 19 24
+end
+
+# ATF750C-PPK DIP: as v750c, except that the pin-16 register is read after
+# the polarity.
+device v750cppk
+inherit v750c
+descr ATF750C-PPK
+fbkind 16 xp
+const 14500
+alias v750cppk
+partname v750cppk ATF750C-PPK
+libtag v750cppk ATF750C-PPK
+refdefect aliasread 16
+end

@@ -1,0 +1,10 @@
+Name pp_defin; Partno PP_DEFIN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE AND2 a & b
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 23 = y; pin 22 = z; pin 21 = w;
+y = AND2 # c & ON;
+z = a & OFF # b;
+w = AND2;

@@ -1,0 +1,31 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20ra10;
+pin [2,3,4,5] = [!a0, a1, a2, a3];
+pin [18,23,20,15,22,21] = [q0,q1,s0,q3,q4,q5];
+field fa = [a0..a3];
+APPEND q0 = s0;
+APPEND q0 = a1;
+q3 = a2 # !q1 # !(!(!q0));
+q5 = fa:[2..7];
+q5.oe = 'b'1;
+condition {
+  if !a1 & !a3 out q1;
+  default out q1;
+}
+field st = [s0];
+sequence st {
+  present 0 if !a0 & a1 next 0 out q4;
+}
+pin 19 = !ta; pin 17 = tb;
+table fa => [ta, tb] {
+  'b'1000 => 0;
+  B => 2;
+  'b'1 => 1;
+}

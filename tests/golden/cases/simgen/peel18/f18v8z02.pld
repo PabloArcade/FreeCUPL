@@ -1,0 +1,31 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f18v8zs;
+/* @flags -jaxkb */
+pin [1,3,4,8] = [!in_x, in_y, in_z, in_w];
+pin 16 = !out_a;
+pin 13 = !out_b;
+pin 18 = !out_c;
+pin 14 = out_d;
+pin 15 = out_e;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = (in_y & !in_x & !in_w) $ in_y $ in_z;
+t1 = !(!in_z);
+t2 = t1;
+out_a = in_y & in_x & t0;
+out_a.oe = in_y;
+out_b = !t2 # in_y & t2 # !t1 & in_w & t0 # !in_y & !in_z;
+out_c = (out_e & !t2) $ t1 # !out_d & out_b # !t0;
+out_d = ((in_x # !in_w & (t2 $ in_y)) & t1 & !in_w);
+out_e = !out_c & out_b & in_x # !in_z;

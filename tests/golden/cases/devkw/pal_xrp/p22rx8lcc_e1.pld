@@ -1,0 +1,26 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22rx8lcc;
+pin 7 = mend;
+pin 27 = i1;
+pin 13 = !i2;
+pin 11 = i3;
+pin 17 = !i4;
+pin 5 = i5;
+pin 25 = o0;
+pin 20 = !o1;
+pin 21 = o2;
+pin 19 = o3;
+
+o0.d = (mend # (mend & i4));
+o1.d = ((!i2 & i1 & mend) # (!i1 & !o0 & i4));
+o2.d = ((!i2 & o1 & !i4) # (!i5 & !i4 & !i3) # (i5 & o0));
+o2.oe = (i1 & !i4);
+o3.d = ((o0 & i2) # !o1 # !i1);
+
+/* @expect
+o0.d = (mend or (mend and i4))
+o1.d = (((not i2) and i1 and mend) or ((not i1) and (not o0) and i4))
+o2.d = (((not i2) and o1 and (not i4)) or ((not i5) and (not i4) and (not i3)) or (i5 and o0))
+o2.oe = (i1 and (not i4))
+o3.d = ((o0 and i2) or (not o1) or (not i1))
+*/

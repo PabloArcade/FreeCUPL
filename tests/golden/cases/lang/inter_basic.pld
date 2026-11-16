@@ -1,0 +1,8 @@
+Name inter_ba; Partno INTER_BA; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 23 = y; pin 22 = z;
+mreq = a # b;
+sel = mreq & c;
+y = sel;
+z = !mreq;

@@ -1,0 +1,36 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8lcc;
+/* @flags -jaxm0 */
+pin 2 = a0;
+pin 3 = a1;
+pin 6 = a2;
+pin 7 = a3;
+pin 10 = a4;
+pin 11 = !a5;
+pin 12 = a6;
+pin 18 = !q0;
+pin 24 = q1;
+pin 21 = !q2;
+pin 20 = q3;
+pin 23 = !q4;
+pin 25 = q5;
+field fa = [a2..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+!q0 = fa:[6,7];
+q0.oe = a3 & !a4;
+q1 = q2;
+q1.oe = !a3 & !a1;
+q2 = fa:'b'X11;
+!q3 = fa:[1,1];
+q4 = ON & a3 # OFF;
+q5 = fa:[1,3];
+bad_int = a0 & undefined_var;
+q0.oe = bad_int;

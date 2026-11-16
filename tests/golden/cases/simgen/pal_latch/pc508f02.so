@@ -1,0 +1,81 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for PC508 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: pc508f02.si
+
+   1: Name G9002;
+   2: Partno P9002;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device pc508;
+  10: 
+  11: ORDER: clk, a0, a1, a3, a2, %2, q0, q1, q2;
+  12: 
+
+===================
+      c            
+      laaaa  qqq   
+      k0132  012   
+===================
+0001: 00010  LLL
+0002: C1010  LLL
+      ^
+[0021sa] invalid test value:  C
+
+vector 3
+0003: C0000  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0004: C1111  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0005: C0011  LNL
+      ^
+[0021sa] invalid test value:  C
+
+0006: C0X11  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0007: CX000  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0008: K1111  LLL
+      ^
+[0021sa] invalid test value:  K
+
+0009: C0001  LLL
+      ^      ^^
+[0021sa] invalid test value:  C
+[0019sa] user expected (H) for q0
+[0019sa] user expected (H) for q1
+
+0010: 10X00  LLL
+0011: C0011  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0012: 01101  LLL
+0013: C1010  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0014: C0110  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0015: C101X  LLL
+      ^
+[0021sa] invalid test value:  C
+
+0016: 00110  LLL

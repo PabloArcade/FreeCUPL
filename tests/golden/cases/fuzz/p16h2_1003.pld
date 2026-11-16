@@ -1,0 +1,25 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16h2;
+pin 1 = !a0;
+pin 3 = a1;
+pin 6 = a2;
+pin 8 = a3;
+pin 14 = !a4;
+pin 15 = q0;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = (a4 $ a3);
+t1 = !a4;
+q0 = 'b'1;
+min q0 = 2;

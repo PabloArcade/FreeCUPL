@@ -1,0 +1,27 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20r4lcc;
+pin 11 = !i0;
+pin 17 = i1;
+pin 19 = o0;
+pin 25 = undef;
+pin 23 = o2;
+pin 21 = Pinnnode;
+pin 18 = o4;
+
+o0 = (i0 $ i1);
+o0.oe = i0;
+undef = ((i0 & i1) # (!i0 & !i1));
+undef.oe = (!i0 & i1);
+o2.d = !i1;
+Pinnnode.d = (!o2 & !i0);
+o4 = ((Pinnnode & !i1) # !o2 # i0);
+
+/* @expect
+o0 = (i0 ^ i1)
+o0.oe = i0
+undef = ((i0 and i1) or ((not i0) and (not i1)))
+undef.oe = ((not i0) and i1)
+o2.d = (not i1)
+Pinnnode.d = ((not o2) and (not i0))
+o4 = ((Pinnnode and (not i1)) or (not o2) or i0)
+*/

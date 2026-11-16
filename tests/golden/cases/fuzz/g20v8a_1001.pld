@@ -1,0 +1,17 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8a;
+pin [3,4,7,8,9] = [in_x, in_y, in_z, in_w, in_v];
+pin 1 = clk;
+pin 21 = out_a;
+pin 20 = !out_b;
+t0 = in_v;
+!out_a = (in_x # (!in_v # !t0 # in_y) # !in_x # in_x # t0);
+out_b = out_a;
+out_b.oe = in_z & in_w;

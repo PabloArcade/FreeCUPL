@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20r8mlcc;
+pin 12 = !i0;
+pin 17 = i1;
+pin 20 = o0;
+pin 25 = format;
+pin 23 = Fuse;
+pin 22 = o3;
+pin 18 = o4;
+
+o0.d = (i0 $ i1);
+format.d = 'b'0;
+Fuse.d = format;
+o3.d = ((format & Fuse & !o0) # o0 # !i0);
+o4.d = (i1 # (!o0 & i1 & Fuse) # (!i1 & o0 & o3));
+
+/* @expect
+o0.d = (i0 ^ i1)
+format.d = 0
+Fuse.d = format
+o3.d = ((format and Fuse and (not o0)) or o0 or (not i0))
+o4.d = (i1 or ((not o0) and i1 and Fuse) or ((not i1) and o0 and o3))
+*/

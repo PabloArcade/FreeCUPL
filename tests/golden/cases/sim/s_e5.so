@@ -1,0 +1,19 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_e5.si
+
+   1: Name T2; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x;
+             ^
+[0025sa] Please note: inconsistent header information
+
+   2: Device g16v8a;
+[0026sa] Please note: missing header item(s) 
+   3: ORDER: a, b, y;
+
+============
+      aby   
+============
+0001: 11H

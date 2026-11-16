@@ -1,0 +1,21 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16l2;
+/* @flags -jaxm0 */
+pin 1 = a0;
+pin 2 = a1;
+pin 13 = a2;
+pin 19 = a3;
+pin [16] = [!q0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !(a3);
+t1 = ((!a3 & a1 & !a1) & (!t0 & a3 & a1) & (a0 & t0 & !a1) & a2 & !((!a3 & t0 & !a1)));
+t2 = (a0 $ t1);
+q0 = a2;

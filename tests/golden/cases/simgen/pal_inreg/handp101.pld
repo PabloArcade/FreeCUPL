@@ -1,0 +1,6 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p19r4t;
+pin 1 = clk;
+pin [5,8,3,9] = [i5,i8,i3,i9];
+pin 18 = o18; o18.d = !i3.lq & !i3.lq # i8.lq # i9.lq & i8.lq;
+pin 20 = o20; o20.d = !i9.lq & i3.lq # !i9 # i9.lq;

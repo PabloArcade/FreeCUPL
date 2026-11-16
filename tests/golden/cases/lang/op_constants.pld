@@ -1,0 +1,8 @@
+Name op_const; Partno OP_CONST; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b;
+pin 23 = y0; pin 22 = y1; pin 21 = y2; pin 20 = y3;
+y0 = 'b'1;
+y1 = 'b'0;
+y2 = a # 'b'1;
+y3 = a & 'b'0 # b;

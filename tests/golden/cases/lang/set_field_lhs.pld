@@ -1,0 +1,7 @@
+Name set_fiel; Partno SET_FIEL; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..5] = [a0..3];
+pin [20..23] = [y0..3];
+field yy = [y3..0];
+field aa = [a3..0];
+yy = aa & [a1, a1, a1, a1];

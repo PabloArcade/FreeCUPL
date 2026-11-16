@@ -1,0 +1,12 @@
+Name table_bc; Partno TABLE_BC; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..5] = [in0..3];
+pin [19..23] = [out0..4];
+field input = [in3..0];
+field output = [out4..0];
+table input => output {
+  0=>00; 1=>01; 2=>02; 3=>03;
+  4=>04; 5=>05; 6=>06; 7=>07;
+  8=>08; 9=>09; A=>10; B=>11;
+  C=>12; D=>13; E=>14; F=>15;
+}

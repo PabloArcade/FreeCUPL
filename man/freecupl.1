@@ -1,0 +1,209 @@
+.\" SPDX-License-Identifier: GPL-3.0-or-later
+.TH FREECUPL 1 2026-11-16 "FreeCUPL 1.0.0" "User Commands"
+.SH NAME
+freecupl \- CUPL compatible PLD compiler
+.SH SYNOPSIS
+.B freecupl
+.RI [ \-flags ]
+.RI [ options ]
+.RI [ library ]
+.RI [ device ]
+.IR file [ .pld ]
+.br
+.B freecupl
+.B \-devices
+.br
+.B freecupl
+.B \-V
+.SH DESCRIPTION
+.B freecupl
+compiles a CUPL source file into a JEDEC fuse file for a programmable
+logic device, with optional documentation, listing, macro expansion and
+absolute files, and can simulate the design with
+.BR freecsim (1)
+test vectors.
+Its command line follows the compiler of WinCUPL 5.0a.
+.PP
+When
+.I file
+has no extension and does not exist, the extensions
+.B .pld
+and
+.B .PLD
+are tried.
+.I device
+is a device mnemonic and overrides the
+.B Device
+statement of the source.
+.I library
+is accepted and ignored; an argument is taken as the library when
+.B \-u
+is given, when there are three positional arguments, or when it ends
+in
+.BR .dl .
+.PP
+Single-letter flags may be combined behind one
+.B \-
+(for example
+.BR \-jaxf ),
+in either case.
+.SH FLAGS
+.TP
+.B \-j
+Write the JEDEC file
+.IB NAME .jed\fR.
+It is also written when none of
+.B \-x \-l \-e \-a
+is given.
+.TP
+.B \-x
+Write the documentation file
+.IB NAME .doc\fR.
+.TP
+.B \-f
+Add the fuse plot to the documentation file.
+.TP
+.B \-l
+Write the listing
+.IB SOURCE .lst\fR.
+.TP
+.B \-e
+Write the macro expansion
+.IB SOURCE .mx\fR.
+.TP
+.B \-a
+Write the absolute file
+.IB NAME .abs
+for
+.BR freecsim (1).
+.TP
+.B \-s
+Compile, write the absolute file and simulate
+.IB SOURCE .si\fR,
+writing
+.IB SOURCE .so
+and
+.IB SOURCE .wo\fR;
+with
+.B \-j
+the test vectors are appended to the JEDEC file.
+.TP
+.B \-n
+Name the outputs after the source file instead of the
+.B Name
+header item.
+.TP
+.BR \-m0 " ... " \-m4
+Minimisation level: none, quick (the default,
+.BR \-m1 ),
+and stronger levels that may need fewer product terms than WinCUPL.
+.TP
+.B \-kb
+For each output choose the polarity that needs fewer product terms.
+.TP
+.B \-g
+Program the security fuse.
+.TP
+.B \-u
+The next positional argument is the library (ignored).
+.TP
+.B \-w \-b \-h \-i \-p \-c \-d \-r \-o \-q \-kd \-ks \-kx
+Accepted for compatibility; no effect.
+.PP
+.I NAME
+is the value of the
+.B Name
+header item (the source file's name with
+.BR \-n ,
+.B no_name
+when there is no
+.B Name
+item);
+.I SOURCE
+is the source file's name without extension.
+Outputs are written next to the source file.
+.SH OPTIONS
+.TP
+.B \-fix
+Correct the bugs of WinCUPL 5.0a instead of reproducing them, in the
+compiler and in the simulator.
+By default they are reproduced, with a warning where a design is
+affected.
+.TP
+.B \-compat\-refdefect
+The default: reproduce WinCUPL 5.0a's behaviour, including its bugs.
+.TP
+.B \-simlatch
+With
+.BR \-s :
+simulate latched outputs and registered or latched inputs (timing not
+verified); by default they show X.
+.TP
+.B \-devices
+Print the supported device mnemonics and exit.
+.TP
+.BR \-V ", " \-\-version
+Print the version and exit.
+.SH FILES
+.TP
+.I *.pld
+CUPL source; files named by
+.B $INCLUDE
+are looked up in the current directory, then in the source's directory.
+.TP
+.I *.jed
+JEDEC fuse file.
+.TP
+.I *.doc
+Documentation: expanded product terms, symbol table, fuse plot.
+.TP
+.I *.lst
+Listing with line numbers and messages.
+.TP
+.I *.mx
+Source after the preprocessor.
+.TP
+.I *.abs
+Compiled design for
+.BR freecsim (1)
+(FreeCUPL's own text format).
+.TP
+.IR *.si ", " *.so ", " *.wo
+Simulation input, listing and waveform file.
+.SH ENVIRONMENT
+.TP
+.B SOURCE_DATE_EPOCH
+When set to a number of seconds since 1970-01-01 UTC, that time is
+written as the creation date in the output headers instead of the
+current time.
+.SH EXIT STATUS
+0 when the outputs were written; 1 on errors, on an invalid flag, or
+when the simulation started by
+.B \-s
+reported errors.
+.SH DIAGNOSTICS
+Messages have the form
+.BI [ nnnnXX ]
+.IR text ,
+as in WinCUPL; codes 0901 to 0908 are FreeCUPL's notes about WinCUPL
+behaviour.
+Where a design meets a WinCUPL bug the message names it
+.RB ( "WinCUPL bug #B001" ...).
+docs/USERGUIDE.txt lists all codes.
+.SH EXAMPLES
+.nf
+freecupl \-jxf counter.pld
+freecupl \-jn g22v10 counter
+freecupl \-jas counter
+freecupl \-fix \-jx counter
+.fi
+.SH SEE ALSO
+.BR freecsim (1),
+.BR jedsim ,
+.BR equiv ,
+.BR jedtool ;
+docs/USERGUIDE.txt and docs/BUGS.txt in the FreeCUPL distribution.
+.SH COPYRIGHT
+Copyright (C) 2026 DARKSOFT.
+License GPLv3+: GNU GPL version 3 or later.
+This is free software; there is NO WARRANTY.

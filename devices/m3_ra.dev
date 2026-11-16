@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Asynchronous registered PALs: per-output clock, reset, preset and OE
+# terms; the register is bypassed while reset and preset are both true;
+# pin 13 (/OE) gates all outputs.
+# Generated from probe results; do not edit by hand.
+
+device p16ra8
+descr P16RA8
+partname p16ra8 PAL16RA8
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=60-63 oe=56 polfuse=2055 polhi=1 reg=arap ck=57 ar=58 ap=59 fb=pin
+mc 13 gen sum=52-55 oe=48 polfuse=2054 polhi=1 reg=arap ck=49 ar=50 ap=51 fb=pin
+mc 14 gen sum=44-47 oe=40 polfuse=2053 polhi=1 reg=arap ck=41 ar=42 ap=43 fb=pin
+mc 15 gen sum=36-39 oe=32 polfuse=2052 polhi=1 reg=arap ck=33 ar=34 ap=35 fb=pin
+mc 16 gen sum=28-31 oe=24 polfuse=2051 polhi=1 reg=arap ck=25 ar=26 ap=27 fb=pin
+mc 17 gen sum=20-23 oe=16 polfuse=2050 polhi=1 reg=arap ck=17 ar=18 ap=19 fb=pin
+mc 18 gen sum=12-15 oe=8 polfuse=2049 polhi=1 reg=arap ck=9 ar=10 ap=11 fb=pin
+mc 19 gen sum=4-7 oe=0 polfuse=2048 polhi=1 reg=arap ck=1 ar=2 ap=3 fb=pin
+end
+
+device p20ra10
+descr P20RA10
+partname p20ra10 PAL20RA10
+pins 24
+power 12 24
+fuses 3210
+array 40 80
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=76-79 oe=72 oepin=1 polfuse=3209 polhi=1 reg=arap ck=73 ar=74 ap=75 fb=pin
+mc 15 gen sum=68-71 oe=64 oepin=1 polfuse=3208 polhi=1 reg=arap ck=65 ar=66 ap=67 fb=pin
+mc 16 gen sum=60-63 oe=56 oepin=1 polfuse=3207 polhi=1 reg=arap ck=57 ar=58 ap=59 fb=pin
+mc 17 gen sum=52-55 oe=48 oepin=1 polfuse=3206 polhi=1 reg=arap ck=49 ar=50 ap=51 fb=pin
+mc 18 gen sum=44-47 oe=40 oepin=1 polfuse=3205 polhi=1 reg=arap ck=41 ar=42 ap=43 fb=pin
+mc 19 gen sum=36-39 oe=32 oepin=1 polfuse=3204 polhi=1 reg=arap ck=33 ar=34 ap=35 fb=pin
+mc 20 gen sum=28-31 oe=24 oepin=1 polfuse=3203 polhi=1 reg=arap ck=25 ar=26 ap=27 fb=pin
+mc 21 gen sum=20-23 oe=16 oepin=1 polfuse=3202 polhi=1 reg=arap ck=17 ar=18 ap=19 fb=pin
+mc 22 gen sum=12-15 oe=8 oepin=1 polfuse=3201 polhi=1 reg=arap ck=9 ar=10 ap=11 fb=pin
+mc 23 gen sum=4-7 oe=0 oepin=1 polfuse=3200 polhi=1 reg=arap ck=1 ar=2 ap=3 fb=pin
+end

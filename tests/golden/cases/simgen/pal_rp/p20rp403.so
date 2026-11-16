@@ -1,0 +1,53 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20rp403.si
+
+   1: Name G9004;
+   2: Partno P9004;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20rp4a;
+  10: 
+  11: ORDER: clk, in_z, in_w, in_u, in_y, oe, in_v, in_x, %2, out_a, !out_b, out_c, out_d, !out_e, out_f;
+  12: 
+
+=========================
+                 !  !    
+                oooooo   
+       iiii ii  uuuuuu   
+      cnnnn nn  tttttt   
+      l____o__  ______   
+      kzwuyevx  abcdef   
+=========================
+0001: C1011010  ZZHZLZ
+0002: 01110001  ZLZZLZ
+vector 3
+0003: CX000011  ZXXZXZ
+0004: C1100111  HLZLLN
+0005: C0X01010  ZZZXLZ
+0006: K0X01000  ZZZXLZ
+0007: 00111010  ZZZZLZ
+0008: P1000010  0XXXX0
+0009: C1011001  ZLHZLZ
+                ^^^^^^
+[0019sa] user expected (L) for out_a
+[0019sa] user expected (H) for out_b
+[0019sa] user expected (L) for out_c
+[0019sa] user expected (L) for out_d
+[0019sa] user expected (H) for out_e
+[0019sa] user expected (H) for out_f
+
+0010: 01110001  ZLZZLZ
+0011: C0000000  ZZZZHZ
+0012: C0110010  ZZZZLZ
+0013: 011X0110  HZZXLL
+0014: C1101001  ZLZLLZ
+0015: C0110000  ZZZZLN
+0016: K010X010  ZZZLNZ

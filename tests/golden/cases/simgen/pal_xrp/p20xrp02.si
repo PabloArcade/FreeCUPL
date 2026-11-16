@@ -1,0 +1,33 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20xrp4lcc;
+
+ORDER: clk, a2, a0, a1, a3, %2, q0, q1, fo;
+
+VECTORS:
+C1010 N**
+C0011 ***
+$MSG "vector 3";
+CX110 ***
+K0011 ***
+C0100 ***
+C1011 ***
+C11X1 ***
+00100 ***
+CX000 ***
+C1110 HLL
+C1110 ***
+C0101 ***
+P1011 X1X
+1X000 ***
+C1101 ***
+C0011 ***
+C1010 **N
+1000X ***
+C0X01 ***

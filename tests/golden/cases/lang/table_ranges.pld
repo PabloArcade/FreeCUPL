@@ -1,0 +1,11 @@
+Name table_ra; Partno TABLE_RA; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..5] = [a12..15];
+pin 23 = !ram_sel; pin 22 = !rom_sel; pin 21 = !timer_sel;
+field address = [a15..12];
+field decodes = [ram_sel, rom_sel, timer_sel];
+table address => decodes {
+  [1000..2FFF] => 'b'100;
+  [5000..CFFF] => 'b'010;
+  F000 => 'b'001;
+}

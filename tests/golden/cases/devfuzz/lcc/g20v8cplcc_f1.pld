@@ -1,0 +1,25 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cplcc;
+
+pin 3 = !in_x;
+pin 6 = !in_y;
+pin 9 = !in_z;
+pin 10 = in_w;
+pin 16 = in_v;
+pin 17 = in_u;
+pin 2 = clk;
+pin 26 = out_a;
+pin 21 = out_b;
+pin 20 = out_c;
+APPEND out_a = in_y & !in_w;
+APPEND out_a = !out_b & !in_z;
+out_b = in_z & in_w & !in_x;
+out_c = [in_x,in_y]:&;
+out_c.oe = in_y & !in_w;

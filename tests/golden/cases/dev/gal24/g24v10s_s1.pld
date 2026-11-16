@@ -1,0 +1,25 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g24v10s;
+pin 5 = i0;
+pin 1 = i1;
+pin 8 = i2;
+pin 10 = i3;
+pin 23 = o0;
+pin 25 = !o1;
+pin 26 = !o2;
+pin 18 = o3;
+pin 20 = o4;
+
+o0 = !i3;
+o1 = ((i2 & !i0) # (i0 & i2) # (!i1 & i3 & i2));
+o2 = (i1 # !i0 # (i2 & i1 & i3));
+o3 = ((i0 & i3) # i3 # (i2 & !i1));
+o4 = (!i0 # !i3 # (i2 & i1 & !i3));
+
+/* @expect
+o0 = (not i3)
+o1 = ((i2 and (not i0)) or (i0 and i2) or ((not i1) and i3 and i2))
+o2 = (i1 or (not i0) or (i2 and i1 and i3))
+o3 = ((i0 and i3) or i3 or (i2 and (not i1)))
+o4 = ((not i0) or (not i3) or (i2 and i1 and (not i3)))
+*/

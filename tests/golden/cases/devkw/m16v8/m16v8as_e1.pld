@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device m16v8as;
+pin 8 = !i0;
+pin 5 = i1;
+pin 13 = min;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = o4;
+
+min = (i0 $ i1);
+o1 = 'b'0;
+o2 = i1;
+o3 = ((!i1 & !i0) # i1 # !i0);
+o4 = (i0 # (!i0 & i1) # i1);
+
+/* @expect
+min = (i0 ^ i1)
+o1 = 0
+o2 = i1
+o3 = (((not i1) and (not i0)) or i1 or (not i0))
+o4 = (i0 or ((not i0) and i1) or i1)
+*/

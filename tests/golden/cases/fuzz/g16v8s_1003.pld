@@ -1,0 +1,18 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8s;
+pin [3,4,6,7,8,9,11] = [in_x, in_y, in_z, in_w, in_v, in_u, in_t];
+pin 12 = out_a;
+pin 19 = out_b;
+pin 16 = out_c;
+pin 13 = out_d;
+!out_a = in_t & in_u & !in_v # in_u # in_t & in_y & in_v # !in_x;
+out_b = [in_y,in_z,in_w,in_x]:#;
+APPEND out_c = in_z & !in_u;
+out_d = ((in_z # !in_z) & !(!in_x) & (in_u $ in_x) & !(!(in_u)));

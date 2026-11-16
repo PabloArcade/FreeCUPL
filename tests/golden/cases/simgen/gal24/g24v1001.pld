@@ -1,0 +1,28 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g24v10s;
+pin 2 = a0;
+pin 4 = a1;
+pin 13 = a2;
+pin 25 = !q0;
+pin 20 = !q1;
+pin 24 = q2;
+field fa = [a1..0];
+t0 = !a1;
+q0 = a2 & t0 # !a0 & !t0 & a1 # !t0;
+q1 = !t0 # !a1 # a2;
+q2 = (!a2 # (a2 # !a0 # a2) & t0);
+pin 23 = tq0;
+table fa => tq0 {
+  0 => 0;
+  3 => 1;
+  1 => 1;
+  2 => 1;
+}
+min q1 = 1;

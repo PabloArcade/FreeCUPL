@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cextlcc;
+
+/* @local */ /* @bypass */
+pin 11 = !PROPERTY;
+pin 7 = i1;
+pin 23 = !o0;
+pinnode 29 = o1;
+pin 21 = o2;
+
+o0 = (!i1 & !PROPERTY);
+o0.oe = (!i1 & PROPERTY);
+o1.t = PROPERTY;
+o1.ck = !PROPERTY;
+o2 = (PROPERTY # (o1 & !i1) # !PROPERTY);
+o2.oe = PROPERTY;
+
+/* @expect
+o0 = ((not i1) and (not PROPERTY))
+o0.oe = ((not i1) and PROPERTY)
+o1.t = PROPERTY
+o1.ck = (not PROPERTY)
+o2 = (PROPERTY or (o1 and (not i1)) or (not PROPERTY))
+o2.oe = PROPERTY
+*/

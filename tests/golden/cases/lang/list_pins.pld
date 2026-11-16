@@ -1,0 +1,8 @@
+Name list_pin; Partno LIST_PIN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2,3,4] = [p, !q, r];
+pin [5..7] = ![s0..2];
+pin [23..21] = [o0..o2];
+o0 = p & q;
+o1 = s0 # s1;
+o2 = r $ s2;

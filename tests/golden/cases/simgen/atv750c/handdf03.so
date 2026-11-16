@@ -1,0 +1,42 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: handdf03.si
+
+   1: Name P;
+   2: Device v750cppk;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: !a, c, %2, y, z;
+   5: 
+
+===============
+      !        
+      ac  yz   
+===============
+0001: 00  HL
+0002: 11  HH
+vector 3
+0003: 11  HH
+0004: 00  HL
+0005: 01  LH
+0006: 01  LH
+0007: 01  LH
+0008: 01  LH
+0009: 10  HL
+0010: 01  LH
+0011: 00  HL
+           ^
+[0019sa] user expected (H) for z
+
+0012: 10  HL
+0013: 00  HL
+0014: 00  HL
+0015: 01  LH
+0016: 00  HL
+0017: 10  HL
+0018: 11  NH
+0019: 10  HL
+0020: 01  LH

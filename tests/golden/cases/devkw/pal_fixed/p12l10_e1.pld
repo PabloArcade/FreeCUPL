@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p12l10;
+pin 8 = !i0;
+pin 11 = i1;
+pin 18 = o0;
+pin 16 = REPEAT;
+pin 20 = o2;
+
+o0 = 'b'0;
+REPEAT = i1;
+o2 = ((!i1 & i0) # (!i1 & i0));
+
+/* @expect
+o0 = 0
+REPEAT = i1
+o2 = (((not i1) and i0) or ((not i1) and i0))
+*/

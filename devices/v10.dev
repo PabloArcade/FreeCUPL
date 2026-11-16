@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# PAL22V10, GAL22V10, ATF22V10B/C and the cp power-down variant.  Row 0 =
+# AR (all registers), row 131 = SP.  Per OLMC: S0 = 1 active high, S1 = 1
+# combinational.  Registered feedback is /Q, combinational feedback the
+# pin.
+
+device p22v10
+descr PAL22V10: 12 inputs, 10 OLMCs (8-16 terms), AR/SP
+partname p22v10 PAL22V10
+pins 24
+power 12 24
+fuses 5828
+array 44 132
+clock 1
+ar 0
+sp 131
+lines p1 f23 p2 f22 p3 f21 p4 f20 p5 f19 p6 f18 p7 f17 p8 f16 p9 f15 p10 f14 p11 p13
+mc 23 v10 oe=1 sum=2-9 s0=5808 s1=5809
+mc 22 v10 oe=10 sum=11-20 s0=5810 s1=5811
+mc 21 v10 oe=21 sum=22-33 s0=5812 s1=5813
+mc 20 v10 oe=34 sum=35-48 s0=5814 s1=5815
+mc 19 v10 oe=49 sum=50-65 s0=5816 s1=5817
+mc 18 v10 oe=66 sum=67-82 s0=5818 s1=5819
+mc 17 v10 oe=83 sum=84-97 s0=5820 s1=5821
+mc 16 v10 oe=98 sum=99-110 s0=5822 s1=5823
+mc 15 v10 oe=111 sum=112-121 s0=5824 s1=5825
+mc 14 v10 oe=122 sum=123-130 s0=5826 s1=5827
+libtag p22v10 DLIB-h-40-17
+refdefect kbfbinv       # B002
+end
+
+device g22v10
+inherit p22v10
+descr GAL22V10 / ATF22V10B/C: PAL22V10 plus 64-bit signature
+partname g22v10 GAL22V10 / ATF22V10B / ATF22V10C
+fuses 5892
+ues 5828 64
+libtag g22v10 DLIB-h-40-1
+end
+
+device g22v10cp
+inherit g22v10
+descr ATF22V10C power-down variant (pin 4 = PD)
+partname g22v10cp ATF22V10C-PD (power-down)
+fuses 5893
+pd 5892 4
+libtag g22v10cp DLIB-h-40-1
+end

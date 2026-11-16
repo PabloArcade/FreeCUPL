@@ -1,0 +1,27 @@
+Name p20r8_wi; Partno P20R8_WI; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p20r8;
+pin 2 = a;
+pin 3 = b;
+pin 4 = c;
+pin 5 = d;
+pin 22 = !q;
+
+q.d = a & !b & !c & !d
+    # !a & b & !c & !d
+    # !a & !b & c & !d
+    # a & b & c & !d
+    # !a & !b & !c & d
+    # a & b & !c & d
+    # a & !b & c & d
+    # !a & b & c & d;
+
+/* @expect
+q.d = (a and not b and not c and not d)
+    or (not a and b and not c and not d)
+    or (not a and not b and c and not d)
+    or (a and b and c and not d)
+    or (not a and not b and not c and d)
+    or (a and b and not c and d)
+    or (a and not b and c and d)
+    or (not a and b and c and d)
+*/

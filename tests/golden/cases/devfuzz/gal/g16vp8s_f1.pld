@@ -1,0 +1,30 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16vp8s;
+/* @flags -jaxm3 */
+pin 1 = in_x;
+pin 3 = in_y;
+pin 4 = !in_z;
+pin 6 = in_w;
+pin 7 = in_v;
+pin 9 = in_u;
+pin 17 = out_a;
+pin 19 = !out_b;
+pin 18 = out_c;
+pin 13 = !out_d;
+t0 = !(!in_z);
+t1 = (!in_z $ in_u $ in_w);
+t2 = !t1 & (in_u $ in_z) & !(!in_w);
+out_a = !in_v & !in_u # in_x;
+out_b = [in_z,in_y,in_u,in_w]:#;
+!out_d = (t1 & in_z) & (t0 # !t1) # in_x;
+condition {
+  if !in_w out out_c;
+  default out out_c;
+}

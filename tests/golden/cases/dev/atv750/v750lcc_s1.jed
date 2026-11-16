@@ -1,0 +1,22 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          v750lcc  Library ATV750
+Created         Thu Jan  1 00:00:00 1970
+Name            R7001
+Partno          R7001
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP28 
+*QF14394 
+*G0 
+*F0 
+*L10240 00000000111111111111111111111111
+*L10272 11111111111111111111111111101111
+*L10304 11101111111111111111111111110000
+*L14368 00000000000000010000000000
+*C0A75
+*6632

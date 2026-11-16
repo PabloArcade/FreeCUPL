@@ -1,0 +1,9 @@
+Name polarity; Partno POLARITY; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 4 = c; pin 1 = clk;
+pin 23 = !y0; pin 22 = !y1; pin 21 = y2; pin 20 = !y3;
+y0.d = a & b;
+!y1.d = a & b;
+!y2.d = a # c;
+y3 = a & b & c;
+y0.ar = c;

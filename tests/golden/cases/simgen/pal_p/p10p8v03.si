@@ -1,0 +1,27 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p10p8v;
+
+ORDER: a0, a1, a2, %2, !q0;
+
+VECTORS:
+001 *
+100 *
+101 *
+111 N
+000 *
+0X0 *
+000 *
+001 L
+111 *
+001 *
+101 *
+1X0 *
+111 *
+011 *

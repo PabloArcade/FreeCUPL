@@ -1,0 +1,36 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cms;
+/* @flags -jaxm4 */
+pin [2,7,8,9] = [!a0, !a1, a2, a3];
+pin 1 = clk;
+pin 11 = !oe;
+pin 13 = q0;
+pin 12 = q1;
+pin 15 = q2;
+pin 14 = q3;
+pin 17 = !q4;
+field fa = [a0..a2];
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = a0;
+t1 = ((a1 # !a0 # a2 # !(a1) # !(!a0)) # !(a0) # !a0 # a2);
+APPEND q0.d = t1;
+q1.d = !q2 # !(!q2) $ ((a1 $ q2) # 'h'1 # a0) $ (a1 # t0) & 'B'0;
+!q2.d = (!a0 # t0 & t0 & a1 # !a0 # t1 # t0) & !a1;
+!q3.d = fa:[1..6];
+APPEND q4.d = a3;
+APPEND q4.d = a0;
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%4};
+$REPEND

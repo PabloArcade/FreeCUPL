@@ -1,0 +1,6 @@
+Name m0_dup; Partno M0_DUP; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+/* @flags -jaxm0 */
+pin 2 = a; pin 3 = b; pin 19 = y; pin 18 = z;
+y = a&b # a&b # a&b # a&b # a&b # a&b # a&b # a&b # a;
+z = a & !a # b;

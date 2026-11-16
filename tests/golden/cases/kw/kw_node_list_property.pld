@@ -1,0 +1,5 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750;
+pin 1 = clk; pin 4 = a; pin [23,22] = [y,z];
+node [x0,property];
+y = a;

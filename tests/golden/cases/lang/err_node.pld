@@ -1,0 +1,6 @@
+Name err_node; Partno ERR_NODE; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a0; pin 3 = a1; pin 23 = y;
+node n1;
+n1 = a1;
+y = a0;

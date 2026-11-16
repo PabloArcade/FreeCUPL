@@ -1,0 +1,14 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p12p6v;
+pin 8 = !rev;
+pin 12 = REPEND;
+pin 17 = o0;
+pin 16 = o1;
+
+o0 = 'b'0;
+o1 = (!REPEND & rev);
+
+/* @expect
+o0 = 0
+o1 = ((not REPEND) and rev)
+*/

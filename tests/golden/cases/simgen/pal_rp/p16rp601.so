@@ -1,0 +1,54 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p16rp601.si
+
+   1: Name G9006;
+   2: Partno P9006;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p16rp6v;
+  10: 
+  11: FIELD fa = [a0,a1];
+  12: FIELD st = [s0];
+  13:
+  14: ORDER: clk, oe, a2, a0, a3, a1, %2, s0, q1;
+  15: 
+
+===================
+      c            
+      loaaaa  sq   
+      ke2031  01   
+===================
+0001: C01100  ZZ
+0002: C01001  ZL
+vector 3
+0003: 000110  ZZ
+0004: C010X0  NX
+0005: 000110  ZZ
+0006: C0000X  ZH
+0007: K001X0  ZZ
+0008: 001100  ZZ
+0009: K01011  ZZ
+0010: 00110X  NZ
+0011: C0X11X  ZZ
+              ^^
+[0019sa] user expected (L) for s0
+[0019sa] user expected (H) for q1
+
+0012: P00X11  0X
+0013: C01000  ZL
+0014: C01001  ZL
+0015: 000010  ZZ
+0016: 000010  ZN
+0017: K00001  ZH
+0018: C00001  ZN
+0019: 001001  NL
+0020: C00011  ZZ
+0021: C01000  ZL

@@ -1,0 +1,43 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20ra10;
+/* @local */ /* @bypass */
+pin 7 = i0;
+pin 2 = i1;
+pin 6 = i2;
+pin 10 = i3;
+pin 23 = !o0;
+pin 20 = o1;
+pin 14 = !o2;
+pin 15 = o3;
+
+o0.d = (i0 $ i3);
+o0.ck = i3;
+o0.ar = !i1;
+o0.oe = !i3;
+o1.d = ((i0 & i2 & i3) # (!i0 & !i2) # i2);
+o1.ck = (i2 & !i3);
+o1.ap = (i3 & i1);
+o1.oe = !i0;
+o2 = ((i1 & i0 & !i2) # (i1 & i0) # (!i3 & !i1));
+o2.oe = i3;
+o3.d = ((!i2 & !i3 & i0) # (i2 & i3) # (!i1 & !i3));
+o3.ck = !i0;
+o3.ar = i0;
+o3.ap = (i1 & i0);
+
+/* @expect
+o0.d = (i0 ^ i3)
+o0.ck = i3
+o0.ar = (not i1)
+o0.oe = (not i3)
+o1.d = ((i0 and i2 and i3) or ((not i0) and (not i2)) or i2)
+o1.ck = (i2 and (not i3))
+o1.ap = (i3 and i1)
+o1.oe = (not i0)
+o2 = ((i1 and i0 and (not i2)) or (i1 and i0) or ((not i3) and (not i1)))
+o2.oe = i3
+o3.d = (((not i2) and (not i3) and i0) or (i2 and i3) or ((not i1) and (not i3)))
+o3.ck = (not i0)
+o3.ar = i0
+o3.ap = (i1 and i0)
+*/

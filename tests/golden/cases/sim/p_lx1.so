@@ -1,0 +1,84 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p_lx1.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g22v10;
+   3: ORDER: s, r, e, %2, q, w;
+
+================
+      sre  qw   
+================
+0001: 001  XX
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0002: 101  HH
+0003: 001  HH
+0004: 00X  XX
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0005: 001  XX
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0006: 10X  HX
+0007: 00X  XX
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0008: 0X1  XX
+           ^^
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+[0020sa] unstable output:  q
+[0020sa] unstable output:  w
+
+0009: 011  LL
+0010: 00X  LL

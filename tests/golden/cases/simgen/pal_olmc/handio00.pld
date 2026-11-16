@@ -1,0 +1,11 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p22cv10z;
+pin 1=clk; pin [2,3,4,5] = [a,b,c,d];
+pin 16 = q16;
+q16.d = a $ b;
+pin 20 = !q20;
+q20.d = a $ b;
+pin 18 = q18;
+q18 = !q16 & a # q16;
+pin 21 = q21;
+q21.d = !q20 & !b # q20;

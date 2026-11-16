@@ -1,0 +1,25 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cp;
+
+pin 2 = a0;
+pin 7 = a1;
+pin 9 = !a2;
+pin 10 = a3;
+pin 14 = a4;
+pin [15,17,16,20,19,18] = [q0,q1,!q2,q3,q4,q5];
+t0 = !a4;
+q0.d = q4 & q5 & a4 # q2 & a4;
+!q2 = [a4,a0]:#;
+q3.d = !q2 # !q1 # (!a1 & !t0) # !(a2) # q1 # (a3 $ q2) # !((!a1 & a1 & q5));
+q4.d = !(a3);
+q5.d = a3;
+condition {
+  if a0 out q1;
+}

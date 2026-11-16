@@ -1,0 +1,24 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cpms;
+
+pin [2,4,5,6,11,14,23] = [!in_x, in_y, !in_z, in_w, in_v, !in_u, in_t];
+pin 15 = out_a;
+pin 22 = out_b;
+pin 18 = out_c;
+pin 21 = !out_d;
+t0 = in_y;
+t1 = (in_w $ in_u);
+APPEND out_a = in_w & in_v;
+out_d = in_z & out_c & !t0 # out_b & !out_a & in_w # !in_y & !out_c;
+out_d.oe = in_y & !in_t;
+condition {
+  if !in_t out out_b;
+  if in_y out out_c;
+}

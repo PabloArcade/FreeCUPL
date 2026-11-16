@@ -1,0 +1,31 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8a;
+/* @flags -jaxm4 */
+pin [9,10,11] = [a0, a1, a2];
+pin 1 = clk;
+pin 15 = q0;
+pin 22 = s0;
+pin 19 = q2;
+pin 16 = q3;
+field fa = [a0..a2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+APPEND q0 = a0;
+q2.d = a2 & a0;
+q3 = a1 & (!a1 # !q0);
+field st = [s0];
+sequence st {
+  present 1 next 0;
+}
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%3};
+$REPEND
+pin 24 = extra_pin;
+xx_unused = extra_pin;

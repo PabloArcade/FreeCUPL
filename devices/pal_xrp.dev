@@ -1,0 +1,144 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# PAL20XRP4/6/8/10.  Registered outputs: D = small sum (2 rows) XOR big
+# sum (6 rows); the operand with fewer terms goes to the small sum (xswap);
+# polarity before the register.  PAL20XRP4 pin 21: the OE term is left
+# false without .OE (refdefect oe0).
+
+device p20xrp4
+descr PAL20XRP4
+partname p20xrp4 PAL20XRP4
+pins 24
+power 12 24
+fuses 3450
+array 40 86
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=78-85 oe=77 polfuse=3449 polhi=1 reg=0
+mc 15 gen sum=69-76 oe=68 polfuse=3448 polhi=1 reg=0
+mc 16 gen sum=60-67 oe=59 polfuse=3447 polhi=1 reg=0
+mc 17 gen sum=53-58 xsum=51-52 xswap=1 polfuse=3446 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=45-50 xsum=43-44 xswap=1 polfuse=3445 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=37-42 xsum=35-36 xswap=1 polfuse=3444 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=29-34 xsum=27-28 xswap=1 polfuse=3443 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=19-26 oe=18 polfuse=3442 polhi=1 reg=0
+mc 22 gen sum=10-17 oe=9 polfuse=3441 polhi=1 reg=0
+mc 23 gen sum=1-8 oe=0 polfuse=3440 polhi=1 reg=0
+refdefect oe0 21
+refdefect kbnoflip      # B001
+end
+
+device p20xrp6
+descr PAL20XRP6
+partname p20xrp6 PAL20XRP6
+pins 24
+power 12 24
+fuses 3370
+array 40 84
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=76-83 oe=75 polfuse=3369 polhi=1 reg=0
+mc 15 gen sum=67-74 oe=66 polfuse=3368 polhi=1 reg=0
+mc 16 gen sum=60-65 xsum=58-59 xswap=1 polfuse=3367 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=52-57 xsum=50-51 xswap=1 polfuse=3366 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=44-49 xsum=42-43 xswap=1 polfuse=3365 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=36-41 xsum=34-35 xswap=1 polfuse=3364 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=28-33 xsum=26-27 xswap=1 polfuse=3363 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=20-25 xsum=18-19 xswap=1 polfuse=3362 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=10-17 oe=9 polfuse=3361 polhi=1 reg=0
+mc 23 gen sum=1-8 oe=0 polfuse=3360 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20xrp8
+descr PAL20XRP8
+partname p20xrp8 PAL20XRP8
+pins 24
+power 12 24
+fuses 3290
+array 40 82
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=74-81 oe=73 polfuse=3289 polhi=1 reg=0
+mc 15 gen sum=67-72 xsum=65-66 xswap=1 polfuse=3288 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=59-64 xsum=57-58 xswap=1 polfuse=3287 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=51-56 xsum=49-50 xswap=1 polfuse=3286 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=43-48 xsum=41-42 xswap=1 polfuse=3285 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=35-40 xsum=33-34 xswap=1 polfuse=3284 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=27-32 xsum=25-26 xswap=1 polfuse=3283 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=19-24 xsum=17-18 xswap=1 polfuse=3282 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=11-16 xsum=9-10 xswap=1 polfuse=3281 polhi=1 oe=pin reg=1 pold=1
+mc 23 gen sum=1-8 oe=0 polfuse=3280 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20xrp10
+descr PAL20XRP10
+partname p20xrp10 PAL20XRP10
+pins 24
+power 12 24
+fuses 3210
+array 40 80
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=74-79 xsum=72-73 xswap=1 polfuse=3209 polhi=1 oe=pin reg=1 pold=1
+mc 15 gen sum=66-71 xsum=64-65 xswap=1 polfuse=3208 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=58-63 xsum=56-57 xswap=1 polfuse=3207 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=50-55 xsum=48-49 xswap=1 polfuse=3206 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=42-47 xsum=40-41 xswap=1 polfuse=3205 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=34-39 xsum=32-33 xswap=1 polfuse=3204 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=26-31 xsum=24-25 xswap=1 polfuse=3203 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=18-23 xsum=16-17 xswap=1 polfuse=3202 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=10-15 xsum=8-9 xswap=1 polfuse=3201 polhi=1 oe=pin reg=1 pold=1
+mc 23 gen sum=2-7 xsum=0-1 xswap=1 polfuse=3200 polhi=1 oe=pin reg=1 pold=1
+refdefect kbnoflip      # B001
+end
+
+# PAL22XP10: combinational, small sum XOR big sum.
+device p22xp10
+descr PAL22XP10
+partname p22xp10 PAL22XP10
+pins 24
+power 12 24
+fuses 3970
+array 44 90
+lines p2 p1 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p13 f23 f14
+mc 14 gen sum=84-89 xsum=82-83 xswap=1 oe=81 polfuse=3969 polhi=1 reg=0
+mc 15 gen sum=75-80 xsum=73-74 xswap=1 oe=72 polfuse=3968 polhi=1 reg=0
+mc 16 gen sum=66-71 xsum=64-65 xswap=1 oe=63 polfuse=3967 polhi=1 reg=0
+mc 17 gen sum=57-62 xsum=55-56 xswap=1 oe=54 polfuse=3966 polhi=1 reg=0
+mc 18 gen sum=48-53 xsum=46-47 xswap=1 oe=45 polfuse=3965 polhi=1 reg=0
+mc 19 gen sum=39-44 xsum=37-38 xswap=1 oe=36 polfuse=3964 polhi=1 reg=0
+mc 20 gen sum=30-35 xsum=28-29 xswap=1 oe=27 polfuse=3963 polhi=1 reg=0
+mc 21 gen sum=21-26 xsum=19-20 xswap=1 oe=18 polfuse=3962 polhi=1 reg=0
+mc 22 gen sum=12-17 xsum=10-11 xswap=1 oe=9 polfuse=3961 polhi=1 reg=0
+mc 23 gen sum=3-8 xsum=1-2 xswap=1 oe=0 polfuse=3960 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+# PAL22RX8: one XOR row per output (xsum; xone: the first operand when it
+# is one term, else the second) and an 8-row sum.
+device p22rx8
+refdefect combd
+descr PAL22RX8
+partname p22rx8 PAL22RX8
+pins 24
+power 12 24
+fuses 3616
+array 44 82
+clock 1
+ap 80
+ar 81
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14 p1 p13
+mc 15 gen sum=72-79 xsum=71-71 xone=1 oe=70 pol=l reg=3615 regon=0 fb=pin
+mc 16 gen sum=62-69 xsum=61-61 xone=1 oe=60 pol=l reg=3614 regon=0 fb=pin
+mc 17 gen sum=52-59 xsum=51-51 xone=1 oe=50 pol=l reg=3613 regon=0 fb=pin
+mc 18 gen sum=42-49 xsum=41-41 xone=1 oe=40 pol=l reg=3612 regon=0 fb=pin
+mc 19 gen sum=32-39 xsum=31-31 xone=1 oe=30 pol=l reg=3611 regon=0 fb=pin
+mc 20 gen sum=22-29 xsum=21-21 xone=1 oe=20 pol=l reg=3610 regon=0 fb=pin
+mc 21 gen sum=12-19 xsum=11-11 xone=1 oe=10 pol=l reg=3609 regon=0 fb=pin
+mc 22 gen sum=2-9 xsum=1-1 xone=1 oe=0 pol=l reg=3608 regon=0 fb=pin
+end

@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Linux and macOS: build and make check.  Windows: i686 mingw build and
+# the XP check.
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make native
+      - name: Version
+        run: |
+          d=build/linux; [ "$(uname -s)" = Darwin ] && d=build/macos
+          "$d/freecupl" -V
+          "$d/freecsim" -V
+      - name: Golden test suite
+        run: make check
+
+  win32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the i686 mingw cross compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64-i686-win32 binutils-mingw-w64-i686
+      - name: Build
+        run: make win32 WINCC=i686-w64-mingw32-gcc-win32
+      - name: Windows XP SP3 compatibility check
+        run: sh tools/check_xp.sh build/win32/*.exe
+      - name: Upload the executables
+        uses: actions/upload-artifact@v4
+        with:
+          name: freecupl-win32
+          path: build/win32/*.exe

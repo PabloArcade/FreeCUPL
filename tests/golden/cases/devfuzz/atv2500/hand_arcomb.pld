@@ -1,0 +1,5 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v2500;
+PIN 1 = i1; PIN 2 = i2; PIN 3 = i3; PIN 17 = i4; PIN 18 = i5; PIN 19 = i6;
+PIN 4 = o; o = i1; o.ar = i2;
+

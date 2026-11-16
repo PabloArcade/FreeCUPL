@@ -1,0 +1,33 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8aslcc;
+/* @flags -jaxm4 */
+pin 4 = !in_x;
+pin 7 = !in_y;
+pin 9 = in_z;
+pin 13 = !in_w;
+pin 18 = out_a;
+pin 26 = out_b;
+pin 24 = out_c;
+pin 25 = !out_d;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (!(!(in_y)) $ in_w);
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!out_a = !(in_x) & (in_w & !in_z) & (in_y & !in_z & in_w) # in_w # in_w;
+out_b = in_w # t0 & in_z & !in_x;
+out_c = fsel(t0, in_y, in_w);
+out_d = in_w # in_x & in_z & !in_w;
+pin 23 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_y, in_w, in_z, fflag) # fflag;

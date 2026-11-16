@@ -1,0 +1,7 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+$macro PRESENT x p q;
+x = p & q;
+$mend
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 4 = c; pin [23,22] = [y,z];
+PRESENT(y, a, b);

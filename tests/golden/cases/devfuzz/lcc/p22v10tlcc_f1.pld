@@ -1,0 +1,24 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22v10tlcc;
+/* @flags -jaxkb */
+pin 1 = a0;
+pin 12 = a1;
+pin 15 = a2;
+pin 1 = clk;
+pin [5,23,25] = [q0,!s0,!s1];
+field fa = [a1..0];
+t0 = !(!(!a0 & a2 & !a1));
+q0 = !a0 & a1 & !t0 # !t0;
+field st = [s0,s1];
+sequence st {
+  present 2 if a0 next 2;
+  present 1 if a0 & a2 next 1; if !a0 & !a1 next 2;
+}
+s0.sp = !a0 & !a1;

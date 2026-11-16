@@ -1,0 +1,12 @@
+Name seq_cond; Partno SEQ_COND; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = ina; pin 3 = inb;
+pin [22..23] = [q0..1];
+pin 21 = y; pin 20 = z; pin 19 = w;
+field st = [q1, q0];
+sequenced st {
+  present 0 if ina next 1; if !ina next 2 out y;
+  present 1 if ina & inb next 2; if ina & !inb next 3; default next 0 out y;
+  present 2 next 3 out z;
+  present 3 if inb out w; next 0;
+}

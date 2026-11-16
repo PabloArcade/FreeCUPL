@@ -1,0 +1,22 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p22xp10lcc  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7001
+Partno          R7001
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP28 
+*QF3970 
+*G0 
+*F0 
+*L00384 00000000000011111111111111111111
+*L00416 11111111111111111111111111111111
+*L00448 11111011111110111111111111111111
+*L00480 11110000000000000000000000000000
+*C0AB5
+*66B7

@@ -1,0 +1,31 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8malcc;
+/* @flags -jaxm3 */
+pin 2 = in_x;
+pin 21 = in_y;
+pin 26 = in_z;
+pin 11 = out_a;
+pin 13 = out_b;
+pin 17 = !out_c;
+pin 19 = out_d;
+pin 10 = out_e;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (!(in_x & in_y & !in_z) # (in_x # in_z # in_z) & !(in_z));
+t1 = t0;
+t2 = t1;
+out_a = t1 & in_x # t2 & !in_z # t1 & t0 # !in_z & t2 & !in_x;
+out_a.oe = !in_x & !in_z;
+!out_b = t2 # t1 # t2 # !in_y & in_x & t2;
+out_b.oe = !in_y & !in_x;
+out_c = !in_x;
+out_d = !t1 & t2 & in_z # !t1 & in_y;
+out_e = !(in_x);
+out_b.tec = 'b'1;

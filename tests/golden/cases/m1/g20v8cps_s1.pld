@@ -1,0 +1,37 @@
+Name g20v8cps; Partno G20V8CPS; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g20v8cps;
+
+pin 1 = a;
+pin 2 = b;
+pin 5 = c;
+pin 13 = d;
+pin 22 = y;
+pin 21 = !z;
+pin 15 = w;
+pin 20 = !t;
+
+y = a & b # !d;
+z = c $ d;
+w = a & !b & !c & !d
+    # !a & b & !c & !d
+    # !a & !b & c & !d
+    # a & b & c & !d
+    # !a & !b & !c & d
+    # a & b & !c & d
+    # a & !b & c & d
+    # !a & b & c & d;
+t = 'b'1;
+
+/* @expect
+y = a and b or not d
+z = c ^ d
+w = (a and not b and not c and not d)
+    or (not a and b and not c and not d)
+    or (not a and not b and c and not d)
+    or (a and b and c and not d)
+    or (not a and not b and not c and d)
+    or (a and b and not c and d)
+    or (a and not b and c and d)
+    or (not a and b and c and d)
+t = 1
+*/

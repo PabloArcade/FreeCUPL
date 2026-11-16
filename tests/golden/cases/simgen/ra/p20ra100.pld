@@ -1,0 +1,29 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20ra10;
+/* @flags -jaxm0 */
+pin 2 = a0;
+pin 3 = a1;
+pin 4 = a2;
+pin 5 = a3;
+pin 8 = a4;
+pin 21 = q0;
+pin 23 = !q1;
+pin 15 = q2;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+q0.d = ((!a2 # !q1) # a3 & (q2 & !a2 & !a4 & !(a4)) & 'b'1);
+q1.d = [a1,a4,a2,a3]:&;
+q1.oe = a0;
+APPEND q2.d = a3;
+q2.ck = !a2;

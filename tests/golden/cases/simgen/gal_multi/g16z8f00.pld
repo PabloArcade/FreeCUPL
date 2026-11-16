@@ -1,0 +1,30 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16z8;
+/* @flags -jaxkb */
+pin 1 = in_x;
+pin 4 = !in_y;
+pin 5 = in_z;
+pin 6 = in_w;
+pin 10 = in_v;
+pin 13 = in_u;
+pin 22 = !out_a;
+pin 16 = out_b;
+pin 19 = out_c;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!out_a = in_y & in_v & !in_z;
+APPEND out_b = in_v;
+!out_c = !in_z # in_x & !in_v & !in_u # !in_u & !in_w;
+out_c.oe = in_w & in_y;
+$DEFINE AND &
+$DEFINE OR #
+pin 17 = dq;
+dq = in_y AND in_x OR !in_u;

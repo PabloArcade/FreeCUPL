@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20xrp10;
+pin 9 = !FUSE;
+pin 6 = i1;
+pin 18 = fuse;
+pin 16 = o1;
+pin 20 = o2;
+
+fuse.d = 'b'0;
+o1.d = i1;
+o2.d = ((!o1 & !i1 & !fuse) # (!fuse & FUSE) # (!o1 & !i1 & !FUSE));
+
+/* @expect
+fuse.d = 0
+o1.d = i1
+o2.d = (((not o1) and (not i1) and (not fuse)) or ((not fuse) and FUSE) or ((not o1) and (not i1) and (not FUSE)))
+*/

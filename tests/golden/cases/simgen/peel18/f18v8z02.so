@@ -1,0 +1,69 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for F18V8ZS follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: f18v8z02.si
+
+   1: Name G9008;
+   2: Partno P9008;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device f18v8zs;
+  10: 
+  11: ORDER: !in_z, !in_w, in_y, in_x, %2, out_a, out_b, out_c, out_d, !out_e;
+  12: 
+
+====================
+                !   
+      !!    ooooo   
+      iiii  uuuuu   
+      nnnn  ttttt   
+      ____  _____   
+      zwyx  abcde   
+====================
+0001: 1011  HHLLL
+0002: 10X0  XHLLL
+0003: 1100  ZHLLL
+0004: 0011  NNHLH
+0005: 1000  ZHLLN
+0006: 1110  LHLLL
+0007: X101  ZXXXX
+              ^ ^
+[0020sa] unstable output:  out_c
+[0020sa] unstable output:  out_e
+[0020sa] unstable output:  out_c
+[0020sa] unstable output:  out_e
+[0020sa] unstable output:  out_c
+[0020sa] unstable output:  out_e
+[0020sa] unstable output:  out_c
+[0020sa] unstable output:  out_e
+[0020sa] unstable output:  out_c
+[0020sa] unstable output:  out_e
+
+0008: 0111  NHHHH
+0009: 111X  XHLLL
+0010: 1011  HHLLL
+0011: 0010  LHHLN
+0012: 1001  ZHLLL
+            ^^ ^
+[0019sa] user expected (L) for out_a
+[0019sa] user expected (L) for out_b
+[0019sa] user expected (H) for out_d
+
+0013: 11X1  XHLLL
+0014: 1001  ZHLLL
+0015: 0010  LHHLH
+0016: 1100  ZNLLL
+0017: 00X0  XXHLH
+0018: 1011  HHLLL
+0019: 011X  LHHXH
+0020: 1000  ZHLLL
+0021: 1101  ZHLLL
+0022: 1010  LHLLL
+0023: 01X1  XXHHH

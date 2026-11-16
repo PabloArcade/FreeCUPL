@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device f162;
+pin 6 = i0;
+pin 7 = i1;
+pin 18 = !i2;
+pin 16 = i3;
+pin 22 = !i4;
+pin 4 = i5;
+pin 10 = INCLUDE;
+pin 13 = o1;
+pin 11 = o2;
+
+INCLUDE = 'b'0;
+o1 = i3;
+o2 = (i5 & !i4);
+
+/* @expect
+INCLUDE = 0
+o1 = i3
+o2 = (i5 and (not i4))
+*/

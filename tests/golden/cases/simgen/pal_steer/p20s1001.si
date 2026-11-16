@@ -1,0 +1,25 @@
+Name G9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20s10lcc;
+
+ORDER: a3, a4, a0, a1, a2, %2, q0, q1, q2;
+
+VECTORS:
+10010 ***
+01110 ***
+$MSG "vector 3";
+10110 ***
+10011 ***
+00000 ***
+01111 *N*
+100X0 LLL
+10001 ***
+00000 ***
+00111 ***
+1X101 ***
+01100 ***

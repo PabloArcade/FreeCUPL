@@ -1,0 +1,22 @@
+Name g16v8cpm; Partno G16V8CPM; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8cpms;
+pin 2 = en;
+pin 19 = q0;
+pin 18 = !q1;
+pin 17 = q2;
+pin 16 = !y;
+pin 15 = x;
+
+q0.d = q0 $ en;
+q1.d = q1 $ (q0 & en);
+q2.d = q2 $ (q1 & q0 & en);
+y = q0 & q1 & x;
+y.oe = q2;
+
+/* @expect
+q0.d = q0 ^ en
+q1.d = q1 ^ (q0 and en)
+q2.d = q2 ^ (q1 and q0 and en)
+y = q0 and q1 and x
+y.oe = q2
+*/

@@ -1,0 +1,21 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Device g16v8cpms;
+/* @flags -jaxf */
+pin [3,6,9] = [a0, a1, a2];
+pin 12 = q0;
+pin 19 = q1;
+pin 18 = q2;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a0;
+t1 = !(!((!a1 & !a0)));
+t2 = !a0;
+q0.d = !t2 & t1;
+q1.d = ON & a1 # ON;
+q2.d = ((a0 $ a2) # (a0 $ t1) # (t2 & (a2 $ !t2)));

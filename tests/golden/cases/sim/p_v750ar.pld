@@ -1,0 +1,10 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750;
+pin 4 = a0;
+pin 7 = !a1;
+pin 8 = !a2;
+pin 11 = !a5;
+pinnode 31 = q3;
+q3.d = 'h'1;
+q3.ck = !a2;
+q3.ar = !a5 & a1;

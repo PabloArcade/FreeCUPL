@@ -1,0 +1,21 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cpma;
+/* @flags -jaxm4 */
+
+pin 2 = in_x;
+pin 3 = in_y;
+pin 7 = in_z;
+pin 11 = !in_w;
+pin 1 = clk;
+pin 16 = !out_a;
+pin 19 = out_b;
+out_a = in_w;
+out_b = (!(out_a) # !(!in_y));
+out_b.oe = in_x;

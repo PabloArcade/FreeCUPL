@@ -1,0 +1,25 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p1020ev8;
+
+ORDER: a0, a3, !a2, a4, a5, a1, %2, q0, q1, q2, !ta, !tb;
+
+VECTORS:
+C10100 *****
+C01110 *N***
+C11001 *****
+C00111 *****
+C10001 **N**
+0011X0 NN***
+C00011 LHHHH
+P10111 X00XX
+C10X01 N****
+K10011 *****
+C00100 *****
+C00001 *****

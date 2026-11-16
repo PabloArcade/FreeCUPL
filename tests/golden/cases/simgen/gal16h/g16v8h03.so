@@ -1,0 +1,57 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for G16V8HS follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: g16v8h03.si
+
+   1: Name G9003;
+   2: Partno P9003;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g16v8hs;
+  10: 
+  11: ORDER: in_z, in_x, in_y, %2, out_a, out_b, out_c, out_d, out_e, out_f, fo;
+  12: 
+
+=====================
+           oooooo    
+      iii  uuuuuu    
+      nnn  tttttt    
+      ___  ______f   
+      zxy  abcdefo   
+=====================
+0001: 011  HHLHLLL
+0002: 010  HLLHLLH
+0003: 11X  HXNHHLH
+0004: 110  HLLHNLH
+0005: 101  HLLHLHH
+0006: 010  HLLHLLH
+0007: 101  HLLHLHH
+0008: 010  HLLHLLH
+0009: 100  HHLHLLL
+0010: 011  HHLHLLL
+0011: 01X  HXLHLLX
+0012: 101  HLLHLHH
+           ^ ^^^^
+[0019sa] user expected (L) for out_a
+[0019sa] user expected (H) for out_c
+[0019sa] user expected (L) for out_d
+[0019sa] user expected (H) for out_e
+[0019sa] user expected (L) for out_f
+
+0013: 111  HHHHHLH
+0014: 10X  HXLHLXX
+0015: 111  HHHHHLH
+0016: 110  HLNHHLH
+0017: 101  HLLHLHH
+0018: 10X  HXLHLXX
+0019: 100  HHLHNLL
+0020: 001  HLLHLNL
+0021: 001  HLLHLHL
+0022: 01X  HXLHLLX

@@ -1,0 +1,45 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20rp400.si
+
+   1: Name G9006;
+   2: Partno P9006;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20rp4;
+  10: 
+  11: ORDER: a1, a2, a0, %2, q0, fo;
+  12: 
+
+================
+      aaa  qf   
+      120  0o   
+================
+0001: 101  ZL
+0002: 100  ZH
+0003: 010  LL
+0004: 000  ZL
+0005: 111  ZH
+0006: 000  ZL
+0007: 111  ZH
+0008: 011  ZH
+0009: 110  LH
+0010: 001  ZL
+           ^
+[0019sa] user expected (H) for q0
+
+0011: 110  LH
+0012: 000  ZL
+0013: 100  ZH
+0014: 100  ZH
+0015: 011  ZH
+0016: 000  ZL
+0017: 111  ZH
+0018: 111  ZH

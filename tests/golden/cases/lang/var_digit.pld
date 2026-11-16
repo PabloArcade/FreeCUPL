@@ -1,0 +1,4 @@
+Name var_digit; Partno VAR_DIGI; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = 8250_enable; pin 3 = b; pin 23 = y;
+y = 8250_enable & b;

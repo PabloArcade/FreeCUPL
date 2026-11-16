@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p20p2  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7100
+Partno          R7100
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP24 
+*QF642 
+*G0 
+*F0 
+*L00000 11111110111111111111111011111111
+*L00032 11111111000000000000000000000000
+*L00640 10
+*C03FC
+*5712

@@ -1,0 +1,35 @@
+Name G9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p14p4v;
+pin 7 = !a0;
+pin 8 = !a1;
+pin 11 = a2;
+pin 12 = !a3;
+pin 13 = !a4;
+pin 18 = a5;
+pin 19 = a6;
+pin 17 = q0;
+pin 16 = q1;
+field fa = [a5..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = ((!a4 & (a5 & a3 & a4)) # (!a6 & !a3 & a2) # !((a6 # !a4 # !a2)));
+t1 = !((!(a3) & !t0 & a6));
+t2 = (t1 $ a1);
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = fsel(a6, t0, a0);
+q1 = (a2 $ !t0);
+pin 14 = c0; pin 15 = !c1;
+condition {
+  if a0 out c0;
+  if !a3 & a0 out c1;
+  if !a3 & !a2 out c0;
+  default out c0;
+}

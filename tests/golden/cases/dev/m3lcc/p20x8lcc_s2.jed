@@ -1,0 +1,22 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p20x8lcc  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7002
+Partno          R7002
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP28 
+*QF1600 
+*G0 
+*F0 
+*L01440 11111111111111111111111110111111
+*L01472 11111111111111111111011111111111
+*L01504 11111111111111111111111111111011
+*L01536 11111111101111111111111100000000
+*C0EBD
+*663D

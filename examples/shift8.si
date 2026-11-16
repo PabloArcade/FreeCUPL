@@ -1,0 +1,36 @@
+Name     shift8;
+Partno   EX005;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g22v10;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* clear, shift in 1 0 1 1, hold, shift the pattern out, output enable */
+
+ORDER: clk, %1, clr, sh, sin, soe, %2, data, %2, nz, sout;
+
+VECTORS:
+$MSG "clear";
+0 1001  LLLLLLLL  LL
+$MSG "shift in 1, 0, 1, 1";
+C 0111  LLLLLLLH  HL
+C 0101  LLLLLLHL  HL
+C 0111  LLLLLHLH  HL
+C 0111  LLLLHLHH  HL
+$MSG "hold";
+C 0001  LLLLHLHH  HL
+C 0011  LLLLHLHH  HL
+$MSG "shift zeros until the first 1 reaches q7";
+C 0101  LLLHLHHL  HL
+C 0101  LLHLHHLL  HL
+C 0101  LHLHHLLL  HL
+C 0101  HLHHLLLL  HH
+$MSG "serial output disabled, then enabled";
+0 0000  HLHHLLLL  HZ
+0 0001  HLHHLLLL  HH
+$MSG "clear";
+0 1001  LLLLLLLL  LL

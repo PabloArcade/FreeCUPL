@@ -1,0 +1,26 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20v8cpmslcc;
+
+pin 12 = !i0;
+pin 9 = ifdef;
+pin 19 = o0;
+pin 25 = !REPEND;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+o0.d = (!ifdef & i0);
+REPEND.d = (o0 # (!ifdef & !o0 & !i0));
+o2.d = (REPEND $ o0);
+o3.d = (o0 & ifdef & !o2);
+o4 = ((!ifdef & o3 & !REPEND) # (!o0 & !REPEND));
+o4.oe = i0;
+
+/* @expect
+o0.d = ((not ifdef) and i0)
+REPEND.d = (o0 or ((not ifdef) and (not o0) and (not i0)))
+o2.d = (REPEND ^ o0)
+o3.d = (o0 and ifdef and (not o2))
+o4 = (((not ifdef) and o3 and (not REPEND)) or ((not o0) and (not REPEND)))
+o4.oe = i0
+*/

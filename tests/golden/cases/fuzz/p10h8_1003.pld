@@ -1,0 +1,35 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p10h8;
+/* @flags -jaxm4 */
+pin 1 = in_x;
+pin 2 = in_y;
+pin 5 = in_z;
+pin 6 = in_w;
+pin 7 = !in_v;
+pin 8 = in_u;
+pin 11 = in_t;
+pin 19 = !out_a;
+pin 18 = out_b;
+pin 14 = out_c;
+pin 15 = out_d;
+pin 17 = out_e;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+APPEND out_a = !in_y & in_u;
+APPEND out_b = in_u;
+APPEND out_b = !in_u & in_z;
+APPEND out_c = in_y & in_z;
+out_d = [in_y,in_u]:&;
+!out_e = !in_w & !in_u & in_z;
+min out_a = 4;

@@ -1,0 +1,6 @@
+Name known_not_const; Partno KN_NOTC; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16r8;
+/* @bug B004: complement of an expression with a complemented constant: reference result wrong */
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 19 = y;
+t1 = 'b'1;
+y.d = a & !t1 # b;

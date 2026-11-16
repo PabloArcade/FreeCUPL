@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p14l4  Library DLIB-h-40-7
+Created         Thu Jan  1 00:00:00 1970
+Name            G1001
+Partno          P1001
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP20 
+*QF448 
+*G0 
+*F0 
+*L00000 11111111111111111111111101111111
+*L00032 10111111111111111111111111111111
+*L00064 11111111111110111111000000000000
+*C09E2
+*5F5D

@@ -1,0 +1,5 @@
+Name T2; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x;
+Device g16v8a;
+ORDER: a, b, y;
+VECTORS:
+11H

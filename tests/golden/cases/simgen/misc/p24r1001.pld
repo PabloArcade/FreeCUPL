@@ -1,0 +1,38 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Device p24r10;
+/* @flags -jaxm0kb */
+pin 2 = !a0;
+pin 5 = a1;
+pin 6 = !a2;
+pin 8 = !a3;
+pin 12 = !a4;
+pin 13 = !a5;
+pin 14 = a6;
+pin 1 = clk;
+pin [17,20,26,23,22] = [!q0,q1,q2,q3,q4];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = !(!a3);
+t1 = !(((a5 $ !a6) & !a4 & !a5 & !(a6)));
+t2 = !(a5 & (a5 & a6 & !a3) & !(!a1));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0.d = !a5 & a3 & a4 # !a6 & a0 # !a2 & !a4 & t1 # a5 & !t1;
+APPEND q1.d = q3;
+APPEND q1.d = q3 & a0;
+q2.d = !a2 & a3 & t0 # a3 & q4 & q3 # t2 & a0 # a2;
+q3.d = OFF & a0 # OFF;
+q4.d = [a1,a0]:$;

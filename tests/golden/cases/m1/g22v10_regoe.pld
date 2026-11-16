@@ -1,0 +1,23 @@
+Name g22v10_r; Partno G22V10_R; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+pin 2 = a;
+pin 3 = en;
+pin 4 = rs;
+pin 19 = q;
+pin 18 = !p;
+pin 13 = x;
+
+q.d = a $ q;
+q.oe = en;
+p.d = q & x;
+p.oe = !en;
+q.ar = rs;
+p.ar = rs;
+
+/* @expect
+q.d = a ^ q
+q.oe = en
+p.d = q and x
+p.oe = not en
+q.ar = rs
+*/

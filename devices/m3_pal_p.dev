@@ -1,0 +1,311 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Programmable-polarity combinational PALs (P, PV).
+# Generated from probe results; do not edit by hand.
+
+device p10p8
+descr P10P8
+partname p10p8 PAL10P8
+pins 20
+power 10 20
+fuses 328
+array 20 16
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p11
+mc 12 gen sum=14-15 polfuse=327 polhi=1 reg=0
+mc 13 gen sum=12-13 polfuse=326 polhi=1 reg=0
+mc 14 gen sum=10-11 polfuse=325 polhi=1 reg=0
+mc 15 gen sum=8-9 polfuse=324 polhi=1 reg=0
+mc 16 gen sum=6-7 polfuse=323 polhi=1 reg=0
+mc 17 gen sum=4-5 polfuse=322 polhi=1 reg=0
+mc 18 gen sum=2-3 polfuse=321 polhi=1 reg=0
+mc 19 gen sum=0-1 polfuse=320 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p10p8v
+descr P10P8V
+partname p10p8v PAL10P8V
+pins 20
+power 10 20
+fuses 664
+array 20 32
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p11
+mc 12 gen sum=28-31 polfuse=663 polhi=1 reg=0
+mc 13 gen sum=24-27 polfuse=660 polhi=1 reg=0
+mc 14 gen sum=20-23 polfuse=657 polhi=1 reg=0
+mc 15 gen sum=16-19 polfuse=654 polhi=1 reg=0
+mc 16 gen sum=12-15 polfuse=651 polhi=1 reg=0
+mc 17 gen sum=8-11 polfuse=648 polhi=1 reg=0
+mc 18 gen sum=4-7 polfuse=645 polhi=1 reg=0
+mc 19 gen sum=0-3 polfuse=642 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p12p6
+descr P12P6
+partname p12p6 PAL12P6
+pins 20
+power 10 20
+fuses 390
+array 24 16
+lines p2 p1 p3 p19 p4 p5 p6 p7 p8 p12 p9 p11
+mc 13 gen sum=12-15 polfuse=389 polhi=1 reg=0
+mc 14 gen sum=10-11 polfuse=388 polhi=1 reg=0
+mc 15 gen sum=8-9 polfuse=387 polhi=1 reg=0
+mc 16 gen sum=6-7 polfuse=386 polhi=1 reg=0
+mc 17 gen sum=4-5 polfuse=385 polhi=1 reg=0
+mc 18 gen sum=0-3 polfuse=384 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p12p6v
+descr P12P6V
+partname p12p6v PAL12P6V
+pins 20
+power 10 20
+fuses 786
+array 24 32
+lines p2 p1 p3 p19 p4 p5 p6 p7 p8 p12 p9 p11
+mc 13 gen sum=24-31 polfuse=785 polhi=1 reg=0
+mc 14 gen sum=20-23 polfuse=782 polhi=1 reg=0
+mc 15 gen sum=16-19 polfuse=779 polhi=1 reg=0
+mc 16 gen sum=12-15 polfuse=776 polhi=1 reg=0
+mc 17 gen sum=8-11 polfuse=773 polhi=1 reg=0
+mc 18 gen sum=0-7 polfuse=770 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p14p4
+descr P14P4
+partname p14p4 PAL14P4
+pins 20
+power 10 20
+fuses 452
+array 28 16
+lines p2 p1 p3 p19 p4 p18 p5 p6 p7 p13 p8 p12 p9 p11
+mc 14 gen sum=12-15 polfuse=451 polhi=1 reg=0
+mc 15 gen sum=8-11 polfuse=450 polhi=1 reg=0
+mc 16 gen sum=4-7 polfuse=449 polhi=1 reg=0
+mc 17 gen sum=0-3 polfuse=448 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p14p4v
+descr P14P4V
+partname p14p4v PAL14P4V
+pins 20
+power 10 20
+fuses 908
+array 28 32
+lines p2 p1 p3 p19 p4 p18 p5 p6 p7 p13 p8 p12 p9 p11
+mc 14 gen sum=24-31 polfuse=907 polhi=1 reg=0
+mc 15 gen sum=16-23 polfuse=904 polhi=1 reg=0
+mc 16 gen sum=8-15 polfuse=901 polhi=1 reg=0
+mc 17 gen sum=0-7 polfuse=898 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p2
+descr P16P2
+partname p16p2 PAL16P2
+pins 20
+power 10 20
+fuses 514
+array 32 16
+lines p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11
+mc 15 gen sum=8-15 polfuse=513 polhi=1 reg=0
+mc 16 gen sum=0-7 polfuse=512 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p2v
+descr P16P2V
+partname p16p2v PAL16P2V
+pins 20
+power 10 20
+fuses 1030
+array 32 32
+lines p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11
+mc 15 gen sum=16-31 polfuse=1029 polhi=1 reg=0
+mc 16 gen sum=0-15 polfuse=1026 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p6
+descr P16P6
+partname p16p6 PAL16P6
+pins 24
+power 12 24
+fuses 646
+array 32 20
+lines p2 p1 p3 p23 p4 p22 p5 p6 p7 p8 p9 p15 p10 p14 p11 p13
+mc 16 gen sum=16-19 polfuse=645 polhi=1 reg=0
+mc 17 gen sum=12-15 polfuse=644 polhi=1 reg=0
+mc 18 gen sum=10-11 polfuse=643 polhi=1 reg=0
+mc 19 gen sum=8-9 polfuse=642 polhi=1 reg=0
+mc 20 gen sum=4-7 polfuse=641 polhi=1 reg=0
+mc 21 gen sum=0-3 polfuse=640 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p8
+descr P16P8
+partname p16p8 PAL16P8
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=57-63 oe=56 polfuse=2055 polhi=1 reg=0
+mc 13 gen sum=49-55 oe=48 polfuse=2054 polhi=1 reg=0
+mc 14 gen sum=41-47 oe=40 polfuse=2053 polhi=1 reg=0
+mc 15 gen sum=33-39 oe=32 polfuse=2052 polhi=1 reg=0
+mc 16 gen sum=25-31 oe=24 polfuse=2051 polhi=1 reg=0
+mc 17 gen sum=17-23 oe=16 polfuse=2050 polhi=1 reg=0
+mc 18 gen sum=9-15 oe=8 polfuse=2049 polhi=1 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2048 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p8h
+descr P16P8H
+partname p16p8h PAL16P8H
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=57-63 oe=56 polfuse=2055 polhi=0 reg=0
+mc 13 gen sum=49-55 oe=48 polfuse=2054 polhi=0 reg=0
+mc 14 gen sum=41-47 oe=40 polfuse=2053 polhi=0 reg=0
+mc 15 gen sum=33-39 oe=32 polfuse=2052 polhi=0 reg=0
+mc 16 gen sum=25-31 oe=24 polfuse=2051 polhi=0 reg=0
+mc 17 gen sum=17-23 oe=16 polfuse=2050 polhi=0 reg=0
+mc 18 gen sum=9-15 oe=8 polfuse=2049 polhi=0 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2048 polhi=0 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16p8v
+descr P16P8V
+partname p16p8v PAL16P8V
+pins 20
+power 10 20
+fuses 2072
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=57-63 oe=56 polfuse=2071 polhi=1 reg=0
+mc 13 gen sum=49-55 oe=48 polfuse=2068 polhi=1 reg=0
+mc 14 gen sum=41-47 oe=40 polfuse=2065 polhi=1 reg=0
+mc 15 gen sum=33-39 oe=32 polfuse=2062 polhi=1 reg=0
+mc 16 gen sum=25-31 oe=24 polfuse=2059 polhi=1 reg=0
+mc 17 gen sum=17-23 oe=16 polfuse=2056 polhi=1 reg=0
+mc 18 gen sum=9-15 oe=8 polfuse=2053 polhi=1 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2050 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p18p4
+descr P18P4
+partname p18p4 PAL18P4
+pins 24
+power 12 24
+fuses 724
+array 36 20
+lines p2 p1 p3 p23 p4 p22 p5 p21 p6 p7 p8 p16 p9 p15 p10 p14 p11 p13
+mc 17 gen sum=14-19 polfuse=723 polhi=1 reg=0
+mc 18 gen sum=10-13 polfuse=722 polhi=1 reg=0
+mc 19 gen sum=6-9 polfuse=721 polhi=1 reg=0
+mc 20 gen sum=0-5 polfuse=720 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p18p8
+descr P18P8
+partname p18p8 PAL18P8
+pins 20
+power 10 20
+fuses 2600
+array 36 72
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11 f19 f12
+mc 12 gen sum=64-71 oe=63 polfuse=2599 polhi=1 reg=0
+mc 13 gen sum=55-62 oe=54 polfuse=2598 polhi=1 reg=0
+mc 14 gen sum=46-53 oe=45 polfuse=2597 polhi=1 reg=0
+mc 15 gen sum=37-44 oe=36 polfuse=2596 polhi=1 reg=0
+mc 16 gen sum=28-35 oe=27 polfuse=2595 polhi=1 reg=0
+mc 17 gen sum=19-26 oe=18 polfuse=2594 polhi=1 reg=0
+mc 18 gen sum=10-17 oe=9 polfuse=2593 polhi=1 reg=0
+mc 19 gen sum=1-8 oe=0 polfuse=2592 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p12p10
+descr P12P10
+partname p12p10 PAL12P10
+pins 24
+power 12 24
+fuses 490
+array 24 20
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p10 p11 p13
+mc 14 gen sum=18-19 polfuse=489 polhi=1 reg=0
+mc 15 gen sum=16-17 polfuse=488 polhi=1 reg=0
+mc 16 gen sum=14-15 polfuse=487 polhi=1 reg=0
+mc 17 gen sum=12-13 polfuse=486 polhi=1 reg=0
+mc 18 gen sum=10-11 polfuse=485 polhi=1 reg=0
+mc 19 gen sum=8-9 polfuse=484 polhi=1 reg=0
+mc 20 gen sum=6-7 polfuse=483 polhi=1 reg=0
+mc 21 gen sum=4-5 polfuse=482 polhi=1 reg=0
+mc 22 gen sum=2-3 polfuse=481 polhi=1 reg=0
+mc 23 gen sum=0-1 polfuse=480 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p14p8
+descr P14P8
+partname p14p8 PAL14P8
+pins 24
+power 12 24
+fuses 568
+array 28 20
+lines p2 p1 p3 p23 p4 p5 p6 p7 p8 p9 p10 p14 p11 p13
+mc 15 gen sum=16-19 polfuse=567 polhi=1 reg=0
+mc 16 gen sum=14-15 polfuse=566 polhi=1 reg=0
+mc 17 gen sum=12-13 polfuse=565 polhi=1 reg=0
+mc 18 gen sum=10-11 polfuse=564 polhi=1 reg=0
+mc 19 gen sum=8-9 polfuse=563 polhi=1 reg=0
+mc 20 gen sum=6-7 polfuse=562 polhi=1 reg=0
+mc 21 gen sum=4-5 polfuse=561 polhi=1 reg=0
+mc 22 gen sum=0-3 polfuse=560 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20p2
+descr P20P2
+partname p20p2 PAL20P2
+pins 24
+power 12 24
+fuses 642
+array 40 16
+lines p2 p1 p3 p23 p4 p22 p5 p21 p6 p20 p7 p17 p8 p16 p9 p15 p10 p14 p11 p13
+mc 18 gen sum=8-15 polfuse=641 polhi=1 reg=0
+mc 19 gen sum=0-7 polfuse=640 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20p8
+descr P20P8
+partname p20p8 PAL20P8
+pins 24
+power 12 24
+fuses 2568
+array 40 64
+lines p2 p1 p3 p23 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p14 p11 p13
+mc 15 gen sum=57-63 oe=56 polfuse=2567 polhi=1 reg=0
+mc 16 gen sum=49-55 oe=48 polfuse=2566 polhi=1 reg=0
+mc 17 gen sum=41-47 oe=40 polfuse=2565 polhi=1 reg=0
+mc 18 gen sum=33-39 oe=32 polfuse=2564 polhi=1 reg=0
+mc 19 gen sum=25-31 oe=24 polfuse=2563 polhi=1 reg=0
+mc 20 gen sum=17-23 oe=16 polfuse=2562 polhi=1 reg=0
+mc 21 gen sum=9-15 oe=8 polfuse=2561 polhi=1 reg=0
+mc 22 gen sum=1-7 oe=0 polfuse=2560 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end

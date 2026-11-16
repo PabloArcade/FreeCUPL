@@ -1,0 +1,27 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22v10;
+pin [6,8,9,11] = [in_x, !in_y, in_z, !in_w];
+pin 19 = out_a;
+pin 14 = out_b;
+pin 18 = out_c;
+pin 16 = out_d;
+t0 = (in_w $ !in_z);
+t1 = in_x;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = t0 & in_w & in_x;
+out_a.oe = in_x & !in_y;
+out_b = in_y & !t0;
+out_b.oe = 'b'1;
+out_c = !t0 # t0;
+!out_d.d = [in_w,in_x,in_z,in_y]:&;
+out_d.ar = in_z;
+out_d.sp = in_w & in_z;

@@ -1,0 +1,25 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+
+ORDER: clk, !in_x, in_y, in_z, %2, !out_a, out_b, out_c;
+
+VECTORS:
+1X01 ***
+0001 ***
+01X0 ***
+C000 *N*
+C000 ***
+C011 ***
+C101 LHH
+C001 ***
+C111 N**
+PX11 XX1
+C101 ***
+KX00 ***

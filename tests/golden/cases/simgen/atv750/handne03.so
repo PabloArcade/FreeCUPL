@@ -1,0 +1,33 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: handne03.si
+
+   1: Name P;
+   2: Device v750;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: i2, i1, !i3, %2, x, q;
+   5: 
+
+================
+        !       
+      iii       
+      213  xq   
+================
+0001: 101  LH
+0002: 001  LH
+0003: 100  HL
+0004: 101  HL
+0005: 000  LL
+0006: 111  HL
+0007: 110  HL
+0008: 000  LL
+0009: 010  LL
+0010: 1X1  XX
+0011: 111  HL
+0012: 000  LL
+0013: 100  HL
+0014: 010  LL

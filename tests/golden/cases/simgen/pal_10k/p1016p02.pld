@@ -1,0 +1,22 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p1016p8;
+pin 13 = !in_x;
+pin 14 = in_y;
+pin 15 = in_z;
+pin 20 = out_a;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = in_x;
+!out_a = [in_y,in_x]:$;
+min out_a = 3;

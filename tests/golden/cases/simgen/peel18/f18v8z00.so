@@ -1,0 +1,42 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for F18V8ZS follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: f18v8z00.si
+
+   1: Name G9006;
+   2: Partno P9006;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device f18v8zs;
+  10: 
+  11: ORDER: !in_w, in_v, in_z, in_y, in_x, %2, out_a;
+  12: 
+
+=================
+      !      o   
+      iiiii  u   
+      nnnnn  t   
+      _____  _   
+      wvzyx  a   
+=================
+0001: 00011  L
+0002: 01101  H
+0003: 1X000  H
+0004: 11XX1  X
+0005: 00111  L
+0006: 11110  L
+             ^
+[0019sa] user expected (H) for out_a
+
+0007: 10100  H
+0008: 00101  H
+0009: 00001  H
+0010: 00001  H
+0011: 00010  L

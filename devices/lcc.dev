@@ -1,0 +1,244 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# LCC/PLCC packages of the 22V10, GAL16V8/20V8 and PAL16/20 parts: the
+# DIP fuse map with the pins renumbered (pinmap OLD=NEW).  NEW=0: the pin
+# does not reach the array and was not located.  The cp variants reserve
+# pin 5.
+
+device p16l8alcc
+inherit p16l8
+descr P16L8 in a 28-pin LCC/PLCC package
+partname p16l8alcc PAL16L8A (PLCC28)
+pins 28
+pinmap 1=24 2=25 3=26 4=27 5=28 6=2 7=3 8=4 9=5 10=0 11=7 12=8 13=10 14=12 15=14 16=16 17=18 18=20 19=22 20=0
+libtag p16l8alcc DLIB-h-40-9
+end
+
+device p16r4alcc
+inherit p16r4
+descr P16R4 in a 28-pin LCC/PLCC package
+partname p16r4alcc PAL16R4A (PLCC28)
+pins 28
+pinmap 1=0 2=25 3=26 4=27 5=28 6=2 7=3 8=4 9=5 10=0 11=0 12=8 13=10 14=12 15=14 16=16 17=18 18=20 19=22 20=0
+libtag p16r4alcc DLIB-h-40-9
+end
+
+device p16r6alcc
+inherit p16r6
+descr P16R6 in a 28-pin LCC/PLCC package
+partname p16r6alcc PAL16R6A (PLCC28)
+pins 28
+pinmap 1=0 2=25 3=26 4=27 5=28 6=2 7=3 8=4 9=5 10=0 11=0 12=8 13=10 14=12 15=14 16=16 17=18 18=20 19=22 20=0
+libtag p16r6alcc DLIB-h-40-9
+end
+
+device p16r8alcc
+inherit p16r8
+descr P16R8 in a 28-pin LCC/PLCC package
+partname p16r8alcc PAL16R8A (PLCC28)
+pins 28
+pinmap 1=0 2=25 3=26 4=27 5=28 6=2 7=3 8=4 9=5 10=0 11=0 12=8 13=10 14=12 15=14 16=16 17=18 18=20 19=22 20=0
+libtag p16r8alcc DLIB-h-40-9
+end
+
+device p20l8lcc
+inherit p20l8
+descr P20L8 in a 28-pin LCC/PLCC package
+partname p20l8lcc PAL20L8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20l8mlcc
+inherit p20l8
+descr P20L8 in a 28-pin LCC package (alternative numbering)
+partname p20l8mlcc PAL20L8 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20r4lcc
+inherit p20r4
+descr P20R4 in a 28-pin LCC/PLCC package
+partname p20r4lcc PAL20R4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20r4mlcc
+inherit p20r4
+descr P20R4 in a 28-pin LCC package (alternative numbering)
+partname p20r4mlcc PAL20R4 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20r6lcc
+inherit p20r6
+descr P20R6 in a 28-pin LCC/PLCC package
+partname p20r6lcc PAL20R6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20r6mlcc
+inherit p20r6
+descr P20R6 in a 28-pin LCC package (alternative numbering)
+partname p20r6mlcc PAL20R6 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20r8lcc
+inherit p20r8
+descr P20R8 in a 28-pin LCC/PLCC package
+partname p20r8lcc PAL20R8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20r8mlcc
+inherit p20r8
+descr P20R8 in a 28-pin LCC package (alternative numbering)
+partname p20r8mlcc PAL20R8 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p22v10lcc
+inherit p22v10
+descr P22V10 in a 28-pin LCC/PLCC package
+partname p22v10lcc PAL22V10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p22v10tlcc
+inherit p22v10
+descr P22V10 in a 28-pin LCC package (alternative numbering)
+partname p22v10tlcc PAL22V10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=12 5=13 6=14 7=15 8=16 9=17 10=26 11=27 12=0 13=28 14=18 15=11 16=19 17=9 18=21 19=7 20=23 21=5 22=25 23=4 24=0
+end
+
+device g22v10lcc
+inherit g22v10
+descr G22V10 in a 28-pin LCC/PLCC package
+partname g22v10lcc GAL22V10 / ATF22V10B / ATF22V10C (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device g22v10cplcc
+inherit g22v10cp
+descr ATF22V10C power-down variant, PLCC (PD pin 5; the reference leaves the PD fuse unprogrammed)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+pd -1 0
+alias g22v10cplcc reserve=5
+partname g22v10cplcc ATF22V10C-PD (power-down, PLCC28)
+end
+
+device g20v8lcc
+inherit g20v8
+descr G20V8 in a 28-pin LCC/PLCC package
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+alias g20v8lcc auto simple=g20v8slcc complex=g20v8malcc registered=g20v8mslcc
+partname g20v8lcc GAL20V8 (automatic mode, PLCC28)
+alias g20v8slcc simple quirk=fbinput
+partname g20v8slcc GAL20V8 (simple mode, non-A, PLCC28)
+alias g20v8malcc complex
+partname g20v8malcc GAL20V8 (complex mode, PLCC28)
+alias g20v8mslcc registered
+partname g20v8mslcc GAL20V8 (registered mode, PLCC28)
+alias g20v8alcc auto simple=g20v8aslcc complex=g20v8malcc registered=g20v8mslcc autofb=simple
+partname g20v8alcc GAL20V8A / ATF20V8B (automatic mode, PLCC28)
+alias g20v8aslcc simple
+partname g20v8aslcc GAL20V8A / ATF20V8B (simple mode, PLCC28)
+libtag g20v8slcc DLIB-h-40-3
+libtag g20v8malcc DLIB-h-40-3
+libtag g20v8mslcc DLIB-h-40-3
+libtag g20v8aslcc DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g20v8cplcc
+inherit g20v8cp
+descr G20V8CP in a 28-pin LCC/PLCC package
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+alias g20v8cplcc auto simple=g20v8cpslcc complex=g20v8cpmalcc registered=g20v8cpmslcc reserve=5 autofb=simple
+partname g20v8cplcc ATF20V8C-PD (power-down, automatic mode, PLCC28)
+alias g20v8cpslcc simple reserve=5
+partname g20v8cpslcc ATF20V8C-PD (power-down, simple mode, PLCC28)
+alias g20v8cpmalcc complex reserve=5
+partname g20v8cpmalcc ATF20V8C-PD (power-down, complex mode, PLCC28)
+alias g20v8cpmslcc registered reserve=5
+partname g20v8cpmslcc ATF20V8C-PD (power-down, registered mode, PLCC28)
+libtag g20v8cpslcc DLIB-h-40-1
+libtag g20v8cpmalcc DLIB-h-40-3
+libtag g20v8cpmslcc DLIB-h-40-3
+refdefect kbnoflip      # B001
+end
+
+# PAL20RP8, 28 pins: no feedback from the registers on pins 18 and 19
+# (0014cb).
+device p20rp8lcc
+inherit p20rp8
+descr P20RP8 in a 28-pin package
+partname p20rp8lcc PAL20RP8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+lines p3 p27 p4 f26 p5 f25 p6 f24 p7 f23 p9 f21 p10 f20 p11 - p12 - p13 p17
+refdefect kbnoflip      # B001
+end
+
+# 28-pin PAL19R4/6/8 R/T: PLCC-28 numbering.
+device p19r4rlcc
+inherit p19r4r
+descr P19R4R in a 28-pin package
+partname p19r4rlcc PAL19R4R (registered inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19r4tlcc
+inherit p19r4t
+descr P19R4T in a 28-pin package
+partname p19r4tlcc PAL19R4T (latched inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19r6rlcc
+inherit p19r6r
+descr P19R6R in a 28-pin package
+partname p19r6rlcc PAL19R6R (registered inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19r6tlcc
+inherit p19r6t
+descr P19R6T in a 28-pin package
+partname p19r6tlcc PAL19R6T (latched inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19r8rlcc
+inherit p19r8r
+descr P19R8R in a 28-pin package
+partname p19r8rlcc PAL19R8R (registered inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19r8tlcc
+inherit p19r8t
+descr P19R8T in a 28-pin package
+partname p19r8tlcc PAL19R8T (latched inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+

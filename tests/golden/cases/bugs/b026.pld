@@ -1,0 +1,5 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device f18v8z;
+pin 1 = clk; pin 2 = a; pin 3 = e;
+pin 12 = c0; pin 13 = c1; pin 14 = r0; pin 15 = r1;
+c0 = a; c1 = a; c1.oe = e; r0.d = a; r1.d = a; r1.oe = e;

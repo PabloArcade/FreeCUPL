@@ -1,0 +1,44 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20x4f03.si
+
+   1: Name G9012;
+   2: Partno P9012;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20x4;
+  10: 
+  11: FIELD fa = [a3,a2,a1,a0];
+  12: FIELD st = [s0];
+  13:
+  14: ORDER: clk, a0, a6, a5, oe, a1, a3, a4, !a2, %2, !s0, q1, q2;
+  15: 
+
+=======================
+      c       !  !     
+      laaaoaaaa  sqq   
+      k065e1342  012   
+=======================
+0001: K10001X00  ZLH
+0002: C11100111  ZXZ
+vector 3
+0003: K10X010X1  ZXZ
+0004: C01110010  XLZ
+0005: C00111111  XXZ
+0006: C00000101  ZXZ
+                 ^^^
+[0019sa] user expected (L) for s0
+[0019sa] user expected (H) for q1
+[0019sa] user expected (H) for q2
+
+0007: C10100011  ZXZ
+0008: C01000111  ZXZ
+0009: P1110X010  1XX
+0010: C11X01010  ZLL

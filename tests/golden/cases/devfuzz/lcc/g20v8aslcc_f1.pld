@@ -1,0 +1,37 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8aslcc;
+/* @flags -jaxm0kb */
+pin [2,4,5,7,16] = [a0, a1, a2, a3, a4];
+pin 2 = clk;
+pin 19 = !q0;
+pin 23 = q1;
+pin 26 = !q2;
+pin 24 = q3;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = !a4;
+q1 = a0;
+q2 = [a4,a1,a2]:#;
+condition {
+  if a2 & !a4 out q3;
+  default out q3;
+}
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%5};
+$REPEND
+pin 20 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a4, a3, a0, fflag) # fflag;

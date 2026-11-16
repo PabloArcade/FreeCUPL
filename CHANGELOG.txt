@@ -1,0 +1,28 @@
+FreeCUPL changes
+
+1.0.0  2026-11-16
+
+First public release.
+
+freecupl: CUPL compiler with the command line of WinCUPL 5.0a.  Full
+CUPL language and preprocessor, minimisation -m0 to -m4, -kb, JEDEC,
+documentation, listing, macro expansion and absolute files.  For every
+design WinCUPL accepts, the JEDEC file makes the device behave as
+WinCUPL's does.
+
+freecsim: CSIM-compatible simulator.  .si test vectors, .so listing,
+.wo waveform file, test vectors in the JEDEC file; also run by
+freecupl -s.
+
+307 device mnemonics (docs/USERGUIDE.txt, section 8).
+
+The WinCUPL 5.0a bugs B001 to B033 (docs/BUGS.txt) are reproduced by
+default with a warning; -fix gives the corrected result.
+
+Helper tools jedsim, equiv and jedtool.
+
+Builds for Windows XP SP3 and later, Linux and macOS from one C99
+source.  SOURCE_DATE_EPOCH sets the date in output headers.  make check
+runs the test suite.
+
+The programs were developed under the working names dcupl and dcsim.

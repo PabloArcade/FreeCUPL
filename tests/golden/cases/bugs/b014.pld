@@ -1,0 +1,5 @@
+Name B014; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750;
+pin 1 = c; pin 2 = a; pin 3 = b;
+pin 14 = o; o.d = a; o.ck = c;
+pin 15 = p; p = !o.dfb & o;

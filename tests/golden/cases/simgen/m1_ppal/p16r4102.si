@@ -1,0 +1,28 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16r4;
+
+ORDER: clk, in_v, in_x, in_u, !in_z, in_y, !in_w, %2, out_a, out_b, out_c, !out_d, out_e;
+
+VECTORS:
+C111011 *****
+C111000 *****
+C111110 *****
+C011010 *****
+C011011 ***N*
+C010001 **N**
+011X001 N****
+P111001 X100X
+1000000 *****
+C011010 *****
+C00X010 *****
+0101100 **N**
+C101000 ****N
+C100001 *****
+1110001 *****

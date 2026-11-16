@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500c;
+
+/* @local */ /* @bypass */
+pin 19 = i0;
+pin 40 = i1;
+pin 37 = !i2;
+pin 22 = i3;
+pin 39 = !i4;
+pin 17 = i5;
+pin 33 = o0;
+pinnode 48 = REPEAT;
+
+o0.t = (i2 # !i3 # (!i2 & !i4 & !i3));
+o0.ck = i2;
+REPEAT.d = ((i4 & i1) # (i2 & !i3));
+REPEAT.ck = !i0;
+
+/* @expect
+o0.t = (i2 or (not i3) or ((not i2) and (not i4) and (not i3)))
+o0.ck = i2
+REPEAT.d = ((i4 and i1) or (i2 and (not i3)))
+REPEAT.ck = (not i0)
+*/

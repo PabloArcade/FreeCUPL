@@ -1,0 +1,34 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16ra8;
+/* @local */ /* @bypass */
+pin 6 = i0;
+pin 8 = i1;
+pin 9 = !i2;
+pin 19 = o0;
+pin 16 = !o1;
+pin 15 = o2;
+pin 18 = o3;
+
+o0 = ((!i0 & !i2) # !i0);
+o0.oe = i1;
+o1.d = ((!i1 & !i0 & i2) # (i2 & i0 & i1));
+o1.ck = !i2;
+o1.ar = i2;
+o2.d = ((i1 & !i0) # (!o1 & !i2 & !i1) # o1);
+o2.ck = !i0;
+o2.ap = i1;
+o2.oe = i0;
+o3 = ((!i1 & !i0) # (i0 & i1 & o1));
+
+/* @expect
+o0 = (((not i0) and (not i2)) or (not i0))
+o0.oe = i1
+o1.d = (((not i1) and (not i0) and i2) or (i2 and i0 and i1))
+o1.ck = (not i2)
+o1.ar = i2
+o2.d = ((i1 and (not i0)) or ((not o1) and (not i2) and (not i1)) or o1)
+o2.ck = (not i0)
+o2.ap = i1
+o2.oe = i0
+o3 = (((not i1) and (not i0)) or (i0 and i1 and o1))
+*/

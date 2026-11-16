@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16n8;
+pin 8 = !FORMAT;
+pin 5 = i1;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = !o2;
+pin 15 = !o3;
+pin 12 = ifdef;
+
+o0 = (FORMAT $ i1);
+o0.oe = FORMAT;
+o1 = (FORMAT & i1);
+o2 = (!i1 & FORMAT & o1);
+o3 = !i1;
+ifdef = (!o3 & i1);
+
+/* @expect
+o0 = (FORMAT ^ i1)
+o0.oe = FORMAT
+o1 = (FORMAT and i1)
+o2 = ((not i1) and FORMAT and o1)
+o3 = (not i1)
+ifdef = ((not o3) and i1)
+*/

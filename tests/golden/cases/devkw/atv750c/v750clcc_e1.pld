@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750clcc;
+
+/* @local */ /* @bypass */
+pin 10 = !JUMP;
+pin 13 = Macro;
+pin 23 = !o0;
+pinnode 29 = o1;
+pin 21 = o2;
+
+o0 = (!Macro & !JUMP);
+o0.oe = (!Macro & JUMP);
+o1.t = JUMP;
+o1.ck = !JUMP;
+o2 = (JUMP # (o1 & !Macro) # !JUMP);
+o2.oe = JUMP;
+
+/* @expect
+o0 = ((not Macro) and (not JUMP))
+o0.oe = ((not Macro) and JUMP)
+o1.t = JUMP
+o1.ck = (not JUMP)
+o2 = (JUMP or (o1 and (not Macro)) or (not JUMP))
+o2.oe = JUMP
+*/

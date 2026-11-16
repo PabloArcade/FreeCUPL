@@ -1,0 +1,37 @@
+Name G1006;
+Partno P1006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+
+ORDER: in_x, in_z, in_y, %2, out_a, out_b;
+
+VECTORS:
+C10 **
+000 **
+001 **
+C10 **
+C11 **
+C01 **
+110 *N
+C01 N*
+C01 **
+010 **
+C1X **
+01X **
+101 LL
+C11 **
+C01 **
+P01 11
+000 **
+C10 **
+C01 **
+C11 **
+P01 01
+K11 **
+C0X *N
+P00 11

@@ -1,0 +1,24 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Location x;
+Device g20vp8;
+pin [1,3,9,10,11,24] = [a0, !a1, a2, !a3, a4, !a5];
+pin [22,21,15] = [q0,!q1,q2];
+t0 = a4;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = fsel(a5, a3, a4);
+q1 = t0;
+q1.oe = !a0 & a3;
+q2 = a0 & a4;
+pin 16 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a1, a0, a2, fflag) # fflag;

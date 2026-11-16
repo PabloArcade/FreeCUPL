@@ -1,0 +1,21 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p32r16lcc;
+pin 8 = in_x;
+pin 15 = in_y;
+pin 29 = in_z;
+pin 26 = s0;
+pin 41 = out_b;
+t0 = in_y & !in_y & in_z & in_z & !(in_x & in_x) & !in_z # !(in_x);
+t1 = t0;
+out_b.d = !t0 # !in_y & !s0 & !t1;
+field st = [s0];
+sequenced st {
+  present 1 next 1;
+}

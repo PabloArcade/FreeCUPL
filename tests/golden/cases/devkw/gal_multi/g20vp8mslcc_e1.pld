@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20vp8mslcc;
+pin 21 = !i0;
+pin 26 = i1;
+pin 11 = o0;
+pin 18 = !fuse;
+pin 16 = o2;
+pin 13 = o3;
+pin 10 = Pinnnode;
+
+o0.d = (!i1 & i0);
+fuse.d = (o0 # (!i1 & !o0 & !i0));
+o2.d = (fuse $ o0);
+o3.d = (o0 & i1 & !o2);
+Pinnnode = ((!i1 & o3 & !fuse) # (!o0 & !fuse));
+Pinnnode.oe = i0;
+
+/* @expect
+o0.d = ((not i1) and i0)
+fuse.d = (o0 or ((not i1) and (not o0) and (not i0)))
+o2.d = (fuse ^ o0)
+o3.d = (o0 and i1 and (not o2))
+Pinnnode = (((not i1) and o3 and (not fuse)) or ((not o0) and (not fuse)))
+Pinnnode.oe = i0
+*/

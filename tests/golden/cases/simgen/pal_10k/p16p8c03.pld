@@ -1,0 +1,31 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16p8c;
+pin 2 = a0;
+pin 11 = a1;
+pin 13 = a2;
+pin 22 = a3;
+pin 18 = q0;
+pin 17 = q1;
+pin 7 = q2;
+pin 4 = !q3;
+pin 8 = !q4;
+pin 21 = q5;
+field fa = [a3..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = a3;
+q1 = (('b'1 & !a2 # a3 # a0 & a1) $ (a3 # a0) # (a3 # a1 # a1));
+q2 = !q3;
+!q3 = a2;
+q4 = q3 & a0 & a1 # q1 & !q5 & !a2 # q5 # a1;
+q5 = [a3,a1,a2,a0]:#;

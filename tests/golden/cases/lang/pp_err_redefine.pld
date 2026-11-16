@@ -1,0 +1,6 @@
+Name pp_err_r; Partno PP_ERR_R; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+$DEFINE X a
+$DEFINE X b
+pin 2 = a; pin 19 = y;
+y = X;

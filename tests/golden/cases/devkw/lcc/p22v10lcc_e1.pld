@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22v10lcc;
+pin 10 = !i0;
+pin 13 = i1;
+pin 21 = !Macro;
+pin 19 = o1;
+pin 24 = o2;
+
+Macro.d = ((!i1 & i0) # i1 # (!i0 & !i1));
+Macro.oe = (!i0 & i1);
+o1.d = (!i0 & i1);
+o2 = !i1;
+Macro.ar = (!i1 & !i0);
+o1.ar = (!i1 & !i0);
+Macro.sp = i0;
+o1.sp = i0;
+
+/* @expect
+Macro.d = (((not i1) and i0) or i1 or ((not i0) and (not i1)))
+Macro.oe = ((not i0) and i1)
+o1.d = ((not i0) and i1)
+o2 = (not i1)
+Macro.ar = ((not i1) and (not i0))
+Macro.sp = i0
+*/

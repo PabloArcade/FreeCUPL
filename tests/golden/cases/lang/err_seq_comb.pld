@@ -1,0 +1,9 @@
+Name err_seq_comb; Partno ERR_SEQC; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16l8;
+pin 2 = a; pin 3 = b;
+pin [18..19] = [q0..1];
+field st = [q1..0];
+sequence st {
+  present 0 next 1;
+  present 1 next 0;
+}

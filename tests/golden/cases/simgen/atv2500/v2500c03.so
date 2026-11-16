@@ -1,0 +1,55 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: v2500c03.si
+
+   1: Name G9007;
+   2: Partno P9007;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device v2500cppk;
+  10: 
+  11: ORDER: in_x, !in_v, in_y, in_w, in_z, !in_u, %2, out_a, !fo, out_b, out_c, out_d, out_e;
+  12: 
+
+=======================
+       !   !  o oooo   
+      iiiiii  u uuuu   
+      nnnnnn  t!tttt   
+      ______  _f____   
+      xvywzu  aobcde   
+=======================
+0001: 011101  HLLLLL
+0002: 111011  HHLLLL
+0003: 000101  HLLLLL
+0004: 000100  HLLLLL
+0005: 100011  HLLLLL
+0006: 111100  HLLLLL
+0007: X00011  HNLLLL
+0008: 01X110  HHLLLL
+0009: 110000  HHLLLL
+0010: 00100X  HNLLLL
+0011: 01011X  HHLLLL
+0012: 100010  HLLLLL
+                ^^^
+[0019sa] user expected (H) for out_b
+[0019sa] user expected (H) for out_c
+[0019sa] user expected (H) for out_d
+
+0013: X10000  HHLLLL
+0014: 111010  HHLLLL
+0015: 000010  HLLLLL
+0016: 011100  HLLLLL
+0017: 110010  HHLLNL
+0018: 101X10  HLLLLH
+0019: 01X110  HHLLLH
+0020: 000011  HLLLLH
+0021: 110110  HHLLLH
+0022: 100101  HLLNLH
+0023: 001101  HLLLLH

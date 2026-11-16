@@ -1,0 +1,47 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p16hd801.si
+
+   1: Name G9004;
+   2: Partno P9004;
+   3: Revision 01;
+   4: Designer gen;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device p16hd8;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: FIELD fa = [a3,a4];
+  11:
+  12: ORDER: a1, a0, a3, a4, a2, %2, !q0, !q1, q2, tq0;
+  13: 
+
+====================
+             !! t   
+      aaaaa  qqqq   
+      10342  0120   
+====================
+0001: 10110  LLHL
+0002: 11001  LLHH
+0003: 10001  LLHH
+0004: 10001  LLHH
+0005: 11110  LLHL
+0006: 10000  LLHH
+0007: 00X01  HLHX
+0008: 01101  HLHL
+             ^^ ^
+[0019sa] user expected (L) for q0
+[0019sa] user expected (H) for q1
+[0019sa] user expected (H) for tq0
+
+0009: 10101  LLNL
+0010: 11011  LLHH
+0011: 1X011  LLHH
+0012: 01010  HLHH
+0013: 11111  LLHL
+0014: 000X0  HLHH
+0015: 01001  HLHH

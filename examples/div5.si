@@ -1,0 +1,37 @@
+Name     div5;
+Partno   EX006;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   v750c;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* reset, two full periods, hold in the middle of a period, reset */
+
+ORDER: clk, %1, rst, en, %2, n2, n1, n0, %2, tc, div;
+
+VECTORS:
+$MSG "reset";
+0 10  LLL  LL
+$MSG "count";
+C 01  LLH  LL
+C 01  LHL  LL
+C 01  LHH  LH
+C 01  HLL  HH
+C 01  LLL  LL
+C 01  LLH  LL
+C 01  LHL  LL
+C 01  LHH  LH
+C 01  HLL  HH
+C 01  LLL  LL
+$MSG "count to 2, hold, count";
+C 01  LLH  LL
+C 01  LHL  LL
+C 00  LHL  LL
+C 00  LHL  LL
+C 01  LHH  LH
+$MSG "reset";
+0 11  LLL  LL

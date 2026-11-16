@@ -1,0 +1,24 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+ORDER: clk, oe, a, b, %2, q, r, y, s;
+VECTORS:
+0011 ****
+0111 ****
+C111 ****
+0100 ****
+C100 ****
+1111 ****
+0111 ****
+1100 ****
+0100 ****
+K111 ****
+C011 ****
+0011 ****
+P111 0110
+0100 ****
+P1XX 1001
+0100 ****
+C1XX ****
+XX00 ****
+X100 ****
+C100 ****

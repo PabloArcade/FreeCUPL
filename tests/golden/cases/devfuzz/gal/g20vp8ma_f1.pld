@@ -1,0 +1,28 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Device g20vp8ma;
+/* @flags -jaxm3 */
+pin [1,10,12,23,24] = [!a0, a1, a2, a3, a4];
+pin 21 = q0;
+pin 19 = q1;
+pin 22 = !q2;
+pin 20 = q3;
+pin 16 = q4;
+q0 = a1 & !a0 # !a1 & !a2 # !a1 & !a0 # a4;
+q0.oe = !a2 & !a0;
+q1 = !a1 & !a4 # a3 & a0 & a1 # q3 & a3 & q4 # a4 & q3;
+!q2 = q1 & !q3;
+q2.oe = !a1 & !a3;
+q3 = !(q1);
+!q4 = (a1 # a1 # ((a0 & !a0) & (a1 # a0)));
+pin 15 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a1, a0, a3, fflag) # fflag;

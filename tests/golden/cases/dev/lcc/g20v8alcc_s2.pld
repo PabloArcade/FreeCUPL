@@ -1,0 +1,27 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20v8alcc;
+pin 6 = i0;
+pin 13 = i1;
+pin 27 = i2;
+pin 5 = i3;
+pin 9 = i4;
+pin 17 = !i5;
+pin 18 = o0;
+pin 20 = o1;
+pin 25 = !o2;
+pin 26 = o3;
+pin 19 = o4;
+
+o0.d = ((i3 & i1) # (i3 & i0) # (i1 & i0 & i5));
+o1.d = (i4 # i2 # (i5 & o0));
+o2.d = (!i3 & i0);
+o3 = (i2 # !o2);
+o4.d = (!o0 # (o1 & !i3 & i4) # o3);
+
+/* @expect
+o0.d = ((i3 and i1) or (i3 and i0) or (i1 and i0 and i5))
+o1.d = (i4 or i2 or (i5 and o0))
+o2.d = ((not i3) and i0)
+o3 = (i2 or (not o2))
+o4.d = ((not o0) or (o1 and (not i3) and i4) or o3)
+*/

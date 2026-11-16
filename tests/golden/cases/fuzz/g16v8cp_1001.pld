@@ -1,0 +1,21 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cp;
+/* @flags -jaxm0 */
+pin [1,2,5,7,9,11] = [a0, a1, a2, !a3, a4, !a5];
+pin [14,17,16,18] = [q0,q1,!q2,q3];
+field fa = [a1..a2];
+t0 = (((a2 & a2) # !a2 & a2) # (a2 $ a5));
+t1 = !((!a0 & a1)) # (a3 $ a1);
+APPEND q0 = a4 & !a2;
+q0.oe = !a4 & a1;
+q1 = !t0 & !a2 & a5;
+q2 = !a0 & q1;
+q3 = fa:'h'E;
+q3.oe = a0 & !a3;

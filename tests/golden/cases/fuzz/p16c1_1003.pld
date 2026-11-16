@@ -1,0 +1,16 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16c1;
+pin [1,5,8,11,18] = [!a0, a1, a2, a3, !a4];
+pin 15 = q0;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (!a2 # !(!a0) # a2 # a3) & (a2 $ !a4);
+t1 = (t0 $ a1);
+q0 = !a4 & !a1 & !t0;

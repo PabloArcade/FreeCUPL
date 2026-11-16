@@ -1,0 +1,11 @@
+Name seq_coun; Partno SEQ_COUN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk;
+pin [22..23] = [q0..1];
+field count = [q1, q0];
+sequence count {
+  present 0 next 1;
+  present 1 next 2;
+  present 2 next 3;
+  present 3 next 0;
+}

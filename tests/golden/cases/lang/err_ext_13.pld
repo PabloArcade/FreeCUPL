@@ -1,0 +1,4 @@
+Name err_ext_13; Partno ERREXT13; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g20v8;
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 18 = y; pin 17 = z;
+y.oemux = a; y = b;

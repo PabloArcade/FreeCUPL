@@ -1,0 +1,35 @@
+Name G9012;
+Partno P9012;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20x4;
+pin 3 = a0;
+pin 4 = !a1;
+pin 6 = a2;
+pin 7 = a3;
+pin 8 = a4;
+pin 9 = !a5;
+pin 10 = a6;
+pin 1 = clk;
+pin 13 = !oe;
+pin 17 = s0;
+pin 16 = !q1;
+pin 21 = !q2;
+field fa = [a3..0];
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = ((a5 $ !a6) & !a0 & a6) # (a5 # !a4 # a3 & a0 & a0);
+!q2 = a4;
+q2.oe = a2 & a0;
+field st = [s0];
+sequence st {
+  present 1 if a5 & !a4 next 1; default next 1; if !a2 out q1;
+}

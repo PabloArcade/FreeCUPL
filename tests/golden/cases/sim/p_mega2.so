@@ -1,0 +1,44 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P64R32 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p_mega2.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device p64r32;
+   3: ORDER: clk, oe, a, %2, q0, q1;
+
+================
+      c         
+      lo   qq   
+      kea  01   
+================
+0001: 000  XX
+0002: 001  XX
+0003: 101  XX
+0004: 011  XX
+0005: 111  XX
+0006: 010  XX
+0007: C10  XX
+      ^
+[0021sa] invalid test value:  C
+
+0008: C01  XX
+      ^
+[0021sa] invalid test value:  C
+
+0009: C11  XX
+      ^
+[0021sa] invalid test value:  C
+
+0010: K00  XX
+      ^
+[0021sa] invalid test value:  K
+
+0011: P00  01
+      ^
+[0021sa] invalid test value:  P
+
+0012: 000  LL

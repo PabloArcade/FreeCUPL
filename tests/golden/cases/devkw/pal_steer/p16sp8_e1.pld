@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16sp8;
+pin 8 = !i0;
+pin 5 = i1;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = mend;
+
+o0 = (i0 $ i1);
+o0.oe = i0;
+o1 = ((i0 & i1) # (!i0 & !i1));
+o1.oe = (!i0 & i1);
+o2 = !i1;
+o3 = ((o2 & !i0 & i1) # (i1 & !o2 & !i0) # (i0 & o2));
+mend = ((i1 & o2) # (o2 & !i0));
+mend.oe = i0;
+
+/* @expect
+o0 = (i0 ^ i1)
+o0.oe = i0
+o1 = ((i0 and i1) or ((not i0) and (not i1)))
+o1.oe = ((not i0) and i1)
+o2 = (not i1)
+o3 = ((o2 and (not i0) and i1) or (i1 and (not o2) and (not i0)) or (i0 and o2))
+mend = ((i1 and o2) or (o2 and (not i0)))
+mend.oe = i0
+*/

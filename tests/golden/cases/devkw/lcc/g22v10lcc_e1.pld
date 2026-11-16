@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g22v10lcc;
+pin 10 = !i0;
+pin 13 = i1;
+pin 21 = !o0;
+pin 19 = include;
+pin 24 = o2;
+
+o0.d = ((!i1 & i0) # i1 # (!i0 & !i1));
+o0.oe = (!i0 & i1);
+include.d = (!i0 & i1);
+o2 = !i1;
+o0.ar = (!i1 & !i0);
+include.ar = (!i1 & !i0);
+o0.sp = i0;
+include.sp = i0;
+
+/* @expect
+o0.d = (((not i1) and i0) or i1 or ((not i0) and (not i1)))
+o0.oe = ((not i0) and i1)
+include.d = ((not i0) and i1)
+o2 = (not i1)
+o0.ar = ((not i1) and (not i0))
+o0.sp = i0
+*/

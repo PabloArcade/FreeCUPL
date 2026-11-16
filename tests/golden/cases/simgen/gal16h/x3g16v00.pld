@@ -1,0 +1,29 @@
+Name G33;
+Partno P33;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hlcc;
+pin 3 = a0;
+pin 5 = !a1;
+pin 7 = a2;
+pin 9 = a3;
+pin 10 = !a4;
+pin 11 = !a5;
+pin 2 = clk;
+pin [16,24,18] = [!s0,q1,q2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (a5 # a3);
+t1 = a3;
+t2 = (a5 $ a0 $ !((a3 & !t1)));
+q1.d = [a2,a0,a3]:&;
+q2 = !a0 & a5 & !t0 # a5;
+s0.tec = a2 & a1;
+field st = [s0];
+sequence st {
+  present 1 if !a5 & a4 next 1;
+}

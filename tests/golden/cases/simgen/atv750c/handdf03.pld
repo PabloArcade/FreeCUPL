@@ -1,0 +1,6 @@
+
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750cppk;
+pin 2 = a; pin 3 = c; pin 16 = y; pin 14 = z;
+y = !(a & c); z = !y.dfb & c;
+

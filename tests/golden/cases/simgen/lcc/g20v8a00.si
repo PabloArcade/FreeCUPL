@@ -1,0 +1,27 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8alcc;
+
+ORDER: clk, a1, !a3, a0, a2, %2, q0, ta, tb;
+
+VECTORS:
+00000 N**
+00111 ***
+00000 ***
+1X011 ***
+110X0 ***
+01100 ***
+10110 ***
+01001 LLL
+00X01 ***
+01101 ***
+00100 ***
+01X00 ***
+10100 ***
+X1100 ***

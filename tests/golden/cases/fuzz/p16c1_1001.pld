@@ -1,0 +1,13 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16c1;
+pin [4,6,8,9,14] = [a0, !a1, !a2, a3, a4];
+pin [15] = [q0];
+field fa = [a2..a3];
+APPEND q0 = !a2;

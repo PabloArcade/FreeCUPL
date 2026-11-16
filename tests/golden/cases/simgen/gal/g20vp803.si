@@ -1,0 +1,24 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8ma;
+
+ORDER: a0, a1, a4, a2, a5, %2, !q0, !q1, q2, dq;
+
+VECTORS:
+00100 **N*
+00111 ****
+$MSG "vector 3";
+10110 ****
+00011 ****
+01101 N***
+01111 HLHL
+10111 ****
+1X100 ****
+10101 ****
+10111 ****

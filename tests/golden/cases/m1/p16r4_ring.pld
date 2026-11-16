@@ -1,0 +1,21 @@
+Name p16r4_ri; Partno P16R4_RI; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16r4;
+pin 2 = a;
+pin 3 = b;
+pin 14 = r0;
+pin 15 = !r1;
+pin 16 = r2;
+pin 17 = !r3;
+pin 12 = x;
+
+r0.d = a & !r3 # x;
+r1.d = r0 $ b;
+r2.d = r1 $ b;
+r3.d = r2 $ b;
+
+/* @expect
+r0.d = a and not r3 or x
+r1.d = r0 ^ b
+r2.d = r1 ^ b
+r3.d = r2 ^ b
+*/

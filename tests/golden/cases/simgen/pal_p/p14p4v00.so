@@ -1,0 +1,49 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p14p4v00.si
+
+   1: Name G9005;
+   2: Revision 01;
+   3: Date 01/01/26;
+   4: Designer gen;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device p14p4v;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: FIELD fa = [a5,a4,a3,a2,a1,a0];
+  11:
+  12: ORDER: a0, a1, a2, a3, a4, a5, a6, %2, q0, q1, c0, c1;
+  13: 
+
+======================
+      aaaaaaa  qqcc   
+      0123456  0101   
+======================
+0001: 1111101  HLHL
+0002: 101101X  XLHL
+0003: 1010110  LHHH
+0004: 0111010  LLHL
+0005: 11X0X11  HXHH
+0006: 1011010  LLHL
+0007: 000011X  LHHL
+0008: 0010101  LLHL
+0009: 1110111  HLHH
+0010: 1110000  LHHH
+                ^ ^
+[0019sa] user expected (L) for q1
+[0019sa] user expected (L) for c1
+
+0011: 1001011  HHHL
+0012: 1000000  LHNH
+0013: 000111X  LHHL
+0014: 0111110  HHHL
+0015: 1110010  LHHH
+0016: 111X011  HLHX
+0017: 01X0110  XXXL
+0018: 0011100  HHHL
+0019: 1100100  LHHH

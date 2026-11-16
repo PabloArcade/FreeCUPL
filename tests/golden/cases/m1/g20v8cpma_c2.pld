@@ -1,0 +1,32 @@
+Name g20v8cpm; Partno G20V8CPM; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g20v8cpma;
+
+pin 2 = a;
+pin 5 = b;
+pin 6 = c;
+pin 7 = d;
+pin 21 = !y1;
+pin 20 = y2;
+pin 19 = y3;
+
+y1 = !a & !b & !c & !d
+    # a & b & !c & !d
+    # a & !b & c & !d
+    # !a & b & c & !d
+    # a & !b & !c & d
+    # !a & b & !c & d
+    # !a & !b & c & d;
+y2 = y1 & c;
+y3 = !y2;
+
+/* @expect
+y1 = (not a and not b and not c and not d)
+    or (a and b and not c and not d)
+    or (a and not b and c and not d)
+    or (not a and b and c and not d)
+    or (a and not b and not c and d)
+    or (not a and b and not c and d)
+    or (not a and not b and c and d)
+y2 = y1 and c
+y3 = not y2
+*/

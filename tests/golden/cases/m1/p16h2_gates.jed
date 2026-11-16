@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p16h2  Library DLIB-h-40-7
+Created         Thu Jan  1 00:00:00 1970
+Name            p16h2_ga
+Partno          P16H2_GA
+Revision        01
+Date            01/01/26
+Designer        x
+Company         x
+Assembly        x
+Location        x
+*QP20 
+*QF512 
+*G0 
+*F0 
+*L00000 01011111111111111111111111111111
+*L00256 11011111111111111111111111111111
+*L00288 11110111111111111111111111111111
+*C0BDB
+*6095

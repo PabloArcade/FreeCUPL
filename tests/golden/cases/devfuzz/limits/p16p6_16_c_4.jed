@@ -1,0 +1,23 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p16p6  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            P
+Partno          0
+Revision        01
+Date            01/01/26
+Designer        x
+Company         x
+Assembly        x
+Location        x
+*QP24 
+*QF646 
+*G0 
+*F0 
+*L00512 10011011101110101111111111111111
+*L00544 01101011101110101111111111111111
+*L00576 10100111101110101111111111111111
+*L00608 01010111101110101111111111111111
+*L00640 000001
+*C0D0A
+*644C

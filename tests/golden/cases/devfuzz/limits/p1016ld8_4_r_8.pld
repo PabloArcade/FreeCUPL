@@ -1,0 +1,14 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p1016ld8;
+pin 1 = clk;
+pin [2,3,10,11,14,15] = [v0,v1,v2,v3,v4,v5];
+pin 4 = y;
+y.l = v0 & !v1 & !v2 & !v3 & !v4 & !v5
+  # !v0 & v1 & !v2 & !v3 & !v4 & !v5
+  # !v0 & !v1 & v2 & !v3 & !v4 & !v5
+  # v0 & v1 & v2 & !v3 & !v4 & !v5
+  # !v0 & !v1 & !v2 & v3 & !v4 & !v5
+  # v0 & v1 & !v2 & v3 & !v4 & !v5
+  # v0 & !v1 & v2 & v3 & !v4 & !v5
+  # !v0 & v1 & v2 & v3 & !v4 & !v5;
+

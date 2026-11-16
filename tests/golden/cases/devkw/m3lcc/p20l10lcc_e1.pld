@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20l10lcc;
+pin 10 = !i0;
+pin 13 = sequencet;
+pin 21 = o0;
+pin 19 = o1;
+pin 24 = o2;
+
+o0 = 'b'0;
+o1 = ((sequencet & i0 & o0) # sequencet);
+o2 = ((o1 & !sequencet) # !o0);
+
+/* @expect
+o0 = 0
+o1 = ((sequencet and i0 and o0) or sequencet)
+o2 = ((o1 and (not sequencet)) or (not o0))
+*/

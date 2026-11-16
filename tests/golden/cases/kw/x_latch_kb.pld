@@ -1,0 +1,6 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+/* @flags -jaxkb */
+Device p1016ld8;
+pin 2 = a0; pin 10 = !a1; pin 11 = !a2; pin 14 = a3;
+pin 18 = !q2;
+q2.l = a1 # a2;

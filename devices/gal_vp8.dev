@@ -1,0 +1,90 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL16VP8 and GAL20VP8: the GAL16V8/20V8 fuse maps with another pinout
+# and 8 extra fuses, always programmed.  Power pins not located.  In
+# automatic mode an output read back does not force complex mode.
+
+device g16vp8
+inherit g16v8
+# Simulator: OE of registered outputs taken from pin 11 (B028).
+simdefect oepin 11
+descr GAL16VP8: GAL16V8 fuse map, other pinout, 8 extra fuses
+alias g16vp8 auto simple=g16vp8s complex=g16vp8ma registered=g16vp8ms autofb=simple
+partname g16vp8 GAL16VP8 (automatic mode)
+alias g16vp8ms registered
+partname g16vp8ms GAL16VP8 (registered mode)
+pins 20
+fuses 2202
+const 2194-2201
+pinmap 1=1 2=20 3=2 4=3 5=4 6=6 7=7 8=8 9=9 10=0 11=10 12=11 13=12 14=13 15=14 16=16 17=17 18=18 19=19 20=0
+# .TEC = 'b'0 clears the extra fuse.
+tec 19 2194
+tec 18 2195
+tec 17 2196
+tec 16 2197
+tec 14 2198
+tec 13 2199
+tec 12 2200
+tec 11 2201
+libtag g16vp8s DLIB-h-40-1
+libtag g16vp8ma DLIB-h-40-1
+libtag g16vp8ms DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g20vp8
+inherit g20v8
+descr GAL20VP8: GAL20V8 fuse map, other pinout, 8 extra fuses
+alias g20vp8 auto simple=g20vp8s complex=g20vp8ma registered=g20vp8ms autofb=simple
+partname g20vp8 GAL20VP8 (automatic mode)
+alias g20vp8ms registered
+partname g20vp8ms GAL20VP8 (registered mode)
+pins 24
+fuses 2714
+const 2706-2713
+pinmap 1=1 2=24 3=2 4=3 5=4 6=5 7=7 8=8 9=9 10=10 11=11 12=0 13=12 14=13 15=14 16=15 17=16 18=17 19=19 20=20 21=21 22=22 23=23 24=0
+# .TEC = 'b'0 clears the extra fuse.
+tec 22 2706
+tec 21 2707
+tec 20 2708
+tec 19 2709
+tec 17 2710
+tec 16 2711
+tec 15 2712
+tec 14 2713
+refdefect kbnoflip      # B001
+end
+
+# GAL20VP8, 28 pins: DIP pin 7 is pin 2, pin 1 is pin 23.
+device g20vp8lcc
+inherit g20vp8
+descr GAL20VP8 in a 28-pin package
+alias g20vp8lcc auto simple=g20vp8slcc complex=g20vp8malcc registered=g20vp8mslcc autofb=simple
+partname g20vp8lcc GAL20VP8 (automatic mode, PLCC28)
+alias g20vp8mslcc registered
+partname g20vp8mslcc GAL20VP8 (registered mode, PLCC28)
+pins 28
+pinmap 1=23 2=24 3=25 4=26 5=27 6=28 7=2 8=3 9=4 10=5 11=6 12=7 13=9 14=10 15=11 16=12 17=13 18=14 19=16 20=17 21=18 22=19 23=20 24=21
+libtag g20vp8lcc DLIB-h-40-1
+libtag g20vp8mslcc DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g20vp8slcc
+inherit g20vp8s
+descr GAL20VP8 simple mode in a 28-pin package
+partname g20vp8slcc GAL20VP8 (simple mode, PLCC28)
+pins 28
+pinmap 1=23 2=24 3=25 4=26 5=27 6=28 7=2 8=3 9=4 10=5 11=6 12=7 13=9 14=10 15=11 16=12 17=13 18=14 19=16 20=17 21=18 22=19 23=20 24=21
+libtag g20vp8slcc DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g20vp8malcc
+inherit g20vp8ma
+descr GAL20VP8 complex mode in a 28-pin package
+partname g20vp8malcc GAL20VP8 (complex mode, PLCC28)
+pins 28
+pinmap 1=23 2=24 3=25 4=26 5=27 6=28 7=2 8=3 9=4 10=5 11=6 12=7 13=9 14=10 15=11 16=12 17=13 18=14 19=16 20=17 21=18 22=19 23=20 24=21
+libtag g20vp8malcc DLIB-h-40-1
+refdefect kbnoflip      # B001
+end

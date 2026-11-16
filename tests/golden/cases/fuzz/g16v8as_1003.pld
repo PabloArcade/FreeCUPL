@@ -1,0 +1,28 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8as;
+pin 1 = a0;
+pin 2 = a1;
+pin 4 = a2;
+pin 1 = clk;
+pin 12 = q0;
+pin 14 = q1;
+pin 18 = q2;
+pin 15 = q3;
+field fa = [a1..0];
+t0 = (a1 $ a0);
+t1 = (a0 $ t0);
+t2 = (t0 & (t0 & a2) & !t1 # a1 # a2 # a0 # !t0);
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = (t0 $ a2) $ (a2 $ a1) $ (a2 $ a1);
+q1 = !t1 & t0 & a2 # !a2 & t0 & !a0 # !t0 & !t2 # !a0 & a2;
+q2 = fa:'b'0X;
+q3 = !a2 & a1 & t1 # !t2 & t0 & t1 # t2 & t1 & !t0 # !a2 & !t1 & a0;

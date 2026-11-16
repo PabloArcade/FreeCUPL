@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16z8malcc;
+pin 11 = !i0;
+pin 7 = jump;
+pin 19 = Repeat;
+pin 25 = o1;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+Repeat = (i0 $ jump);
+Repeat.oe = i0;
+o1 = ((i0 & jump) # (!i0 & !jump));
+o1.oe = (!i0 & jump);
+o2 = !jump;
+o3 = ((o2 & !i0 & jump) # (jump & !o2 & !i0) # (i0 & o2));
+o4 = ((jump & o2) # (o2 & !i0));
+o4.oe = i0;
+
+/* @expect
+Repeat = (i0 ^ jump)
+Repeat.oe = i0
+o1 = ((i0 and jump) or ((not i0) and (not jump)))
+o1.oe = ((not i0) and jump)
+o2 = (not jump)
+o3 = ((o2 and (not i0) and jump) or (jump and (not o2) and (not i0)) or (i0 and o2))
+o4 = ((jump and o2) or (o2 and (not i0)))
+o4.oe = i0
+*/

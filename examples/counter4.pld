@@ -1,0 +1,40 @@
+Name     counter4;
+Partno   EX002;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g22v10;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* 4-bit synchronous up/down counter with count enable, asynchronous
+   reset and synchronous preset, and a terminal-count output.
+   Shows: registered outputs (.D), the 22V10's global asynchronous
+   reset (.AR) and synchronous preset (.SP), fields and $DEFINE.
+   The outputs are declared active low so that the reset clears the
+   count to 0 at the pins (the 22V10 output buffer inverts). */
+
+$DEFINE UP    dir
+$DEFINE DOWN  !dir
+
+pin 1  = clk;                    /* clock */
+pin 2  = dir;                    /* 1 = count up, 0 = count down */
+pin 3  = en;                     /* count enable */
+pin 4  = rst;                    /* asynchronous reset, active high */
+pin 5  = pre;                    /* synchronous preset to 15, active high */
+pin [16..19] = ![q0..3];         /* count, q0 = least significant */
+pin 20 = tc;                     /* terminal count: 15 up, 0 down */
+
+field count = [q3..0];
+
+q0.d = q0 $ en;
+q1.d = q1 $ (en & (UP & q0 # DOWN & !q0));
+q2.d = q2 $ (en & (UP & q0 & q1 # DOWN & !q0 & !q1));
+q3.d = q3 $ (en & (UP & q0 & q1 & q2 # DOWN & !q0 & !q1 & !q2));
+
+count.ar = rst;
+count.sp = pre;
+
+tc = UP & count:'h'F # DOWN & count:'h'0;

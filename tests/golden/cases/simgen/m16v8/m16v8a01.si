@@ -1,0 +1,25 @@
+Name G9010;
+Partno P9010;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device m16v8ar;
+
+ORDER: in_x, in_z, in_v, in_t, in_u, in_w, in_y, %2, out_a;
+
+VECTORS:
+101X11X *
+1100001 *
+01111X1 *
+001011X *
+1001XX0 *
+1010010 *
+XX11000 H
+1000100 *
+1111100 *
+0101000 *
+0110010 *
+0X101X1 *

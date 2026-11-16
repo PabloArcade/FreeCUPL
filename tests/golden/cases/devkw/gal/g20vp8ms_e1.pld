@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20vp8ms;
+pin 10 = !Repeat;
+pin 23 = i1;
+pin 15 = o0;
+pin 21 = !o1;
+pin 19 = o2;
+pin 17 = JUMP;
+pin 14 = o4;
+
+o0.d = (!i1 & Repeat);
+o1.d = (o0 # (!i1 & !o0 & !Repeat));
+o2.d = (o1 $ o0);
+JUMP.d = (o0 & i1 & !o2);
+o4 = ((!i1 & JUMP & !o1) # (!o0 & !o1));
+o4.oe = Repeat;
+
+/* @expect
+o0.d = ((not i1) and Repeat)
+o1.d = (o0 or ((not i1) and (not o0) and (not Repeat)))
+o2.d = (o1 ^ o0)
+JUMP.d = (o0 and i1 and (not o2))
+o4 = (((not i1) and JUMP and (not o1)) or ((not o0) and (not o1)))
+o4.oe = Repeat
+*/

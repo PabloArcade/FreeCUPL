@@ -1,0 +1,24 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500cppk;
+
+/* @local */ /* @bypass */
+pin 40 = i0;
+pin 1 = !i1;
+pin 17 = i2;
+pin 22 = i3;
+pinnode 61 = o0;
+pinnode 58 = o1;
+
+o0.d = ((i2 & !i0) # (i3 & !i0 & i2));
+o0.ck = !i3;
+o0.ar = (i1 & i2);
+o1.t = (!i1 # (o0 & i1 & i0) # (!i3 & !o0));
+o1.ck = (!i1 & !i3);
+
+/* @expect
+o0.d = ((i2 and (not i0)) or (i3 and (not i0) and i2))
+o0.ck = (not i3)
+o0.ar = (i1 and i2)
+o1.t = ((not i1) or (o0 and i1 and i0) or ((not i3) and (not o0)))
+o1.ck = ((not i1) and (not i3))
+*/

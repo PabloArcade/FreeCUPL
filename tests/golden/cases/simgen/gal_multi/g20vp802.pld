@@ -1,0 +1,31 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8mslcc;
+pin 2 = in_x;
+pin 3 = in_y;
+pin 9 = !in_z;
+pin 20 = in_w;
+pin 21 = in_v;
+pin 25 = !in_u;
+pin 23 = clk;
+pin 12 = out_a;
+pin 18 = !out_b;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (in_y $ in_x) # ((in_x & in_w) # !in_z # !in_u # in_y # in_x);
+t1 = ((t0 $ in_u) $ in_x # !in_y # !in_y # !in_y);
+t2 = (!t0 # !(!(!in_x)));
+!out_a.d = [in_u,in_z]:#;
+out_b = [in_v,in_z]:#;
+pin 19 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_y, in_z, in_v, fflag) # fflag;

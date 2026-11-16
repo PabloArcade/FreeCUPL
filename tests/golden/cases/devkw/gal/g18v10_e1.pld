@@ -1,0 +1,13 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g18v10;
+pin 4 = i0;
+pin 3 = !i1;
+pin 2 = !MIN;
+pin 8 = !i3;
+pin 17 = Base;
+
+Base = ((i3 & !i0) # (!MIN & i0));
+
+/* @expect
+Base = ((i3 and (not i0)) or ((not MIN) and i0))
+*/

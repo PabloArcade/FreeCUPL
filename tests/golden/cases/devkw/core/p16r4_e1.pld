@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16r4;
+pin 5 = i0;
+pin 4 = !FORMAT;
+pin 3 = !i2;
+pin 9 = !Partno;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = o4;
+
+o0 = (FORMAT $ Partno);
+o0.oe = i0;
+o1 = ((Partno & i0 & FORMAT) # i2);
+o2.d = ((Partno & !o1) # !o1);
+o3.d = i2;
+o4 = (i2 # !Partno # (!i2 & !o1 & !Partno));
+o4.oe = i0;
+
+/* @expect
+o0 = (FORMAT ^ Partno)
+o0.oe = i0
+o1 = ((Partno and i0 and FORMAT) or i2)
+o2.d = ((Partno and (not o1)) or (not o1))
+o3.d = i2
+o4 = (i2 or (not Partno) or ((not i2) and (not o1) and (not Partno)))
+o4.oe = i0
+*/

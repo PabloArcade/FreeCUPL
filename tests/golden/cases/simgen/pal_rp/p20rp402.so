@@ -1,0 +1,72 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20rp402.si
+
+   1: Name G9005;
+   2: Partno P9005;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p20rp4a;
+  10: 
+  11: FIELD st = [s0];
+  12:
+  13: ORDER: clk, in_x, !in_v, in_w, in_z, in_y, %2, s0, !out_b, out_c, out_d;
+  14: 
+
+=====================
+               !     
+        !      ooo   
+       iiiii   uuu   
+      cnnnnn   ttt   
+      l_____  s___   
+      kxvwzy  0bcd   
+=====================
+0001: 101010  XL*L
+                ^
+[0021sa] invalid test value:  *
+
+0002: C01000  XL*L
+                ^
+[0021sa] invalid test value:  *
+
+vector 3
+0003: C10110  XLNL
+                ^
+[0021sa] invalid test value:  N
+
+0004: C10110  XN*L
+                ^
+[0021sa] invalid test value:  *
+
+0005: C00101  XX*H
+                ^
+[0021sa] invalid test value:  *
+
+0006: C11001  XXLL
+              ^^
+[0019sa] user expected (H) for s0
+[0019sa] user expected (H) for out_b
+
+0007: C11X00  XX*L
+                ^
+[0021sa] invalid test value:  *
+
+0008: K10X11  XL*H
+                ^
+[0021sa] invalid test value:  *
+
+0009: K1001X  XL*X
+                ^
+[0021sa] invalid test value:  *
+
+0010: 011110  XL*L
+                ^
+[0021sa] invalid test value:  *
+

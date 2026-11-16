@@ -1,0 +1,16 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+ORDER: clk, oe, a, b, %2, q, r, y, s;
+VECTORS:
+$REPEAT 3;
+C111 ****
+$TRACE 2;
+C100 ****
+$TRACE 0;
+$SIMOFF;
+C100 HHHH
+$SIMON;
+C100 ****
+$MSG "before exit";
+$EXIT;
+C100 ****

@@ -1,0 +1,23 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Company gen;
+Assembly x;
+Location x;
+Device p64r32pga;
+
+ORDER: a1, a6, a2, a0, a3, a4, a5, %2, q0;
+
+VECTORS:
+01X0101 *
+1000010 *
+0100X11 *
+111X100 *
+11X1100 *
+10111X0 H
+1010000 *
+1001001 *
+X111100 *
+101X0X0 *
+0110101 *

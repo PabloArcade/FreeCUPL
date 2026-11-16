@@ -1,0 +1,8 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+ORDER: a, %2, x, y;
+VECTORS:
+0 **
+1 **
+0 **
+1 **

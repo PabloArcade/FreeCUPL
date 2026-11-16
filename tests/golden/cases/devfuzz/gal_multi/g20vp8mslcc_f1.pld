@@ -1,0 +1,23 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20vp8mslcc;
+pin 3 = a0;
+pin 5 = !a1;
+pin 6 = !a2;
+pin 20 = !a3;
+pin 24 = a4;
+pin 25 = !a5;
+pin 27 = !a6;
+pin [10] = [q0];
+field fa = [a6..4];
+q0 = (a3 # 'b'0 # !a5);
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

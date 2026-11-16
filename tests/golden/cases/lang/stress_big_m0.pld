@@ -1,0 +1,14 @@
+Name bigm0; Partno b; Revision 1; Date x; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+/* @flags -jaxm0 */
+pin [1..11] = [a0..10];
+pin 13 = a11;
+pin [14..23] = [y0..9];
+field addr = [a11..0];
+y0 = addr:[0A00..0AFF] # addr:[3F0..3FF];
+y1 = a0 $ a1 $ a2;
+y2 = !(a0 & a1 # a2 & a3 # a4 & a5 # a6 & a7 # a8 & a9 # a10 & a11);
+y3 = (a0 # a1) & (a2 # a3);
+table [a3..0] => [y4..7] {
+ 0=>1; 1=>2; 2=>4; 3=>8; 4=>3; 5=>6; 6=>C; 7=>9; 8=>5; 9=>A; A=>F; B=>E; C=>D; D=>B; E=>7; F=>0;
+}

@@ -1,0 +1,26 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20xrp4;
+pin 3 = a0;
+pin 4 = a1;
+pin 6 = a2;
+pin 8 = a3;
+pin 10 = !a4;
+pin 11 = a5;
+pin 1 = clk;
+pin 15 = !q0;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+q0 = ON & a1 # OFF;

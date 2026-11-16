@@ -1,0 +1,45 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for G16V8HMA follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: g16v8h00.si
+
+   1: Name G9005;
+   2: Partno P9005;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g16v8hma;
+  10: 
+  11: FIELD fa = [a0,a1,a2,a3,a4,a5];
+  12:
+  13: ORDER: a0, a1, a2, a3, !a5, a6, a4, %2, q0, q1, q2, q3, ta, !tb;
+  14: 
+
+========================
+          !         !   
+      aaaaaaa  qqqqtt   
+      0123564  0123ab   
+========================
+0001: 01X1001  HLXLLH
+0002: 0101000  HLLLNH
+0003: 0011010  HLLLLH
+0004: 0111001  HLLLLH
+0005: 10X0011  HHXHLH
+0006: 1110000  HHLHLH
+0007: 1110001  HHHHLH
+                ^ ^
+[0019sa] user expected (L) for q1
+[0019sa] user expected (L) for q3
+
+0008: 101X001  XHHXLH
+0009: 1111010  LHLLLH
+0010: 1101101  HHLLLH
+0011: 1111001  HHLLLH
+0012: 0101X01  HLXLLH
+0013: 1X0010X  XHLHLH

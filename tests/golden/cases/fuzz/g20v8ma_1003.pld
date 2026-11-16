@@ -1,0 +1,33 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8ma;
+pin 1 = a0;
+pin 2 = a1;
+pin 5 = !a2;
+pin 7 = a3;
+pin 8 = a4;
+pin 11 = a5;
+pin 14 = a6;
+pin 1 = clk;
+pin 15 = !q0;
+pin 17 = q1;
+pin 20 = q2;
+pin 21 = !q3;
+field fa = [a5..2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (a0 # !a0 # a2 & (a4 $ a0));
+t1 = a5;
+t2 = !a5;
+q0 = OFF & a2 # ON;
+q1 = fa:'d'51;
+q1.oe = 'b'1;
+q2 = fa:'h'F;
+q3 = t1 # !a1;
+q3.oe = !a0 & !a6;

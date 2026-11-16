@@ -1,0 +1,24 @@
+Name G9012;
+Partno P9012;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20x4;
+
+ORDER: clk, a0, a6, a5, oe, a1, a3, a4, !a2, %2, !s0, q1, q2;
+
+VECTORS:
+K10001X00 ***
+C11100111 ***
+$MSG "vector 3";
+K10X010X1 ***
+C01110010 ***
+C00111111 ***
+C00000101 LHH
+C10100011 ***
+C01000111 ***
+P1110X010 1XX
+C11X01010 ***

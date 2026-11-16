@@ -1,0 +1,25 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P1020EV8 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p_ecl3.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device p1020ev8;
+   3: ORDER: ck, a, z, %2, q0, q1;
+
+================
+      c    qq   
+      kaz  01   
+================
+0001: 000  LL
+0002: C10  HH
+0003: C00  LL
+0004: K10  HH
+0005: K00  LL
+0006: P00  01
+0007: 000  HL
+0008: 100  LL
+0009: C10  LL

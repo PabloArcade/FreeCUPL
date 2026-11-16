@@ -1,0 +1,30 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20p8;
+pin 6 = i0;
+pin 23 = i1;
+pin 11 = !i2;
+pin 9 = i3;
+pin 14 = !i4;
+pin 4 = base;
+pin 21 = !o0;
+pin 17 = o1;
+pin 18 = !o2;
+pin 16 = o3;
+
+o0 = ((!i2 & i1) # base # (!i3 & !base & !i4));
+o0.oe = (!i1 & i0);
+o1 = (!i1 & i4 & i2);
+o1.oe = i2;
+o2 = ((!i4 & !i3) # !i1 # !base);
+o2.oe = i4;
+o3 = ((!i1 & i3 & !i4) # (!i1 & !i2));
+
+/* @expect
+o0 = (((not i2) and i1) or base or ((not i3) and (not base) and (not i4)))
+o0.oe = ((not i1) and i0)
+o1 = ((not i1) and i4 and i2)
+o1.oe = i2
+o2 = (((not i4) and (not i3)) or (not i1) or (not base))
+o2.oe = i4
+o3 = (((not i1) and i3 and (not i4)) or ((not i1) and (not i2)))
+*/

@@ -1,0 +1,25 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for F18V8ZD follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: b026.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device f18v8z;
+   3: ORDER: clk, a, e, %2, c0, c1, r0, r1;
+
+==================
+      c           
+      l    ccrr   
+      kae  0101   
+==================
+0001: 000  LZHZ
+0002: 010  HZHZ
+0003: 011  HHHH
+0004: 001  LLHH
+0005: C11  HHHH
+0006: C10  HZHZ
+0007: C00  LZLZ
+0008: C01  LLLL

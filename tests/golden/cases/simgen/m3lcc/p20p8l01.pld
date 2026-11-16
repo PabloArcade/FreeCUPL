@@ -1,0 +1,30 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20p8lcc;
+pin [2,5,10] = [!a0, a1, !a2];
+pin 21 = q0;
+pin 26 = !q1;
+pin 19 = q2;
+pin 24 = q3;
+field fa = [a0..a1];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a0 # a1 & !(a0) & (!(!a1) & a1 & a1 & a1);
+q0 = a2 & !q2 # a1 & !t0 # !a0 & a1 # a0;
+q0.oe = a0 & a1;
+q1 = !(a1);
+APPEND q2 = a2 & a0;
+q3 = !q2;
+q3.oe = 'b'1;
+pin 25 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a2, a0, a1, fflag) # fflag;

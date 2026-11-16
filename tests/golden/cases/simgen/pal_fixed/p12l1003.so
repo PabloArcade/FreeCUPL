@@ -1,0 +1,51 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p12l1003.si
+
+   1: Name G9001;
+   2: Partno P9001;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p12l10;
+  10: 
+  11: FIELD fa = [a1,a0];
+  12:
+  13: ORDER: a0, a1, a2, %2, q0, q1, !q2, q3, q4;
+  14: 
+
+===================
+             !     
+      aaa  qqqqq   
+      012  01234   
+===================
+0001: 010  NLLLH
+0002: 010  LLLLH
+0003: 100  LHHLL
+0004: 101  LHHLL
+0005: 000  LLLNH
+0006: 000  LLLNH
+0007: 000  LLLNH
+0008: 010  LLLLH
+0009: 001  LLLLH
+0010: 00X  LLLLH
+0011: 001  LLLLH
+0012: 011  LLLLH
+               ^
+[0019sa] user expected (L) for q4
+
+0013: 001  LLLLN
+0014: 001  LLLLH
+0015: 101  LHHLL
+0016: 00X  LLLLH
+0017: 011  LLLLN
+0018: 001  LLLLH
+0019: X10  LLXLX
+0020: 10X  LHHLL
+0021: 110  LLHLL

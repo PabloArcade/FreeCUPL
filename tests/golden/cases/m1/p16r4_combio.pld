@@ -1,0 +1,18 @@
+Name p16r4_co; Partno P16R4_CO; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16r4;
+pin 2 = a;
+pin 3 = b;
+pin 4 = en;
+pin 12 = x;
+pin 13 = !y;
+pin 14 = q;
+
+y = a & x # q;
+y.oe = en;
+q.d = x $ a;
+
+/* @expect
+y = a and x or q
+y.oe = en
+q.d = x ^ a
+*/

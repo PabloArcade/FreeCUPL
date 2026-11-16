@@ -1,0 +1,16 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16c1;
+/* @flags -jaxm4 */
+pin [2,8,9,11,19] = [!a0, !a1, a2, a3, a4];
+pin 15 = q0;
+field fa = [a0..a3];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+APPEND q0 = a2;

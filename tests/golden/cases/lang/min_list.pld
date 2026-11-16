@@ -1,0 +1,11 @@
+Name min_list; Partno MIN_LIST; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+/* @flags -jaxm1 */
+pin 2 = a; pin 3 = b; pin 4 = c; pin 5 = d;
+pin 19 = y; pin 18 = z; pin 17 = w;
+min y = 0;
+min [z, w] = 4;
+
+y = a & b # a & !b;
+z = a & b & c # a & b & !c # a & !b;
+w = a # !a & b;

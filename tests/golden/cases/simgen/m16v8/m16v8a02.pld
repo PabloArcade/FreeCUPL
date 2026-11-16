@@ -1,0 +1,18 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device m16v8ac;
+/* @flags -jaxm2 */
+pin [1,8,11] = [in_x, in_y, in_z];
+pin 12 = !out_a;
+pin 18 = out_b;
+pin 13 = out_c;
+out_a = out_c & in_x & in_z # in_y # out_c & !in_x & !in_z;
+out_b = !in_x & !in_y & !in_z # !in_x & in_y;
+out_b.oe = in_z;
+out_c = in_y;

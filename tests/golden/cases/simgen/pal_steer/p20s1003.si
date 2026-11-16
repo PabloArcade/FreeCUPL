@@ -1,0 +1,28 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20s10mlcc;
+
+ORDER: in_y, in_w, in_z, in_x, %2, out_a, out_b, fo;
+
+VECTORS:
+1010 ***
+1110 ***
+0000 ***
+1011 ***
+0010 ***
+0011 ***
+X001 ***
+1000 HLL
+1111 ***
+1X00 ***
+0101 ***
+1111 ***
+1110 ***
+0111 *N*
+1110 ***

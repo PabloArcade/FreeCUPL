@@ -1,0 +1,29 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22rx8lcc;
+pin [2,3,5,9,12,16] = [a0, a1, !a2, a3, a4, a5];
+pin 20 = q0;
+pin 25 = q1;
+pin 21 = q2;
+field fa = [a2..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (!(!a2) $ !(a3));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+APPEND q0.d = !a5 & !a0;
+APPEND q0.d = a5 & !a2;
+q1.d = OFF & a2 # ON;
+q2.d = (q1 $ !a5) & (a3 $ q0) & (a3 $ a4) # (q0 $ !a2);
+pin 18 = !ta; pin 23 = tb;
+table fa => [ta, tb] {
+  'b'111 => 1;
+  'b'101 => 0;
+}

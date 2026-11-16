@@ -1,0 +1,19 @@
+Name P;
+Device p19r8t;
+
+ORDER: clk, i5, i11, i8, i23, %2, !o15, o22;
+
+VECTORS:
+C0100 **
+C0110 **
+$MSG "vector 3";
+C1001 **
+C0011 **
+C1110 **
+CXXX0 **
+C0010 HL
+C1001 **
+C0110 *N
+C1111 *N
+KX011 **
+C1011 **

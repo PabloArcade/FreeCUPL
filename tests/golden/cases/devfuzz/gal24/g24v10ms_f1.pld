@@ -1,0 +1,31 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g24v10ms;
+/* @flags -jaxm4 */
+pin 5 = in_x;
+pin 8 = in_y;
+pin 11 = !in_z;
+pin 13 = in_w;
+pin 14 = in_v;
+pin 27 = in_u;
+pin 15 = !oe;
+pin 23 = !out_a;
+pin 17 = out_b;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+!out_a.d = [in_v,in_z,in_y]:$;
+condition {
+  if in_w out out_b;
+}
+pin 16 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_z, in_v, in_u, fflag) # fflag;

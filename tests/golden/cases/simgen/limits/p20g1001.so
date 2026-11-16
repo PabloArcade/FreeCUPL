@@ -1,0 +1,44 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20g1001.si
+
+   1: Name P;
+   2: Device p20g10mlcc;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: !clk, v4, v0, !v3, v5, v2, v1, %2, y;
+   5: 
+
+===================
+      !            
+      c  !         
+      lvvvvvv      
+      k403521  y   
+===================
+0001: 000110X  L
+0002: 1001X11  L
+0003: 1001101  L
+0004: 1101110  L
+0005: 0000100  L
+0006: 1001111  L
+0007: 0001001  H
+0008: 0001010  H
+0009: 0100001  N
+0010: 1000011  H
+0011: 0001101  L
+               ^
+[0019sa] user expected (H) for y
+
+0012: 11000X1  L
+0013: 10101X0  L
+0014: 0110110  L
+0015: 0011010  L
+0016: 1X001X0  L
+0017: 0011X11  X
+0018: 0110000  L
+0019: 1000101  L
+0020: 0111010  L
+0021: 1111001  L

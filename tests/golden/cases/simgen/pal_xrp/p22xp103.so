@@ -1,0 +1,52 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p22xp103.si
+
+   1: Name G9001;
+   2: Partno P9001;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p22xp10;
+  10: 
+  11: FIELD fa = [a1,a0];
+  12:
+  13: ORDER: a0, a2, a1, %2, q0, q1, q2, q3, q4, q5;
+  14: 
+
+====================
+      aaa  qqqqqq   
+      021  012345   
+====================
+0001: 111  LHLHLH
+0002: X11  XXXHLX
+            ^   ^
+[0020sa] unstable output:  q1
+[0020sa] unstable output:  q5
+[0020sa] unstable output:  q1
+[0020sa] unstable output:  q5
+
+0003: 000  HLHLHH
+0004: 110  LLHHLL
+0005: 0X1  HLHXXH
+0006: 011  HLHHLH
+0007: 0X1  HLHXXH
+0008: 110  NLHHLL
+0009: 101  LLHLHL
+           ^   ^
+[0019sa] user expected (H) for q0
+[0019sa] user expected (L) for q4
+
+0010: 100  LLHLHL
+0011: 001  HLNLHH
+0012: 101  LLHLHL
+0013: 111  LHLHLH
+0014: 1X0  LLHXXL
+0015: 010  HLHHLH
+0016: 111  LHLNLH

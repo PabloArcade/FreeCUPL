@@ -1,0 +1,32 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+/* @flags -jaxf */
+pin 2 = !a0;
+pin 5 = a1;
+pin 7 = !a2;
+pin 11 = a3;
+pin 13 = a4;
+pin [23,17] = [q0,s0];
+field fa = [a2..0];
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = !((a3 & a4 & a0)) & a3;
+t1 = a1;
+t2 = !a1;
+q0 = (a3 $ a1);
+q0.oe = a0 & a4;
+field st = [s0];
+sequence st {
+  present 1 if a2 & !a3 next 0;
+}

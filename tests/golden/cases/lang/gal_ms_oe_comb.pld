@@ -1,0 +1,7 @@
+Name gal_ms_o; Partno GAL_MS_O; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8ms;
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 11 = !oe;
+pin 19 = y; pin 18 = q;
+y = a & b;
+y.oe = q;
+q.d = a $ q;

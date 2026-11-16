@@ -1,0 +1,40 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p16p6l02.si
+
+   1: Name G9001;
+   2: Partno P9001;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p16p6lcc;
+  10: 
+  11: ORDER: !a4, a0, a3, a1, a2, %2, q0, q1;
+  12: 
+
+==================
+      !           
+      aaaaa  qq   
+      40312  01   
+==================
+0001: 01X11  HH
+0002: 11010  LH
+0003: 1000X  HH
+0004: 100X1  HH
+0005: 11000  LH
+0006: X11X1  XX
+0007: X0000  HH
+0008: 00010  HH
+0009: 11111  HH
+0010: 10111  HH
+0011: 1110X  XL
+0012: 11001  HN
+0013: 01001  HH
+0014: 1100X  XH
+0015: 00110  HH

@@ -1,0 +1,31 @@
+Name g22v10cp; Partno G22V10CP; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10cp;
+pin 2 = en;
+pin 3 = rst;
+pin 5 = pre;
+pin 23 = q0;
+pin 22 = !q1;
+pin 21 = q2;
+pin 20 = !q3;
+
+q0.d = q0 $ en;
+q1.d = q1 $ (q0 & en);
+q2.d = q2 $ (q1 & q0 & en);
+q3.d = q3 $ (q2 & q1 & q0 & en);
+q0.ar = rst;
+q1.ar = rst;
+q2.ar = rst;
+q3.ar = rst;
+q0.sp = pre;
+q1.sp = pre;
+q2.sp = pre;
+q3.sp = pre;
+
+/* @expect
+q0.d = q0 ^ en
+q1.d = q1 ^ (q0 and en)
+q2.d = q2 ^ (q1 and q0 and en)
+q3.d = q3 ^ (q2 and q1 and q0 and en)
+q0.ar = rst
+q0.sp = pre
+*/

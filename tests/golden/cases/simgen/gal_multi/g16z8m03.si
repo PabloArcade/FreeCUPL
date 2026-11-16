@@ -1,0 +1,30 @@
+Name G9010;
+Partno P9010;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16z8ma;
+
+ORDER: a0, a4, a2, a5, a3, a1, %2, q0, !q1, q2, q3, q4, q5, tq0;
+
+VECTORS:
+11X110 *******
+100111 *******
+$MSG "vector 3";
+11000X *******
+011001 *****N*
+$REPEAT 2;
+001000 *******
+X1X001 *******
+11101X *******
+000010 HLLHHLH
+010001 *******
+X00001 *******
+000001 *******
+0X0001 *******
+101101 *******
+011011 *****N*
+001010 *******

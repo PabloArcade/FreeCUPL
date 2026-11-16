@@ -1,0 +1,210 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# PALs with configurable output macrocells.
+# Generated from probe results; do not edit by hand.
+
+device p20cg10
+descr P20CG10
+partname p20cg10 P20CG10 (configurable output macrocells)
+pins 24
+power 12 24
+fuses 4088
+array 44 92
+clock 1
+ar 0
+sp 91
+lines p1 f23 p2 f22 p3 f21 p4 f20 p5 f19 p6 f18 p7 f17 p8 f16 p9 f15 p10 f14 p11 p13
+mc 14 gen sum=83-90 oe=82 polfuse=4084 polhi=1 reg=4085 regon=0 fb=nq fbfuse=4086 fbpin=1 alwaysreg=1 fbxor=1
+mc 15 gen sum=74-81 oe=73 polfuse=4080 polhi=1 reg=4081 regon=0 fb=nq fbfuse=4082 fbpin=1 alwaysreg=1 fbxor=1
+mc 16 gen sum=65-72 oe=64 polfuse=4076 polhi=1 reg=4077 regon=0 fb=nq fbfuse=4078 fbpin=1 alwaysreg=1 fbxor=1
+mc 17 gen sum=56-63 oe=55 polfuse=4072 polhi=1 reg=4073 regon=0 fb=nq fbfuse=4074 fbpin=1 alwaysreg=1 fbxor=1
+mc 18 gen sum=47-54 oe=46 polfuse=4068 polhi=1 reg=4069 regon=0 fb=nq fbfuse=4070 fbpin=1 alwaysreg=1 fbxor=1
+mc 19 gen sum=38-45 oe=37 polfuse=4064 polhi=1 reg=4065 regon=0 fb=nq fbfuse=4066 fbpin=1 alwaysreg=1 fbxor=1
+mc 20 gen sum=29-36 oe=28 polfuse=4060 polhi=1 reg=4061 regon=0 fb=nq fbfuse=4062 fbpin=1 alwaysreg=1 fbxor=1
+mc 21 gen sum=20-27 oe=19 polfuse=4056 polhi=1 reg=4057 regon=0 fb=nq fbfuse=4058 fbpin=1 alwaysreg=1 fbxor=1
+mc 22 gen sum=11-18 oe=10 polfuse=4052 polhi=1 reg=4053 regon=0 fb=nq fbfuse=4054 fbpin=1 alwaysreg=1 fbxor=1
+mc 23 gen sum=2-9 oe=1 polfuse=4048 polhi=1 reg=4049 regon=0 fb=nq fbfuse=4050 fbpin=1 alwaysreg=1 fbxor=1
+refdefect kbfbinv       # B002
+end
+
+device p1020ev8
+descr P1020EV8
+partname p1020ev8 P1020EV8 (configurable output macrocells)
+pins 24
+power 12 24
+fuses 3616
+array 40 90
+# Simulator: registers clocked by pin 3, which does not reach the array.
+clock 3
+simnote unverified   # clock pin 3 as in the original simulator
+ap 89
+ar 88
+lines f7 f8 p9 p10 p11 p13 p14 p15 p16 f17 f5 f4 p3 p2 p1 p23 p22 f21 f20 f18
+mc 4 gen sum=1-8 oe=0 polfuse=3600 polhi=1 reg=3601 regon=0 fb=nq
+mc 5 gen sum=19-30 oe=18 polfuse=3602 polhi=1 reg=3603 regon=0 fb=nq
+mc 7 gen sum=45-56 oe=44 polfuse=3604 polhi=1 reg=3605 regon=0 fb=nq
+mc 8 gen sum=71-78 oe=70 polfuse=3606 polhi=1 reg=3607 regon=0 fb=nq
+mc 17 gen sum=80-87 oe=79 polfuse=3608 polhi=1 reg=3609 regon=0 fb=nq
+mc 18 gen sum=58-69 oe=57 polfuse=3610 polhi=1 reg=3611 regon=0 fb=nq
+mc 20 gen sum=32-43 oe=31 polfuse=3612 polhi=1 reg=3613 regon=0 fb=nq
+mc 21 gen sum=10-17 oe=9 polfuse=3614 polhi=1 reg=3615 regon=0 fb=nq
+refdefect kbnoflip      # B001
+end
+
+device p18g8
+powerup reset
+descr P18G8
+partname p18g8 P18G8 (configurable output macrocells)
+pins 20
+power 10 20
+fuses 2624
+array 36 72
+clock 1
+lines p1 f19 p2 f18 p3 f17 p4 f16 p5 f15 p6 f14 p7 f13 p8 f12 p9 p11
+mc 12 gen sum=64-71 oe=63 polfuse=2620 polhi=1 reg=2621 regon=0 fb=nq fbfuse=2623 fbpin=1 cfg=2620,2621,2622,2623 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 13 gen sum=55-62 oe=54 polfuse=2616 polhi=1 reg=2617 regon=0 fb=nq fbfuse=2619 fbpin=1 cfg=2616,2617,2618,2619 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 14 gen sum=46-53 oe=45 polfuse=2612 polhi=1 reg=2613 regon=0 fb=nq fbfuse=2615 fbpin=1 cfg=2612,2613,2614,2615 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 15 gen sum=37-44 oe=36 polfuse=2608 polhi=1 reg=2609 regon=0 fb=nq fbfuse=2611 fbpin=1 cfg=2608,2609,2610,2611 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 16 gen sum=28-35 oe=27 polfuse=2604 polhi=1 reg=2605 regon=0 fb=nq fbfuse=2607 fbpin=1 cfg=2604,2605,2606,2607 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 17 gen sum=19-26 oe=18 polfuse=2600 polhi=1 reg=2601 regon=0 fb=nq fbfuse=2603 fbpin=1 cfg=2600,2601,2602,2603 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 18 gen sum=10-17 oe=9 polfuse=2596 polhi=1 reg=2597 regon=0 fb=nq fbfuse=2599 fbpin=1 cfg=2596,2597,2598,2599 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+mc 19 gen sum=1-8 oe=0 polfuse=2592 polhi=1 reg=2593 regon=0 fb=nq fbfuse=2595 fbpin=1 cfg=2592,2593,2594,2595 cfgu=0000 cfgi=0011 cfgc=1110 cfgcn=0110 cfgr=1010 cfgrn=0010
+end
+
+device p22cv10z
+descr P22CV10Z
+partname p22cv10z P22CV10Z (zero-power 22V10-type)
+pins 24
+power 12 24
+fuses 5873
+array 44 132
+clock 1
+ar 0
+sp 131
+const 5851 5852
+lines p1 f23 p2 f22 p3 f21 p4 f20 p5 f19 p6 f18 p7 f17 p8 f16 p9 f15 p10 f14 p11 p13
+mc 14 gen sum=123-130 oe=122 polfuse=5844 polhi=1 reg=5845 regon=0 fb=nq cfg=5844,5845,5846 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5846 fbpin=1 alwaysreg=1 fbxor=1
+mc 15 gen sum=112-121 oe=111 polfuse=5840 polhi=1 reg=5841 regon=0 fb=nq cfg=5840,5841,5842 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5842 fbpin=1 alwaysreg=1 fbxor=1
+mc 16 gen sum=99-110 oe=98 polfuse=5836 polhi=1 reg=5837 regon=0 fb=nq cfg=5836,5837,5838 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5838 fbpin=1 alwaysreg=1 fbxor=1
+mc 17 gen sum=84-97 oe=83 polfuse=5832 polhi=1 reg=5833 regon=0 fb=nq cfg=5832,5833,5834 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5834 fbpin=1 alwaysreg=1 fbxor=1
+mc 18 gen sum=67-82 oe=66 polfuse=5828 polhi=1 reg=5829 regon=0 fb=nq cfg=5828,5829,5830 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5830 fbpin=1 alwaysreg=1 fbxor=1
+mc 19 gen sum=50-65 oe=49 polfuse=5824 polhi=1 reg=5825 regon=0 fb=nq cfg=5824,5825,5826 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5826 fbpin=1 alwaysreg=1 fbxor=1
+mc 20 gen sum=35-48 oe=34 polfuse=5820 polhi=1 reg=5821 regon=0 fb=nq cfg=5820,5821,5822 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5822 fbpin=1 alwaysreg=1 fbxor=1
+mc 21 gen sum=22-33 oe=21 polfuse=5816 polhi=1 reg=5817 regon=0 fb=nq cfg=5816,5817,5818 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5818 fbpin=1 alwaysreg=1 fbxor=1
+mc 22 gen sum=11-20 oe=10 polfuse=5812 polhi=1 reg=5813 regon=0 fb=nq cfg=5812,5813,5814 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5814 fbpin=1 alwaysreg=1 fbxor=1
+mc 23 gen sum=2-9 oe=1 polfuse=5808 polhi=1 reg=5809 regon=0 fb=nq cfg=5808,5809,5810 cfgu=001 cfgi=001 cfgc=110 cfgcn=010 cfgr=100 cfgrn=000 fbfuse=5810 fbpin=1 alwaysreg=1 fbxor=1
+refdefect kbfbinv       # B002
+end
+
+device p22vp10
+descr P22VP10
+partname p22vp10 PAL22VP10
+pins 24
+power 12 24
+fuses 5838
+array 44 132
+clock 1
+ar 0
+sp 131
+lines p1 f23 p2 f22 p3 f21 p4 f20 p5 f19 p6 f18 p7 f17 p8 f16 p9 f15 p10 f14 p11 p13
+mc 14 gen sum=123-130 oe=122 polfuse=5826 polhi=1 reg=5827 regon=0 fb=nq
+mc 15 gen sum=112-121 oe=111 polfuse=5824 polhi=1 reg=5825 regon=0 fb=nq
+mc 16 gen sum=99-110 oe=98 polfuse=5822 polhi=1 reg=5823 regon=0 fb=nq
+mc 17 gen sum=84-97 oe=83 polfuse=5820 polhi=1 reg=5821 regon=0 fb=nq
+mc 18 gen sum=67-82 oe=66 polfuse=5818 polhi=1 reg=5819 regon=0 fb=nq
+mc 19 gen sum=50-65 oe=49 polfuse=5816 polhi=1 reg=5817 regon=0 fb=nq
+mc 20 gen sum=35-48 oe=34 polfuse=5814 polhi=1 reg=5815 regon=0 fb=nq
+mc 21 gen sum=22-33 oe=21 polfuse=5812 polhi=1 reg=5813 regon=0 fb=nq
+mc 22 gen sum=11-20 oe=10 polfuse=5810 polhi=1 reg=5811 regon=0 fb=nq
+mc 23 gen sum=2-9 oe=1 polfuse=5808 polhi=1 reg=5809 regon=0 fb=nq
+refdefect kbfbinv       # B002
+end
+
+device p18cv8
+descr P18CV8
+partname p18cv8 P18CV8 (configurable output macrocells)
+pins 20
+power 10 20
+fuses 2696
+array 36 74
+clock 1
+ar 73
+sp 72
+lines p1 p11 p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=56-63 oe=71 polfuse=2692 polhi=0 reg=2693 regon=1 fb=q cfg=2692,2693,2694,2695 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2694 fbfuse2=2695 fbpin=1 alwaysreg=1
+mc 13 gen sum=48-55 oe=70 polfuse=2688 polhi=0 reg=2689 regon=1 fb=q cfg=2688,2689,2690,2691 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2690 fbfuse2=2691 fbpin=1 alwaysreg=1
+mc 14 gen sum=40-47 oe=69 polfuse=2684 polhi=0 reg=2685 regon=1 fb=q cfg=2684,2685,2686,2687 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2686 fbfuse2=2687 fbpin=1 alwaysreg=1
+mc 15 gen sum=32-39 oe=68 polfuse=2680 polhi=0 reg=2681 regon=1 fb=q cfg=2680,2681,2682,2683 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2682 fbfuse2=2683 fbpin=1 alwaysreg=1
+mc 16 gen sum=24-31 oe=67 polfuse=2676 polhi=0 reg=2677 regon=1 fb=q cfg=2676,2677,2678,2679 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2678 fbfuse2=2679 fbpin=1 alwaysreg=1
+mc 17 gen sum=16-23 oe=66 polfuse=2672 polhi=0 reg=2673 regon=1 fb=q cfg=2672,2673,2674,2675 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2674 fbfuse2=2675 fbpin=1 alwaysreg=1
+mc 18 gen sum=8-15 oe=65 polfuse=2668 polhi=0 reg=2669 regon=1 fb=q cfg=2668,2669,2670,2671 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2670 fbfuse2=2671 fbpin=1 alwaysreg=1
+mc 19 gen sum=0-7 oe=64 polfuse=2664 polhi=0 reg=2665 regon=1 fb=q cfg=2664,2665,2666,2667 cfgu=1111 cfgi=1111 cfgc=0011 cfgcn=1011 cfgr=0100 cfgrn=1100 fbfuse=2666 fbfuse2=2667 fbpin=1 alwaysreg=1
+refdefect kbfbinv       # B002
+end
+
+device p20g10
+powerup reset
+descr P20G10
+partname p20g10 P20G10 (configurable output macrocells)
+pins 24
+power 12 24
+fuses 3990
+array 44 90
+clock 1
+oepin 13
+lines p1 f23 p2 f22 p3 f21 p4 f20 p5 f19 p6 f18 p7 f17 p8 f16 p9 f15 p10 f14 p11 p13
+mc 14 gen sum=82-89 oe=81 polfuse=3987 polhi=1 reg=3988 regon=0 fb=nq cfg=3987,3988,3989 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3989
+mc 15 gen sum=73-80 oe=72 polfuse=3984 polhi=1 reg=3985 regon=0 fb=nq cfg=3984,3985,3986 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3986
+mc 16 gen sum=64-71 oe=63 polfuse=3981 polhi=1 reg=3982 regon=0 fb=nq cfg=3981,3982,3983 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3983
+mc 17 gen sum=55-62 oe=54 polfuse=3978 polhi=1 reg=3979 regon=0 fb=nq cfg=3978,3979,3980 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3980
+mc 18 gen sum=46-53 oe=45 polfuse=3975 polhi=1 reg=3976 regon=0 fb=nq cfg=3975,3976,3977 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3977
+mc 19 gen sum=37-44 oe=36 polfuse=3972 polhi=1 reg=3973 regon=0 fb=nq cfg=3972,3973,3974 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3974
+mc 20 gen sum=28-35 oe=27 polfuse=3969 polhi=1 reg=3970 regon=0 fb=nq cfg=3969,3970,3971 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3971
+mc 21 gen sum=19-26 oe=18 polfuse=3966 polhi=1 reg=3967 regon=0 fb=nq cfg=3966,3967,3968 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3968
+mc 22 gen sum=10-17 oe=9 polfuse=3963 polhi=1 reg=3964 regon=0 fb=nq cfg=3963,3964,3965 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3965
+mc 23 gen sum=1-8 oe=0 polfuse=3960 polhi=1 reg=3961 regon=0 fb=nq cfg=3960,3961,3962 cfgu=000 cfgi=010 cfgc=110 cfgcn=010 cfgr=101 cfgrn=001 oemux=3962
+refdefect kbfbinv       # B002
+end
+
+device p18v8
+descr P18V8
+partname p18v8 P18V8 (configurable output macrocells)
+pins 20
+power 10 20
+fuses 2752
+array 36 74
+clock 1
+ar 72
+sp 73
+lines p1 p11 p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=64-71 oe=63 polfuse=2678 polhi=1 reg=2679 regon=0 fb=nq
+mc 13 gen sum=55-62 oe=54 polfuse=2676 polhi=1 reg=2677 regon=0 fb=nq
+mc 14 gen sum=46-53 oe=45 polfuse=2674 polhi=1 reg=2675 regon=0 fb=nq
+mc 15 gen sum=37-44 oe=36 polfuse=2672 polhi=1 reg=2673 regon=0 fb=nq
+mc 16 gen sum=28-35 oe=27 polfuse=2670 polhi=1 reg=2671 regon=0 fb=nq
+mc 17 gen sum=19-26 oe=18 polfuse=2668 polhi=1 reg=2669 regon=0 fb=nq
+mc 18 gen sum=10-17 oe=9 polfuse=2666 polhi=1 reg=2667 regon=0 fb=nq
+mc 19 gen sum=1-8 oe=0 polfuse=2664 polhi=1 reg=2665 regon=0 fb=nq
+refdefect inreg
+refdefect kbfbinv       # B002
+end
+
+device p22p10a
+descr P22P10A
+partname p22p10a PAL22P10A
+pins 24
+power 12 24
+fuses 3970
+array 44 90
+lines p2 p1 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p13 f23 f14
+mc 14 gen sum=82-89 oe=81 polfuse=3969 polhi=1 reg=0
+mc 15 gen sum=73-80 oe=72 polfuse=3968 polhi=1 reg=0
+mc 16 gen sum=64-71 oe=63 polfuse=3967 polhi=1 reg=0
+mc 17 gen sum=55-62 oe=54 polfuse=3966 polhi=1 reg=0
+mc 18 gen sum=46-53 oe=45 polfuse=3965 polhi=1 reg=0
+mc 19 gen sum=37-44 oe=36 polfuse=3964 polhi=1 reg=0
+mc 20 gen sum=28-35 oe=27 polfuse=3963 polhi=1 reg=0
+mc 21 gen sum=19-26 oe=18 polfuse=3962 polhi=1 reg=0
+mc 22 gen sum=10-17 oe=9 polfuse=3961 polhi=1 reg=0
+mc 23 gen sum=1-8 oe=0 polfuse=3960 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end

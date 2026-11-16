@@ -1,0 +1,8 @@
+Name cond_list; Partno COND_LST; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 23 = y; pin 22 = z;
+condition {
+  if a & b out [y, z];
+  if !a out y;
+  default out z;
+}

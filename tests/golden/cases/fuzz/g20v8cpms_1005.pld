@@ -1,0 +1,33 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cpms;
+
+pin 2 = in_x;
+pin 4 = in_y;
+pin 5 = in_z;
+pin 6 = in_w;
+pin 9 = in_v;
+pin 11 = in_u;
+pin 14 = in_t;
+pin 1 = clk;
+pin 19 = s0;
+pin 18 = !s1;
+pin 21 = s2;
+pin 20 = out_d;
+pin 22 = out_e;
+pin 17 = out_f;
+out_d.d = [in_y,in_v,in_w]:$;
+APPEND out_e = in_x;
+out_e.oe = in_v;
+out_f.d = !in_y & in_v # in_v & in_y # !in_y & in_w & in_z;
+field st = [s0,s1,s2];
+sequenced st {
+  present 3 next 3;
+  present 7 if !in_x & !in_v next 3; if in_y & !in_w next 7;
+}

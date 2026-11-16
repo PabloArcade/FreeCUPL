@@ -1,0 +1,43 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p20xrp02.si
+
+   1: Name P;
+   2: Device p20xrp8;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: clk, !v5, v3, v1, v4, v2, v0, %2, y;
+   5: 
+
+===================
+      c!           
+      lvvvvvv      
+      k531420  y   
+===================
+0001: 10011X1  X
+0002: 1111010  H
+vector 3
+0003: 1010011  L
+0004: 0110110  L
+0005: X110010  L
+0006: 01010X1  X
+0007: 0010000  Z
+0008: 0101011  H
+0009: 1001110  L
+0010: 0110101  Z
+0011: 1111011  L
+               ^
+[0019sa] user expected (H) for y
+
+0012: 0110010  L
+0013: 00X1001  Z
+0014: 1011110  L
+0015: 0110X10  L
+0016: X110110  L
+0017: X01X011  L
+0018: 0011000  Z
+0019: 1X11001  Z
+0020: 1111100  Z

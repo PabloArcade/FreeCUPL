@@ -1,0 +1,51 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: v750f101.si
+
+   1: Name G9012;
+   2: Partno P9012;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Location x;
+   8: Device v750;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: FIELD fa = [a4,a3,a2];
+  11:
+  12: ORDER: a0, a2, !a5, !a6, a1, !a3, a4, %2, q4, q5, ta, tb, q0, !q1, q2, q3;
+  13: 
+
+==========================
+        !! !        !     
+      aaaaaaa  qqttqqqq   
+      0256134  45ab0123   
+==========================
+0001: 000111X  ZXXLLHLH
+0002: 000X100  XZLLLXLH
+0003: 011000X  ZZXLLXLH
+0004: 1100110  HZHHLXLH
+0005: 1010111  HHHLLXLL
+0006: 10011X1  ZXXLLXLL
+0007: 1000111  HHHLLXLL
+0008: 1110010  ZZHHLXLL
+0009: 10011X0  ZZLLLXLH
+               ^^ ^^^^
+[0019sa] user expected (H) for q4
+[0019sa] user expected (L) for q5
+[0019sa] user expected (H) for tb
+[0019sa] user expected (H) for q0
+[0019sa] user expected (H) for q1
+[0019sa] user expected (H) for q2
+
+0010: 01100X0  ZZXXLXLH
+0011: 011011X  HXXXNXLL
+0012: 1101101  ZXHLLXLL
+0013: 100X011  ZNHLLXLH
+0014: 0110011  ZZLLLXHH
+0015: 0001000  ZZLLLHHH
+0016: 0001X00  ZZLLLHHH

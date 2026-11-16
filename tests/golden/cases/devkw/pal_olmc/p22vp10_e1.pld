@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22vp10;
+pin 8 = !OFF;
+pin 11 = i1;
+pin 18 = !o0;
+pin 16 = o1;
+pin 20 = o2;
+
+o0.d = ((!i1 & OFF) # i1 # (!OFF & !i1));
+o0.oe = (!OFF & i1);
+o1.d = (!OFF & i1);
+o2 = !i1;
+
+/* @expect
+o0.d = (((not i1) and OFF) or i1 or ((not OFF) and (not i1)))
+o0.oe = ((not OFF) and i1)
+o1.d = ((not OFF) and i1)
+o2 = (not i1)
+*/

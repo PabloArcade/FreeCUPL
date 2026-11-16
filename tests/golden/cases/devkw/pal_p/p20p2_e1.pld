@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20p2;
+pin 17 = !i0;
+pin 23 = VECTORS;
+pin 19 = ELSE;
+
+ELSE = (!VECTORS & i0);
+
+/* @expect
+ELSE = ((not VECTORS) and i0)
+*/

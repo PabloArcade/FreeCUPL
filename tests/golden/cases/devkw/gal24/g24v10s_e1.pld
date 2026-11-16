@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g24v10s;
+pin 6 = JUMP;
+pin 8 = i1;
+pin 12 = !i2;
+pin 10 = i3;
+pin 27 = !i4;
+pin 4 = i5;
+pin 22 = o0;
+pin 25 = o1;
+pin 20 = pin;
+
+o0 = (i5 $ i3);
+o1 = ((!i3 & !i5 & !i4) # (!i4 & !i2) # (i5 & !i3));
+pin = (!i5 & i1 & i4);
+
+/* @expect
+o0 = (i5 ^ i3)
+o1 = (((not i3) and (not i5) and (not i4)) or ((not i4) and (not i2)) or (i5 and (not i3)))
+pin = ((not i5) and i1 and i4)
+*/

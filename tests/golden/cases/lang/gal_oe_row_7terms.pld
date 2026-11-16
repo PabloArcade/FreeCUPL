@@ -1,0 +1,7 @@
+Name galoe7; Partno X; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8ma;
+/* 7 product terms with the output enable row: accepted */
+pin 1 = x; pin 2 = y; pin 5 = z; pin 7 = v; pin 11 = t;
+pin 14 = o;
+o = x & !y # y & !z # z & !v # v & !t # t & !x # x & y & z & v & t # !x & !y & !z & !v & !t;
+o.oe = 'b'1;

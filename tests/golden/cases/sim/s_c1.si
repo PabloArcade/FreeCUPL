@@ -1,0 +1,20 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8;
+ORDER: a, b, e, %1, y1, y2, y3, io;
+VECTORS:
+000 ****
+X10 ****
+$TRACE 1;
+X10 ****
+110 ****
+010 ****
+110 ****
+100 ****
+101 ****
+100 ****
+1001***
+1000***
+100X***
+100Z***
+101L***
+1010***

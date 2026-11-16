@@ -1,0 +1,5 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = a; pin 3 = b; pin 4 = c; pin [23,22] = [y,z];
+!property = a & b;
+y = property # c;

@@ -1,0 +1,7 @@
+
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750cextppklcc;
+pin 7 = a; pin 9 = c;
+pinnode 48 = q; pin 17 = y;
+y.d = !q & a; y.ck = c; 
+

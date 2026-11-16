@@ -1,0 +1,490 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# LCC/PLCC packages of the other families.  NEW=0 in a pinmap: pin not
+# located.  Generated from probe results; do not edit by hand.
+
+device p1020ev8lcc
+inherit p1020ev8
+descr P1020EV8 in a 28-pin package
+partname p1020ev8lcc P1020EV8 (configurable output macrocells, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p1020p8lcc
+inherit p1020p8
+descr P1020P8 in a 28-pin package
+partname p1020p8lcc P1020P8 (product-term steering, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p12l10lcc
+inherit p12l10
+descr P12L10 in a 28-pin package
+partname p12l10lcc PAL12L10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=0 13=16 14=17 15=16 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p12l10mlcc
+inherit p12l10
+descr P12L10 in a 28-pin package
+partname p12l10mlcc PAL12L10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p12p10lcc
+inherit p12p10
+descr P12P10 in a 28-pin package
+partname p12p10lcc PAL12P10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p14l8lcc
+inherit p14l8
+descr P14L8 in a 28-pin package
+partname p14l8lcc PAL14L8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p14l8mlcc
+inherit p14l8
+descr P14L8 in a 28-pin package
+partname p14l8mlcc PAL14L8 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p14p8lcc
+inherit p14p8
+descr P14P8 in a 28-pin package
+partname p14p8lcc PAL14P8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p16l6lcc
+inherit p16l6
+descr P16L6 in a 28-pin package
+partname p16l6lcc PAL16L6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p16l6mlcc
+inherit p16l6
+descr P16L6 in a 28-pin package
+partname p16l6mlcc PAL16L6 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p16p6lcc
+inherit p16p6
+descr P16P6 in a 28-pin package
+partname p16p6lcc PAL16P6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p16p8clcc
+inherit p16p8c
+descr P16P8C in a 28-pin package
+partname p16p8clcc P16P8C (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p18l4lcc
+inherit p18l4
+descr P18L4 in a 28-pin package
+partname p18l4lcc PAL18L4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p18l4mlcc
+inherit p18l4
+descr P18L4 in a 28-pin package
+partname p18l4mlcc PAL18L4 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p18p4lcc
+inherit p18p4
+descr P18P4 in a 28-pin package
+partname p18p4lcc PAL18P4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p19l8rlcc
+inherit p19l8r
+descr P19L8R in a 28-pin package
+partname p19l8rlcc PAL19L8R (registered inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p19l8tlcc
+inherit p19l8t
+descr P19L8T in a 28-pin package
+partname p19l8tlcc PAL19L8T (latched inputs, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20g10lcc
+inherit p20g10
+descr P20G10 in a 28-pin package
+partname p20g10lcc P20G10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20g10mlcc
+inherit p20g10
+descr P20G10 in a 28-pin package
+partname p20g10mlcc P20G10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=5 5=6 6=7 7=8 8=9 9=10 10=12 11=13 12=0 13=15 14=16 15=17 16=19 17=20 18=21 19=22 20=23 21=24 22=26 23=27 24=0
+end
+
+device p20g10slcc
+inherit p20g10
+descr P20G10 in a 28-pin package
+partname p20g10slcc P20G10 (LCC28, another pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20l10lcc
+inherit p20l10
+descr P20L10 in a 28-pin package
+partname p20l10lcc PAL20L10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20l10mlcc
+inherit p20l10
+descr P20L10 in a 28-pin package
+partname p20l10mlcc PAL20L10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20l2lcc
+inherit p20l2
+descr P20L2 in a 28-pin package
+partname p20l2lcc PAL20L2 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20l2mlcc
+inherit p20l2
+descr P20L2 in a 28-pin package
+partname p20l2mlcc PAL20L2 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=21 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20p2lcc
+inherit p20p2
+descr P20P2 in a 28-pin package
+partname p20p2lcc PAL20P2 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20p8lcc
+inherit p20p8
+descr P20P8 in a 28-pin package
+partname p20p8lcc PAL20P8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp10alcc
+inherit p20rp10a
+descr P20RP10A in a 28-pin package
+partname p20rp10alcc PAL20RP10A (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp4alcc
+inherit p20rp4a
+descr P20RP4A in a 28-pin package
+partname p20rp4alcc PAL20RP4A (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp4lcc
+inherit p20rp4
+descr P20RP4 in a 28-pin package
+partname p20rp4lcc PAL20RP4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp6alcc
+inherit p20rp6a
+descr P20RP6A in a 28-pin package
+partname p20rp6alcc PAL20RP6A (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp6lcc
+inherit p20rp6
+descr P20RP6 in a 28-pin package
+partname p20rp6lcc PAL20RP6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rp8alcc
+inherit p20rp8a
+descr P20RP8A in a 28-pin package
+partname p20rp8alcc PAL20RP8A (PLCC28)
+pins 28
+pinmap 1=0 2=3 3=4 4=5 5=6 6=7 7=8 8=10 9=11 10=12 11=13 12=0 13=0 14=17 15=0 16=0 17=0 18=0 19=0 20=0 21=0 22=0 23=27 24=0
+refdefect kbnoflip      # B001
+end
+
+device p20rs10lcc
+inherit p20rs10
+descr P20RS10 in a 28-pin package
+partname p20rs10lcc PAL20RS10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rs10mlcc
+inherit p20rs10
+descr P20RS10 in a 28-pin package
+partname p20rs10mlcc PAL20RS10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+refdefect kbnoflip      # B001
+end
+
+device p20rs4lcc
+inherit p20rs4
+descr P20RS4 in a 28-pin package
+partname p20rs4lcc PAL20RS4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rs8lcc
+inherit p20rs8
+descr P20RS8 in a 28-pin package
+partname p20rs8lcc PAL20RS8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rs8mlcc
+inherit p20rs8
+descr P20RS8 in a 28-pin package
+partname p20rs8mlcc PAL20RS8 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+refdefect kbnoflip      # B001
+end
+
+device p20rsp4lcc
+inherit p20rsp4
+descr P20RSP4 in a 28-pin package
+partname p20rsp4lcc PAL20RSP4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rsp6lcc
+inherit p20rsp6
+descr P20RSP6 in a 28-pin package
+partname p20rsp6lcc PAL20RSP6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20rsp8lcc
+inherit p20rsp8
+descr P20RSP8 in a 28-pin package
+partname p20rsp8lcc PAL20RSP8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20s10lcc
+inherit p20s10
+descr P20S10 in a 28-pin package
+partname p20s10lcc PAL20S10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20s10mlcc
+inherit p20s10
+descr P20S10 in a 28-pin package
+partname p20s10mlcc PAL20S10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=1 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=16 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+refdefect kbnoflip      # B001
+end
+
+device p20sp8lcc
+inherit p20sp8
+descr P20SP8 in a 28-pin package
+partname p20sp8lcc PAL20SP8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20x10lcc
+inherit p20x10
+descr P20X10 in a 28-pin package
+partname p20x10lcc PAL20X10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20x10mlcc
+inherit p20x10
+descr P20X10 in a 28-pin package
+partname p20x10mlcc PAL20X10 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20x4lcc
+inherit p20x4
+descr P20X4 in a 28-pin package
+partname p20x4lcc PAL20X4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20x4mlcc
+inherit p20x4
+descr P20X4 in a 28-pin package
+partname p20x4mlcc PAL20X4 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20x8lcc
+inherit p20x8
+descr P20X8 in a 28-pin package
+partname p20x8lcc PAL20X8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p20x8mlcc
+inherit p20x8
+descr P20X8 in a 28-pin package
+partname p20x8mlcc PAL20X8 (LCC28, alternative pin numbering)
+pins 28
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+end
+
+device p20xrp10lcc
+inherit p20xrp10
+descr P20XRP10 in a 28-pin package
+partname p20xrp10lcc PAL20XRP10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20xrp4lcc
+inherit p20xrp4
+descr P20XRP4 in a 28-pin package
+partname p20xrp4lcc PAL20XRP4 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20xrp6lcc
+inherit p20xrp6
+descr P20XRP6 in a 28-pin package
+partname p20xrp6lcc PAL20XRP6 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p20xrp8lcc
+inherit p20xrp8
+descr P20XRP8 in a 28-pin package
+partname p20xrp8lcc PAL20XRP8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p22p10alcc
+inherit p22p10a
+descr P22P10A in a 28-pin package
+partname p22p10alcc PAL22P10A (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end
+
+device p22rx8lcc
+inherit p22rx8
+descr P22RX8 in a 28-pin package
+partname p22rx8lcc PAL22RX8 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p22vp10lcc
+inherit p22vp10
+descr P22VP10 in a 28-pin package
+partname p22vp10lcc PAL22VP10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end
+
+device p22xp10lcc
+inherit p22xp10
+descr P22XP10 in a 28-pin package
+partname p22xp10lcc PAL22XP10 (PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+refdefect kbnoflip      # B001
+end

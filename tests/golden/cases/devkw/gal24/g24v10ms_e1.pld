@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g24v10ms;
+pin 8 = i0;
+pin 28 = i1;
+pin 13 = !i2;
+pin 11 = i3;
+pin 27 = !i4;
+pin 5 = i5;
+pin 22 = MEND;
+pin 25 = !o1;
+pin 20 = !o2;
+
+MEND.d = ((i5 & i3 & !i4) # (i0 & !i2) # (i3 & !i5));
+o1 = (!i1 # (!i5 & !MEND & i1) # (!MEND & i4));
+o2.d = (i0 & i2 & !i1);
+
+/* @expect
+MEND.d = ((i5 and i3 and (not i4)) or (i0 and (not i2)) or (i3 and (not i5)))
+o1 = ((not i1) or ((not i5) and (not MEND) and i1) or ((not MEND) and i4))
+o2.d = (i0 and i2 and (not i1))
+*/

@@ -1,0 +1,4 @@
+Name t1; Partno x; Date x; Revision 01; Designer x; Company x; Assembly x; Location x; Device g16v8;
+pin 2 = a; pin 3 = b; pin [18..19] = [y0,y1];
+field out = [y1,y0]; field i = [a,b];
+table i => out { 0=>1; 1=>2; 2=>3; 3=>0; }

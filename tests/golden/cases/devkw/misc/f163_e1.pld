@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device f163;
+pin 19 = !Date;
+pin 22 = i1;
+pin 15 = Designer;
+
+Designer = (!i1 & Date);
+
+/* @expect
+Designer = ((not i1) and Date)
+*/

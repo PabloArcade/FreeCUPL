@@ -1,0 +1,4 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750;
+pin 6 = a; pin 7 = b; pin 8 = c; pinnode 37 = q5; !q5.d = a; pin 16 = fo; fo = b;
+

@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rp8alcc;
+pin 11 = !i0;
+pin 7 = SEQUENCED;
+pin 0 = o0;
+
+o0.d = i0;
+
+/* @expect
+o0.d = i0
+*/

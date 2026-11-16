@@ -1,0 +1,97 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# MMI-type 16V8 (m16v8a auto, m16v8as simple, m16v8ac complex, m16v8ar
+# registered): GAL16V8 architecture with a 48-column array.  Rows
+# 8k..8k+7 belong to pin 19-k.  Columns 0..31 are the GAL16V8 input lines;
+# a term reaches the combinational output only through select column 40+k
+# and the register through 32+k.  Unused rows are left all 1.
+# Fuses from 3072: 0+k register polarity (0 = high), 8+k combinational
+# polarity (1 = high), 16..23 always 1, 24+k output or registered, 32+k
+# feedback (complex mode), 40+k copy of 24+k in simple mode, 48..51 = 0011.
+# Mode: registered when 3104 is 1, complex when 3115 is 1, else simple.
+
+device m16v8as
+descr MMI 16V8 simple mode
+pins 20
+power 10 20
+fuses 3136
+array 48 64
+rowfill 1
+fuse m0 3104
+fuse m1 3115
+alias m16v8as simple
+partname m16v8as MMI-type 16V8 (simple mode)
+mode simple m0=0 m1=0
+const 3072-3079 3088-3095 3122 3123
+lines simple p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11 - - - - - - - -
+mc 19 gal rows=0-7 xor=3080 ac1=3096 selc=40 cfg=3080,3096,3112 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+mc 18 gal rows=8-15 xor=3081 ac1=3097 selc=41 cfg=3081,3097,3113 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+mc 17 gal rows=16-23 xor=3082 ac1=3098 selc=42 cfg=3082,3098,3114 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+mc 16 gal rows=24-31 xor=3083 ac1=3099 selc=43 cfg=3083,3099,3115 cfgu=100 cfgi=100 cfgc=100 cfgcn=000
+mc 15 gal rows=32-39 xor=3084 ac1=3100 selc=44 cfg=3084,3100,3116 cfgu=100 cfgi=100 cfgc=100 cfgcn=000
+mc 14 gal rows=40-47 xor=3085 ac1=3101 selc=45 cfg=3085,3101,3117 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+mc 13 gal rows=48-55 xor=3086 ac1=3102 selc=46 cfg=3086,3102,3118 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+mc 12 gal rows=56-63 xor=3087 ac1=3103 selc=47 cfg=3087,3103,3119 cfgu=111 cfgi=111 cfgc=100 cfgcn=000
+libtag m16v8as DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device m16v8ac
+descr MMI 16V8 complex mode
+pins 20
+power 10 20
+fuses 3136
+array 48 64
+rowfill 1
+fuse m0 3104
+fuse m1 3115
+alias m16v8ac complex
+partname m16v8ac MMI-type 16V8 (complex mode)
+mode complex m0=0 m1=1
+const 3072-3079 3088-3095 3112-3119 3122 3123
+lines complex p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11 - - - - - - - -
+mc 19 gal rows=0-7 xor=3080 ac1=3096 selc=40 cfg=3080,3104 cfgu=10 cfgi=10 cfgc=10 cfgcn=00
+mc 18 gal rows=8-15 xor=3081 ac1=3097 selc=41 cfg=3081,3105 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 17 gal rows=16-23 xor=3082 ac1=3098 selc=42 cfg=3082,3106 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 16 gal rows=24-31 xor=3083 ac1=3099 selc=43 cfg=3083,3107 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 15 gal rows=32-39 xor=3084 ac1=3100 selc=44 cfg=3084,3108 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 14 gal rows=40-47 xor=3085 ac1=3101 selc=45 cfg=3085,3109 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 13 gal rows=48-55 xor=3086 ac1=3102 selc=46 cfg=3086,3110 cfgu=10 cfgi=10 cfgc=11 cfgcn=01
+mc 12 gal rows=56-63 xor=3087 ac1=3103 selc=47 cfg=3087,3111 cfgu=10 cfgi=10 cfgc=10 cfgcn=00
+libtag m16v8ac DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device m16v8ar
+descr MMI 16V8 registered mode
+pins 20
+power 10 20
+fuses 3136
+array 48 64
+rowfill 1
+fuse m0 3104
+fuse m1 3115
+alias m16v8ar registered
+partname m16v8ar MMI-type 16V8 (registered mode)
+clock 1
+oepin 11
+mode registered m0=1
+const 3088-3095 3104-3119 3122 3123
+lines registered p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12 - - - - - - - -
+mc 19 gal rows=0-7 xor=3080 ac1=3096 ac1val=0 xorr=3072 xorrval=0 selc=40 selr=32 cfg=3072,3080,3096 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 18 gal rows=8-15 xor=3081 ac1=3097 ac1val=0 xorr=3073 xorrval=0 selc=41 selr=33 cfg=3073,3081,3097 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 17 gal rows=16-23 xor=3082 ac1=3098 ac1val=0 xorr=3074 xorrval=0 selc=42 selr=34 cfg=3074,3082,3098 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 16 gal rows=24-31 xor=3083 ac1=3099 ac1val=0 xorr=3075 xorrval=0 selc=43 selr=35 cfg=3075,3083,3099 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 15 gal rows=32-39 xor=3084 ac1=3100 ac1val=0 xorr=3076 xorrval=0 selc=44 selr=36 cfg=3076,3084,3100 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 14 gal rows=40-47 xor=3085 ac1=3101 ac1val=0 xorr=3077 xorrval=0 selc=45 selr=37 cfg=3077,3085,3101 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 13 gal rows=48-55 xor=3086 ac1=3102 ac1val=0 xorr=3078 xorrval=0 selc=46 selr=38 cfg=3078,3086,3102 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+mc 12 gal rows=56-63 xor=3087 ac1=3103 ac1val=0 xorr=3079 xorrval=0 selc=47 selr=39 cfg=3079,3087,3103 cfgu=110 cfgi=110 cfgc=110 cfgcn=100 cfgr=011 cfgrn=111
+libtag m16v8ar DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device m16v8_auto
+inherit m16v8ar
+alias m16v8a auto simple=m16v8as complex=m16v8ac registered=m16v8ar via=1
+partname m16v8a MMI-type 16V8 (automatic mode)
+refdefect kbnoflip      # B001
+end

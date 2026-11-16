@@ -1,0 +1,140 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Small 20-pin combinational PALs: 2 to 16 terms per output, fixed
+# polarity, no OE, no feedback.
+
+device p10h8
+descr PAL10H8: 10 inputs, 8 active-high outputs, 2 terms each
+partname p10h8 PAL10H8
+pins 20
+power 10 20
+fuses 320
+array 20 16
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p11
+mc 19 comb sum=0-1 pol=h
+mc 18 comb sum=2-3 pol=h
+mc 17 comb sum=4-5 pol=h
+mc 16 comb sum=6-7 pol=h
+mc 15 comb sum=8-9 pol=h
+mc 14 comb sum=10-11 pol=h
+mc 13 comb sum=12-13 pol=h
+mc 12 comb sum=14-15 pol=h
+libtag p10h8 DLIB-h-40-7
+end
+
+device p10l8
+descr PAL10L8: 10 inputs, 8 active-low outputs, 2 terms each
+partname p10l8 PAL10L8
+pins 20
+power 10 20
+fuses 320
+array 20 16
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p11
+mc 19 comb sum=0-1 pol=l
+mc 18 comb sum=2-3 pol=l
+mc 17 comb sum=4-5 pol=l
+mc 16 comb sum=6-7 pol=l
+mc 15 comb sum=8-9 pol=l
+mc 14 comb sum=10-11 pol=l
+mc 13 comb sum=12-13 pol=l
+mc 12 comb sum=14-15 pol=l
+libtag p10l8 DLIB-h-40-7
+end
+
+device p12h6
+descr PAL12H6: 12 inputs, 6 active-high outputs (4/2/2/2/2/4 terms)
+partname p12h6 PAL12H6
+pins 20
+power 10 20
+fuses 384
+array 24 16
+lines p2 p1 p3 p19 p4 p5 p6 p7 p8 p12 p9 p11
+mc 18 comb sum=0-3 pol=h
+mc 17 comb sum=4-5 pol=h
+mc 16 comb sum=6-7 pol=h
+mc 15 comb sum=8-9 pol=h
+mc 14 comb sum=10-11 pol=h
+mc 13 comb sum=12-15 pol=h
+libtag p12h6 DLIB-h-40-9
+end
+
+device p12l6
+descr PAL12L6: 12 inputs, 6 active-low outputs (4/2/2/2/2/4 terms)
+partname p12l6 PAL12L6
+pins 20
+power 10 20
+fuses 384
+array 24 16
+lines p2 p1 p3 p19 p4 p5 p6 p7 p8 p12 p9 p11
+mc 18 comb sum=0-3 pol=l
+mc 17 comb sum=4-5 pol=l
+mc 16 comb sum=6-7 pol=l
+mc 15 comb sum=8-9 pol=l
+mc 14 comb sum=10-11 pol=l
+mc 13 comb sum=12-15 pol=l
+libtag p12l6 DLIB-h-40-7
+end
+
+device p14h4
+descr PAL14H4: 14 inputs, 4 active-high outputs, 4 terms each
+partname p14h4 PAL14H4
+pins 20
+power 10 20
+fuses 448
+array 28 16
+lines p2 p1 p3 p19 p4 p18 p5 p6 p7 p13 p8 p12 p9 p11
+mc 17 comb sum=0-3 pol=h
+mc 16 comb sum=4-7 pol=h
+mc 15 comb sum=8-11 pol=h
+mc 14 comb sum=12-15 pol=h
+libtag p14h4 DLIB-h-40-7
+end
+
+device p14l4
+descr PAL14L4: 14 inputs, 4 active-low outputs, 4 terms each
+partname p14l4 PAL14L4
+pins 20
+power 10 20
+fuses 448
+array 28 16
+lines p2 p1 p3 p19 p4 p18 p5 p6 p7 p13 p8 p12 p9 p11
+mc 17 comb sum=0-3 pol=l
+mc 16 comb sum=4-7 pol=l
+mc 15 comb sum=8-11 pol=l
+mc 14 comb sum=12-15 pol=l
+libtag p14l4 DLIB-h-40-7
+end
+
+device p16h2
+descr PAL16H2: 16 inputs, 2 active-high outputs, 8 terms each
+partname p16h2 PAL16H2
+pins 20
+power 10 20
+fuses 512
+array 32 16
+lines p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11
+mc 16 comb sum=0-7 pol=h
+mc 15 comb sum=8-15 pol=h
+libtag p16h2 DLIB-h-40-7
+end
+
+device p16l2
+descr PAL16L2: 16 inputs, 2 active-low outputs, 8 terms each
+partname p16l2 PAL16L2
+pins 20
+power 10 20
+fuses 512
+array 32 16
+lines p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11
+mc 16 comb sum=0-7 pol=l
+mc 15 comb sum=8-15 pol=l
+libtag p16l2 DLIB-h-40-7
+end
+
+device p16c1
+inherit p16h2
+descr PAL16C1: 16 inputs, one 16-term sum on complementary outputs (16 high, 15 low)
+partname p16c1 PAL16C1
+mc 16 comb sum=0-15 pol=h
+mc 15 comb sum=0-15 pol=l
+libtag p16c1 DLIB-h-40-7
+end

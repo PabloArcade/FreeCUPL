@@ -1,0 +1,25 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16rp6;
+pin 2 = i0;
+pin 5 = i1;
+pin 12 = o0;
+pin 16 = o1;
+pin 19 = !o2;
+pin 18 = o3;
+pin 14 = o4;
+
+o0 = i0;
+o0.oe = i1;
+o1.d = 'b'1;
+o2 = (i1 $ o1);
+o3.d = (!i1 # !o2);
+o4.d = (!o1 & !o3);
+
+/* @expect
+o0 = i0
+o0.oe = i1
+o1.d = 1
+o2 = (i1 ^ o1)
+o3.d = ((not i1) or (not o2))
+o4.d = ((not o1) and (not o3))
+*/

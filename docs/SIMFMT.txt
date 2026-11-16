@@ -1,0 +1,477 @@
+SIMULATION FILES: .SI INPUT, .SO LISTING, .WO WAVEFORM, JEDEC VECTORS
+
+This file describes what the WinCUPL 5.0a simulator (CSIM) does, as
+found by running the original simulator on small designs and from the
+"Simulator Reference" chapter of the CUPL language reference.  Where the
+two disagree, the observed behaviour is given and marked (observed).
+Items not checked against the original are marked (unverified).
+freecsim and freecupl -s follow this description.  The simulator bugs
+that FreeCUPL reproduces, and the known differences, are in
+docs/BUGS.txt.
+
+
+1. PROGRAMS AND FILES
+
+The original simulator is run as "csim [-flags] [library] [device]
+source": -j appends vectors to the JEDEC file, -l writes the listing, -n
+names the JEDEC file after the source file, -u gives the library, -v -w
+-d control the screen and waveform display.  It reads source.SI, the
+absolute file written by cupl -a, and the device library.
+
+cupl -s runs the simulator after a successful compilation, on
+<stem>.SI next to the source file.  -s implies -a; with -j the vectors
+are appended to the JEDEC file just written.  The listing <stem>.so and
+the waveform file <stem>.wo are always written.
+
+Exit status: 0 when compilation and simulation are clean.  Any
+simulation error, a failed expected value included, gives "CSIM errors
+encountered!" and status 1.  The notes 0025sa and 0026sa are not
+errors.  Without a .si file the status is 1, no .so is written and the
+JEDEC file gets no vectors.  An empty .si gives status 0 and a .so that
+lists "   1: " and nothing else.
+
+The JEDEC file receives vectors whenever the simulation ran to the end,
+also when expected values failed (0019sa).  A fatal error (0011sa,
+0014sa, 0009sa in the header part and others) leaves it without
+vectors.
+
+freecupl -s does the same (with -j the vectors are appended).
+freecsim [-j] [-l] [-n] [-u lib] [device] file[.si] reads file.si and
+file.abs, written by freecupl -a in FreeCUPL's own text format (section
+13).  The original's binary .abs files are not read.
+
+
+2. LEXICAL RULES OF THE .SI FILE
+
+The original expects DOS line ends; with LF-only files its directive
+parser misreads lines ($ENDF; was reported as "invalid syntax:  .").
+freecsim reads both.
+
+The part before VECTORS: is free format.  Comments /* ... */ may appear
+anywhere, also across lines, and do not nest.  Keywords are not case
+sensitive.
+
+Header statements, each "keyword value;": NAME PARTNO REV or REVISION
+DATE DESIGNER COMPANY ASSY or ASSEMBLY LOC or LOCATION DEVICE FORMAT.
+
+Statements before VECTORS:, in this order of use: BASE: followed by
+octal, decimal or hex (default hex); FIELD name = [list]; (also FLD);
+ORDER: ...;; VAR name = list;; STUCKL n; and STUCKH n;; then VECTORS:
+(also VECTOR:).
+More ORDER: statements may follow in the vector part; each starts a new
+table.
+
+CSIM keywords cannot be signal names in ORDER: msg for repeat fld field
+while preload name partno rev revision date designer company assy
+assembly device format order location loc base vectors macro mend hex
+octal decimal binary exit stuckh stuckl trace else endif until simoff
+simon var set endf endw comp out call.  A pin named set gives
+"[0009sa] invalid syntax:  set" and the ORDER list ends there
+(observed).
+
+Field and VAR names must not end with a digit: FIELD f3 = ... gives
+"[0009sa] invalid syntax:  f3" (observed).
+
+A vector is one line of test values (single characters, blanks
+ignored) and quoted numbers, optionally followed by a comment.
+Directives ($...;) may be on a line of their own or follow a vector.
+
+
+3. ORDER
+
+"ORDER: item, item, ...;" where an item is a signal of the design (pin
+or node name), optionally !name to show and test it in the other
+polarity; a range A0..3 or A0..A3 (the polarity of the first element
+applies to all); a FIELD name of the .si or the .pld, !field allowed;
+%n (1 to 80) for n blanks between columns; or a string "text", printed
+as it is in each vector line.
+
+An unknown name gives "[0011sa] unknown symbol:  name", which is fatal.
+
+The value written for an ORDER item is the value of the variable as
+named in ORDER: pin level = value XOR (declared ! in the .pld) XOR (!
+in ORDER).
+
+Design signals not in ORDER: inputs are X, outputs are not tested (X in
+the JEDEC vector).
+
+
+4. TEST VALUES
+
+0, 1   On an input, drive the pin.  On an enabled output, "[0019sa] user
+       expected (0)", and the pin is read back as driven (observed).
+       On an I/O pin whose output is disabled, drive it; the array reads
+       the driven value.
+X      On an input, drive X.  On an output, expect X; X is a value, not
+       "don't care".
+L, H   On an input, not driven: the previous value is kept (observed).
+       On an output, expect L or H.
+Z      On an input, not driven (observed).  On an output, expect Z.
+N      On an input, "[0021sa] invalid test value:  N" and the input
+       becomes X.  On an output, not tested; N is shown and written.
+*      The simulator fills in the value.
+C      Clock pulse 0-1-0, on clock pins only; elsewhere [0021sa], and on
+       an output also [0019sa].
+K      Clock pulse 1-0-1: one rising edge at the end.
+P      Preload, on the clock pin only (section 6).
+R      Random 0 or 1, inputs only (section 7).
+
+Quoted values are '...' for inputs and "..." for outputs.  The digits
+are read in the BASE (hex by default, octal, decimal) and give 4 bits
+per digit (3 for octal) of the binary value: '99' decimal is 01100011;
+the BCD example in the language reference is wrong (observed).  In
+single-signal columns the bits fill consecutive columns.  A quoted value
+that starts at a FIELD column is fitted to the field width, zero
+extended or cut to the low bits ('F' in a 3-bit field is 111).  A quoted
+value whose first character is X, H, L or Z gives that letter in every
+position ('X0' is XXXXXXXX) (observed).  Excess bits give 0013sa errors
+whose number and place are irregular in the original (observed, not
+reproduced exactly).
+
+X is compared exactly: expecting X when the value is H fails.
+
+
+5. EVALUATION OF ONE VECTOR
+
+The rules below were found with small designs run on the original
+simulator, per rule and per device.  Device-specific behaviour is given
+in the device descriptions (powerup, simpasses, simcombinit, simle,
+simpreload, simdefect; docs/DEVFMT.txt).
+
+The AND/OR array uses three-valued logic: a term is 0 if any literal is
+0, else X if any is X, else 1; a sum is 1 if any term is 1, else X if
+any is X, else 0.  XOR with X is X.
+
+Pins and nodes without an equation for their value are not outputs for
+the original; control equations such as .OE, .CK, .AR do not count.
+When the design reads them they are inputs (* and N are invalid,
+[0021sa]; * is written X in the JEDEC vector, L and H follow the
+polarity).  When it does not, the column is shown as written.  A buried
+node without an equation reads X in the array.
+
+Combinational outputs without loops are evaluated until nothing
+changes.  With combinational loops the evaluation starts from the
+values of the previous vector and proceeds in passes; in each pass every
+combinational output is evaluated in descending pin order, each from the
+values already updated in that pass.  The first pass that changes
+nothing ends it.  An X counts as unchanged unless it circulates in a
+loop, that is, an output is X because a product term reading another X
+output is X, around a cycle of such dependences.  After 40 passes (100
+on devices and GAL modes with registers) the outputs still changing, or
+X through such a cycle, and every X output fed by them, are unstable:
+"[0020sa] unstable output:  name" for each of them in ORDER, the list
+repeated once per 20 passes (2 or 5 times).  X that comes from X inputs
+only is stable.  PEEL combinational outputs start low, the others
+unknown (Z in the first trace line).
+
+$TRACE 1 prints the result of every pass but the last.  In a vector in
+which nothing changes but a loop output is unknown when the loops are
+evaluated as unknown, it prints one line.  Not reproduced: the line
+count of a few vectors with X.
+
+Output enable 1 drives, 0 gives Z, X gives X.  A disabled output is read
+back by the array as the value driven in the vector, X when not driven.
+
+At power-up, devices with a reset (GAL16V8/20V8 OLMCs, 22V10, parts with
+asynchronous reset terms) start with Q = 0; the other registered PALs
+start unknown (X).  Exceptions found per device are given by powerup
+statements: PAL24R4/8/10, PAL16RP4/6/8, PAL18G8 and PAL20G10 reset;
+PEEL18CV8 every registered pin high; GAL16Z8 unknown.
+
+The clock pin starts low, so a 1 in the first vector is a rising edge.
+On a level change of the clock pin (1 after 0 or C) the registers load
+at the rising edge with the array evaluated after the edge, with all
+inputs of the new vector.  X on the clock pin does not clock.
+Asynchronous reset and preset terms see the inputs of the vector as a
+whole, not an intermediate state with the clock pins at their old
+level.
+
+C and K act on the pin, whatever the polarity of the clock variable.  C
+drives the pin high and then low; the registers load only when the pin
+was low after the previous vector (a K, a high level, or 0 on an
+active-low variable leave it high: no load).  K drives the pin low and
+then high and always loads.  The array is evaluated with the clock
+variable low (C) or the pin low (K).  The pin ends low after C and high
+after K.  Terms reading the clock pin, such as an asynchronous reset,
+act during the high phase.  Product-term clocks see the pulse as level
+changes.
+
+C, K or P on a pin that is not a clock pin gives [0021sa]; the input is
+0 for C and 1 for K.  A vector with P anywhere is a preload vector
+(section 6).  Parts with latches only (PAL10016LD8, PLSI1016LD4, PC508)
+and the PAL64R32 have no clock pin in the original; the PAL10020EV8 is
+clocked on pin 3; the PAL32R16 accepts C and K but its registers never
+load.
+
+When the design does not declare the device's output enable pin, it
+enables the outputs at 0 (at 1 on the PAL32R16, whose OE is active
+high).  A declared input that is not in ORDER is X.  The PAL64R32's OE
+pin enables nothing; its outputs are always enabled.
+
+Asynchronous reset and preset terms act when 1; X does nothing.  A
+synchronous preset (22V10 SP) with X does nothing either.
+
+The 22V10 has one AR and one SP product term for all registers.  The
+original applies them only to the registers that have an .AR or .SP
+equation (B025).  freecsim does the same by default and warns 0905sa
+when it matters; with -fix it applies them to all registers.
+
+Buried nodes are shown at their own level; the declared ! of a PINNODE
+does not apply to the display.  A node alias (ATV750 or ATV2500 PINNODE
+naming an output's register) shows the register as the array reads it.
+
+Latched outputs (.L) are never loaded by the original; they keep their
+power-up value or X.  C and K on the latch enable are invalid on parts
+with latches only.  Registered inputs (.DQ, PAL19xxR) are never loaded
+(X).  Latched inputs (.LQ, PAL19xxT) are transparent while pin 2 is
+high and hold while it is low or X.  freecsim copies all of this by
+default.  -simlatch simulates latches and input registers with the
+clock pin as enable: latches transparent while it is high, input
+registers loaded at its rising edge.  This is an assumption, not
+checked against hardware.
+
+$SIMOFF vectors are not evaluated and the state does not change; their
+values are only checked for syntax and written as given.
+
+Bugs of the original simulator (B025 to B028 and B030 in docs/BUGS.txt)
+are reproduced by default with warning 0905sa where the result is
+affected; with -fix the fuse map is simulated.  Besides the 22V10 AR and
+SP above: on the PEEL18CV8 the OE term of registered outputs is ignored
+and outputs without .OE are enabled, while the compiler's JEDEC file
+gates them; on the PAL10016RD4 and RD8 the registers load 0 at every
+clock edge and C, K and P are rejected, while the JEDEC file programs
+the D terms; on the GAL16VP8 the registered outputs are enabled from pin
+11, an I/O macrocell of this package.
+
+
+6. PRELOAD
+
+P on the clock pin loads the registers.  P on another input is [0021sa]
+but the vector is still a preload vector, shown and written as given,
+with the registers loaded.  The values in the register columns (0 or 1,
+absolute levels) are loaded into the register's !Q (Q = !value),
+regardless of declared or ORDER polarity.  On a GAL16V8 the registered
+pin then shows the value, on a 22V10 its complement; on devices with
+"simpreload pin" (PEEL18CV8, PAL64R32) the pin shows the value.  X and Z
+columns are not loaded.  L or H in a preload vector is "[0021sa] invalid
+test value".  Not reproduced: the polarity of preloaded latches on the
+ECL latch parts (PAL10016LD8, PLSI1016LD4).
+
+Input values are ignored and the vector is shown as written.  In the
+JEDEC vector every column is written as given (0 and 1 without polarity
+conversion, * as X), except L and H, which follow the polarity.
+
+
+7. RANDOM VALUES
+
+Each R takes the next bit of Borland C++'s rand() (seed 1, the first
+value discarded), rand() & 1, in column order.  For four R columns the
+sequence is 0000 1110 0001 1000 1111 1010 1011 0111 (observed).  The .so
+shows the drawn value; the JEDEC vector has X in that position.
+
+
+8. DIRECTIVES AFTER VECTORS
+
+    $MSG "text";     print text, without quotes, as a line of the .so
+    $REPEAT n;       repeat the next vector n times; * values are
+                     evaluated each time
+    $TRACE n;        0 to 4; other values give "[0029sa] invalid trace
+                     level:  n"
+    $SIMOFF; $SIMON; see section 5
+    $EXIT;           ignore the rest of the file
+    $SET var = value;
+                     set the user values of a signal, field or VAR
+    $COMP var = expr;
+                     arithmetic and logic on user values
+    $OUT;            a vector from the current user values (outputs:
+                     the last expected values)
+    $IF cond: ... [$ELSE: ...] $ENDIF;
+                     condition on the last simulated values
+    $FOR i = n1..n2: ... $ENDF;  $WHILE c: ... $ENDW;  $DO: ... $UNTIL c;
+                     loops
+    $MACRO name(args); ... $MEND;  $CALL name(args);
+                     the original crashes (page fault) on $CALL
+                     (observed)
+
+$SIMLOOP does not exist and gives "[0009sa] invalid syntax:  bad
+number", fatal.  Some combinations of the extended statements ($COMP on
+a VAR after $SET on an output, followed by $FOR or $IF) end the original
+with "[1022sa] program error:" (observed).  VAR name = a, b; works; VAR
+u = y..z with names that are not indexed gives "[0009sa] invalid
+syntax:  .".
+
+$TRACE output, first lines of each phase as printed by the original.
+Level 1: each extra evaluation pass of a vector as a line of six blanks
+and the values.  Level 2: "****** Before Clock ******" and values; "******
+At Clock ******", "REGS  " and the register states; "****** After Clock
+******" and values.  Level 3: level 2 plus, per product term, "---->
+name.ext " and "(v)   " and the inputs of the term.  Level 4: a blank
+line, "****** before output buffer ******", then six blanks and ? for
+inputs and nodes and the value before the output buffer (OR term or
+register Q) for outputs.  Level 3 depends on the original compiler's
+product terms and register phases; FreeCUPL copies the layout, not the
+exact term listing.
+
+STUCKL n; and STUCKH n; (between ORDER and VECTORS) force the product
+term whose first fuse is JEDEC fuse n to 0 or 1 for the whole
+simulation; vectors and the JEDEC file show the faulty values.  A fuse
+number that does not start a term gives "[0022sa] bad fault id".
+
+
+9. THE LISTING FILE (.SO)
+
+CRLF line ends.  It starts with a banner of four lines (the original
+names its own program and version):
+
+    FreeCSIM: CUPL compatible simulation program
+    FreeCUPL 1.0.0 (DARKSOFT)
+
+    CREATED Thu Jan  1 00:00:00 1970
+
+followed by an empty line, "LISTING FOR SIMULATION FILE: <stem>.si"
+and another empty line.  The date is SOURCE_DATE_EPOCH or the current
+time.
+
+Source lines before VECTORS are printed as "%4d: %s".  A line is
+printed when the parser takes its first token; blank and comment-only
+lines are printed as they are passed.  The VECTORS: line itself is not
+printed.
+
+Field table: when the parser reaches the first ORDER, every FIELD of
+the design and of the .si is printed as "%4d: FIELD name =
+[m1,m2,...];" with the members written out, followed by "%4d:" with no
+blank after the colon.  These lines take line numbers, so the numbers of
+the following source lines shift by the number of fields plus one.
+
+An error in a listed line gives a caret line (six blanks, then ^ under
+the column of the offending token, counted in the printed text after
+the "%4d: " prefix), the message "[%04d%c%c] text" and an empty line.
+Header notes are "[0025sa] Please note: inconsistent header information"
+with the caret after the differing value, and "[0026sa] Please note:
+missing header item(s) " with a trailing blank, no caret and no empty
+line, printed when the first statement after the header is reached.
+The Device line is not compared.
+
+Table header: a line holding a form feed, a line of = of width 6 + W +
+3, the name lines, and the = line again.  W is the width of the value
+part of a vector line.  Each ORDER item takes its columns: a single
+signal one column, with its name (and !) written vertically,
+bottom-aligned; a field n columns, its name (without !) wrapped in rows
+of n characters, bottom-aligned, a one-row name centred ((n - len) / 2
+from the left); %n and strings are blank.  Header lines are padded with
+blanks to 6 + W + 3.
+
+Vector lines are "%04d: " and the values, strings and %n blanks
+included, without trailing blanks.  Vectors are numbered across tables.
+Inputs show what was written (R replaced by the drawn bit); outputs show
+the simulated value, or N when the user wrote N; I/O pins with a
+disabled output show the driven value.  Preload and $SIMOFF vectors show
+the user's values.
+
+Errors of a vector: a caret line (six blanks, ^ under every column with
+an error, no trailing blanks), then one message per error in column
+order ("[0021sa] invalid test value:  v" before the "[0019sa] user
+expected (v) for name" of the same column), then an empty line.  In
+0019sa the name is the signal without ! and the expected value is
+converted to that polarity (!w expected H gives "(L) for w"); 0, 1, X,
+Z and C are printed as written.
+
+A vector line with too many values is printed as the source line ("%4d:
+text") with carets under the excess values, "[0013sa] excessive test
+value:  v" per value, and an empty line; the vector is then simulated
+with the values that fit.  Too few values give "[0014sa] insufficient
+test values", which is fatal.
+
+$MSG lines and later ORDER statements ("%4d: text", followed by a new
+table) appear in sequence.  Errors of directives print the source line,
+caret and message like header errors.  A fatal error ends the file with
+the message and an empty line.
+
+
+10. WAVEFORM FILE (.WO)
+
+    #WAVEFORM
+    #H <every listed source line, as in the .so, without the number>
+    #F name = [m1,m2,...];      field table, then an empty line
+    #V 0001 <values without spacing and strings>
+    #E 0019 <expected> <name>   per error, after the vector, then an
+                                empty line
+
+Errors in listed lines give "#E nnnn <token>" and an empty line.
+
+
+11. JEDEC TEST VECTORS (-j)
+
+*QV<n>, the number of vectors, is inserted after the *QF line, without
+a trailing blank.  After the fuse checksum line *C come "*P 1 2 3 ...
+npins" (all package pins) and one line per vector, "*V%04d <one
+character per pin>", then the end of transmission and a new
+transmission checksum.
+
+Per pin: power and no-connect pins are N.  The set depends on device and
+package; FreeCUPL uses a table found by probing the original
+(src/csim/nctable.c), and a pin named in an ORDER keeps its value.
+Power-down pins are 0.  Inputs carry the character written in the
+vector (0 1 X C K P L H Z N), R becomes X, and an input not in ORDER is
+X.  Outputs carry the simulated pin level L H Z X (not the ORDER
+polarity), N where the user wrote N, and X when not in ORDER.  An I/O
+pin with a disabled output and a driven value carries the driven value.
+Buried nodes are not part of the vector.  An output named in an earlier
+ORDER but not in the current one still shows its simulated level.
+$SIMOFF vectors carry the user's values converted to pin levels.
+Preload vectors: section 6.
+
+Vectors are written even when expected values failed; the JEDEC file
+then holds the simulated values.
+
+
+12. MESSAGES
+
+The format is "[%04d%c%c] text"; texts with an argument end in ":  "
+(two blanks) before it.
+
+    [0001sa] could not open
+    [0009sa] invalid syntax:  tok
+    [0011sa] unknown symbol:  name                      (fatal)
+    [0013sa] excessive test value:  v
+    [0014sa] insufficient test values                   (fatal)
+    [0019sa] user expected (v) for name
+    [0020sa] unstable output:  name
+    [0021sa] invalid test value:  v
+    [0022sa] bad fault id:  n
+    [0025sa] Please note: inconsistent header information
+    [0026sa] Please note: missing header item(s)
+    [0029sa] invalid trace level:  n
+    [0032sa] feedback usage of undefined output
+    [0033sa] pin number is undefined for:  name
+    [1022sa] program error:                 (a defect of the original)
+
+
+13. THE ABSOLUTE FILE (.ABS)
+
+freecupl -a (and -s) writes <name>.abs, which freecsim reads together
+with the .si file.  It is FreeCUPL's own text format with LF line ends,
+one record per line:
+
+    FREECUPL-ABS 1              format identifier and version
+    DEVICE <mnemonic>           resolved device mnemonic
+    HDR <i> <text>              header field i: 0 Name, 1 Partno,
+                                2 Revision, 3 Date, 4 Designer,
+                                5 Company, 6 Assembly, 7 Location,
+                                8 Device, 9 Format
+    SYM <pin> <neg> <name>      pin or node symbol; neg 1 = declared !
+    RESERVE <pin>               power-down pin (0 in JEDEC vectors)
+    CTL [arP] [spP] [oeP] ...   pins and nodes with .AR, .SP and .OE
+                                equations
+    NOEQN <pin> <used>          declared pin without an equation; used
+                                1 = read by the design
+    FIELD <name> <n> <m1> ... <mn>
+                                a FIELD of the design and its members
+    FUSES <n>                   fuse count, followed by the fuse map in
+                                lines of up to 64 characters 0 and 1
+    END
+
+The equations are not stored.  The simulator evaluates the fuse map
+with the device description, as jedsim does, and uses the symbol
+records for the listing and for the original simulator's behaviour that
+depends on the equations (sections 5 and 11).

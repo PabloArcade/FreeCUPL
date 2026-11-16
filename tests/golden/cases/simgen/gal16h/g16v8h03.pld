@@ -1,0 +1,30 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hs;
+pin [2,5,8] = [in_x, in_y, !in_z];
+pin 16 = out_a;
+pin 13 = !out_b;
+pin 23 = out_c;
+pin 14 = out_d;
+pin 15 = out_e;
+pin 22 = out_f;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+out_a = OFF & in_x # ON;
+!out_b = [in_y,in_x]:$;
+out_c = (in_z & in_y & in_y & in_x & in_y & in_z & in_x);
+out_d = OFF & in_y # ON;
+out_e = [in_x,in_z]:&;
+out_f = in_y & !in_x;
+pin 19 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_x, in_z, in_y, fflag) # fflag;

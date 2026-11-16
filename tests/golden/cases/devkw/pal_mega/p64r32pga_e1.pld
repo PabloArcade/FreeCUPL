@@ -1,0 +1,16 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p64r32pga;
+pin 45 = i0;
+pin 43 = !i1;
+pin 3 = i2;
+pin 84 = Pinnode;
+pin 73 = o0;
+pin 70 = o1;
+
+o0 = ((i1 & i0 & Pinnode) # (!i1 & Pinnode & i0) # (!i2 & !Pinnode & !i1));
+o1.d = 'b'0;
+
+/* @expect
+o0 = ((i1 and i0 and Pinnode) or ((not i1) and Pinnode and i0) or ((not i2) and (not Pinnode) and (not i1)))
+o1.d = 0
+*/

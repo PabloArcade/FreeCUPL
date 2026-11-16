@@ -1,0 +1,33 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hs;
+pin 2 = in_x;
+pin 8 = in_y;
+pin 9 = !in_z;
+pin 10 = in_w;
+pin 13 = out_a;
+pin 19 = !out_b;
+pin 15 = out_c;
+pin 22 = out_d;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !(in_x) # !(!in_x) & (in_w $ !in_x) & !(in_z) # in_x & !in_x & !in_z;
+t1 = in_x # ((in_w # !in_w) # in_w);
+t2 = (!in_y $ in_y $ in_y);
+!out_a = (!(in_x) & (t0 $ in_w) & (in_x & !t1) # (!(!in_x) # (in_w # !t0) # in_x) # t0 # !in_z # in_w # !(in_y));
+APPEND out_b = in_x;
+APPEND out_b = !in_z;
+out_c = [in_x,in_y,in_w]:$;
+!out_d = !t2 # in_w & !in_z & t0 # t2 & !t1 # !t0;
+pin 23 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_w, in_x, in_z, fflag) # fflag;

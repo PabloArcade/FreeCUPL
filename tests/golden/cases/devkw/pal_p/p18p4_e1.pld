@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p18p4;
+pin 7 = FORMAT;
+pin 13 = i1;
+pin 20 = o0;
+
+o0 = (!i1 # FORMAT # (FORMAT & i1));
+
+/* @expect
+o0 = ((not i1) or FORMAT or (FORMAT and i1))
+*/

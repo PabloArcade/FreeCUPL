@@ -1,0 +1,29 @@
+Name G1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8s;
+pin 5 = in_x;
+pin 8 = !in_y;
+pin 10 = in_z;
+pin 11 = in_w;
+pin 14 = !in_v;
+pin 22 = !out_a;
+pin 17 = out_b;
+pin 21 = out_c;
+pin 15 = out_d;
+pin 18 = out_e;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = !in_z & 'B'0;
+out_b = in_z # !in_y & in_w;
+APPEND out_c = in_v;
+APPEND out_c = in_w;
+out_d = in_x;
+condition {
+  if !in_x out out_e;
+}

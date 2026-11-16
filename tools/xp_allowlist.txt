@@ -1,0 +1,23 @@
+# Imports allowed in the Windows executables, all present in the XP SP3
+# kernel32.dll and msvcrt.dll.  Add a name only after checking it on XP.
+dll KERNEL32.dll
+DeleteCriticalSection EnterCriticalSection LeaveCriticalSection InitializeCriticalSection
+FreeLibrary LoadLibraryA GetProcAddress GetModuleHandleA GetModuleHandleW GetModuleFileNameA
+GetLastError SetLastError SetUnhandledExceptionFilter Sleep ExitProcess GetCurrentProcess
+GetCurrentProcessId GetCurrentThreadId GetTickCount QueryPerformanceCounter QueryPerformanceFrequency
+GetSystemTimeAsFileTime TlsAlloc TlsFree TlsGetValue TlsSetValue VirtualProtect VirtualQuery
+IsDBCSLeadByteEx MultiByteToWideChar WideCharToMultiByte GetStdHandle WriteFile ReadFile
+CreateFileA CloseHandle GetFileAttributesA GetFullPathNameA GetCommandLineA
+FindFirstFileA FindNextFileA FindClose GetEnvironmentVariableA RaiseException
+dll msvcrt.dll
+__getmainargs __initenv __mb_cur_max __p__commode __p__fmode __set_app_type __setusermatherr
+__dllonexit __lconv_init _amsg_exit _cexit _exit _errno _initterm _iob _lock _unlock _onexit
+_fileno _setmode _isatty _access _stricmp _strnicmp _snprintf _vsnprintf _fdopen _strdup _assert
+abort atexit atoi atol exit calloc malloc realloc free
+fopen fclose fread fwrite fgets fgetc fputc fputs fprintf vfprintf printf vprintf sprintf vsprintf
+puts putchar fflush fseek ftell rewind feof ferror clearerr setvbuf getc ungetc remove rename
+sscanf getenv qsort bsearch signal raise setlocale localeconv
+memchr memcmp memcpy memmove memset strcat strchr strcmp strcpy strerror strlen strncat strncmp
+strncpy strrchr strstr strtok strtol strtoul isalnum isalpha isdigit islower isspace isupper
+isxdigit isprint ispunct tolower toupper wcslen time localtime gmtime strftime ctime asctime mktime
+clock difftime

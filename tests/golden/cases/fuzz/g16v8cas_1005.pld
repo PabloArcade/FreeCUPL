@@ -1,0 +1,44 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cas;
+pin 2 = a0;
+pin 5 = !a1;
+pin 7 = !a2;
+pin 12 = !q0;
+pin 13 = !q1;
+pin 19 = q2;
+pin 16 = !q3;
+pin 15 = q4;
+field fa = [a0..a2];
+t0 = a2;
+t1 = !a1;
+t2 = (((t0 # !t0) # a2 # !a1) & (a1 $ t0) # a2);
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q1 = (t2 $ !a0);
+APPEND q2 = t0 & !a0;
+APPEND q2 = !t2 & t0;
+!q3 = fa:'d'2;
+!q4 = fa:'b'101;
+condition {
+  if a0 out q0;
+  default out q0;
+}
+pin 14 = tq0;
+table fa => tq0 {
+  0 => 1;
+  2 => 0;
+  4 => 1;
+  1 => 0;
+}
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)

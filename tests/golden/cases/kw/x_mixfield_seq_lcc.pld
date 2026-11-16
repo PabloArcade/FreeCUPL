@@ -1,0 +1,30 @@
+Name G9103;
+Partno P9103;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20g10mlcc;
+pin 3 = a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 10 = a3;
+pin 13 = a4;
+pin 26 = !s0;
+pin 23 = Endif;
+pin 27 = !s2;
+$DEFINE loc X
+$IFDEF loc
+$ELSE
+$ENDIF
+condition {
+}
+field st = [s0,Endif,s2];
+sequenced st {
+  present 1 if a1 & !a0 next 1; default next 0;
+  present 0 next 1;
+  present 5 next 2;
+  present 2 if a2 & a4 next 1; if a3 next 5;
+}

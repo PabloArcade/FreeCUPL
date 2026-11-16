@@ -1,0 +1,26 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_e2.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: ORDER: "A is ", a, " and b ", b, %2, y, z, w, !w, !y;
+
+==============================
+                         !!   
+           a       b  yzwwy   
+==============================
+0001: A is 0 and b 0  LXXXH
+                       ^^^
+[0019sa] user expected (L) for z
+[0019sa] user expected (H) for w
+[0019sa] user expected (L) for w
+
+0002: A is 1 and b 1  HHXXL
+                        ^^
+[0019sa] user expected (H) for w
+[0019sa] user expected (L) for w
+

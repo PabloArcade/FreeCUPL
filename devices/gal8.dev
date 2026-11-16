@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL16V8 and GAL20V8 (also ATF16V8B/C, ATF20V8B/C).  SYN=1 AC0=0
+# simple, SYN=1 AC0=1 complex, SYN=0 AC0=1 registered.  XOR(n)=1 active
+# high.  PTD(n)=0 removes product term n.  The cp parts have a power-down
+# fuse, always programmed, and reserve pin 4.
+
+device g16v8
+alias g16v8 auto simple=g16v8s complex=g16v8ma registered=g16v8ms
+partname g16v8 GAL16V8 (automatic mode)
+alias g16v8s simple quirk=fbinput
+partname g16v8s GAL16V8 (simple mode, non-A)
+alias g16v8ma complex
+partname g16v8ma GAL16V8 (complex mode)
+alias g16v8ms registered
+partname g16v8ms GAL16V8 (registered mode)
+alias g16v8a auto simple=g16v8as complex=g16v8ma registered=g16v8ms
+partname g16v8a GAL16V8A / ATF16V8B (automatic mode)
+alias g16v8as simple
+partname g16v8as GAL16V8A / ATF16V8B (simple mode)
+alias g16v8c auto simple=g16v8cas complex=g16v8cma registered=g16v8cms autofb=simple
+partname g16v8c GAL16V8C (automatic mode)
+alias g16v8cas simple
+partname g16v8cas GAL16V8C (simple mode)
+alias g16v8cma complex
+partname g16v8cma GAL16V8C (complex mode)
+alias g16v8cms registered
+partname g16v8cms GAL16V8C (registered mode)
+pins 20
+power 10 20
+fuses 2194
+array 32 64
+clock 1
+oepin 11
+fuse syn 2192
+fuse ac0 2193
+ptd 2128
+ues 2056 64
+mode simple syn=1 ac0=0
+mode complex syn=1 ac0=1
+mode registered syn=0 ac0=1
+lines simple p2 p1 p3 p19 p4 p18 p5 p17 p6 p14 p7 p13 p8 p12 p9 p11
+lines complex p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+lines registered p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 19 gal rows=0-7 xor=2048 ac1=2120
+mc 18 gal rows=8-15 xor=2049 ac1=2121
+mc 17 gal rows=16-23 xor=2050 ac1=2122
+mc 16 gal rows=24-31 xor=2051 ac1=2123
+mc 15 gal rows=32-39 xor=2052 ac1=2124
+mc 14 gal rows=40-47 xor=2053 ac1=2125
+mc 13 gal rows=48-55 xor=2054 ac1=2126
+mc 12 gal rows=56-63 xor=2055 ac1=2127
+libtag g16v8s DLIB-h-40-9
+libtag g16v8ma DLIB-h-40-8
+libtag g16v8ms DLIB-h-40-11
+libtag g16v8as DLIB-h-40-2
+libtag g16v8cas DLIB-h-40-1
+libtag g16v8cma DLIB-h-40-1
+libtag g16v8cms DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g16v8cp
+inherit g16v8
+alias g16v8cp auto simple=g16v8cpas complex=g16v8cpma registered=g16v8cpms autofb=simple
+partname g16v8cp ATF16V8C-PD (power-down, automatic mode)
+alias g16v8cpas simple
+partname g16v8cpas ATF16V8C-PD (power-down, simple mode)
+alias g16v8cpma complex
+partname g16v8cpma ATF16V8C-PD (power-down, complex mode)
+alias g16v8cpms registered
+partname g16v8cpms ATF16V8C-PD (power-down, registered mode)
+fuses 2195
+pd 2194 4
+libtag g16v8cpas DLIB-h-40-1
+libtag g16v8cpma DLIB-h-40-1
+libtag g16v8cpms DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+device g20v8
+alias g20v8 auto simple=g20v8s complex=g20v8ma registered=g20v8ms
+partname g20v8 GAL20V8 (automatic mode)
+alias g20v8s simple quirk=fbinput
+partname g20v8s GAL20V8 (simple mode, non-A)
+alias g20v8ma complex
+partname g20v8ma GAL20V8 (complex mode)
+alias g20v8ms registered
+partname g20v8ms GAL20V8 (registered mode)
+alias g20v8a auto simple=g20v8as complex=g20v8ma registered=g20v8ms autofb=simple
+partname g20v8a GAL20V8A / ATF20V8B (automatic mode)
+alias g20v8as simple
+partname g20v8as GAL20V8A / ATF20V8B (simple mode)
+pins 24
+power 12 24
+fuses 2706
+array 40 64
+clock 1
+oepin 13
+fuse syn 2704
+fuse ac0 2705
+ptd 2640
+ues 2568 64
+mode simple syn=1 ac0=0
+mode complex syn=1 ac0=1
+mode registered syn=0 ac0=1
+lines simple p2 p1 p3 p23 p4 p22 p5 p21 p6 p20 p7 p17 p8 p16 p9 p15 p10 p14 p11 p13
+lines complex p2 p1 p3 p23 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 p14 p11 p13
+lines registered p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 22 gal rows=0-7 xor=2560 ac1=2632
+mc 21 gal rows=8-15 xor=2561 ac1=2633
+mc 20 gal rows=16-23 xor=2562 ac1=2634
+mc 19 gal rows=24-31 xor=2563 ac1=2635
+mc 18 gal rows=32-39 xor=2564 ac1=2636
+mc 17 gal rows=40-47 xor=2565 ac1=2637
+mc 16 gal rows=48-55 xor=2566 ac1=2638
+mc 15 gal rows=56-63 xor=2567 ac1=2639
+libtag g20v8s DLIB-h-40-2
+libtag g20v8ma DLIB-h-40-3
+libtag g20v8ms DLIB-h-40-3
+libtag g20v8as DLIB-h-40-1
+refdefect kbnoflip      # B001
+end
+
+# g20v8cp*: vendor library only.
+device g20v8cp
+inherit g20v8
+alias g20v8cp auto simple=g20v8cps complex=g20v8cpma registered=g20v8cpms reserve=4 autofb=simple
+partname g20v8cp ATF20V8C-PD (power-down, automatic mode)
+alias g20v8cps simple reserve=23
+partname g20v8cps ATF20V8C-PD (power-down, simple mode)
+alias g20v8cpma complex reserve=4
+partname g20v8cpma ATF20V8C-PD (power-down, complex mode)
+alias g20v8cpms registered reserve=3
+partname g20v8cpms ATF20V8C-PD (power-down, registered mode)
+fuses 2707
+pd 2706 4
+libtag g20v8cps DLIB-h-40-1
+libtag g20v8cpma DLIB-h-40-3
+libtag g20v8cpms DLIB-h-40-3
+refdefect kbnoflip      # B001
+end

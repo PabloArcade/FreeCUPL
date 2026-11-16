@@ -1,0 +1,42 @@
+Name G9007;
+Partno P9007;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f18v8z;
+pin 2 = in_x;
+pin 3 = in_y;
+pin 4 = in_z;
+pin 5 = in_w;
+pin 6 = in_v;
+pin 7 = in_u;
+pin 8 = !in_t;
+pin 1 = clk;
+pin 14 = s0;
+pin 12 = !out_b;
+pin 17 = !out_c;
+pin 18 = out_d;
+pin 15 = out_e;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (in_v $ in_z);
+t1 = in_t;
+out_b = [in_t,in_u,in_y,in_v]:#;
+!out_c.d = [in_z,in_v,in_y]:&;
+out_c.oe = !in_x;
+!out_d = [in_z,in_w]:&;
+out_e = 'h'1;
+field st = [s0];
+sequence st {
+  present 0 if in_t & in_v next 0; if !in_z next 1;
+  present 1 if in_w next 1; default next 0;
+}
+s0.ar = in_z;
+pin 19 = c0; pin 16 = !c1;
+condition {
+  if in_z & !in_t out c0;
+  default out c0;
+}

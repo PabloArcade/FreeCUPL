@@ -1,0 +1,6 @@
+Name p16c1_bo; Partno P16C1_BO; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16c1;
+pin 2 = a; pin 3 = b; pin 4 = c;
+pin 16 = y; pin 15 = !yn;
+y = a & b # c;
+yn = a & b # c;

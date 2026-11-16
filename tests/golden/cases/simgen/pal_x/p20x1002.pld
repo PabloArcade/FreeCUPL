@@ -1,0 +1,19 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20x10;
+pin [4,5,6,9,11] = [!a0, a1, a2, a3, !a4];
+pin 1 = clk;
+pin 18 = q0;
+pin 19 = !q1;
+t0 = (!(!(a2)) & (a2 $ !a1));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!q0.d = a4 & !a0 & a1 # !a1 & t0 & a4;
+q1.d = a4;

@@ -1,0 +1,8 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v750;
+/* @bug B014: reference defect: o.dfb and o name the same signal of a registered
+   output (both read through column 6 when written alone); in a product term
+   with o and !o.dfb the reference keeps only the last literal (p = !o); the
+   term is false (p = 0); freecupl warns 0906cb */
+pin 1 = c; pin 2 = a; pin 3 = b;
+pin 14 = o; o.d = a; o.ck = c; pin 15 = p; p = !o.dfb & o;

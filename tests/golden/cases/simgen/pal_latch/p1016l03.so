@@ -1,0 +1,107 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P1016LD8 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p1016l03.si
+
+   1: Name G9002;
+   2: Partno P9002;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p1016ld8;
+  10: 
+  11: ORDER: clk, in_w, !in_u, in_t, in_y, in_v, in_z, in_x, %2, out_a;
+  12: 
+
+====================
+        !       o   
+       iiiiiii  u   
+      cnnnnnnn  t   
+      l_______  _   
+      kwutyvzx  a   
+====================
+0001: 0101110X  X
+0002: C1X00101  X
+      ^
+[0021sa] invalid test value:  C
+
+vector 3
+0003: C1X01101  X
+      ^
+[0021sa] invalid test value:  C
+
+0004: C1100110  X
+      ^
+[0021sa] invalid test value:  C
+
+0005: C0000111  X
+      ^
+[0021sa] invalid test value:  C
+
+0006: 00000100  X
+0007: C010X111  X
+      ^
+[0021sa] invalid test value:  C
+
+0008: P1010111  0
+      ^
+[0021sa] invalid test value:  P
+
+0009: C001001X  L
+      ^
+[0021sa] invalid test value:  C
+
+0010: C0100011  L
+      ^
+[0021sa] invalid test value:  C
+
+0011: K1XX01X1  L
+      ^
+[0021sa] invalid test value:  K
+
+0012: C01001X0  L
+      ^
+[0021sa] invalid test value:  C
+
+0013: C1X10100  L
+      ^
+[0021sa] invalid test value:  C
+
+0014: P1000111  1
+      ^
+[0021sa] invalid test value:  P
+
+0015: C1011001  H
+      ^
+[0021sa] invalid test value:  C
+
+0016: C1010111  H
+      ^
+[0021sa] invalid test value:  C
+
+0017: C1000100  H
+      ^
+[0021sa] invalid test value:  C
+
+0018: C1010X11  H
+      ^
+[0021sa] invalid test value:  C
+
+0019: C0101011  H
+      ^
+[0021sa] invalid test value:  C
+
+0020: P0000001  0
+      ^
+[0021sa] invalid test value:  P
+
+0021: C1001111  L
+      ^
+[0021sa] invalid test value:  C
+

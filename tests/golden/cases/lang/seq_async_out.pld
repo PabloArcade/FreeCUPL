@@ -1,0 +1,15 @@
+Name seq_asyn; Partno SEQ_ASYN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = go;
+pin [22..23] = [s0..1];
+pin 21 = busy; pin 20 = done;
+field st = [s1..0];
+sequence st {
+  present 0 if go next 1; default next 0;
+  present 1 next 2 out busy;
+  present 2 next 3;
+  present 3 next 0;
+}
+condition {
+  if st:3 out done;
+}

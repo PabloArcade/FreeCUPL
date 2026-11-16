@@ -1,0 +1,22 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20l8;
+pin 2 = a0;
+pin 6 = !a1;
+pin 9 = a2;
+pin 13 = a3;
+pin 23 = a4;
+pin 19 = !q0;
+pin 16 = q1;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0 = a2 & a1 # !a4;
+condition {
+  if !a0 out q1;
+}

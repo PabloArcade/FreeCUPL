@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16z8;
+pin 9 = !i0;
+pin 6 = Pinnnode;
+pin 16 = o0;
+pin 21 = o1;
+pin 19 = o2;
+pin 18 = IFDEF;
+pin 15 = o4;
+
+o0 = (i0 $ Pinnnode);
+o0.oe = i0;
+o1 = ((i0 & Pinnnode) # (!i0 & !Pinnnode));
+o1.oe = (!i0 & Pinnnode);
+o2 = !Pinnnode;
+IFDEF = ((o2 & !i0 & Pinnnode) # (Pinnnode & !o2 & !i0) # (i0 & o2));
+o4 = ((Pinnnode & o2) # (o2 & !i0));
+o4.oe = i0;
+
+/* @expect
+o0 = (i0 ^ Pinnnode)
+o0.oe = i0
+o1 = ((i0 and Pinnnode) or ((not i0) and (not Pinnnode)))
+o1.oe = ((not i0) and Pinnnode)
+o2 = (not Pinnnode)
+IFDEF = ((o2 and (not i0) and Pinnnode) or (Pinnnode and (not o2) and (not i0)) or (i0 and o2))
+o4 = ((Pinnnode and o2) or (o2 and (not i0)))
+o4.oe = i0
+*/

@@ -1,0 +1,21 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16vp8ma;
+/* @flags -jaxm3 */
+pin [4,6,7] = [!a0, a1, a2];
+pin 14 = q0;
+field fa = [a0..a2];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = (a2 $ a1);
+condition {
+  if a1 & a2 out q0;
+  default out q0;
+}
+min q0 = 3;

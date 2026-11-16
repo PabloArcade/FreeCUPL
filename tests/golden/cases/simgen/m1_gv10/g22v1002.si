@@ -1,0 +1,28 @@
+Name G1004;
+Partno P1004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+
+ORDER: clk, in_x, in_w, in_z, in_v, in_y, %2, out_a, !out_b, out_c, out_d, out_e;
+
+VECTORS:
+K11100 *****
+C00110 *****
+C11110 *****
+010100 *****
+$REPEAT 2;
+C1X101 *****
+C00010 *****
+P10000 00X0X
+101000 HLLHH
+C11110 *****
+111111 ***N*
+111000 *****
+1010X1 *****
+K11101 *****
+K00110 *****

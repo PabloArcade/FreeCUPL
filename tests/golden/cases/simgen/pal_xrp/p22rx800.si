@@ -1,0 +1,34 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22rx8lcc;
+
+ORDER: a0, a1, !a2, !a4, a5, a3, %2, !q0, q1, !q2, ta, tb;
+
+VECTORS:
+C01001 ****N
+C10011 *****
+$MSG "vector 3";
+000000 *****
+111111 *****
+011110 *****
+C00011 *****
+C01011 *****
+C00010 ****N
+101101 *****
+K01X11 ****N
+CX0110 LHLLL
+00X010 *****
+P10X1X 101XX
+C1100X *****
+C1X00X *****
+C01000 *****
+C0X110 *****
+P00100 010XX
+101X00 N****
+C11111 *****

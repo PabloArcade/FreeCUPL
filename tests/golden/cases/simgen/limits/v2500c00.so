@@ -1,0 +1,46 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: v2500c00.si
+
+   1: Name P;
+   2: Device v2500c;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: v1, !v0, v3, v4, v5, !v2, %2, y;
+   5: 
+
+==================
+       !   !      
+      vvvvvv      
+      103452  y   
+==================
+0001: 1X1010  L
+0002: 101000  L
+vector 3
+0003: 0X011X  X
+0004: 101110  L
+0005: 11010X  X
+0006: 11010X  X
+0007: 11010X  X
+0008: 011010  L
+0009: 110001  Z
+0010: 011010  L
+0011: 10011X  X
+0012: 001100  L
+0013: 101010  L
+              ^
+[0019sa] user expected (H) for y
+
+0014: 000110  L
+0015: 111010  L
+0016: 000111  Z
+0017: 101XX1  Z
+0018: 001011  Z
+0019: 10010X  X
+0020: 1X0X10  L
+0021: 00X101  Z
+0022: 101100  L
+0023: X01110  L

@@ -1,0 +1,852 @@
+BUGS OF WINCUPL 5.0A
+
+This file lists the faults found in the WinCUPL 5.0a compiler and
+simulator while writing FreeCUPL, a replacement for Atmel WinCUPL's
+command-line tools.
+
+FreeCUPL 1.0.0 reproduces every bug in this list by default, so that its
+JEDEC file behaves like WinCUPL's for every design and freecsim gives the
+same listing and test vectors.  The option -fix gives the corrected
+behaviour.  Version 2 will make -fix the default and keep
+-compat-refdefect to reproduce the bugs.  In both modes a message names
+the bug where it affects the design:
+
+    WinCUPL bug #Bnnn: ...; use -fix for the corrected result
+    deviates from WinCUPL (bug #Bnnn fixed): ...           (with -fix)
+
+Where WinCUPL stops with an error, the default mode prints the same
+error and writes nothing.
+
+An entry is listed only when WinCUPL's output contradicts the source as
+the CUPL language reference defines it, WinCUPL's own output for an
+equivalent form of the same design, or the device data sheet.
+Documented behaviour, and differences where neither side is shown to be
+wrong, are not bugs; FreeCUPL copies them in both modes (parts A and B
+at the end).
+
+The examples leave out the header items Name, Partno ... Location; any
+values will do.  Compile with freecupl -jx unless other flags are
+shown.  The simulator examples are run with freecupl -jas; the .si file
+has the same header items and Device statement as the design, followed
+by the lines shown.
+
+
+COMPILER
+
+B001  -kb complements the sum but not the output polarity
+
+Devices: parts whose output polarity is set by an XOR fuse or a
+programmable-polarity PAL fuse: GAL16V8 and GAL20V8 in all modes and
+variants (CP, Z8, VP8, H, MMI 16V8, f16v8, f20v8), GAL24V10, the PAL
+P, RP, XRP, RS, RSP, SP and S10 parts, P22P10A, P22XP10, P1016P8, PE8,
+RD4, RD8, P1020EV8, P1020P8, PAL32R16, PAL64R32, P1016LD8,
+PLSI1016LD4.  Parts
+with 22V10-style macrocells (22V10, 18V10, 20G10, 22CV10Z, 22VP10,
+26V12, 18V8, 18CV8, ATV750, ATV2500, PEEL18CV8, RA parts) are not
+affected.
+
+-kb is meant to choose the output polarity that needs fewer product
+terms.  WinCUPL writes the complement of the sum when that has fewer
+terms but leaves the polarity fuse as it is, so the output is the
+complement of its equation.
+
+    Device g16v8;                       /* freecupl -jxkb */
+    pin 2=a; pin 3=b; pin 4=c; pin 5=d; pin 19=y;
+    y = (a # b) & (c # d);
+
+WinCUPL 5.0a: y is high with all inputs low.
+Corrected: y follows its equation; the JEDEC file is equivalent to the
+one written without -kb.
+Message: 0905cb.
+
+The complement is chosen when its term count is smaller.  An empty sum
+counts as one term; at -m0 the unminimised sums are compared, and a
+FUNCTION call adds one constant-false term.  On a few designs (ranges,
+XOR lists, some registered PEEL, RA and ATV outputs at -m0) WinCUPL's
+choice is not reproduced; see part B.
+
+
+B002  -kb reads a registered output back inverted
+
+Devices: 22V10-style macrocells whose feedback is taken before the
+polarity: 22V10, 18V10, 20G10, 20CG10, 22CV10Z, 22VP10, 26V12, 18V8,
+18CV8, ATV750, ATV750B, the ATV2500 family; not the ATF750C.
+
+With -kb, a registered output that -kb does not complement is read back
+by the array as if it had been complemented.
+
+    Device g22v10;                      /* freecupl -jxkb */
+    pin 1=clk; pin 2=a; pin 3=b; pin 4=c; pin 23=y; pin 21=z;
+    y.d = a & b;
+    z = y & c;
+
+WinCUPL 5.0a: z reads the inverse of y.
+Corrected: z = y & c, as without -kb.
+Message: 0905cb.
+
+
+B003  '!' directly before a number applies to the next operand
+
+Devices: all.
+
+!'b'1 is not complemented.  The '!' stays pending and complements the
+next operand (a variable or a parenthesised expression), or the left
+side of the next equation when the equation ends first.  A '!' written
+before that operand takes its place (!'b'1 & !b is !b).
+
+    Device g16v8;
+    pin 2=a; pin 3=b; pin 4=c; pin 19=y; pin 18=z;
+    y = a & !'b'1;
+    z = b & c;
+
+WinCUPL 5.0a: y = a and z = !(b & c).
+Corrected: y = a & 0 (always low) and z = b & c.
+Message: 0903ca.
+
+WinCUPL complements an operand that is compared with a field value bit
+by bit; that case is not reproduced.
+
+
+B004  a complemented constant keeps its value when the equation is
+      complemented for a fixed-polarity output
+
+Devices: outputs with fixed polarity (PAL16L8, 16R8 and similar, and the
+fixed first sum of XOR macrocells).  Programmable-polarity outputs are
+not affected.
+
+When WinCUPL complements an equation to fit an output of the other
+polarity, a complemented constant keeps its value.
+
+    Device p16l8;
+    pin 2=a; pin 3=b; pin 19=y;
+    t1 = 'b'1;
+    y = a # !t1;
+
+WinCUPL 5.0a: y is always high.
+Corrected: y = a.
+Message: 0905cb.
+
+
+B005  PAL16C1/20C1: both equations written into the shared sum
+
+Devices: p16c1, p20c1.
+
+The two complementary outputs share one sum.  Given two equations that
+are not complements of each other, WinCUPL writes the terms of both into
+the sum and implements neither.
+
+    Device p16c1;
+    pin 2=a; pin 3=b; pin 4=c; pin 16=y; pin 15=z;
+    y = a & b;
+    z = c;
+
+WinCUPL 5.0a: y = a & b # !c, z = !y.
+Corrected: the device cannot implement two independent functions; the
+design is rejected.
+Message: 0902cb.
+
+
+B006  $DEFINE NAME at the end of a line takes the next line
+
+Devices: all (preprocessor).
+
+When nothing, not even a blank, follows the name, the whole next line
+becomes the value and is not compiled.  The next line may also be a
+preprocessor command: $DEFINE F followed by $IFDEF F loses the $IFDEF.
+This happens with LF and with CRLF line ends.
+
+    Device g16v8;
+    pin 2=a; pin 3=b; pin 4=c; pin 19=y; pin 18=z;
+    $DEFINE X
+    y = a;
+    z = c;
+
+WinCUPL 5.0a: X is defined as "y = a;" and y has no equation.
+Corrected: X is defined with an empty value (the rest of the line);
+y = a is compiled.
+Message: 0901cx.
+
+
+B007  a $DEFINE forgotten after an $IFDEF/$ELSE block
+
+Devices: all.
+
+In some generated designs a name defined before an $IFDEF ... $ELSE ...
+$ENDIF block that is followed by more $DEFINEs is undefined afterwards
+(0018ca).  Reduced versions of the same text compile correctly and the
+trigger is not known.  Not reproduced: FreeCUPL compiles such designs as
+written.  A design that shows the effect would be welcome.
+
+
+B008  a second Name statement loses the target device
+
+Devices: all.
+
+A second Name header item, before or after the equations, makes WinCUPL
+report [0038ca] target device not specified (sometimes no message at
+all) and write nothing.  Any other repeated header item gives 0021ca; a
+repeated Device or Format is accepted (part A).
+
+    Name first;
+    Device g16v8;
+    pin 2=a; pin 19=y;
+    Name second;
+    y = a;
+
+WinCUPL 5.0a: 0038ca, no output.  The default mode stops the same way.
+Corrected: [0021ca] header item already declared, as for any other
+repeated item.
+Message: 0038ca, 0021ca.
+
+
+B009  the minimiser stops with [1032cm] program error
+
+Devices: seen on the GAL16V8 at -m4.
+
+WinCUPL stops with 1032cm (or 1024cm to 1009cm) "program error
+verification" on some designs.  The same function written inline, or
+with one literal less, compiles.  One such design contains, at -m4:
+
+    t1 = !((a6 $ !a0)) & (a6 # a5) & !a2;
+    q5 = a6 & a5 # !t1 & !a6 # !a3 & !a6;
+
+Not reproduced: the condition depends on the internal state of
+WinCUPL's minimiser.  FreeCUPL compiles these designs.
+
+
+B010  GAL registered mode: combinational and .D equations on one pin
+      merged
+
+Devices: GAL16V8, GAL20V8 and variants in registered mode.
+
+WinCUPL writes the .D terms, then the combinational output (its OE term
+in the first row, its terms after it) into the same rows.  When the
+overlapping rows agree it accepts the design and the register gets all
+the rows; otherwise it rejects with 0013cc.
+
+    Device g16v8ms;
+    pin 1=k; pin 2=a; pin 3=b; pin 4=c; pin 5=d; pin 19=y;
+    y.d = a & b;
+    y = d # c;
+    y.oe = a & b;
+
+WinCUPL 5.0a: compiled as y.d = a & b # d # c.
+Corrected: a pin is either registered or combinational; rejected.
+Message: 0905cb, 0013cc.
+
+
+B011  GAL24V10 registered mode, pin 19
+
+Devices: g24v10ms, and g24v10 when it selects registered mode.
+
+When pin 19 is used and does not need all 8 of its rows, WinCUPL first
+writes 64 ones from fuse 2640, the GAL20V8's product-term-disable
+address, so an unused row of pin 19's sum becomes constant true.  A
+combinational pin 19 sum is also written 100 fuses after its rows.
+
+    Device g24v10ms;
+    pin 1=clk; pin 2=a; pin 3=b; pin 15=oe; pin 19=y;
+    y.d = a & !b;
+
+WinCUPL 5.0a: the register loads 1 also when a = 0.
+Corrected: y.d = a & !b.
+Message: 0905cb.
+
+
+B012  GAL24V10 registered mode: a combinational output needing all its
+      rows
+
+Devices: g24v10ms (pins 19 to 16), and g24v10 in registered mode.
+
+A combinational output with 8 product terms has only 7 rows next to its
+OE term.  WinCUPL accepts it and writes the terms one after the other
+from the row after the OE term, so the 8th lands in the next row: the
+first row of the next macrocell for pins 19 to 17 (for example pin 18's
+OE row, making it drive), or the configuration fuses (XOR, AC1, SYN,
+AC0 and signature) for pin 16, which puts the device into another mode.
+The B011 ones are written as well.
+
+    Device g24v10ms;
+    pin 1=clk; pin [2,3,4,5,6,8] = [v0,v1,v2,v3,v4,v5]; pin 16=y;
+    y = v0 & !v1 & !v2 & !v3 & !v4 & !v5
+      # !v0 & v1 & !v2 & !v3 & !v4 & !v5
+      # !v0 & !v1 & v2 & !v3 & !v4 & !v5
+      # v0 & v1 & v2 & !v3 & !v4 & !v5
+      # !v0 & !v1 & !v2 & v3 & !v4 & !v5
+      # v0 & v1 & !v2 & v3 & !v4 & !v5
+      # v0 & !v1 & v2 & v3 & !v4 & !v5
+      # !v0 & v1 & v2 & v3 & !v4 & !v5;
+
+WinCUPL 5.0a: a JEDEC file with a scrambled configuration.
+Corrected: the output does not fit; rejected.
+Message: 0905cb, 0907cb.
+
+
+B013  PEEL18CV8: an output without .OE is never enabled
+
+Devices: f18v8z, f18v8zd, f18v8zs.
+
+The OE term of an output without an .OE equation is left with all its
+fuses connected (false), so the output never drives.
+
+    Device f18v8zs;
+    pin 2=a; pin 3=b; pin 19=y;
+    y = a & !b;
+
+WinCUPL 5.0a: pin 19 is never enabled.
+Corrected: the output enable defaults to 1, as the CUPL language
+reference says for extensions; y.oe = 'b'1 gives the same result in
+both modes.
+Message: 0905cb.
+
+
+B014  one signal read through two names in one product term
+
+Devices: ATV750 family (o and o.dfb), GAL16V8H and PAL19xxT parts (x and
+x.lq or .iol).
+
+The two names select the same input line.  When both appear in one
+product term with opposite polarities, WinCUPL keeps only the literal
+with the extension instead of making the term false.
+
+    Device v750;
+    pin 1=c; pin 2=a; pin 14=o; pin 15=p;
+    o.d = a; o.ck = c;
+    p = !o.dfb & o;
+
+WinCUPL 5.0a: p = !o.
+Corrected: x & !x is false; p is always low.
+Message: 0906cb.
+
+
+B015  PINNODE declared active low: equation not complemented
+
+Devices: ATV750 family (all mnemonics), 44-pin ATV2500 (v2500lcc).
+
+The register equation of a node declared active low is written as for an
+active-high node, but the node is read through the complementary column.
+The 40-pin ATV2500 complements the equation correctly.  The simulator
+shows the register as written.
+
+    Device v750;
+    pin 1=i1; pin 2=i2; pin 3=i3; pin 22=x;
+    pinnode 25 = !q;
+    q.d = i1 & i3; q.ck = i2;
+    x = q;
+
+WinCUPL 5.0a: x is the complement of i1 & i3 after the clock.
+Corrected: x = q as declared.
+Message: 0905cb.
+
+
+B016  ATV2500B/ATF2500C: combinational equation on a buried register
+      node
+
+Devices: v2500b*, v2500c*.
+
+A combinational equation for a buried register node is accepted and
+written as a register that is never clocked (a T flip-flop when there is
+no .D, ORed into the .D sum otherwise).  The macrocell's "output
+register has its own sum" fuse is also set, which cuts the pin to its
+first 4 rows.  The ATV2500 rejects the same design (0010cb).
+
+    Device v2500b;
+    pin 2=i2; pin 5=x;
+    pinnode 41 = q;
+    q = i2;
+    x = q;
+
+Corrected: a buried register cannot be combinational; rejected.
+Message: 0905cb, 0907cb.
+
+
+B017  ATF2500C: the third sum term is never joined
+
+Devices: v2500c*.
+
+The fuse that joins rows 8 to 11 to an output's sum is never programmed
+(the ATV2500B library programs it at the same address), so product
+terms 9 and up do not reach the output.
+
+    Device v2500c;
+    pin 1=i1; pin 2=i2; pin 3=i3; pin 17=i4; pin 18=i5; pin 4=o;
+    o = !i1 & !i2 & !i3 & !i4 & !i5 # i1 & i2 & !i3 & !i4 & !i5
+      # i1 & !i2 & i3 & !i4 & !i5 # !i1 & i2 & i3 & !i4 & !i5
+      # i1 & !i2 & !i3 & i4 & !i5 # !i1 & i2 & !i3 & i4 & !i5
+      # !i1 & !i2 & i3 & i4 & !i5 # i1 & i2 & i3 & i4 & !i5
+      # i1 & !i2 & !i3 & !i4 & i5 # !i1 & i2 & !i3 & !i4 & i5;
+
+WinCUPL 5.0a: the last two terms are lost.
+Corrected: all ten terms reach the output.  The data sheet says the
+three sum terms of a macrocell may be combined into a single term.
+Message: 0905cb.
+
+
+B018  ATF750C: register read through its node alias with the other
+      polarity
+
+Devices: v750cext, v750cextlcc, v750cextppklcc, v750cppklcc, v750clcc
+(pins 19 and 24), v750cppk (pin 16).
+
+The same register read through its PINNODE alias and through the pin
+gives fuse maps that differ only in the column polarity.
+
+    Device v750cext;
+    pin 1=clk; pin 2=a; pin 3=c; pin 14=y; pin 23=r;
+    pinnode 44 = q;                 /* output register of pin 23 */
+    r.d = c; r.ck = clk;
+    y = q & a;
+
+WinCUPL 5.0a: y reads the inverse of the register.
+Corrected: the same result as y = r & a.
+Message: 0905cb.
+
+
+B019  ATV750: alias register equation ORed into a combinational pin
+
+Devices: ATV750 family.
+
+When the pin's name sorts before the alias's and the alias equation has
+'!' on the left, WinCUPL accepts the design and ORs the register
+equation into the pin's sum.  Otherwise it rejects the design (0025cb).
+
+    Device v750;
+    pin 6=a; pin 7=b; pin 16=fo;
+    pinnode 37 = q5;
+    !q5.d = a;
+    fo = b;
+
+WinCUPL 5.0a: fo = b # !a.
+Corrected: the macrocell has one sum, which is also the D input of the
+register; rejected.
+Message: 0905cb, 0907cb.
+
+
+B020  MegaPAL: registers of a bank with a combinational output
+
+Devices: p32r16*, p64r32*.
+
+One fuse selects registered or combinational for a bank of 8 outputs.
+With any combinational output WinCUPL makes the whole bank
+combinational.
+
+    Device p32r16;
+    pin 1=a; pin 2=b; pin 23=y; pin 24=z;
+    y = a;
+    z.d = b;
+
+WinCUPL 5.0a: z = b, combinational.
+Corrected: rejected.
+Message: 0905cb, 0907cb.
+
+
+B021  MegaPAL: combinational and .D equations on one pin ORed
+
+Devices: p32r16*, p64r32*.
+
+    Device p32r16;
+    pin 1=a; pin 2=b; pin 23=y;
+    y = a;
+    y.d = b;
+
+WinCUPL 5.0a: the JEDEC file of y = a # b.  Every other device rejects
+this design (0025cb).
+Corrected: rejected.
+Message: 0905cb, 0907cb.
+
+
+B022  PAL26V12: .IO feedback select at the wrong address
+
+Devices: p26v12 (pins 20 to 15).
+
+The feedback select that a .IO read asks for is written 10 fuses too
+early, at another macrocell's select.
+
+    Device p26v12;
+    pin 1=clk; pin 2=a; pin 3=b; pin 17=q17; pin 24=q24;
+    q17 = a;
+    q24 = q17.io & !b;
+
+WinCUPL 5.0a: q17.io reads the register of pin 17 instead of the pin.
+Corrected: the select of the macrocell that is read is written.
+Message: 0905cb.
+
+
+B023  PAL18V8: an output pin used only as an input stays registered
+
+Devices: p18v8.
+
+The pin keeps the registered configuration, so the array reads the
+register instead of the pin.
+
+    Device p18v8;
+    pin 1=clk; pin 2=a; pin 19=x; pin 18=y;
+    y = x & a;
+
+Corrected: pin 19 is configured as an input.
+Message: 0905cb.
+
+
+B024  ATF750C: a D register read through .TFB becomes a T flip-flop
+
+Devices: v750c family.
+
+    Device v750c;
+    pin 1=clk; pin 2=a; pin 3=b; pin 14=q; pin 15=y;
+    q.d = a; q.ck = clk;
+    y = q.tfb & b;
+
+WinCUPL 5.0a: the T flip-flop fuse of the macrocell is programmed and q
+toggles instead of loading a.
+Corrected: the register stays the .D register of the source; .TFB only
+selects the feedback path.
+Message: 0905cb.
+
+
+B029  ATV2500B: an output-register alias with more than 4 terms next
+      to a buried register
+
+Devices: v2500b*.  This is also items 6 and 7 of Atmel's published bug
+list for WinCUPL (part C).
+
+A design with an output-register node of more than 4 terms and a
+buried-register node in the same macrocell is rejected (0006cc),
+although the macrocell can give the output register 8 rows in its
+registered configuration when the pin is not used as an output.
+
+    Device v2500b;
+    pin 1=clk; pin 2=a; pin 3=b; pin 5=c; pin 6=d; pin 7=y;
+    pinnode 41 = q2; pinnode 65 = q1;
+    q1.d = a&b&c # a&!b&d # !a&c&d # b&c&!d # !a&!b&!c; q1.ck = clk;
+    q2.d = a; q2.ck = clk;
+    y = q1 & q2;
+
+WinCUPL 5.0a: [0006cc] excessive number of product terms.  The default
+mode rejects the design the same way.
+Corrected: the register takes the pin's rows (registered configuration,
+output never enabled).  This is the fuse map WinCUPL writes for the
+documented workaround, the equation written on the pin with
+.oe = 'b'0.
+Message: 0905cb.
+
+
+B031  WinCUPL crashes on a PROPERTY statement without a name and a
+      { } body, and on an empty Device statement
+
+Devices: all.
+
+    Device g16v8;
+    pin 2=a; pin 19=y;
+    property = a;
+    y = a;
+
+The same happens with "property;", "property 5 { x };", a reserved
+word as the property name, end of file inside the body, and
+"Device ;".  With a name but no "{" WinCUPL first reports 0007ca.
+
+WinCUPL 5.0a: page fault, no message, no output.  The default mode
+stops at the statement with 0007ca invalid syntax.
+Corrected: 0007ca, and compilation goes on to report further errors.
+Message: 0007ca.
+
+
+B032  a header item given under both of its names shifts the JED
+      header fields
+
+Devices: all.
+
+    Name n; Partno p; Revision R1; Date d; Designer x; Company c;
+    Assembly A1; Location L1;
+    Device g16v8;
+    Rev R2;
+    pin 2=a; pin 19=y;
+    y = a;
+
+REV and REVISION, ASSY and ASSEMBLY, LOC and LOCATION name the same
+item, but WinCUPL checks repeats by spelling.  It keeps both values,
+REV before REVISION, ASSEMBLY before ASSY, LOC before LOCATION, and
+fills the eight header fields of the JEDEC file from that list, so
+every field after the doubled one takes the value of the field before.
+
+WinCUPL 5.0a: Revision R2, Date R1, Designer d, ... Location A1.  The
+default mode writes the same header.
+Corrected: [0021ca] header item already declared, as for any other
+repeated item.
+Message: 0021ca.
+
+
+B033  a statement without '=' sets the output true
+
+Devices: all.
+
+    Device g16v8;
+    pin 2=a; pin 18=z; pin 19=y;
+    z = a;
+    y;
+
+"name;" (also with an extension, a list or "!") is taken as an
+equation without an expression.  On an output it reads as constant
+true; "y.d;" loads 1.  It counts as assigned, so a later "y = ..." gives
+0011ca, and on an input pin 0010cb.  An intermediate variable defined
+this way may be read alone ("z = x;" is true); inside an operator, or
+APPEND of an empty equation to one with terms, WinCUPL stops with
+[1014cb] program error.  APPEND of terms to an empty equation replaces
+it.  "NODE;" with no name is accepted and does nothing.
+
+WinCUPL 5.0a: y is high.  The default mode compiles the same.
+Corrected: [0009ca] missing symbol: =.
+Message: 0009ca.
+
+
+SIMULATOR
+
+B025  22V10: shared AR/SP act only on registers with an .AR/.SP
+      equation
+
+Devices: 22V10 family, which has one asynchronous reset and one
+synchronous preset product term for all registers.
+
+WinCUPL's simulator applies the shared reset and preset only to the
+registers that have an equation for them.
+
+    Device g22v10;
+    pin 1=clk; pin 2=a; pin 3=s; pin 4=r; pin 23=q0; pin 22=!q1;
+    q0.d = a; q1.d = a; q0.sp = s; q0.ar = r;
+
+    ORDER: clk, a, s, r, %2, q0, q1;
+    VECTORS:
+    C100 **
+    0001 **
+    C000 **
+    C010 **
+
+WinCUPL 5.0a: r resets q0 but not q1.
+Corrected: every register is reset and preset, as in the data sheet;
+the JEDEC file has one row for each.
+Message: 0905sa.
+
+
+B026  PEEL18CV8: output enables of registered outputs ignored
+
+Devices: f18v8z*.
+
+WinCUPL's simulator drives a registered output whose OE term is false,
+although its own JEDEC file gates the output with that term.
+
+    Device f18v8z;
+    pin 1=clk; pin 2=a; pin 3=e; pin 15=r1;
+    r1.d = a; r1.oe = e;
+
+    ORDER: clk, a, e, %2, r1;
+    VECTORS:
+    C11 *
+    C10 *
+    C00 *
+
+Corrected: r1 is Z while e is low.
+Message: 0905sa.
+
+
+B027  PAL10016RD4: registers load 0
+
+Devices: p1016rd4.
+
+WinCUPL's simulator loads 0 into the registers at every clock and
+rejects C, K and P on the clock pin, although its JEDEC file programs
+the D terms.
+
+    Device p1016rd4;
+    pin 1=clk; pin 2=a; pin 5=q0;
+    q0.d = a;
+
+    ORDER: clk, a, %2, q0;
+    VECTORS:
+    00 *
+    11 *
+    01 *
+    10 *
+
+Corrected: the registers load their D terms.
+Message: 0905sa.
+
+
+B028  GAL16VP8: pin 11 taken as the OE pin
+
+Devices: g16vp8*.
+
+WinCUPL's simulator enables the registered outputs from pin 11, the
+GAL16V8's OE pin, which is an I/O pin in this package.
+
+    Device g16vp8ms;
+    pin 1=clk; pin 2=a; pin 10=oe; pin 11=b; pin 17=q0;
+    q0.d = a;
+
+    ORDER: clk, a, oe, b, %2, q0;
+    VECTORS:
+    C100 *
+    0101 *
+    0110 *
+
+Corrected: the output enable comes from the package's OE pin, pin 10.
+This is from the data sheet; the pin does not reach the array, so the
+JEDEC file cannot confirm it.
+Message: 0905sa.
+
+
+B030  ATV2500B: .CE (clock enable) ignored by the simulator
+
+Devices: v2500b*, v2500c*.  Item 4 of Atmel's published bug list, still
+present in 5.0a.
+
+    Device v2500b;
+    pin 1=clk; pin 2=a; pin 3=en; pin 4=q;
+    q.d = a; q.ce = en;
+
+    ORDER: clk, a, en, q;
+    VECTORS:
+    P01 0
+    C11 *
+    C00 *
+    C10 *
+
+WinCUPL 5.0a: the register loads at every clock, whatever en is.
+Corrected: the register loads only while en is high, as the CUPL
+language reference defines .CE.  The JEDEC file programs the CE term in
+both modes.
+Message: 0905sa.
+
+
+A. DOCUMENTED BEHAVIOUR (SAME IN BOTH MODES)
+
+GAL16V8/20V8 simple mode (g16v8s, g20v8s, g20v8slcc, g16z8s): an output
+that is read back becomes a dedicated input, because this mode has no
+output feedback (the vendor's device help says "no feedback can
+occur").  FreeCUPL warns 0901cb.
+
+Outputs without an OE term (16HD8, 16P8C, the 10K-pinout parts) and
+MegaPAL I/O pins are accepted as inputs although they are always driven.
+
+A repeated Device or Format header item is accepted; the first counts.
+
+Reserved words.  WinCUPL does not accept these as names, in any letter
+case and in any place a name is declared or used (pins, nodes, fields
+and their members, intermediate variables, TABLE, SEQUENCE and OUT
+lists, FUNCTION names and parameters, MIN, APPEND):
+
+    APPEND ASSEMBLY ASSY COMPANY CONDITION DATE DEFAULT DESIGNER
+    DEVICE FIELD FLD FORMAT FUNCTION GROUP IF LOC LOCATION MIN NAME
+    NEXT NODE OUT PARTNO PIN PINNODE PRESENT PROPERTY REV REVISION
+    SEQUENCE SEQUENCED SEQUENCEJK SEQUENCERS SEQUENCET TABLE
+
+ELSE, JUMP and MACRO, listed as reserved in the language reference,
+are accepted.  A reserved word after FIELD or FUNCTION gives 0009ca
+"missing symbol: keyword or operator", elsewhere mostly 0007ca.
+$DEFINE and $MACRO names are not checked.  A macro named CONDITION,
+FIELD, FUNCTION, PIN, PINNODE, PROPERTY, TABLE or SEQUENCE* is never
+expanded, and such a word as a $REPEAT variable stops the run (0014cx).
+
+FUSE is checked on the source text before $DEFINE substitution: outside
+a PIN or PINNODE statement it must start FUSE(n,n); with decimal
+numbers, or the run stops with [0014cx] unexpected symbol.  Comments
+are skipped; a line start, ";", "{" and "}" begin a statement.  The
+check also reads lines skipped by $IFDEF and the $IFDEF, $IFNDEF,
+$UNDEF, $ELSE and $ENDIF lines, but not $DEFINE, $MACRO, $REPEAT or
+$INCLUDE lines.  A fuse value other than 0 or 1 gives [1005cc] program
+error: blowing fuse.
+
+A based number (such as 'b'1, often the result of a $DEFINE) on the
+left of an equation is accepted and the equation does nothing; in a
+list it is skipped.  As a FUNCTION parameter it is accepted and matches
+nothing, and counts toward the number of arguments unless it is the
+last parameter.  A plain decimal number in these places is an error.
+
+A base prefix on a number changes the default base until the next
+binary operator or the next ':' comparison.
+
+A field or list that mixes indexed and other names is matched by
+position in the list (the last name is bit 0), with the note 0019ca;
+assignments and SEQUENCE next states still place indexed names by
+their index.
+
+'!' directly before a field or list compared with ':' complements each
+member before the comparison: !st:3 is [!a0,!a1,!a2]:3.
+
+-m1 quick minimisation: the term counts decide whether a design fits.
+FreeCUPL reproduces them so that the accept and reject decisions match.
+
+Simulation models that cannot be checked against the fuse map are
+copied from WinCUPL's simulator: the RA parts (pin 13 gates every
+output), the MegaPAL clock and OE, PAL10020EV8 (clocked on pin 3),
+parts with latches only, the PEEL18CV8 reset and preload levels, input
+registers and latches.  freecsim marks them with "simulation model for
+DEVICE follows WinCUPL and is not verified against the data sheet".
+
+
+B. UNEXPLAINED DIFFERENCES
+
+In these cases FreeCUPL's output may differ from WinCUPL's, without
+evidence that either is wrong.
+
+-m2 to -m4 find smaller covers than WinCUPL's minimiser on some designs,
+so FreeCUPL fits designs that WinCUPL rejects with 0006cc.
+
+-m1 and -m0 term counts differ in a few constructs: long ranges, XOR
+over a contradictory term, SEQUENCE terms of different states, -m0 XOR
+placeholders.
+
+The -kb polarity choice differs on a few designs (B001).
+
+Ranges not aligned to the field: WinCUPL reports 0025ca or decodes
+another function.
+
+SEQUENCE on indexed state bits that do not start at 0.
+
+Whether a pin in a product term removed by a constant counts as read
+(0014cb).
+
+Simulator: the $TRACE 3 per-term listing, a detail of the table header,
+oversize quoted values, one $TRACE 1 line count, the latch preload
+polarity of two ECL parts, PAL32R16 outputs disabled by the OE pin and
+turned into inputs, and the register behind a combinational output read
+through .TFB or .DFB.
+
+
+C. ATMEL'S PUBLISHED BUG LIST FOR WINCUPL
+
+The vendor published a list of known WinCUPL problems.  Checked against
+WinCUPL 5.0a:
+
+ 1  CSIM errors on an ATF1500 design without pin numbers.  Not testable;
+    the ATF1500 needs the fitter.
+ 2  ATV2500B: illegal S0-S3 configuration for an I/O pin used as input
+    with both buried nodes.  Not as described: the macrocell gets 1010
+    in fuses 71644 to 71647 (own sum, register), not 1000, and the
+    design works.  FreeCUPL writes the same fuse map.
+ 3  VSIM (the ATF1500 simulator) ignores a register clocking another.
+    Not testable (fitter parts).
+ 4  CSIM: ATV2500B gated synchronous clock (.CE).  Still present: .CE
+    is ignored.  B030, reproduced.
+ 5  D0.AR = RST # ![X0..X1] reduced to RST # !X0.  Not present: 5.0a
+    rejects ![X0..X1] there (0012ca vector size mismatch), and so does
+    FreeCUPL.
+ 6  ATV2500B: "excessive number of product terms" for a node of more
+    than 4 terms with a buried node.  Still present (0006cc).  B029:
+    same rejection by default, -fix fits it.
+ 7  ATV2500B: combinational configuration chosen where registered would
+    give 8 terms.  Same cause as 6 (B029).
+ 8, 9  Register_Select keyword (RS or JK to T or D).  Not testable
+    (fitter property).
+10  CSIM active-low outputs on ATF1500.  The ATF1500 is not testable;
+    the ATV750 example of the report simulates correctly, in both.
+11  Installation on a network drive.  Not applicable.
+12  Editor: lines over 256 characters.  Not applicable (GUI); the
+    compiler rejects lines over its maximum (0039ca), as FreeCUPL does.
+13  WinSim messages and runtime errors.  Not applicable (GUI
+    simulator).
+14  Fitter exit codes not read.  Not applicable (fitter).
+15  Misspelled node with .ck taken as a new variable.  Not testable
+    (fitter designs); for simple PLDs undefined names are reported.
+16  [0033sa] warning when fields are declared only in the PLD.  Not
+    present: such a field simulates without the message, in both.
+17 to 21  GUI file handling, Windows XP permissions, FIT1500 on XP.
+    Not applicable.

@@ -1,0 +1,8 @@
+Name galoe8; Partno X; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8ma;
+/* an output needing 8 product terms where the output enable takes one of
+   the 8 rows (complex mode): rejected (0006cc), not written empty */
+pin 1 = x; pin 2 = y; pin 5 = z; pin 7 = v; pin 11 = t;
+pin 14 = o;
+o = ((t $ x) & (y # x # z) & (z $ y)) $ v;
+o.oe = 'b'1;

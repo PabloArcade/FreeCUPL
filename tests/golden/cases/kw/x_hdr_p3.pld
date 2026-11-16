@@ -1,0 +1,5 @@
+Name N; Partno PN; Revision R1; Date DT; Designer DS; Company CO; Assembly A1; Location L1;
+Device g22v10;
+Assy A2;
+pin 2 = a; pin 23 = y;
+y = a;

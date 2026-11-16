@@ -1,0 +1,21 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p14p4v;
+pin 6 = i0;
+pin 19 = rev;
+pin 12 = !i2;
+pin 9 = REPEND;
+pin 18 = !i4;
+pin 4 = i5;
+pin 15 = o0;
+pin 16 = o1;
+pin 17 = o2;
+
+o0 = 'b'0;
+o1 = REPEND;
+o2 = ((!REPEND & !i5 & !i4) # (!i4 & !i2) # (i5 & !REPEND));
+
+/* @expect
+o0 = 0
+o1 = REPEND
+o2 = (((not REPEND) and (not i5) and (not i4)) or ((not i4) and (not i2)) or (i5 and (not REPEND)))
+*/

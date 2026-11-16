@@ -1,0 +1,18 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cext;
+
+/* @local */ /* @bypass */
+pin 5 = i0;
+pin 13 = !i1;
+pin 6 = i2;
+pinnode 28 = o0;
+
+o0.d = 'b'0;
+o0.ck = (!i2 & i1);
+o0.ar = i2;
+
+/* @expect
+o0.d = 0
+o0.ck = ((not i2) and i1)
+o0.ar = i2
+*/

@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20cg10;
+pin 8 = !i0;
+pin 11 = Base;
+pin 18 = !o0;
+pin 16 = o1;
+pin 20 = MACRO;
+
+o0.d = ((!Base & i0) # Base # (!i0 & !Base));
+o0.oe = (!i0 & Base);
+o1.d = (!i0 & Base);
+MACRO = !Base;
+
+/* @expect
+o0.d = (((not Base) and i0) or Base or ((not i0) and (not Base)))
+o0.oe = ((not i0) and Base)
+o1.d = ((not i0) and Base)
+MACRO = (not Base)
+*/

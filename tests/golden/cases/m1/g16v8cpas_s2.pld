@@ -1,0 +1,15 @@
+Name g16v8cpa; Partno G16V8CPA; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8cpas;
+pin 2 = a;
+pin 5 = b;
+pin 13 = x;
+pin 18 = y;
+pin 16 = !z;
+
+y = a & x;
+z = y # b;
+
+/* @expect
+y = a and x
+z = y or b
+*/

@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20g10lcc;
+pin 10 = !jump;
+pin 6 = REVISION;
+pin 21 = !o0;
+pin 19 = o1;
+pin 24 = o2;
+
+o0.d = ((!REVISION & jump) # REVISION # (!jump & !REVISION));
+o0.oe = (!jump & REVISION);
+o1.d = (!jump & REVISION);
+o2 = !REVISION;
+
+/* @expect
+o0.d = (((not REVISION) and jump) or REVISION or ((not jump) and (not REVISION)))
+o0.oe = ((not jump) and REVISION)
+o1.d = ((not jump) and REVISION)
+o2 = (not REVISION)
+*/

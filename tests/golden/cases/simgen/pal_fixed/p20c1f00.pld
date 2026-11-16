@@ -1,0 +1,21 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20c1;
+/* @flags -jaxm0kb */
+pin 1 = in_x;
+pin 5 = in_y;
+pin 9 = in_z;
+pin 18 = !out_a;
+t0 = (in_x & in_z # (in_z & in_z) # (!in_y # in_x # !in_x) & !in_z & in_z);
+t1 = !in_x & !in_x & in_z;
+t2 = in_z;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = t2;

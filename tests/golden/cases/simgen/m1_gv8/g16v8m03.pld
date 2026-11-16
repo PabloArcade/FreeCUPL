@@ -1,0 +1,30 @@
+Name G1006;
+Partno P1006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8ms;
+pin [4,5,6,8] = [a0, a1, a2, a3];
+pin 1 = clk;
+pin 19 = q0;
+pin 18 = !q1;
+pin 14 = q2;
+pin 16 = q3;
+pin 12 = !q4;
+field fa = [a3..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0.d = (a1 # !(q3));
+!q2 = [a2,a0]:#;
+q3.d = 'b'1;
+APPEND q4 = !a0;
+q4.oe = a0;
+condition {
+  if !a0 & a2 out q1;
+}
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%4};
+$REPEND

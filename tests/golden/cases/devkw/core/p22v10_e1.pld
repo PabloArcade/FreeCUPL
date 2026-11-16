@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22v10;
+pin 8 = !i0;
+pin 11 = NODE;
+pin 18 = !o0;
+pin 16 = o1;
+pin 20 = o2;
+
+o0.d = ((!NODE & i0) # NODE # (!i0 & !NODE));
+o0.oe = (!i0 & NODE);
+o1.d = (!i0 & NODE);
+o2 = !NODE;
+o0.ar = (!NODE & !i0);
+o1.ar = (!NODE & !i0);
+o0.sp = i0;
+o1.sp = i0;
+
+/* @expect
+o0.d = (((not NODE) and i0) or NODE or ((not i0) and (not NODE)))
+o0.oe = ((not i0) and NODE)
+o1.d = ((not i0) and NODE)
+o2 = (not NODE)
+o0.ar = ((not NODE) and (not i0))
+o0.sp = i0
+*/

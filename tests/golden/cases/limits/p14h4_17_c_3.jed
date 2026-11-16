@@ -1,0 +1,21 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p14h4  Library DLIB-h-40-7
+Created         Thu Jan  1 00:00:00 1970
+Name            P
+Partno          0
+Revision        01
+Date            01/01/26
+Designer        x
+Company         x
+Assembly        x
+Location        x
+*QP20 
+*QF448 
+*G0 
+*F0 
+*L00000 10011011101110101111111111110110
+*L00032 10111011101011111111111110100111
+*L00064 10111010111111111111000000000000
+*C07C5
+*5C2A

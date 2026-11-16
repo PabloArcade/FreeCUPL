@@ -1,0 +1,12 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22xp10;
+pin 7 = i0;
+pin 4 = !i1;
+pin 5 = i2;
+pin 22 = !o0;
+
+o0 = ((!i0 & !i2 & !i1) # (i1 & !i2 & !i0));
+
+/* @expect
+o0 = (((not i0) and (not i2) and (not i1)) or (i1 and (not i2) and (not i0)))
+*/

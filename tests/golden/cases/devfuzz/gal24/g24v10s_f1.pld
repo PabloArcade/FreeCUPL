@@ -1,0 +1,27 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g24v10s;
+/* @flags -jaxf */
+pin 1 = a0;
+pin 2 = !a1;
+pin 4 = a2;
+pin 1 = clk;
+pin 16 = q0;
+field fa = [a0..a2];
+q0 = (a2 # !a1) # !a1 # !a1 # !a1 $ !(!a0) $ a0;
+$MACRO AND2 x y z
+x = y & z;
+$MEND
+AND2(mv, a0, a1)
+pin 24 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a2, a1, a0, fflag) # fflag;

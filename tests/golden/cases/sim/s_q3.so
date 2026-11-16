@@ -1,0 +1,28 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_q3.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: BASE: octal;
+   4: FIELD f = [i7..0];
+   5: FIELD f = [i7,i6,i5,i4,i3,i2,i1,i0];
+   6:
+   7: ORDER: f, %1, o7..0;
+
+==========================
+               oooooooo   
+         f     76543210   
+==========================
+   9: '377' "377"
+                ^
+[0013sa] excessive test value:  
+
+0001: 11111111 HHHHHHHH
+               ^
+[0019sa] user expected (L) for o7
+
+[0014sa] insufficient test values

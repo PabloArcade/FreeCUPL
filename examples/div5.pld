@@ -1,0 +1,41 @@
+Name     div5;
+Partno   EX006;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   v750c;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Divide-by-5 counter for the ATF750C: the count lives in three buried
+   registers, so no output pin is spent on it; the pins show a decoded
+   terminal count and a clock divided by 5 (high for 2 of 5 clocks).
+   Shows: PINNODE (buried registers), product-term clocks (.CK) and
+   per-register asynchronous reset (.AR) of the ATF750C, and a field
+   compared with constants. */
+
+pin 1  = clk;
+pin 2  = rst;                    /* asynchronous reset, active high */
+pin 3  = en;                     /* count enable */
+pin 23 = tc;                     /* count = 4 */
+pin 22 = div;                    /* count >= 3 */
+
+pinnode 25 = n0;                 /* buried register of macrocell 14 */
+pinnode 26 = n1;                 /* buried register of macrocell 15 */
+pinnode 27 = n2;                 /* buried register of macrocell 16 */
+
+field cnt = [n2..0];
+
+/* 0 1 2 3 4 0 ... ; codes 5..7 return to 0 */
+n0.d = en & !n2 & !n0 # !en & n0 & !n2;
+n1.d = en & !n2 & (n1 $ n0) # !en & n1 & !n2;
+n2.d = en & !n2 & n1 & n0 # !en & n2 & !n1 & !n0;
+
+cnt.ck = clk;
+cnt.ar = rst;
+cnt.sp = 'h'0;                   /* no synchronous preset */
+
+tc  = cnt:'h'4;
+div = cnt:'h'3 # cnt:'h'4;

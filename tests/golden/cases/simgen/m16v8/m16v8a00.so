@@ -1,0 +1,48 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: m16v8a00.si
+
+   1: Name G9007;
+   2: Partno P9007;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device m16v8ac;
+  10: 
+  11: ORDER: a0, a3, a4, !a1, a5, a2, %2, !q0;
+  12: 
+
+==================
+         !    !   
+      aaaaaa  q   
+      034152  0   
+==================
+0001: 111011  H
+0002: 0X0011  H
+0003: 010100  H
+0004: 10001X  H
+0005: 100010  H
+0006: 001X00  X
+0007: 011010  H
+0008: 101100  L
+0009: 100111  L
+0010: 010011  H
+0011: 010111  L
+0012: 10X1X0  L
+0013: 001000  H
+0014: 110000  H
+0015: 011110  L
+0016: 111X00  N
+0017: 00X010  H
+0018: 111100  L
+0019: 101010  H
+0020: 101000  H
+0021: 001X01  X
+0022: 011010  N
+0023: 110111  L

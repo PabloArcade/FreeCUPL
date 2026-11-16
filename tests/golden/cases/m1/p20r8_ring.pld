@@ -1,0 +1,32 @@
+Name p20r8_ri; Partno P20R8_RI; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p20r8;
+pin 2 = a;
+pin 3 = b;
+pin 15 = r0;
+pin 16 = !r1;
+pin 17 = r2;
+pin 18 = !r3;
+pin 19 = r4;
+pin 20 = !r5;
+pin 21 = r6;
+pin 22 = !r7;
+
+r0.d = a & !r7;
+r1.d = r0 $ b;
+r2.d = r1 $ b;
+r3.d = r2 $ b;
+r4.d = r3 $ b;
+r5.d = r4 $ b;
+r6.d = r5 $ b;
+r7.d = r6 $ b;
+
+/* @expect
+r0.d = a and not r7
+r1.d = r0 ^ b
+r2.d = r1 ^ b
+r3.d = r2 ^ b
+r4.d = r3 ^ b
+r5.d = r4 ^ b
+r6.d = r5 ^ b
+r7.d = r6 ^ b
+*/

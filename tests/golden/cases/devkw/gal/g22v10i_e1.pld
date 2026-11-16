@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g22v10i;
+pin 10 = !i0;
+pin 13 = vectors;
+pin 21 = !o0;
+pin 19 = on;
+pin 24 = o2;
+
+o0.d = ((!vectors & i0) # vectors # (!i0 & !vectors));
+o0.oe = (!i0 & vectors);
+on.d = (!i0 & vectors);
+o2 = !vectors;
+
+/* @expect
+o0.d = (((not vectors) and i0) or vectors or ((not i0) and (not vectors)))
+o0.oe = ((not i0) and vectors)
+on.d = ((not i0) and vectors)
+o2 = (not vectors)
+*/

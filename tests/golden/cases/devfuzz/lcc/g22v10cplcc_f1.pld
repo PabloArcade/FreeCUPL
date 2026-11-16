@@ -1,0 +1,29 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cplcc;
+/* @flags -jaxm2 */
+pin 3 = in_x;
+pin 6 = in_y;
+pin 10 = in_z;
+pin 11 = in_w;
+pin 13 = in_v;
+pin 2 = clk;
+pin 26 = !out_a;
+pin 24 = out_b;
+pin 18 = out_c;
+pin 19 = !out_d;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = in_z;
+t1 = !in_w;
+out_a.d = !((t1 $ !t0));
+!out_b.d = (!t0 # !(!t0) & in_w);
+out_c.d = ON & in_v # OFF;
+out_c.oe = !in_y;
+out_d = ((out_c & out_c & out_a) & (out_a # !in_v # !in_v) & in_v # out_a # !in_x) # ((out_c $ in_w) & (!out_b & !in_x)) # !t0;

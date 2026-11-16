@@ -1,0 +1,13 @@
+Name conditio; Partno CONDITIO; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [1,2] = [a, b];
+pin 3 = !enable;
+pin [20..23] = [y0..3];
+pin 19 = no_match;
+condition {
+  if enable & !b & !a out y0;
+  if enable & !b & a out y1;
+  if enable & b & !a out y2;
+  if enable & b & a out y3;
+  default out no_match;
+}

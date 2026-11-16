@@ -1,0 +1,23 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r4;
+pin 3 = in_x;
+pin 4 = in_y;
+pin 7 = in_z;
+pin 10 = in_w;
+pin 14 = in_v;
+pin 23 = in_u;
+pin 16 = !out_a;
+pin 19 = out_b;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+out_a = 'b'0;
+condition {
+  if !in_v out out_b;
+}

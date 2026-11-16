@@ -1,0 +1,69 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_e6d.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: ORDER: a, b, c, d, y, z, w;
+
+================
+      abcdyzw   
+================
+0001: 0000LLL
+0002: L000LLL
+0003: H000LLL
+0004: 1000LHH
+0005: L000LHH
+0006: H000LHH
+0007: 0000LLL
+0008: H000LLL
+0009: Z000LLL
+0010: N000LXX
+      ^    ^^
+[0021sa] invalid test value:  N
+[0019sa] user expected (L) for z
+[0019sa] user expected (L) for w
+
+0011: 1100NNN
+0012: 1100HHH
+          ^^^
+[0019sa] user expected (X) for y
+[0019sa] user expected (X) for z
+[0019sa] user expected (X) for w
+
+0013: 1100HHH
+          ^^^
+[0019sa] user expected (Z) for y
+[0019sa] user expected (Z) for z
+[0019sa] user expected (Z) for w
+
+0014: 1100HHH
+          ^^^
+[0021sa] invalid test value:  C
+[0021sa] invalid test value:  C
+[0021sa] invalid test value:  C
+[0019sa] user expected (C) for y
+[0019sa] user expected (C) for z
+[0019sa] user expected (C) for w
+
+0015: C000LLL
+      ^
+[0021sa] invalid test value:  C
+
+0016: K000LHH
+      ^    ^^
+[0021sa] invalid test value:  K
+[0019sa] user expected (L) for z
+[0019sa] user expected (L) for w
+
+0017: P000LLL
+      ^   ^^^
+[0021sa] invalid test value:  P
+[0021sa] invalid test value:  L
+[0021sa] invalid test value:  L
+[0021sa] invalid test value:  L
+
+0018: 0000LLL

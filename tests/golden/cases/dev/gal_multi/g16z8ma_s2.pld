@@ -1,0 +1,17 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16z8ma;
+pin 5 = i0;
+pin 8 = !i1;
+pin 15 = !o0;
+pin 18 = o1;
+pin 16 = o2;
+
+o0 = (i1 & !i0);
+o1 = ((!i1 & i0) # (i0 & i1));
+o2 = o1;
+
+/* @expect
+o0 = (i1 and (not i0))
+o1 = (((not i1) and i0) or (i0 and i1))
+o2 = o1
+*/

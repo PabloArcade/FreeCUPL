@@ -1,0 +1,21 @@
+Name p16r8_sh; Partno P16R8_SH; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16r8;
+pin 2 = din;
+pin 3 = ld;
+pin 4 = d1;
+pin 12 = s0;
+pin 13 = s1;
+pin 14 = !s2;
+pin 15 = s3;
+
+s0.d = din;
+s1.d = ld & d1 # !ld & s0;
+s2.d = s1;
+s3.d = !s2 # din & d1;
+
+/* @expect
+s0.d = din
+s1.d = ld and d1 or not ld and s0
+s2.d = s1
+s3.d = not s2 or din and d1
+*/

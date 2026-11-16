@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g22v10cplcc;
+pin 10 = !IFDEF;
+pin 13 = i1;
+pin 21 = !o0;
+pin 19 = o1;
+pin 24 = Pinnode;
+
+o0.d = ((!i1 & IFDEF) # i1 # (!IFDEF & !i1));
+o0.oe = (!IFDEF & i1);
+o1.d = (!IFDEF & i1);
+Pinnode = !i1;
+o0.ar = (!i1 & !IFDEF);
+o1.ar = (!i1 & !IFDEF);
+o0.sp = IFDEF;
+o1.sp = IFDEF;
+
+/* @expect
+o0.d = (((not i1) and IFDEF) or i1 or ((not IFDEF) and (not i1)))
+o0.oe = ((not IFDEF) and i1)
+o1.d = ((not IFDEF) and i1)
+Pinnode = (not i1)
+o0.ar = ((not i1) and (not IFDEF))
+o0.sp = IFDEF
+*/

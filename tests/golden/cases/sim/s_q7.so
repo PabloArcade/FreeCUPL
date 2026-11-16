@@ -1,0 +1,30 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_q7.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: FIELD o = [o7..0];
+   4: FIELD o = [o7,o6,o5,o4,o3,o2,o1,o0];
+   5:
+   6: ORDER: i7..0, %1, !o;
+
+==========================
+      iiiiiiii            
+      76543210    o       
+==========================
+0001: 00001111 LLLLHHHH
+0002: 00001111 LLLLHHHH
+               ^^^^^^^^
+[0019sa] user expected (H) for o7
+[0019sa] user expected (H) for o6
+[0019sa] user expected (H) for o5
+[0019sa] user expected (H) for o4
+[0019sa] user expected (L) for o3
+[0019sa] user expected (L) for o2
+[0019sa] user expected (L) for o1
+[0019sa] user expected (L) for o0
+

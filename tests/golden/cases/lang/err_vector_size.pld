@@ -1,0 +1,4 @@
+Name err_vect; Partno ERR_VECT; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..4] = [a0..2]; pin [22..23] = [y0..1];
+[y0, y1] = [a0, a1, a2];

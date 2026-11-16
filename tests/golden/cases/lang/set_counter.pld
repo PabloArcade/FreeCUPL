@@ -1,0 +1,9 @@
+Name set_coun; Partno SET_COUN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk;
+pin [20..23] = [q0..3];
+field count = [q3, q2, q1, q0];
+count.d = 'b'0001 & !q0
+        # 'b'0010 & (q1 $ q0)
+        # 'b'0100 & (q2 $ q1 & q0)
+        # 'b'1000 & (q3 $ q2 & q1 & q0);

@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20x4;
+pin 9 = !endif;
+pin 6 = i1;
+pin 18 = o0;
+pin 16 = o1;
+pin 20 = o2;
+
+o0.d = 'b'0;
+o1 = i1;
+o2.d = ((!o1 & endif) # (!o0 & endif));
+
+/* @expect
+o0.d = 0
+o1 = i1
+o2.d = (((not o1) and endif) or ((not o0) and endif))
+*/

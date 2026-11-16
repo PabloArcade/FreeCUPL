@@ -1,0 +1,57 @@
+Name p22v10_c; Partno P22V10_C; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p22v10;
+pin 2 = a;
+pin 3 = b;
+pin 4 = c;
+pin 5 = d;
+pin 6 = e;
+pin 7 = en;
+pin 19 = y16;
+pin 23 = !y;
+pin 22 = z;
+pin 14 = x;
+pin 21 = w;
+
+y16 = a & !b & !c & !d & !e
+    # !a & b & !c & !d & !e
+    # !a & !b & c & !d & !e
+    # a & b & c & !d & !e
+    # !a & !b & !c & d & !e
+    # a & b & !c & d & !e
+    # a & !b & c & d & !e
+    # !a & b & c & d & !e
+    # !a & !b & !c & !d & e
+    # a & b & !c & !d & e
+    # a & !b & c & !d & e
+    # !a & b & c & !d & e
+    # a & !b & !c & d & e
+    # !a & b & !c & d & e
+    # !a & !b & c & d & e
+    # a & b & c & d & e;
+y = a & b # x;
+y.oe = en;
+z = !y16 & c;
+w = 'b'0;
+
+/* @expect
+y16 = (a and not b and not c and not d and not e)
+    or (not a and b and not c and not d and not e)
+    or (not a and not b and c and not d and not e)
+    or (a and b and c and not d and not e)
+    or (not a and not b and not c and d and not e)
+    or (a and b and not c and d and not e)
+    or (a and not b and c and d and not e)
+    or (not a and b and c and d and not e)
+    or (not a and not b and not c and not d and e)
+    or (a and b and not c and not d and e)
+    or (a and not b and c and not d and e)
+    or (not a and b and c and not d and e)
+    or (a and not b and not c and d and e)
+    or (not a and b and not c and d and e)
+    or (not a and not b and c and d and e)
+    or (a and b and c and d and e)
+y = a and b or x
+y.oe = en
+z = not y16 and c
+w = 0
+*/

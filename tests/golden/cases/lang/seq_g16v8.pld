@@ -1,0 +1,12 @@
+Name seq_g16v; Partno SEQ_G16V; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+pin 1 = clk; pin 2 = x;
+pin [17..19] = [s0..2];
+pin 16 = lit;
+field st = [s2..0];
+sequence st {
+  present 'b'000 if x next 'b'001;
+  present 'b'001 if x next 'b'011; default next 'b'000;
+  present 'b'011 if x next 'b'111 out lit; default next 'b'000;
+  present 'b'111 if !x next 'b'000;
+}

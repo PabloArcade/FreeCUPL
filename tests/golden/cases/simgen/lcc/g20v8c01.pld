@@ -1,0 +1,33 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Device g20v8cplcc;
+/* @flags -jaxm2 */
+
+pin 6 = a0;
+pin 7 = !a1;
+pin 10 = a2;
+pin 11 = a3;
+pin 12 = a4;
+pin 13 = a5;
+pin 17 = a6;
+pin 2 = clk;
+pin 16 = !oe;
+pin 24 = q0;
+pin 23 = q1;
+field fa = [a0..a4];
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+!q0 = fa:'h'1;
+q1 = fa:[7..E];
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%7};
+$REPEND

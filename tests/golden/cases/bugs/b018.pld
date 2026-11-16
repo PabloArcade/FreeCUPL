@@ -1,0 +1,8 @@
+Name B018; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+
+Device v750cext;
+pin 1 = clk; pin 2 = a; pin 3 = c;
+pin 14 = y;
+pinnode 44 = q; pin 23 = r;
+r.d = c; r.ck = clk;
+y = q & a;

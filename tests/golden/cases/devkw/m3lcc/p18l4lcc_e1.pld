@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p18l4lcc;
+pin 9 = Off;
+pin 16 = partno;
+pin 24 = o0;
+
+o0 = (!partno # Off # (Off & partno));
+
+/* @expect
+o0 = ((not partno) or Off or (Off and partno))
+*/

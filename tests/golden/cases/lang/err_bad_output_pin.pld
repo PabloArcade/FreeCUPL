@@ -1,0 +1,4 @@
+Name err_bad_; Partno ERR_BAD_; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16l8;
+pin 2 = a; pin 3 = y;
+y = a;

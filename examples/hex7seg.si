@@ -1,0 +1,34 @@
+Name     hex7seg;
+Partno   EX001;
+Revision 01;
+Date     11/16/26;
+Designer DARKSOFT;
+Company  FreeCUPL;
+Assembly None;
+Location None;
+Device   g16v8;
+
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* every digit, then the blanking input */
+
+ORDER: blank, %2, d3, d2, d1, d0, %2, sa, sb, sc, sd, se, sf, sg;
+
+VECTORS:
+0 0000 HHHHHHL
+0 0001 LHHLLLL
+0 0010 HHLHHLH
+0 0011 HHHHLLH
+0 0100 LHHLLHH
+0 0101 HLHHLHH
+0 0110 HLHHHHH
+0 0111 HHHLLLL
+0 1000 HHHHHHH
+0 1001 HHHHLHH
+0 1010 HHHLHHH
+0 1011 LLHHHHH
+0 1100 HLLHHHL
+0 1101 LHHHHLH
+0 1110 HLLHHHH
+0 1111 HLLLHHH
+1 1000 LLLLLLL
+1 0000 LLLLLLL

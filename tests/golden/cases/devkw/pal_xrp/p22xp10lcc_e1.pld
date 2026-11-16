@@ -1,0 +1,17 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p22xp10lcc;
+pin 10 = !i0;
+pin 13 = i1;
+pin 21 = o0;
+pin 19 = PINNNODE;
+pin 24 = o2;
+
+o0 = 'b'0;
+PINNNODE = ((i1 & i0 & o0) # i1);
+o2 = ((PINNNODE & !i1) # !o0);
+
+/* @expect
+o0 = 0
+PINNNODE = ((i1 and i0 and o0) or i1)
+o2 = ((PINNNODE and (not i1)) or (not o0))
+*/

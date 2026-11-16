@@ -1,0 +1,30 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hmalcc;
+/* @flags -jaxm0kb */
+pin [2,6,7,10,12] = [in_x, in_y, in_z, in_w, in_v];
+pin 19 = out_a;
+pin 17 = !out_b;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = !in_w;
+t1 = !(!((in_w & in_z)));
+t2 = (in_x # t0 $ !((in_x $ in_y)));
+APPEND out_a = !in_z;
+out_b = t2 & !in_v & in_x # in_x # !in_y & in_x # t2 & !in_w & in_x;
+pin 24 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_y, in_v, in_x, fflag) # fflag;

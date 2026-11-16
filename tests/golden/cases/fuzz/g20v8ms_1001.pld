@@ -1,0 +1,16 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8ms;
+pin [6,8,9,14,23] = [in_x, in_y, !in_z, in_w, in_v];
+pin 15 = out_a;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !in_y $ !(in_z) $ (in_v # in_v # !in_y) # in_v # in_w;
+out_a = ON & in_x # ON;
+out_a.oe = !in_y;

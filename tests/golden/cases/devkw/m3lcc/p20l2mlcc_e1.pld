@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20l2mlcc;
+pin 24 = !i0;
+pin 27 = Fuse;
+pin 23 = o0;
+
+o0 = (!Fuse & i0);
+
+/* @expect
+o0 = ((not Fuse) and i0)
+*/

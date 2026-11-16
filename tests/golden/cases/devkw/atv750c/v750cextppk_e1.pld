@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cextppk;
+
+/* @local */ /* @bypass */
+pin 9 = !i0;
+pin 6 = pinnode;
+pin 19 = !o0;
+pinnode 25 = o1;
+pin 18 = o2;
+
+o0 = (!pinnode & !i0);
+o0.oe = (!pinnode & i0);
+o1.t = i0;
+o1.ck = !i0;
+o2 = (i0 # (o1 & !pinnode) # !i0);
+o2.oe = i0;
+
+/* @expect
+o0 = ((not pinnode) and (not i0))
+o0.oe = ((not pinnode) and i0)
+o1.t = i0
+o1.ck = (not i0)
+o2 = (i0 or (o1 and (not pinnode)) or (not i0))
+o2.oe = i0
+*/

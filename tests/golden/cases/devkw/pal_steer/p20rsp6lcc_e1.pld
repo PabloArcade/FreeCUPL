@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rsp6lcc;
+pin 11 = !i0;
+pin 17 = i1;
+pin 19 = o0;
+pin 25 = On;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+o0.d = (i0 $ i1);
+On.d = 'b'0;
+o2.d = On;
+o3.d = ((On & o2 & !o0) # o0 # !i0);
+o4 = (i1 # (!o0 & i1 & o2) # (!i1 & o0 & o3));
+
+/* @expect
+o0.d = (i0 ^ i1)
+On.d = 0
+o2.d = On
+o3.d = ((On and o2 and (not o0)) or o0 or (not i0))
+o4 = (i1 or ((not o0) and i1 and o2) or ((not i1) and o0 and o3))
+*/

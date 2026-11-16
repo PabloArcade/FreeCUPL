@@ -1,0 +1,8 @@
+Name galrc8; Partno X; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8ms;
+/* registered mode: a combinational output has 7 rows (the first is OE);
+   8 product terms are rejected (0006cc); the register next to it may use 8 */
+pin 1 = clk; pin 2 = x; pin 3 = y; pin 4 = z; pin 5 = v; pin 6 = t; pin 11 = oe;
+pin 14 = o; pin 15 = q;
+o = ((t $ x) & (y # x # z) & (z $ y)) $ v;
+q.d = ((t $ x) & (y # x # z) & (z $ y)) $ v;

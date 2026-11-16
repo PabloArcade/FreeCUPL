@@ -1,0 +1,518 @@
+DEVICE DESCRIPTION FORMAT
+
+The device data is kept in plain-text files, devices/*.dev.  At build
+time src/host/embed.c turns them into string literals (build/gen/devdb.c)
+that src/device.c parses at start-up, so the programs need no data files.
+jedsim and equiv can load extra files with -D file.dev.
+
+A description gives the layout of a part: fuse addresses, rows, input
+lines and configuration bits.  The behaviour of each macrocell kind is
+coded once in src/sim.c and in the compiler.  A new part of a known
+architecture needs data only; a new architecture needs a new macrocell
+type.
+
+
+LEXICAL RULES
+
+One statement per line, tokens separated by blanks; '#' starts a
+comment.  Numbers are decimal; fuse addresses are JEDEC fuse numbers.  A
+description runs from "device NAME" to "end".  Statements may come in
+any order, except that array must precede lines and a fuse name must be
+defined before it is used.  "inherit NAME", right after device, copies
+an earlier description; later statements override it (an mc for an
+existing pin replaces it).  Aliases and part names are not inherited.
+
+
+STATEMENTS
+
+The refdefect and simdefect statements describe bugs of WinCUPL 5.0a
+(docs/BUGS.txt).  freecupl reproduces them by default; where an entry
+below says what freecupl does instead, that is the -fix behaviour.
+
+device NAME
+    Start a description.  NAME is the canonical mnemonic.
+
+descr TEXT...
+    Free text about the description.  Documentation only.
+
+partname MNEMONIC TEXT...
+    Part name of one mnemonic: an alias of this description (the alias
+    line must come first) or the description itself when it has no
+    aliases.  Documentation only; tools/mkdevlist.sh uses it for the
+    device list in docs/USERGUIDE.txt.
+
+alias MNEMONIC [MODE] [simple=M complex=M registered=M] [ATTR=V ...]
+    A mnemonic accepted for this description.  MODE is simple, complex
+    or registered (the mode forced by that mnemonic) or auto; for auto
+    the three names are what WinCUPL prints in the JEDEC Device line for
+    the mode it picked.  Without an alias the device name is the only
+    mnemonic.  Attributes: autofb=simple (auto mode: outputs read back
+    do not force complex mode; they are read through the pin in simple
+    mode); quirk=fbinput (forced simple mode: an output that is read
+    back becomes a dedicated input, since the non-A simple mode has no
+    output feedback; warning 0901cb); reserve=P[,P...] (pins that may
+    not be declared with this mnemonic; replaces the pd pin; for an
+    auto alias the reserved pins of the resolved mnemonic are added).
+
+libtag MNEMONIC TAG
+    Library tag printed after "Library" in the JEDEC and .doc headers
+    for that resolved mnemonic.
+
+pins N
+    Package pin count.
+
+power GND VCC
+    Power pins.
+
+fuses N
+    Total fuse count (*QF).
+
+array COLS ROWS
+    AND array.  The fuse of row r, column c is r*COLS + c.
+
+lines [MODE] SRC...
+    The COLS/2 input lines.  Line k drives column 2k (true) and 2k+1
+    (complement).  SRC is pN (level of pin N), fN (feedback of the
+    macrocell on pin N) or - (unconnected).  Without MODE the lines
+    apply to the single mode "all".
+
+fuse NAME ADDR
+    Name a configuration fuse, for use in mode, xor= and similar.
+
+mode NAME FUSE=V ...
+    The mode is active when all listed fuses have the given values.
+    Devices with one mode need no mode line.
+
+clock PIN
+    Register clock pin.
+
+oepin PIN
+    Active-low output enable pin for registered outputs (PAL R parts,
+    GAL registered mode).
+
+ar ROW, sp ROW
+    Global asynchronous reset and synchronous preset product terms.
+
+ap ROW
+    Global asynchronous preset product term.
+
+steershare 1
+    Steering pairs (steer=): a product term in both sums is written once
+    and gets neither steering fuse; a row reaches an output unless only
+    the other output's fuse is set (the 64-row steering PALs).
+
+rowfill 1
+    Array fuses the compiler does not write are left 1, not 0: unused
+    rows are unconnected, and with select columns they are not selected.
+
+ptd BASE
+    Product-term-disable fuses: row r is removed when fuse BASE+r is 0.
+
+ues BASE LEN
+    User electronic signature.  WinCUPL stores the first 8 characters of
+    Partno there, MSB first.
+
+pd FUSE PIN
+    Power-down enable fuse and the pin it reserves (not simulated).
+
+mc PIN TYPE key=value...
+    Macrocell on PIN; see MACROCELL TYPES.
+
+inflag PIN FUSE
+    FUSE is programmed (1) when PIN is read as an input, an output read
+    back included, and left 0 otherwise (unused, or read through its
+    input latch).  Such pins accept .LQ (input latch), and .IOL when they
+    also have a macrocell.  A latch read uses the pin's line but is a
+    separate variable for minimisation (a & !a.lq stays a term, written
+    false with warning 0906cb), and the latch wins over a plain read of
+    the same pin (fuse 0).  The latch enable is not simulated.
+
+inflag dq
+    The inflag pins have input registers read through .DQ instead of
+    latches read through .LQ.
+
+nolatch PIN
+    The pin has an inflag fuse but no input latch; .LQ on it is rejected
+    (0012cb).
+
+tec PIN FUSE
+    .TEC is accepted on PIN.  PIN.TEC = 'b'0 clears FUSE (programmed
+    otherwise, normally through const); any other .TEC equation changes
+    nothing, though its variables still count as inputs.
+
+tfb
+    .TFB is accepted.  It reads the register like .DFB and programs the
+    register's T-select fuse (tfuse).  On a .D register WinCUPL makes a
+    T flip-flop of it; freecupl keeps the D register and warns 0905cb
+    (bug B024).
+
+galregunused V
+    Value of AC1 written in registered mode for a gal OLMC that is
+    unused or only read as an input.  Default 1; 0 leaves it in register
+    configuration, as WinCUPL does for the GAL16V8H.
+
+truecol odd
+    The true literal of line k is column 2k+1 and the complement 2k
+    (ATV750).
+
+fbkind PIN nq|q|xq|xp|pin
+    Register feedback of one macrocell (xp: the register after the
+    polarity).
+
+mcfb nq|q|xq|xp|pin
+    The same for every non-buried macrocell described so far (xq: the
+    complement of the register after the polarity).
+
+nodealias NODE PIN
+    PINNODE NODE names the register of the macrocell on PIN, read
+    through its feedback line.  Its equations configure that register
+    while the pin may still be an input.
+
+rowat ROW FUSE
+    Row ROW starts at fuse FUSE instead of ROW*COLS (rows placed after
+    configuration fuses: PEEL18CV8 AR and SP).
+
+nodedt reject
+    .D and .T on one PINNODE (buried or alias) are rejected (0025cb); on
+    a pin they still give a T flip-flop on the OR of both (ATV750).
+
+nodfb
+    .DFB is not available on this device (0011cb or 0012cb).
+
+pinmap OLD=NEW ...
+    After inherit: renumber every pin of the inherited description, for
+    package variants (LCC, PLCC).  NEW=0 marks a pin whose position in
+    this package is unknown (power, clock or OE pins that never reach
+    the array cannot be located by probing); it is treated as absent.
+
+refdefect MODE PIN
+    WinCUPL's fuse map is wrong for the output on PIN in MODE.  freecupl
+    writes the equation as given and warns 0905cb when the design is
+    affected.
+
+refdefect oe0 [PIN ...]
+    WinCUPL leaves the OE term of an output without .OE false (never
+    driven), against the documented default (B013); with pins, only
+    for those outputs (PAL20XRP4 pin 21).  freecupl enables the output
+    and warns 0905cb.
+
+refdefect nodeneg
+    The equation of a PINNODE declared active low is left
+    uncomplemented, but the node is read through the complementary
+    column (B015; ATV750 family, 44-pin ATV2500).  freecupl writes the
+    declared function and warns 0905cb.
+
+refdefect nodecomb
+    A combinational equation on a buried register node is accepted and
+    the fuse map does not implement it (B016; ATV2500B, ATF2500C).
+    freecupl rejects it (0907cb).
+
+refdefect nojoin
+    The fuse that joins the rest of a split sum is never programmed,
+    even when the sum needs those rows (B017; ATF2500C).  freecupl
+    programs it and warns 0905cb.
+
+refdefect aliasread [PIN ...]
+    The register of these macrocells (all described so far when no pin
+    is given) is read through its node alias with the opposite polarity
+    to a read through the pin (B018; ATF750C).  freecupl reads the alias
+    as the pin and warns 0905cb.  "refdefect aliasread off" clears
+    inherited flags.
+
+refdefect combd
+    A combinational and a .D equation of one pin are ORed into one
+    combinational sum (B021).  freecupl rejects such a pin (0907cb).
+
+refdefect combfull PIN ...
+    Registered mode: a combinational output on these pins needing one
+    row more than fits next to its OE term is accepted and the fuse map
+    then has no such output (B012; GAL24V10 pins 19 to 16).  freecupl
+    rejects it with 0907cb.
+
+refdefect inreg
+    An output pin used only as an input stays registered (B023;
+    PAL18V8).  freecupl makes it an input and warns 0905cb.
+
+refdefect ioaddr OFF PIN ...
+    The feedback select asked for by .IO is written at fbfuse + OFF for
+    these macrocells (B022; PAL26V12).  freecupl writes it correctly and
+    warns 0905cb where it matters.
+
+refdefect kbnoflip [MODE[/reg] ...]
+    With -kb the complemented sum is written but the polarity fuse is
+    kept (B001): in all modes, in the listed modes, or with MODE/reg for
+    registered outputs only.
+
+refdefect kbfbinv
+    With -kb a registered output that -kb does not complement is read
+    back as if it were (B002).
+
+refdefect ones ADDR N
+    With the refdefect MODE PIN output in use, N ones are first written
+    from ADDR (B011).
+
+refdefect shift N
+    A combinational sum of the refdefect MODE PIN output is written N
+    fuses after its rows (B011).
+
+simnote unverified
+    The simulation model is copied from WinCUPL's simulator and cannot
+    be verified; freecsim prints a note.  Set implicitly by simdefect
+    noclock, oeignore, oehigh and noload, by simle, simpreload pin,
+    inflag and latches.
+
+powerup reset|pinhigh|x
+    Register state at power-up in WinCUPL's simulator: Q = 0, every
+    registered pin high (the reset level is then pin high and the preset
+    level pin low), or unknown.  The default depends on the architecture
+    (docs/SIMFMT.txt, section 5).
+
+simpasses N
+    Passes WinCUPL's simulator spends on a combinational loop before it
+    reports it unstable.  Default 100 when the device or GAL mode has
+    registers, else 40.
+
+simcombinit low
+    Combinational outputs start low in WinCUPL's simulator (PEEL18CV8).
+
+simpreload pin
+    A preload value is the pin level of the register (PEEL18CV8,
+    PAL64R32).  The default is the register's !Q.
+
+simle PIN
+    Input latches (.LQ) are transparent while PIN is high (PAL19xxT:
+    pin 2).
+
+simdefect noclock, simdefect noload
+    WinCUPL's simulator has no clock pin for this device (C, K, P
+    invalid, registers never load), or accepts C, K, P but never loads
+    the registers.  freecsim copies this; the clock pin's position
+    cannot be found from the compiler.
+
+simdefect oeignore, simdefect oehigh
+    The device OE pin enables nothing, or is active high, in WinCUPL's
+    simulator (copied).
+
+simdefect regoe
+    Registered outputs ignore their OE term and outputs without .OE are
+    enabled (B026; PEEL18CV8).  Reproduced by default; -fix follows the
+    fuse map.  freecsim warns 0905sa.
+
+simdefect regzero
+    The registers load 0 at every clock edge and C, K, P are rejected
+    (B027; PAL10016RD4, RD8).  Reproduced by default.
+
+simdefect oepin N
+    Registered outputs are enabled from pin N (B028; GAL16VP8: pin 11,
+    an I/O pin of the package).  Reproduced by default.
+
+
+MACROCELL TYPES
+
+Common keys: sum=A-B (inclusive row range ORed together; rows= is the
+same), oe=ROW (output enable product term), pol=h|l (fixed polarity),
+xor=, ac1=, s0=, s1= (configuration fuse address or fuse name).
+
+comb
+    Fixed combinational output: pin = OR(sum), inverted for pol=l.
+    Enabled by the oe= row if given, otherwise always driven.
+
+reg
+    Fixed D register clocked by clock and enabled by oepin.  D = OR(sum);
+    pin = Q for pol=h, /Q for pol=l.
+
+gal
+    GAL16V8/20V8 OLMC of 8 rows (rows=) with xor= and ac1=.  Optional:
+    tfuse=F tval=V (T flip-flop when fuse F == V), fb=pin (the array
+    reads the pin instead of /Q in registered mode).  In simple mode
+    AC1=1 is a dedicated input (output off) and AC1=0 a combinational
+    output, always enabled, using all 8 rows.  In complex mode the
+    output is combinational, the first row is OE and 7 rows are ORed.
+    In registered mode AC1=0 is a register of 8 rows enabled by oepin
+    and AC1=1 a combinational output with the first row as OE.  XOR=1
+    means active high.  For the MMI 16V8: selc=C and selr=C name select
+    columns (a row reaches the combinational output, or the register,
+    only when its fuse in column C is 0; select columns are not array
+    inputs and the compiler connects them on every term it writes);
+    ac1val=V is the value of ac1 that means input or combinational
+    (default 1); xorr=F xorrval=V is a separate polarity fuse for the
+    register, active high when F == V; cfg= as for gen, written after
+    the other configuration fuses.
+
+v10
+    22V10 OLMC: oe= row, sum= rows, s0= (1 = active high), s1= (1 =
+    combinational, 0 = registered).  Registers use the device ar and sp
+    rows and clock.
+
+gen
+    The generic macrocell, "mc PIN gen sum=A-B [key=value ...]", used
+    for most PAL-style outputs.  Keys:
+
+    sum=A-B        rows ORed into the output or D input
+    xsum=A-B       second sum XORed with the first (X parts).  A
+                   top-level $ of the equation is split over the two
+                   sums; the first operand carries a fixed-polarity
+                   complement.
+    oe=ROW|pin|always
+                   output enable: product term, the device oepin
+                   (active low), or none
+    oepin=1        with oe=ROW, the device oepin also gates the output
+    pol=h|l        fixed polarity
+    polfuse=F polhi=V
+                   programmable polarity, active high when F == V
+    reg=0|1        fixed combinational or registered (D)
+    reg=F regon=V  registered when fuse F == V.  Several macrocells may
+                   share the fuse (a MegaPAL bank): the combinational
+                   value is written when any output of the bank is
+                   combinational; a bank with both kinds is rejected
+                   (0907cb).
+    reg=arap       registered, bypassed while its ar and ap terms are
+                   both true (RA parts)
+    ck=ROW ar=ROW ap=ROW
+                   per-macrocell clock, asynchronous reset and preset
+    fb=nq|q|pin    what a register feeds back (default /Q)
+    tfuse=F tval=V T flip-flop when fuse F == V.  .T is accepted and
+                   writes F = V; .D writes F = !V; otherwise 0.
+    node=1         buried register, "mc NODE gen node=1 ..." with the
+                   PINNODE number; drives no pin, read through fNODE,
+                   registered equations only
+    split=F half=A-B
+                   the sum is only rows A-B, and F is programmed, when a
+                   buried register whose sum lies inside this one is
+                   used.  If the sum fits the whole range but not the
+                   half, the error is 0013cc naming the buried register,
+                   as in WinCUPL.
+    splitval=V     value of the split fuse that selects the half
+                   (default 1)
+    splitout=1     the split value is also written when the pin is not
+                   an output or the register has its own sum (ATV2500:
+                   the third row group joins the pin's sum only for an
+                   output whose macrocell has nothing else in use)
+    qsplit=F qhalf=A-B qsum=C-D
+                   the register named by the node alias has its own sum:
+                   when F is 1 the pin shows rows A-B (combinational
+                   only) and the register loads rows C-D.  F is written
+                   1 when the alias has equations.  The alias then has
+                   no polarity of its own; a registered pin together
+                   with alias equations is rejected (0013cc), as is a
+                   pin sum that fits only without the split.
+    splitneed=1    the unsplit value is written only when the sum needs
+                   rows beyond the half (ATV2500B, ATF2500C)
+    cefuse=F       clock enable: F is programmed, the register is
+                   clocked by the clock pin and its ck= row holds the .CE
+                   term.  .CE together with .CK is rejected (0006cc), as
+                   in WinCUPL.  The simulator treats a product-term clock
+                   and a clock enable alike.
+    sp=ROW         synchronous preset term of this macrocell.  Several
+                   registers may share the row; their .SP terms are
+                   collected, only identical terms merge, and more than
+                   one term is rejected (0006cc).
+    steer=F steerstep=N
+                   product-term steering: row r of the sum reaches this
+                   output only when fuse F + (r - first row) * N is 1.
+                   Macrocells with the same sum= rows share them; each
+                   output gets a block of rows in the order of the
+                   output names (strcmp, as in WinCUPL) and the group is
+                   rejected (0006cc) when the rows run out.
+    xswap=1        XOR sums of different sizes: the operand with fewer
+                   terms goes into xsum (PAL20XRP*, PAL22XP10)
+    xone=1         xsum is one row; it takes the first operand when
+                   that is one term, else the second (PAL22RX8)
+    fbfuse2=F      a second feedback-select fuse, written like fbfuse
+    fbxor=1        the feedback select means "the other source":
+                   fbfuse == fbpin selects the pin for a register and the
+                   register for a combinational output (with
+                   alwaysreg=1); .IO and .DFB set it as WinCUPL does
+                   (PAL20CG10, PAL22CV10Z with fbpin=1, PAL26V12 with
+                   fbpin=0)
+    oemux=F        OE multiplexer: F = 1 (written for a registered output
+                   without .OE) enables the output from the device OE
+                   pin, otherwise from the OE term.  .OEMUX is accepted
+                   and ignored.
+    latch=1        the register is a latch written with .L (.D is
+                   rejected); simulated as loading at the enable step,
+                   transparency is not simulated
+    fbreg=1        the pin is read back only while registered; reading
+                   a combinational output is rejected (0014cb)
+    regidle=V      value of the reg= fuse for a pin that is not an
+                   output.  Default 0 when unused, the combinational
+                   value for pins used as input or OE only.
+    alwaysreg=1    the register exists, clocked and read through fPIN,
+                   even when the reg fuse makes the pin show the
+                   combinational sum
+    pold=2         polarity applied before the register, pin = Q, the
+                   array reads /Q (PEEL18CV8).  The device statement
+                   "pold V" sets it on every non-buried macrocell
+                   described so far (ATF750C).
+    pold=1         polarity applied before the register, register
+                   output inverted (the feedback follows the pin)
+    cfg=F1,F2,... cfgu= cfgi= cfgc= cfgcn= cfgr= cfgrn= cfgcf= cfgo=
+                   configuration fuses written as WinCUPL writes them
+                   for each role: unused, input only, combinational
+                   (active high, low), registered (high, low),
+                   combinational read back (cfgcf, else cfgc), output
+                   enable only (cfgo, else cfgc).  Used for fuses that
+                   are not otherwise modelled, such as feedback
+                   multiplexers; the simulator ignores them.
+
+For gen registers: pin = Q ^ inv, inv from pol or polfuse; D = sum, XOR
+xsum when given.  A product-term clock loads only while its term is
+true.  Reset wins over preset.
+
+Package variants (LCC, PLCC) are written as inherit plus pinmap.  The
+built-in data is embedded one device block at a time, as string
+literals of whole lines, each shorter than the 4095 characters a C99
+compiler must accept; blocks may inherit from blocks of any file.  The
+build regenerates the data when a description file is added, changed or
+removed.
+
+
+SIMULATION CONVENTIONS (src/sim.c)
+
+An array fuse of 0 is connected.  A row is true when every connected
+column is 1.  A row that connects both columns of a line is constant
+false, which is how unused rows are left; a row with no connection is
+true.
+
+Registers hold Q.  The feedback fN of a registered macrocell is /Q.  The
+pin shows Q ^ out_inv when enabled, where out_inv is 1 for pol=l PAL
+registers, always 1 for GAL registers (whose D input is sum ^ XOR), and
+!S0 for 22V10 registers (D = sum).  fN of a combinational macrocell is
+the pin level: the driven value, or the external value when the output
+is disabled.  AR clears Q at once; SP sets Q at the clock edge.
+
+The "pin level" register state used by preload, state and equiv is the
+value the pin shows when enabled, so it does not depend on how a
+compiler splits the inversion between XOR or S0 and the equations.
+
+
+HOW THE DESCRIPTIONS WERE DERIVED
+
+The descriptions were derived by black-box probing of the original
+compiler, without reading its device library.  Device names, pin counts
+and fuse counts come from its device list.  Small designs compiled for
+each mnemonic show which pins it accepts in which role, the array column
+of every input and feedback, the rows of every output, the output
+enable, reset and preset rows, and the fuses that change with polarity
+and configuration.  The descriptions were written from these results
+and the data sheets, then checked pin by pin with jedsim and on whole
+designs: WinCUPL's JEDEC files and FreeCUPL's must behave the same.
+The test suite (tests/golden, make check) covers every mnemonic.
+
+
+EXAMPLE
+
+    device p16r4
+    descr PAL16R4: 4 registered and 4 combinational I/O outputs
+    partname p16r4 PAL16R4
+    pins 20
+    power 10 20
+    fuses 2048
+    array 32 64
+    clock 1
+    oepin 11
+    lines p2 p19 p3 p18 p4 f17 p5 f16 p6 f15 p7 f14 p8 p13 p9 p12
+    mc 19 comb oe=0 sum=1-7 pol=l
+    mc 17 reg sum=16-23 pol=l
+    ...
+    end

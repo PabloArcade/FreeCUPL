@@ -1,0 +1,51 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: traffic.si
+
+   1: Name     traffic;
+   2: Partno   EX003;
+   3: Revision 01;
+   4: Date     11/16/26;
+   5: Designer DARKSOFT;
+   6: Company  FreeCUPL;
+   7: Assembly None;
+   8: Location None;
+   9: Device   g16v8;
+  10: 
+  11: /* SPDX-License-Identifier: GPL-3.0-or-later */
+  12: /* reset, wait on the main road, one full cycle, reset during the cycle */
+  13: 
+  14: FIELD state = [s1,s0];
+  15:
+  16: ORDER: clk, %1, oe, %1, rst, car, %2, s1, s0, %2,
+  17:        main_g, main_y, main_r, %1, side_g, side_y, side_r;
+  18: 
+
+============================
+                  mmm sss   
+                  aaa iii   
+                  iii ddd   
+      c   rc      nnn eee   
+      l o sa  ss  ___ ___   
+      k e tr  10  gyr gyr   
+============================
+reset
+0001: C 1 10  LL  HLL LLH
+no car: the main road stays green
+0002: C 1 00  LL  HLL LLH
+0003: C 1 00  LL  HLL LLH
+a car arrives
+0004: C 1 01  LH  LHL LLH
+0005: C 1 00  HH  LLH HLL
+0006: C 1 00  HL  LLH LHL
+0007: C 1 00  LL  HLL LLH
+0008: C 1 00  LL  HLL LLH
+reset while the side road is green
+0009: C 1 01  LH  LHL LLH
+0010: C 1 01  HH  LLH HLL
+0011: C 1 11  LL  HLL LLH
+outputs disabled
+0012: 0 0 00  ZZ  HLL LLH

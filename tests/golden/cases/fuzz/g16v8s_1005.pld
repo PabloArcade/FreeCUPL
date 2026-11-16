@@ -1,0 +1,33 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8s;
+/* @flags -jaxm2 */
+pin 1 = !in_x;
+pin 4 = !in_y;
+pin 9 = !in_z;
+pin 1 = clk;
+pin 12 = out_a;
+pin 19 = out_b;
+pin 17 = out_c;
+pin 16 = out_d;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = !(in_z);
+APPEND out_a = in_y;
+APPEND out_a = in_x;
+out_c = 'b'0 & !t0 & !in_x;
+APPEND out_d = !in_y & t0;
+condition {
+  if !in_z out out_b;
+  default out out_b;
+}

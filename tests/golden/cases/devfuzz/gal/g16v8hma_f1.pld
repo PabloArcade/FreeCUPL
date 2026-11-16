@@ -1,0 +1,34 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hma;
+/* @flags -jaxm0kb */
+pin 1 = in_x;
+pin 3 = !in_y;
+pin 5 = in_z;
+pin 7 = in_w;
+pin 13 = !out_a;
+pin 22 = out_b;
+pin 15 = out_c;
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+t0 = in_z # !(in_x) # in_x & in_w & in_y;
+t1 = (in_x $ (!in_w & in_z) & !(!t0) & !in_x & t0 & in_w $ (in_x & (in_z $ in_x)));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = [in_y,in_w]:$;
+APPEND out_c = t0;
+condition {
+  if !in_y out out_b;
+}
+min out_b = 3;

@@ -1,0 +1,9 @@
+Name field_pl; Partno FIELD_PL; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = p; pin 3 = q; pin 4 = r;
+pin [21..23] = [y0..2];
+field f = [p, q, r];
+field g = [r, q, p];
+y0 = f:6;
+y1 = g:6;
+y2 = [q, r]:'b'01;

@@ -1,0 +1,23 @@
+Name p16l8_oe; Partno P16L8_OE; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16l8;
+pin 1 = a;
+pin 2 = b;
+pin 11 = en;
+pin 13 = x;
+pin 14 = !y;
+pin 15 = u;
+pin 12 = z;
+
+y = a & x;
+y.oe = en;
+u = !x # b;
+u.oe = !en & a;
+z = x;
+
+/* @expect
+y = a and x
+y.oe = en
+u = not x or b
+u.oe = not en and a
+z = x
+*/

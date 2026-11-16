@@ -1,0 +1,20 @@
+Name G9004;
+Partno P9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p10p8v;
+pin 3 = !a0;
+pin 7 = !a1;
+pin 11 = a2;
+pin 12 = !q0;
+field fa = [a1..0];
+t0 = !((a0 $ a1));
+t1 = ((!(a2) # a0) & !(!(t0)));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = (a2 $ !a0);

@@ -1,0 +1,22 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p10p8  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7003
+Partno          R7003
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP20 
+*QF328 
+*G0 
+*F0 
+*L00192 00000000111111110110111101110000
+*L00256 00000000000000000000000011011111
+*L00288 10111111011100000000000000000000
+*L00320 00000101
+*C04A9
+*5FE5

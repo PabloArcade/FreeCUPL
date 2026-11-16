@@ -1,0 +1,36 @@
+Name g16v8cp_; Partno G16V8CP_; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8cp;
+pin 1 = a;
+pin 2 = b;
+pin 5 = c;
+pin 11 = d;
+pin 19 = y;
+pin 18 = !z;
+pin 12 = w;
+pin 17 = !t;
+
+y = a & b # !d;
+z = c $ d;
+w = a & !b & !c & !d
+    # !a & b & !c & !d
+    # !a & !b & c & !d
+    # a & b & c & !d
+    # !a & !b & !c & d
+    # a & b & !c & d
+    # a & !b & c & d
+    # !a & b & c & d;
+t = 'b'1;
+
+/* @expect
+y = a and b or not d
+z = c ^ d
+w = (a and not b and not c and not d)
+    or (not a and b and not c and not d)
+    or (not a and not b and c and not d)
+    or (a and b and c and not d)
+    or (not a and not b and not c and d)
+    or (a and b and not c and d)
+    or (a and not b and c and d)
+    or (not a and b and c and d)
+t = 1
+*/

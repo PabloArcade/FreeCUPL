@@ -1,0 +1,19 @@
+Name G9007;
+Partno P9007;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device m16v8ac;
+pin [1,2,4,5,6,7] = [a0, a1, a2, !a3, a4, !a5];
+pin 18 = q0;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a1;
+t1 = ((a4 # (a1 $ a3)) $ (!a2 & (t0 $ a1)) $ !((a0 & t0)));
+q0 = ((a5 # t0 # a0) # (a1 # a5 # !a3)) & !a1;
+$REPEAT i = [0..2]
+rv{i} = a{i} & a{(i+1)%6};
+$REPEND

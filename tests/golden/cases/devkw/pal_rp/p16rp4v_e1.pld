@@ -1,0 +1,29 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16rp4v;
+pin 5 = SEQUENCET;
+pin 4 = !i1;
+pin 3 = !i2;
+pin 9 = !i3;
+pin 13 = o0;
+pin 18 = o1;
+pin 16 = o2;
+pin 15 = o3;
+pin 12 = o4;
+
+o0 = (i1 $ i3);
+o0.oe = SEQUENCET;
+o1 = ((i3 & SEQUENCET & i1) # i2);
+o2.d = ((i3 & !o1) # !o1);
+o3.d = i2;
+o4 = (i2 # !i3 # (!i2 & !o1 & !i3));
+o4.oe = SEQUENCET;
+
+/* @expect
+o0 = (i1 ^ i3)
+o0.oe = SEQUENCET
+o1 = ((i3 and SEQUENCET and i1) or i2)
+o2.d = ((i3 and (not o1)) or (not o1))
+o3.d = i2
+o4 = (i2 or (not i3) or ((not i2) and (not o1) and (not i3)))
+o4.oe = SEQUENCET
+*/

@@ -1,0 +1,4 @@
+Name err_pin_nonum; Partno ERR_PINN; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a0; pin = w; pin 23 = y;
+y = a0 & w;

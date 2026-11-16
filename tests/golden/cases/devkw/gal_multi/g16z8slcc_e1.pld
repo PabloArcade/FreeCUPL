@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16z8slcc;
+pin 11 = !i0;
+pin 7 = Fuse;
+pin 19 = o0;
+pin 25 = PARTNO;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+o0 = (i0 $ Fuse);
+PARTNO = 'b'0;
+o2 = Fuse;
+o3 = ((!Fuse & !i0) # Fuse # !i0);
+o4 = (i0 # (!i0 & Fuse) # Fuse);
+
+/* @expect
+o0 = (i0 ^ Fuse)
+PARTNO = 0
+o2 = Fuse
+o3 = (((not Fuse) and (not i0)) or Fuse or (not i0))
+o4 = (i0 or ((not i0) and Fuse) or Fuse)
+*/

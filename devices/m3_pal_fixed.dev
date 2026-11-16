@@ -1,0 +1,225 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Fixed-polarity combinational PALs.
+# Generated from probe results; do not edit by hand.
+
+device p12l10
+descr P12L10
+partname p12l10 PAL12L10
+pins 24
+power 12 24
+fuses 480
+array 24 20
+lines p2 p1 p3 p4 p5 p6 p7 p8 p9 p10 p11 p13
+mc 14 gen sum=18-19 pol=l reg=0
+mc 15 gen sum=16-17 pol=l reg=0
+mc 16 gen sum=14-15 pol=l reg=0
+mc 17 gen sum=12-13 pol=l reg=0
+mc 18 gen sum=10-11 pol=l reg=0
+mc 19 gen sum=8-9 pol=l reg=0
+mc 20 gen sum=6-7 pol=l reg=0
+mc 21 gen sum=4-5 pol=l reg=0
+mc 22 gen sum=2-3 pol=l reg=0
+mc 23 gen sum=0-1 pol=l reg=0
+end
+
+device p14l8
+descr P14L8
+partname p14l8 PAL14L8
+pins 24
+power 12 24
+fuses 560
+array 28 20
+lines p2 p1 p3 p23 p4 p5 p6 p7 p8 p9 p10 p14 p11 p13
+mc 15 gen sum=16-19 pol=l reg=0
+mc 16 gen sum=14-15 pol=l reg=0
+mc 17 gen sum=12-13 pol=l reg=0
+mc 18 gen sum=10-11 pol=l reg=0
+mc 19 gen sum=8-9 pol=l reg=0
+mc 20 gen sum=6-7 pol=l reg=0
+mc 21 gen sum=4-5 pol=l reg=0
+mc 22 gen sum=0-3 pol=l reg=0
+end
+
+device p16l6
+descr P16L6
+partname p16l6 PAL16L6
+pins 24
+power 12 24
+fuses 640
+array 32 20
+lines p2 p1 p3 p23 p4 p22 p5 p6 p7 p8 p9 p15 p10 p14 p11 p13
+mc 16 gen sum=16-19 pol=l reg=0
+mc 17 gen sum=12-15 pol=l reg=0
+mc 18 gen sum=10-11 pol=l reg=0
+mc 19 gen sum=8-9 pol=l reg=0
+mc 20 gen sum=4-7 pol=l reg=0
+mc 21 gen sum=0-3 pol=l reg=0
+end
+
+device p16h8
+descr P16H8
+partname p16h8 PAL16H8
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=57-63 oe=56 pol=h reg=0
+mc 13 gen sum=49-55 oe=48 pol=h reg=0
+mc 14 gen sum=41-47 oe=40 pol=h reg=0
+mc 15 gen sum=33-39 oe=32 pol=h reg=0
+mc 16 gen sum=25-31 oe=24 pol=h reg=0
+mc 17 gen sum=17-23 oe=16 pol=h reg=0
+mc 18 gen sum=9-15 oe=8 pol=h reg=0
+mc 19 gen sum=1-7 oe=0 pol=h reg=0
+end
+
+device p16hd8
+descr P16HD8
+partname p16hd8 PAL16HD8
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=56-63 pol=h reg=0
+mc 13 gen sum=48-55 pol=h reg=0
+mc 14 gen sum=40-47 pol=h reg=0
+mc 15 gen sum=32-39 pol=h reg=0
+mc 16 gen sum=24-31 pol=h reg=0
+mc 17 gen sum=16-23 pol=h reg=0
+mc 18 gen sum=8-15 pol=h reg=0
+mc 19 gen sum=0-7 pol=h reg=0
+end
+
+device p16n8
+descr P16N8
+partname p16n8 PAL16N8
+pins 20
+power 10 20
+fuses 512
+array 32 16
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=15-15 oe=14 pol=l reg=0
+mc 13 gen sum=13-13 oe=12 pol=l reg=0
+mc 14 gen sum=11-11 oe=10 pol=l reg=0
+mc 15 gen sum=9-9 oe=8 pol=l reg=0
+mc 16 gen sum=7-7 oe=6 pol=l reg=0
+mc 17 gen sum=5-5 oe=4 pol=l reg=0
+mc 18 gen sum=3-3 oe=2 pol=l reg=0
+mc 19 gen sum=1-1 oe=0 pol=l reg=0
+end
+
+device p18n8
+descr P18N8
+partname p18n8 PAL18N8
+pins 20
+power 10 20
+fuses 304
+array 36 8
+lines p2 p1 p3 f19 p4 f18 p5 f17 p6 f16 p7 f15 p8 f14 p9 f13 p11 f12
+mc 12 gen sum=7-7 pol=l reg=0 cfg=303 cfgu=0 cfgc=1 cfgcn=1
+mc 13 gen sum=6-6 pol=l reg=0 cfg=302 cfgu=0 cfgc=1 cfgcn=1
+mc 14 gen sum=5-5 pol=l reg=0 cfg=301 cfgu=0 cfgc=1 cfgcn=1
+mc 15 gen sum=4-4 pol=l reg=0 cfg=300 cfgu=0 cfgc=1 cfgcn=1
+mc 16 gen sum=3-3 pol=l reg=0 cfg=299 cfgu=0 cfgc=1 cfgcn=1
+mc 17 gen sum=2-2 pol=l reg=0 cfg=298 cfgu=0 cfgc=1 cfgcn=1
+mc 18 gen sum=1-1 pol=l reg=0 cfg=297 cfgu=0 cfgc=1 cfgcn=1
+mc 19 gen sum=0-0 pol=l reg=0 cfg=296 cfgu=0 cfgc=1 cfgcn=1
+end
+
+device p16ld8
+descr P16LD8
+partname p16ld8 PAL16LD8
+pins 20
+power 10 20
+fuses 2048
+array 32 64
+lines p2 p1 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 p11
+mc 12 gen sum=56-63 pol=l reg=0
+mc 13 gen sum=48-55 pol=l reg=0
+mc 14 gen sum=40-47 pol=l reg=0
+mc 15 gen sum=32-39 pol=l reg=0
+mc 16 gen sum=24-31 pol=l reg=0
+mc 17 gen sum=16-23 pol=l reg=0
+mc 18 gen sum=8-15 pol=l reg=0
+mc 19 gen sum=0-7 pol=l reg=0
+end
+
+device p18l4
+descr P18L4
+partname p18l4 PAL18L4
+pins 24
+power 12 24
+fuses 720
+array 36 20
+lines p2 p1 p3 p23 p4 p22 p5 p21 p6 p7 p8 p16 p9 p15 p10 p14 p11 p13
+mc 17 gen sum=14-19 pol=l reg=0
+mc 18 gen sum=10-13 pol=l reg=0
+mc 19 gen sum=6-9 pol=l reg=0
+mc 20 gen sum=0-5 pol=l reg=0
+end
+
+device p20l2
+descr P20L2
+partname p20l2 PAL20L2
+pins 24
+power 12 24
+fuses 640
+array 40 16
+lines p2 p1 p3 p23 p4 p22 p5 p21 p6 p20 p7 p17 p8 p16 p9 p15 p10 p14 p11 p13
+mc 18 gen sum=8-15 pol=l reg=0
+mc 19 gen sum=0-7 pol=l reg=0
+end
+
+device p20l10
+descr P20L10
+partname p20l10 PAL20L10
+pins 24
+power 12 24
+fuses 1600
+array 40 40
+lines p2 p1 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p13
+mc 14 gen sum=37-39 oe=36 pol=l reg=0
+mc 15 gen sum=33-35 oe=32 pol=l reg=0
+mc 16 gen sum=29-31 oe=28 pol=l reg=0
+mc 17 gen sum=25-27 oe=24 pol=l reg=0
+mc 18 gen sum=21-23 oe=20 pol=l reg=0
+mc 19 gen sum=17-19 oe=16 pol=l reg=0
+mc 20 gen sum=13-15 oe=12 pol=l reg=0
+mc 21 gen sum=9-11 oe=8 pol=l reg=0
+mc 22 gen sum=5-7 oe=4 pol=l reg=0
+mc 23 gen sum=1-3 oe=0 pol=l reg=0
+end
+
+device p24l10
+descr P24L10
+partname p24l10 PAL24L10
+pins 28
+power 14 28
+fuses 3840
+array 48 80
+lines p2 p28 p3 p27 p4 p1 p5 f25 p6 f24 p8 f23 p9 f22 p10 f20 p11 f19 p12 f18 p13 f17 p14 p15
+mc 16 gen sum=73-79 oe=72 pol=l reg=0
+mc 17 gen sum=65-71 oe=64 pol=l reg=0
+mc 18 gen sum=57-63 oe=56 pol=l reg=0
+mc 19 gen sum=49-55 oe=48 pol=l reg=0
+mc 20 gen sum=41-47 oe=40 pol=l reg=0
+mc 22 gen sum=33-39 oe=32 pol=l reg=0
+mc 23 gen sum=25-31 oe=24 pol=l reg=0
+mc 24 gen sum=17-23 oe=16 pol=l reg=0
+mc 25 gen sum=9-15 oe=8 pol=l reg=0
+mc 26 gen sum=1-7 oe=0 pol=l reg=0
+end
+
+device p20c1
+descr P20C1
+partname p20c1 PAL20C1
+pins 24
+power 12 24
+fuses 640
+array 40 16
+lines p2 p1 p3 p23 p4 p22 p5 p21 p6 p20 p7 p17 p8 p16 p9 p15 p10 p14 p11 p13
+mc 18 gen sum=0-15 pol=l reg=0
+mc 19 gen sum=0-15 pol=h reg=0
+end

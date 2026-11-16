@@ -1,0 +1,124 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# MegaPAL PAL32R16 and PAL64R32.  Outputs in pairs share 16 rows through
+# steering fuses (1 = the term reaches that output).  Polarity fuse 1 =
+# active high.  One fuse per bank selects registered (0) or combinational
+# (1); a bank with both is B020, a pin with a combinational and a .D
+# equation is B021.  A combinational output cannot be read back (0014cb).
+# PAL32R16: OE 15, clock 16, power 5, 10, 25, 30.  PAL64R32: clock 13 and
+# OE 12 assumed, power pins not located.
+
+device p32r16
+# Simulator: registers never load; the OE pin is active high.
+simdefect noload
+simdefect oehigh
+refdefect combd
+descr P32R16: 16 outputs, registered or combinational per bank, product-term steering in pairs
+partname p32r16 PAL32R16 (MegaPAL)
+pins 40
+power 10 30
+fuses 8466
+array 64 128
+clock 16
+oepin 15
+lines p11 f17 p12 f18 p13 f19 p14 f20 p26 f21 p27 f22 p28 f23 p29 f24 p31 f37 p32 f38 p33 f39 p34 f40 p6 f1 p7 f2 p8 f3 p9 f4
+mc 1 gen sum=16-31 oe=pin polfuse=8195 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8240 steerstep=2
+mc 2 gen sum=16-31 oe=pin polfuse=8194 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8241 steerstep=2
+mc 3 gen sum=0-15 oe=pin polfuse=8193 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8208 steerstep=2
+mc 4 gen sum=0-15 oe=pin polfuse=8192 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8209 steerstep=2
+mc 17 gen sum=112-127 oe=pin polfuse=8207 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8432 steerstep=2
+mc 18 gen sum=112-127 oe=pin polfuse=8206 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8433 steerstep=2
+mc 19 gen sum=96-111 oe=pin polfuse=8205 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8400 steerstep=2
+mc 20 gen sum=96-111 oe=pin polfuse=8204 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8401 steerstep=2
+mc 21 gen sum=80-95 oe=pin polfuse=8203 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8368 steerstep=2
+mc 22 gen sum=80-95 oe=pin polfuse=8202 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8369 steerstep=2
+mc 23 gen sum=64-79 oe=pin polfuse=8201 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8336 steerstep=2
+mc 24 gen sum=64-79 oe=pin polfuse=8200 polhi=1 reg=8465 regon=0 fb=pin fbreg=1 steer=8337 steerstep=2
+mc 37 gen sum=48-63 oe=pin polfuse=8199 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8304 steerstep=2
+mc 38 gen sum=48-63 oe=pin polfuse=8198 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8305 steerstep=2
+mc 39 gen sum=32-47 oe=pin polfuse=8197 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8272 steerstep=2
+mc 40 gen sum=32-47 oe=pin polfuse=8196 polhi=1 reg=8464 regon=0 fb=pin fbreg=1 steer=8273 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+device p64r32
+simpreload pin
+# Simulator: no clock pin, registers never load, OE enables nothing.
+simdefect noclock
+simdefect oeignore
+refdefect combd
+descr P64R32: 32 outputs, registered or combinational per bank, product-term steering in pairs
+partname p64r32 PAL64R32 (MegaPAL)
+pins 84
+power 0 0
+fuses 33316
+array 128 256
+clock 13
+oepin 12
+lines p1 f14 p2 f15 p3 f16 p4 f17 p5 f18 p6 f19 p7 f20 p8 f21 p35 f22 p36 f23 p37 f24 p38 f25 p39 f26 p40 f27 p41 f28 p42 f29 p43 f56 p44 f57 p45 f58 p46 f59 p47 f60 p48 f61 p49 f62 p50 f63 p77 f64 p78 f65 p79 f66 p80 f67 p81 f68 p82 f69 p83 f70 p84 f71
+mc 14 gen sum=0-15 oe=pin polfuse=32768 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32801 steerstep=2
+mc 15 gen sum=0-15 oe=pin polfuse=32769 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32800 steerstep=2
+mc 16 gen sum=16-31 oe=pin polfuse=32770 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32833 steerstep=2
+mc 17 gen sum=16-31 oe=pin polfuse=32771 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32832 steerstep=2
+mc 18 gen sum=32-47 oe=pin polfuse=32772 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32865 steerstep=2
+mc 19 gen sum=32-47 oe=pin polfuse=32773 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32864 steerstep=2
+mc 20 gen sum=48-63 oe=pin polfuse=32774 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32897 steerstep=2
+mc 21 gen sum=48-63 oe=pin polfuse=32775 polhi=1 reg=33312 regon=0 fb=pin fbreg=1 steer=32896 steerstep=2
+mc 22 gen sum=64-79 oe=pin polfuse=32776 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32929 steerstep=2
+mc 23 gen sum=64-79 oe=pin polfuse=32777 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32928 steerstep=2
+mc 24 gen sum=80-95 oe=pin polfuse=32778 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32961 steerstep=2
+mc 25 gen sum=80-95 oe=pin polfuse=32779 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32960 steerstep=2
+mc 26 gen sum=96-111 oe=pin polfuse=32780 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32993 steerstep=2
+mc 27 gen sum=96-111 oe=pin polfuse=32781 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=32992 steerstep=2
+mc 28 gen sum=112-127 oe=pin polfuse=32782 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=33025 steerstep=2
+mc 29 gen sum=112-127 oe=pin polfuse=32783 polhi=1 reg=33313 regon=0 fb=pin fbreg=1 steer=33024 steerstep=2
+mc 56 gen sum=128-143 oe=pin polfuse=32784 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33057 steerstep=2
+mc 57 gen sum=128-143 oe=pin polfuse=32785 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33056 steerstep=2
+mc 58 gen sum=144-159 oe=pin polfuse=32786 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33089 steerstep=2
+mc 59 gen sum=144-159 oe=pin polfuse=32787 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33088 steerstep=2
+mc 60 gen sum=160-175 oe=pin polfuse=32788 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33121 steerstep=2
+mc 61 gen sum=160-175 oe=pin polfuse=32789 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33120 steerstep=2
+mc 62 gen sum=176-191 oe=pin polfuse=32790 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33153 steerstep=2
+mc 63 gen sum=176-191 oe=pin polfuse=32791 polhi=1 reg=33314 regon=0 fb=pin fbreg=1 steer=33152 steerstep=2
+mc 64 gen sum=192-207 oe=pin polfuse=32792 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33185 steerstep=2
+mc 65 gen sum=192-207 oe=pin polfuse=32793 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33184 steerstep=2
+mc 66 gen sum=208-223 oe=pin polfuse=32794 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33217 steerstep=2
+mc 67 gen sum=208-223 oe=pin polfuse=32795 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33216 steerstep=2
+mc 68 gen sum=224-239 oe=pin polfuse=32796 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33249 steerstep=2
+mc 69 gen sum=224-239 oe=pin polfuse=32797 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33248 steerstep=2
+mc 70 gen sum=240-255 oe=pin polfuse=32798 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33281 steerstep=2
+mc 71 gen sum=240-255 oe=pin polfuse=32799 polhi=1 reg=33315 regon=0 fb=pin fbreg=1 steer=33280 steerstep=2
+refdefect kbnoflip      # B001
+end
+
+# Package variants: p20rs4mlcc uses the p20rs8mlcc numbering and its 3338
+# fuses; p32r16lcc pins located from single designs, power, clock and OE
+# pins not located.
+device p20rs4mlcc
+inherit p20rs4
+descr P20RS4 in a 28-pin package
+partname p20rs4mlcc PAL20RS4 (LCC28, alternative pin numbering)
+pins 28
+fuses 3338
+pinmap 1=0 2=2 3=3 4=4 5=6 6=7 7=9 8=10 9=12 10=13 11=14 12=0 13=0 14=17 15=18 16=20 17=21 18=22 19=23 20=24 21=25 22=26 23=27 24=0
+refdefect kbnoflip      # B001
+end
+
+device p32r16lcc
+inherit p32r16
+descr PAL32R16 in a 44-pin package
+partname p32r16lcc PAL32R16 (MegaPAL, PLCC44)
+pins 44
+pinmap 1=1 2=2 3=3 4=4 5=0 6=7 7=8 8=9 9=10 10=0 11=12 12=13 13=14 14=15 15=0 16=0 17=19 18=20 19=21 20=22 21=23 22=24 23=25 24=26 25=0 26=29 27=30 28=31 29=32 30=0 31=34 32=35 33=36 34=37 35=0 36=0 37=41 38=42 39=43 40=44
+refdefect kbnoflip      # B001
+end
+
+# p64r32pga (88 pins): DIP inputs 81-84 have no pin; power, clock and OE
+# pins not located.
+device p64r32pga
+inherit p64r32
+descr PAL64R32 in an 88-pin PGA
+partname p64r32pga PAL64R32 (MegaPAL, PGA88)
+pins 88
+pinmap 1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=0 10=0 11=0 12=0 13=0 14=15 15=16 16=17 17=18 18=19 19=20 20=21 21=22 22=23 23=24 24=25 25=26 26=27 27=28 28=29 29=30 30=0 31=0 32=0 33=0 34=0 35=37 36=38 37=39 38=40 39=41 40=42 41=43 42=44 43=45 44=46 45=47 46=48 47=49 48=50 49=51 50=52 51=0 52=0 53=0 54=0 55=0 56=59 57=60 58=61 59=62 60=63 61=64 62=65 63=66 64=67 65=68 66=69 67=70 68=71 69=72 70=73 71=74 72=0 73=0 74=0 75=0 76=0 77=81 78=82 79=83 80=84 81=0 82=0 83=0 84=0
+refdefect kbnoflip      # B001
+end

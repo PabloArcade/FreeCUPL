@@ -1,0 +1,11 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20x10;
+pin 5 = i0;
+pin 8 = !i1;
+pin 14 = !o0;
+
+o0.d = i1;
+
+/* @expect
+o0.d = i1
+*/

@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750lcc;
+/* @local */ /* @bypass */
+pin 10 = !VECTORS;
+pin 13 = GROUP;
+pin 23 = !o0;
+pinnode 29 = o1;
+pin 21 = o2;
+
+o0 = (!GROUP & !VECTORS);
+o0.oe = (!GROUP & VECTORS);
+o1.d = VECTORS;
+o1.ck = !VECTORS;
+o2 = (VECTORS # (o1 & !GROUP) # !VECTORS);
+o2.oe = VECTORS;
+
+/* @expect
+o0 = ((not GROUP) and (not VECTORS))
+o0.oe = ((not GROUP) and VECTORS)
+o1.d = VECTORS
+o1.ck = (not VECTORS)
+o2 = (VECTORS or (o1 and (not GROUP)) or (not VECTORS))
+o2.oe = VECTORS
+*/

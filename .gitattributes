@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# golden files are compared byte for byte
+tests/golden/** -text
+# LF line ends on every platform
+*.sh text eol=lf
+Makefile text eol=lf

@@ -1,0 +1,11 @@
+Name pp_undef; Partno PP_UNDEF; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+$DEFINE SEL a
+$UNDEF SEL
+$IFDEF SEL
+pin 2 = wrong;
+$ELSE
+pin 2 = a;
+$ENDIF
+pin 3 = b; pin 19 = y;
+y = a & b;

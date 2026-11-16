@@ -1,0 +1,28 @@
+Name G9008;
+Partno P9008;
+Revision 01;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22vp10;
+
+ORDER: clk, in_x, in_w, in_y, in_z, %2, out_a;
+
+VECTORS:
+00111 *
+10100 *
+$MSG "vector 3";
+10X01 *
+X1111 *
+00101 *
+00111 *
+10101 *
+11101 L
+01X01 *
+01011 *
+10000 *
+11100 *
+000X1 N
+010X1 *
+00010 *

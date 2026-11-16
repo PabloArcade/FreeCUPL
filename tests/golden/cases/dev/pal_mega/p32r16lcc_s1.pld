@@ -1,0 +1,13 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p32r16lcc;
+pin 12 = i0;
+pin 7 = i1;
+pin 14 = i2;
+pin 29 = i3;
+pin 41 = !o0;
+
+o0 = (i2 $ i1);
+
+/* @expect
+o0 = (i2 ^ i1)
+*/

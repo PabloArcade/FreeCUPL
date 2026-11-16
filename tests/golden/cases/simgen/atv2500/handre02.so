@@ -1,0 +1,42 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: handre02.si
+
+   1: Name P;
+   2: Device v2500;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: !i4, i6, i3, i2, i5, i1, %2, o, q2;
+   5: 
+
+===================
+      !            
+      iiiiii   q   
+      463251  o2   
+===================
+0001: 011101  LH
+0002: 110000  LH
+vector 3
+0003: 001101  LH
+0004: 0X000X  LH
+0005: 111111  LH
+0006: 1110X1  LH
+0007: 010X01  LH
+0008: 001110  LH
+0009: 000001  LH
+0010: 111111  LH
+               ^
+[0019sa] user expected (L) for q2
+
+0011: 100X11  NH
+0012: 111X10  LH
+0013: 10X001  LH
+0014: 111101  LH
+0015: 1X0X11  LH
+0016: 011110  LH
+0017: X01X1X  LH
+0018: 101110  LH
+0019: 101101  LH

@@ -1,0 +1,40 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: handio00.si
+
+   1: Name P;
+   2: Device p22cv10z;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: clk, c, d, b, a, %2, q16, q20, q18, q21;
+   5: 
+
+====================
+      c      qqqq   
+      l      1212   
+      kcdba  6081   
+====================
+0001: 01X0X  LLXN
+0002: C1X01  HHHH
+0003: C1101  HHHH
+0004: C0011  LNHH
+0005: C000X  XXXH
+0006: C1010  HHHX
+0007: 00001  HHHX
+0008: C1000  LLLH
+0009: 11011  LLHL
+0010: 11010  LLLL
+0011: 10111  LLHL
+0012: C1011  NLHL
+0013: C0011  LLHL
+0014: C1100  LLLH
+0015: C0010  HHHL
+0016: 01000  HHHL
+0017: 10000  LLLN
+0018: C1100  LLLH
+0019: C1101  HHHH
+0020: K11X1  XXXH
+0021: P1011  00X1

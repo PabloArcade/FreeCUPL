@@ -1,0 +1,27 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_e6b.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: ORDER: a, b, y;
+
+============
+      aby   
+============
+   5: 11HH
+         ^
+[0013sa] excessive test value:  H
+
+0001: 11H
+0002: 11H
+0003: 11H
+        ^
+[0019sa] user expected (0) for y
+
+0004: 0HL
+0005: 11H
+0006: 11H

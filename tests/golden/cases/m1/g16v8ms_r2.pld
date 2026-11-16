@@ -1,0 +1,24 @@
+Name g16v8ms_; Partno G16V8MS_; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8ms;
+pin 2 = a;
+pin 3 = b;
+pin 4 = c;
+pin 12 = !r;
+pin 13 = s;
+pin 19 = y;
+
+r.d = a & !b & !c
+    # !a & b & !c
+    # !a & !b & c
+    # a & b & c # s;
+s.d = !r;
+y = r $ s;
+
+/* @expect
+r.d = (a and not b and not c)
+    or (not a and b and not c)
+    or (not a and not b and c)
+    or (a and b and c) or s
+s.d = not r
+y = r ^ s
+*/

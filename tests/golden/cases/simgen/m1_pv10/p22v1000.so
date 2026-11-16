@@ -1,0 +1,54 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: p22v1000.si
+
+   1: Name G1004;
+   2: Partno P1004;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device p22v10;
+  10: 
+  11: FIELD st = [s0,s1];
+  12:
+  13: ORDER: clk, a0, a1, a3, a2, a4, %2, q0, !q1, s0, s1;
+  14: 
+
+=====================
+      c        !     
+      laaaaa  qqss   
+      k01324  0101   
+=====================
+0001: 101100  HHHL
+0002: C10010  HHLL
+vector 3
+0003: C01001  HHLL
+0004: 011000  HHLL
+0005: C10011  HHLL
+0006: C10000  HLLL
+0007: K1100X  HHLL
+0008: K00011  LHLH
+0009: C11101  HHLH
+0010: K01111  HLHL
+0011: C00110  LHHL
+              ^^ ^
+[0019sa] user expected (H) for q0
+[0019sa] user expected (L) for q1
+[0019sa] user expected (H) for s1
+
+0012: C10100  HNNL
+0013: 001100  HHLL
+0014: 100001  LLLH
+0015: C00000  LLLH
+0016: C00001  LLLL
+0017: C00X01  LLLH
+0018: C10001  HLLL
+0019: 011110  HLLL
+0020: C0X001  XXLX
+0021: 001101  HHLN

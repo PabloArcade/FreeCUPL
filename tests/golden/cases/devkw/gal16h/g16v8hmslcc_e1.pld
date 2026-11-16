@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g16v8hmslcc;
+pin 6 = i0;
+pin 5 = !i1;
+pin 4 = !i2;
+pin 11 = !i3;
+pin 17 = o0;
+pin 26 = !Pinnnode;
+pin 23 = o2;
+pin 19 = o3;
+pin 16 = !o4;
+
+o0.d = (!i2 & i1);
+Pinnnode.t = (o0 # (!o0 & !i3));
+o2.t = (i3 $ Pinnnode);
+o3.d = (!Pinnnode & o2 & i1);
+o4.t = ((!Pinnnode & !o0 & !i3) # (Pinnnode & o2));
+
+/* @expect
+o0.d = ((not i2) and i1)
+Pinnnode.t = (o0 or ((not o0) and (not i3)))
+o2.t = (i3 ^ Pinnnode)
+o3.d = ((not Pinnnode) and o2 and i1)
+o4.t = (((not Pinnnode) and (not o0) and (not i3)) or (Pinnnode and o2))
+*/

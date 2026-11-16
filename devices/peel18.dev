@@ -1,0 +1,74 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# PEEL18CV8-type part (f18v8z*): 18 input lines, 8 macrocells of 9 rows
+# (OE, then 8 sum rows); SP at fuse 2617, AR at 2653 (rowat).
+# Polarity 2592+i (1 = high), i = macrocell from pin 19 down to 12.
+# Configuration 2600+2i (A) and 2601+2i (B): B=1 registered output, A=0
+# the array reads the pin, else the register.  2616 = 1 when registers are
+# available (f18v8zd, clock pin 1); f18v8zs is combinational only.
+# f18v8z picks f18v8zs unless an output is registered.
+
+device f18v8zd
+simpreload pin
+simcombinit low
+# B026
+simdefect regoe
+powerup pinhigh
+alias f18v8zd registered
+partname f18v8zd PEEL18CV8-type zero-power part (registered)
+descr PEEL18CV8 (ICT), registered outputs available
+pins 20
+power 10 20
+fuses 2689
+array 36 74
+rowat 72 2617
+rowat 73 2653
+clock 1
+sp 72
+ar 73
+const 2616
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12 - -
+mc 19 gen sum=1-8 oe=0 polfuse=2592 polhi=1 reg=2601 regon=1 pold=2 fbfuse=2600 fbpin=0 cfg=2600,2601 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 18 gen sum=10-17 oe=9 polfuse=2593 polhi=1 reg=2603 regon=1 pold=2 fbfuse=2602 fbpin=0 cfg=2602,2603 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 17 gen sum=19-26 oe=18 polfuse=2594 polhi=1 reg=2605 regon=1 pold=2 fbfuse=2604 fbpin=0 cfg=2604,2605 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 16 gen sum=28-35 oe=27 polfuse=2595 polhi=1 reg=2607 regon=1 pold=2 fbfuse=2606 fbpin=0 cfg=2606,2607 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 15 gen sum=37-44 oe=36 polfuse=2596 polhi=1 reg=2609 regon=1 pold=2 fbfuse=2608 fbpin=0 cfg=2608,2609 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 14 gen sum=46-53 oe=45 polfuse=2597 polhi=1 reg=2611 regon=1 pold=2 fbfuse=2610 fbpin=0 cfg=2610,2611 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 13 gen sum=55-62 oe=54 polfuse=2598 polhi=1 reg=2613 regon=1 pold=2 fbfuse=2612 fbpin=0 cfg=2612,2613 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+mc 12 gen sum=64-71 oe=63 polfuse=2599 polhi=1 reg=2615 regon=1 pold=2 fbfuse=2614 fbpin=0 cfg=2614,2615 cfgu=11 cfgi=01 cfgc=10 cfgcf=00 cfgr=11
+refdefect oe0
+libtag f18v8zd DLIB-h-40-7
+end
+
+device f18v8zs
+simpreload pin
+simcombinit low
+simpasses 100
+# Simulator: outputs without .OE are enabled.
+simdefect regoe
+alias f18v8zs simple
+partname f18v8zs PEEL18CV8-type zero-power part (combinational)
+descr PEEL18CV8 (ICT), combinational only
+pins 20
+power 10 20
+fuses 2689
+array 36 74
+rowat 72 2617
+rowat 73 2653
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12 p1 p11
+mc 19 gen sum=1-8 oe=0 polfuse=2592 polhi=1 reg=0 fb=pin
+mc 18 gen sum=10-17 oe=9 polfuse=2593 polhi=1 reg=0 fb=pin
+mc 17 gen sum=19-26 oe=18 polfuse=2594 polhi=1 reg=0 fb=pin
+mc 16 gen sum=28-35 oe=27 polfuse=2595 polhi=1 reg=0 fb=pin
+mc 15 gen sum=37-44 oe=36 polfuse=2596 polhi=1 reg=0 fb=pin
+mc 14 gen sum=46-53 oe=45 polfuse=2597 polhi=1 reg=0 fb=pin
+mc 13 gen sum=55-62 oe=54 polfuse=2598 polhi=1 reg=0 fb=pin
+mc 12 gen sum=64-71 oe=63 polfuse=2599 polhi=1 reg=0 fb=pin
+refdefect oe0
+libtag f18v8zs DLIB-h-40-7
+end
+
+device f18v8z_auto
+inherit f18v8zd
+alias f18v8z auto simple=f18v8zs complex=f18v8zs registered=f18v8zd autofb=simple via=1
+partname f18v8z PEEL18CV8-type zero-power part (automatic mode)
+end

@@ -1,0 +1,16 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p64r32;
+ORDER: clk, oe, a, %2, q0, q1;
+VECTORS:
+000 **
+001 **
+101 **
+011 **
+111 **
+010 **
+C10 **
+C01 **
+C11 **
+K00 **
+P00 01
+000 **

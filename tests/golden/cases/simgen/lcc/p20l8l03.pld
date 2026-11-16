@@ -1,0 +1,33 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20l8lcc;
+pin 3 = a0;
+pin 6 = a1;
+pin 9 = !a2;
+pin 13 = !a3;
+pin 20 = !q0;
+pin 18 = q1;
+pin 21 = !q2;
+pin 19 = q3;
+pin 26 = !q4;
+pin 23 = q5;
+APPEND q0 = a1 & a2;
+q1 = (a0 $ a1);
+APPEND q2 = !a2;
+q2.oe = a3 & a2;
+!q3 = !a3 & a2 # !a2 & !a1 & !a0;
+q3.oe = !a3;
+q4 = (a1 $ q0);
+q4.oe = a1 & !a0;
+q5 = a3;
+q5.oe = !a1;
+$DEFINE AND &
+$DEFINE OR #
+pin 24 = dq;
+dq = a1 AND a2 OR !a3;

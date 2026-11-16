@@ -1,0 +1,33 @@
+Name R7002; Partno R7002; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20g10;
+pin 7 = i0;
+pin 11 = i1;
+pin 8 = i2;
+pin 3 = i3;
+pin 6 = i4;
+pin 10 = !i5;
+pin 14 = o0;
+pin 22 = o1;
+pin 21 = o2;
+pin 17 = o3;
+pin 15 = o4;
+
+o0 = ((!i4 & i2 & !i3) # (i0 & i3));
+o1.d = ((!o0 & i5 & i0) # i4);
+o1.oe = (i5 & !i4);
+o2.d = 'b'0;
+o2.oe = i4;
+o3 = ((i1 & !o0) # i0 # (!i1 & i2));
+o3.oe = i5;
+o4.d = (i4 # (i4 & i3 & i5));
+
+/* @expect
+o0 = (((not i4) and i2 and (not i3)) or (i0 and i3))
+o1.d = (((not o0) and i5 and i0) or i4)
+o1.oe = (i5 and (not i4))
+o2.d = 0
+o2.oe = i4
+o3 = ((i1 and (not o0)) or i0 or ((not i1) and i2))
+o3.oe = i5
+o4.d = (i4 or (i4 and i3 and i5))
+*/

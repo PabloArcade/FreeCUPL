@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500lcc;
+/* @local */ /* @bypass */
+pin 21 = i0;
+pin 44 = i1;
+pin 41 = !i2;
+pin 24 = i3;
+pin 43 = !i4;
+pin 19 = i5;
+pin 37 = jump;
+pinnode 52 = o1;
+
+jump.d = (i2 # !i3 # (!i2 & !i4 & !i3));
+jump.ck = !i5;
+jump.oe = i4;
+o1.d = ((!i1 & i3 & !i4) # (!i1 & !i2));
+o1.ar = (i5 & !i1);
+
+/* @expect
+jump.d = (i2 or (not i3) or ((not i2) and (not i4) and (not i3)))
+jump.ck = (not i5)
+jump.oe = i4
+o1.d = (((not i1) and i3 and (not i4)) or ((not i1) and (not i2)))
+o1.ar = (i5 and (not i1))
+*/

@@ -1,0 +1,287 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Registered PALs with programmable polarity (RP).
+# Generated from probe results; do not edit by hand.
+
+device p16rp4
+powerup reset
+descr P16RP4
+partname p16rp4 PAL16RP4
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=57-63 oe=56 polfuse=2055 polhi=1 reg=0
+mc 13 gen sum=49-55 oe=48 polfuse=2054 polhi=1 reg=0
+mc 14 gen sum=40-47 polfuse=2053 polhi=1 oe=pin reg=1 pold=1
+mc 15 gen sum=32-39 polfuse=2052 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=24-31 polfuse=2051 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=16-23 polfuse=2050 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=9-15 oe=8 polfuse=2049 polhi=1 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2048 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16rp4v
+descr P16RP4V
+partname p16rp4v PAL16RP4V
+pins 20
+power 10 20
+fuses 2072
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=57-63 oe=56 polfuse=2071 polhi=1 reg=0
+mc 13 gen sum=49-55 oe=48 polfuse=2068 polhi=1 reg=0
+mc 14 gen sum=40-47 polfuse=2065 polhi=1 oe=pin reg=1
+mc 15 gen sum=32-39 polfuse=2062 polhi=1 oe=pin reg=1
+mc 16 gen sum=24-31 polfuse=2059 polhi=1 oe=pin reg=1
+mc 17 gen sum=16-23 polfuse=2056 polhi=1 oe=pin reg=1
+mc 18 gen sum=9-15 oe=8 polfuse=2053 polhi=1 reg=0
+mc 19 gen sum=1-7 oe=0 polfuse=2050 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16rp6
+powerup reset
+descr P16RP6
+partname p16rp6 PAL16RP6
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=57-63 oe=56 polfuse=2055 polhi=1 reg=0
+mc 13 gen sum=48-55 polfuse=2054 polhi=1 oe=pin reg=1 pold=1
+mc 14 gen sum=40-47 polfuse=2053 polhi=1 oe=pin reg=1 pold=1
+mc 15 gen sum=32-39 polfuse=2052 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=24-31 polfuse=2051 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=16-23 polfuse=2050 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=8-15 polfuse=2049 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=1-7 oe=0 polfuse=2048 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16rp6v
+descr P16RP6V
+partname p16rp6v PAL16RP6V
+pins 20
+power 10 20
+fuses 2072
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=57-63 oe=56 polfuse=2071 polhi=1 reg=0
+mc 13 gen sum=48-55 polfuse=2068 polhi=1 oe=pin reg=1
+mc 14 gen sum=40-47 polfuse=2065 polhi=1 oe=pin reg=1
+mc 15 gen sum=32-39 polfuse=2062 polhi=1 oe=pin reg=1
+mc 16 gen sum=24-31 polfuse=2059 polhi=1 oe=pin reg=1
+mc 17 gen sum=16-23 polfuse=2056 polhi=1 oe=pin reg=1
+mc 18 gen sum=8-15 polfuse=2053 polhi=1 oe=pin reg=1
+mc 19 gen sum=1-7 oe=0 polfuse=2050 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p16rp8
+powerup reset
+descr P16RP8
+partname p16rp8 PAL16RP8
+pins 20
+power 10 20
+fuses 2056
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=56-63 polfuse=2055 polhi=1 oe=pin reg=1 pold=1
+mc 13 gen sum=48-55 polfuse=2054 polhi=1 oe=pin reg=1 pold=1
+mc 14 gen sum=40-47 polfuse=2053 polhi=1 oe=pin reg=1 pold=1
+mc 15 gen sum=32-39 polfuse=2052 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=24-31 polfuse=2051 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=16-23 polfuse=2050 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=8-15 polfuse=2049 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=0-7 polfuse=2048 polhi=1 oe=pin reg=1 pold=1
+refdefect kbnoflip      # B001
+end
+
+device p16rp8v
+descr P16RP8V
+partname p16rp8v PAL16RP8V
+pins 20
+power 10 20
+fuses 2072
+array 32 64
+clock 1
+oepin 11
+lines p2 f19 p3 f18 p4 f17 p5 f16 p6 f15 p7 f14 p8 f13 p9 f12
+mc 12 gen sum=56-63 polfuse=2071 polhi=1 oe=pin reg=1
+mc 13 gen sum=48-55 polfuse=2068 polhi=1 oe=pin reg=1
+mc 14 gen sum=40-47 polfuse=2065 polhi=1 oe=pin reg=1
+mc 15 gen sum=32-39 polfuse=2062 polhi=1 oe=pin reg=1
+mc 16 gen sum=24-31 polfuse=2059 polhi=1 oe=pin reg=1
+mc 17 gen sum=16-23 polfuse=2056 polhi=1 oe=pin reg=1
+mc 18 gen sum=8-15 polfuse=2053 polhi=1 oe=pin reg=1
+mc 19 gen sum=0-7 polfuse=2050 polhi=1 oe=pin reg=1
+refdefect kbnoflip      # B001
+end
+
+device p20rp4
+descr P20RP4
+partname p20rp4 PAL20RP4
+pins 24
+power 12 24
+fuses 2568
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 15 gen sum=57-63 oe=56 polfuse=2567 polhi=1 reg=0
+mc 16 gen sum=49-55 oe=48 polfuse=2566 polhi=1 reg=0
+mc 17 gen sum=40-47 polfuse=2565 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=32-39 polfuse=2564 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=24-31 polfuse=2563 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=16-23 polfuse=2562 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=9-15 oe=8 polfuse=2561 polhi=1 reg=0
+mc 22 gen sum=1-7 oe=0 polfuse=2560 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rp6
+descr P20RP6
+partname p20rp6 PAL20RP6
+pins 24
+power 12 24
+fuses 2568
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 15 gen sum=57-63 oe=56 polfuse=2567 polhi=1 reg=0
+mc 16 gen sum=48-55 polfuse=2566 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=40-47 polfuse=2565 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=32-39 polfuse=2564 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=24-31 polfuse=2563 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=16-23 polfuse=2562 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=8-15 polfuse=2561 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=1-7 oe=0 polfuse=2560 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rp8
+descr P20RP8
+partname p20rp8 PAL20RP8
+pins 24
+power 12 24
+fuses 2568
+array 40 64
+clock 1
+oepin 13
+lines p2 p23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p14
+mc 15 gen sum=56-63 polfuse=2567 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=48-55 polfuse=2566 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=40-47 polfuse=2565 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=32-39 polfuse=2564 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=24-31 polfuse=2563 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=16-23 polfuse=2562 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=8-15 polfuse=2561 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=0-7 polfuse=2560 polhi=1 oe=pin reg=1 pold=1
+refdefect kbnoflip      # B001
+end
+
+device p20rp4a
+descr P20RP4A
+partname p20rp4a PAL20RP4A
+pins 24
+power 12 24
+fuses 3450
+array 40 86
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=78-85 oe=77 polfuse=3449 polhi=1 reg=0
+mc 15 gen sum=69-76 oe=68 polfuse=3448 polhi=1 reg=0
+mc 16 gen sum=60-67 oe=59 polfuse=3447 polhi=1 reg=0
+mc 17 gen sum=51-58 polfuse=3446 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=43-50 polfuse=3445 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=35-42 polfuse=3444 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=27-34 polfuse=3443 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=19-26 oe=18 polfuse=3442 polhi=1 reg=0
+mc 22 gen sum=10-17 oe=9 polfuse=3441 polhi=1 reg=0
+mc 23 gen sum=1-8 oe=0 polfuse=3440 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rp6a
+descr P20RP6A
+partname p20rp6a PAL20RP6A
+pins 24
+power 12 24
+fuses 3370
+array 40 84
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=76-83 oe=75 polfuse=3369 polhi=1 reg=0
+mc 15 gen sum=67-74 oe=66 polfuse=3368 polhi=1 reg=0
+mc 16 gen sum=58-65 polfuse=3367 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=50-57 polfuse=3366 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=42-49 polfuse=3365 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=34-41 polfuse=3364 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=26-33 polfuse=3363 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=18-25 polfuse=3362 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=10-17 oe=9 polfuse=3361 polhi=1 reg=0
+mc 23 gen sum=1-8 oe=0 polfuse=3360 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rp8a
+descr P20RP8A
+partname p20rp8a PAL20RP8A
+pins 24
+power 12 24
+fuses 3290
+array 40 82
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=74-81 oe=73 polfuse=3289 polhi=1 reg=0
+mc 15 gen sum=65-72 polfuse=3288 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=57-64 polfuse=3287 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=49-56 polfuse=3286 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=41-48 polfuse=3285 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=33-40 polfuse=3284 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=25-32 polfuse=3283 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=17-24 polfuse=3282 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=9-16 polfuse=3281 polhi=1 oe=pin reg=1 pold=1
+mc 23 gen sum=1-8 oe=0 polfuse=3280 polhi=1 reg=0
+refdefect kbnoflip      # B001
+end
+
+device p20rp10a
+descr P20RP10A
+partname p20rp10a PAL20RP10A
+pins 24
+power 12 24
+fuses 3210
+array 40 80
+clock 1
+oepin 13
+lines p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+mc 14 gen sum=72-79 polfuse=3209 polhi=1 oe=pin reg=1 pold=1
+mc 15 gen sum=64-71 polfuse=3208 polhi=1 oe=pin reg=1 pold=1
+mc 16 gen sum=56-63 polfuse=3207 polhi=1 oe=pin reg=1 pold=1
+mc 17 gen sum=48-55 polfuse=3206 polhi=1 oe=pin reg=1 pold=1
+mc 18 gen sum=40-47 polfuse=3205 polhi=1 oe=pin reg=1 pold=1
+mc 19 gen sum=32-39 polfuse=3204 polhi=1 oe=pin reg=1 pold=1
+mc 20 gen sum=24-31 polfuse=3203 polhi=1 oe=pin reg=1 pold=1
+mc 21 gen sum=16-23 polfuse=3202 polhi=1 oe=pin reg=1 pold=1
+mc 22 gen sum=8-15 polfuse=3201 polhi=1 oe=pin reg=1 pold=1
+mc 23 gen sum=0-7 polfuse=3200 polhi=1 oe=pin reg=1 pold=1
+refdefect kbnoflip      # B001
+end

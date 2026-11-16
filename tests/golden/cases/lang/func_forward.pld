@@ -1,0 +1,6 @@
+Name func_forw_order; Partno FUNC_FWD; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 23 = y;
+function f(x) { f = x & g(x); }
+function g(x) { g = !x; }
+y = f(a);

@@ -1,0 +1,25 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16vp8s;
+pin [3,4,6,7,8,10,20] = [!a0, a1, a2, a3, a4, a5, a6];
+pin 14 = q0;
+pin 16 = q1;
+pin 18 = q2;
+pin 17 = !q3;
+pin 19 = q4;
+pin 11 = q5;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = a4 & a6 & !a5 # a4 & a6 & a2 # !a6 & !a4;
+APPEND q1 = a1;
+q2 = [a2,a4,a6]:&;
+q3 = a0;
+APPEND q4 = a6 & !a4;
+q5 = a6 & a3 & a2 # !a1 & a4 & !a3 # !a4 & !a6 & !a5 # a2 & a5 & a1;

@@ -1,0 +1,38 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8;
+pin 1 = in_x;
+pin 4 = in_y;
+pin 5 = !in_z;
+pin 7 = in_w;
+pin 9 = in_v;
+pin 11 = in_u;
+pin 14 = out_a;
+pin 18 = out_b;
+pin 15 = out_c;
+pin 12 = out_d;
+pin 13 = out_e;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+$DEFINE NEVER_USED_FLAG X
+$IFDEF NEVER_USED_FLAG
+/* conditional block */
+$ELSE
+this is not compiled ;
+$ENDIF
+out_a = in_w & in_u # in_y & in_v & !in_u;
+out_b = !in_x # in_y # in_u & !in_y & !in_v # !in_z & !in_u;
+out_c = 'h'1;
+out_c.oe = !in_x & in_u;
+out_d.oe = in_w;
+out_e = !in_z & !in_v;
+condition {
+  if !in_y & in_w out out_d;
+  default out out_d;
+}

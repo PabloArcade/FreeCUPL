@@ -1,0 +1,5 @@
+Name m1_conse; Partno M1_CONSE; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p10l8;
+pin 2 = i1; pin 3 = i2; pin 4 = i3;
+pin 18 = o0;
+o0 = !i1 & !i2 # i1 & !i3;

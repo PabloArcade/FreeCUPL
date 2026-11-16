@@ -1,0 +1,7 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+ORDER: i7..0, %1, o7..0;
+VECTORS:
+'A5' "A5"
+'A' 'B' "AB"
+'5'0000 "50"

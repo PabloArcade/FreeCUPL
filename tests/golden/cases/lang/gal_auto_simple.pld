@@ -1,0 +1,7 @@
+Name gal_auto; Partno GAL_AUTO; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8;
+pin 2 = a; pin 3 = b; pin 1 = c; pin 11 = e;
+pin 19 = y; pin 12 = z; pin 15 = w;
+y = a & b # c & e;
+z = !a;
+w = a $ e;

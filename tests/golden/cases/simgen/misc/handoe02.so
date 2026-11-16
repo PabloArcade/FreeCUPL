@@ -1,0 +1,50 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: handoe02.si
+
+   1: Name P;
+   2: Device p20g10;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: !clk, b, c, a, %2, q;
+   5: 
+
+================
+      !         
+      c         
+      l         
+      kbca  q   
+================
+0001: C001  Z
+0002: C101  H
+0003: C111  H
+0004: C101  H
+0005: 1010  Z
+0006: 1010  Z
+0007: 1010  Z
+0008: 1010  Z
+0009: C011  Z
+0010: C110  L
+0011: 1000  Z
+0012: 0100  L
+0013: C100  L
+0014: CX00  X
+0015: C01X  Z
+0016: 1001  Z
+            ^
+[0019sa] user expected (L) for q
+
+0017: PX11  1
+0018: C110  N
+0019: 1111  L
+0020: C010  Z
+0021: PX00  0
+0022: C10X  X
+0023: K000  Z
+0024: C000  Z
+0025: 0011  Z
+0026: P111  0
+0027: C010  Z

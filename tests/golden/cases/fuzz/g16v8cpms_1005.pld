@@ -1,0 +1,32 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8cpms;
+/* @flags -jaxm0 */
+pin 5 = !a0;
+pin 6 = a1;
+pin 8 = !a2;
+pin 14 = q0;
+pin 13 = q1;
+pin 19 = q2;
+pin 16 = q3;
+pin 12 = q4;
+field fa = [a0..a2];
+t0 = !a0;
+t1 = ((t0 # !a0) # t0 & !a2) # (a2 & a0) # (a0 # a1 # !a1 # !(!a1));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = t0 # a2 # t0 # a1 # a0 # (a0 # !a2) # t1 & (!a0 # !t0 # a2) & t1;
+q2 = 'h'1;
+q2.oe = a1 & a0;
+APPEND q3.d = a2 & !a1;
+q4 = fsel(a0, t1, a2);
+condition {
+  if a1 & !a2 out q1;
+}

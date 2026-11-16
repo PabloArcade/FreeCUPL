@@ -1,0 +1,41 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for P64R32PGA follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: p64r3200.si
+
+   1: Name G9003;
+   2: Partno P9003;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Company gen;
+   6: Assembly x;
+   7: Location x;
+   8: Device p64r32pga;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: FIELD fa = [a0,a1,a2,a3,a4];
+  11:
+  12: ORDER: a1, a6, a2, a0, a3, a4, a5, %2, q0;
+  13: 
+
+===================
+      aaaaaaa  q   
+      1620345  0   
+===================
+0001: 01X0101  X
+0002: 1000010  X
+0003: 0100X11  X
+0004: 111X100  X
+0005: 11X1100  X
+0006: 10111X0  X
+               ^
+[0019sa] user expected (H) for q0
+
+0007: 1010000  X
+0008: 1001001  X
+0009: X111100  X
+0010: 101X0X0  X
+0011: 0110101  X

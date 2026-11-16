@@ -1,0 +1,17 @@
+Name g16v8s_s; Partno G16V8S_S; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8s;
+/* Forced simple mode: the reference compiler configures an output that is also
+   used as an input as a dedicated input (AC1=1), so y is never driven. */
+pin 2 = a;
+pin 3 = b;
+pin 13 = x;
+pin 18 = y;
+pin 16 = !z;
+
+y = a & x;
+z = y # b;
+
+/* @expect
+@undriven y
+z = y or b
+*/

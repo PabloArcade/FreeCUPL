@@ -1,0 +1,16 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8a;
+BASE: octal;
+
+FIELD in = [a,b,
+  c,d];   /* two
+lines */
+FIELD io = [y, z];
+ORDER: in, %2,
+   io, w;
+VAR v = a, b;
+VAR u = y..z;
+
+VECTORS:
+'0' LL L
+'17' HH L

@@ -1,0 +1,29 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r6;
+/* @flags -jaxf */
+pin 4 = a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 7 = !a3;
+pin 8 = a4;
+pin 9 = a5;
+pin 10 = a6;
+pin 17 = s0;
+pin 15 = q1;
+pin 18 = q2;
+field fa = [a0..a4];
+t0 = ((!a5 # (a3 # a1)) # (a5 & !(a3)));
+q1 = a2 & !a4 & s0;
+q2.d = (((a2 & !a5) & (!t0 & a2)) & a6 & (t0 $ a0));
+field st = [s0];
+sequenced st {
+  present 0 next 0;
+  present 1 next 1;
+}

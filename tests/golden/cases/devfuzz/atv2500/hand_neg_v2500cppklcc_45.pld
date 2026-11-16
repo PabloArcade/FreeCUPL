@@ -1,0 +1,6 @@
+
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v2500cppklcc;
+PIN 1 = i1; PIN 2 = i2; PIN 3 = i3;
+PINNODE 45 = !q; PIN 6 = x; q.d = i1 & i3; q.ck = i2; x = q;
+

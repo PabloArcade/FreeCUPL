@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rsp8lcc;
+pin 11 = !MEND;
+pin 17 = i1;
+pin 19 = o0;
+pin 25 = Default;
+pin 23 = o2;
+pin 21 = o3;
+pin 18 = o4;
+
+o0.d = (MEND $ i1);
+Default.d = 'b'0;
+o2.d = Default;
+o3.d = ((Default & o2 & !o0) # o0 # !MEND);
+o4.d = (i1 # (!o0 & i1 & o2) # (!i1 & o0 & o3));
+
+/* @expect
+o0.d = (MEND ^ i1)
+Default.d = 0
+o2.d = Default
+o3.d = ((Default and o2 and (not o0)) or o0 or (not MEND))
+o4.d = (i1 or ((not o0) and i1 and o2) or ((not i1) and o0 and o3))
+*/

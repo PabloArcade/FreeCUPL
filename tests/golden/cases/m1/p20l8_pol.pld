@@ -1,0 +1,27 @@
+Name p20l8_po; Partno P20L8_PO; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p20l8;
+pin 1 = !a;
+pin 2 = b;
+pin 3 = !c;
+pin 16 = o0;
+pin 17 = !o1;
+pin 18 = o2;
+pin 19 = !o3;
+pin 20 = o4;
+pin 21 = !o5;
+
+o0 = a;
+o1 = !a;
+o2 = a & !b;
+o3 = b # c;
+o4 = !(a # c);
+o5 = a $ c;
+
+/* @expect
+o0 = a
+o1 = not a
+o2 = a and not b
+o3 = b or c
+o4 = not (a or c)
+o5 = a ^ c
+*/

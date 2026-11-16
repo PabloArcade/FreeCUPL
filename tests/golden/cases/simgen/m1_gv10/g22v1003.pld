@@ -1,0 +1,18 @@
+Name G1006;
+Partno P1006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10cp;
+pin 1 = !in_x;
+pin 3 = in_y;
+pin 13 = in_z;
+pin 20 = out_a;
+pin 18 = out_b;
+!out_a.d = (in_x $ (!in_x & (out_b & in_z & out_b)) $ (out_b & !in_z & in_z & 'h'1));
+APPEND out_b.d = !in_y & in_x;
+APPEND out_b.d = in_x;
+out_a.ar = !in_y;

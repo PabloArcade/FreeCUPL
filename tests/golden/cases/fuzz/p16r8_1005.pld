@@ -1,0 +1,22 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16r8;
+pin 2 = a0;
+pin 3 = a1;
+pin 4 = a2;
+pin 5 = a3;
+pin 8 = a4;
+pin 9 = !a5;
+pin 19 = q0;
+field fa = [a5..4];
+t0 = !(!((a4 & a3)));
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!q0.d = a3 & !a1 # t0 & !a2;

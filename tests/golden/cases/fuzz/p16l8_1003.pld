@@ -1,0 +1,38 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16l8;
+/* @flags -jaxm4 */
+pin 1 = !a0;
+pin 2 = !a1;
+pin 5 = !a2;
+pin 7 = !a3;
+pin 9 = a4;
+pin 16 = !q0;
+pin 17 = q1;
+pin 14 = q2;
+field fa = [a1..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !a3;
+t1 = a1;
+t2 = (((t0 & a2) & (t0 $ a1) & !(t1)) & a1 & (a4 $ a3) # !(a1) # !t1 & a1 & a0);
+q0 = t2 & t1 & !a2;
+q1 = !t1 & q0 # q0 & a4 # a1 & !t2 & t1 # t1 & q0;
+q1.oe = a2 & a1;
+q2.oe = a4 & a0;
+condition {
+  if !a4 & a0 out q2;
+}
+pin 15 = tq0;
+table fa => tq0 {
+  0 => 0;
+  2 => 0;
+  1 => 0;
+  3 => 1;
+}

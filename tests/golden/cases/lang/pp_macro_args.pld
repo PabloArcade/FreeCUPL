@@ -1,0 +1,10 @@
+Name pp_macro; Partno PP_MACRO; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+$MACRO OR3 x a b c;
+x = a # b # c;
+$MEND
+pin 2 = p; pin 3 = q; pin 4 = r;
+pin 23 = y; pin 22 = z;
+OR3(y, p, q,
+    r);
+OR3(z, !p, q & r, 'b'0);

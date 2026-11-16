@@ -1,0 +1,55 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g24v1002.si
+
+   1: Name G9007;
+   2: Partno P9007;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g24v10s;
+  10: 
+  11: FIELD fa = [a0,a1,a2];
+  12:
+  13: ORDER: clk, a2, a3, a0, a1, a4, %2, q0, !q1, q2, tq0;
+  14: 
+
+=====================
+      c        ! t   
+      laaaaa  qqqq   
+      k23014  0120   
+=====================
+0001: 001100  LLLL
+0002: 01X110  LNHL
+0003: 000110  LLHL
+0004: 001100  LLLL
+0005: 011100  LLLH
+0006: 000110  LLHL
+0007: 1X0010  LLHL
+0008: 000100  LLLL
+0009: 101X00  LLLX
+0010: 010100  NNLH
+0011: 101100  NLLL
+0012: 110X01  HLLX
+0013: 011110  LLHL
+              ^  ^
+[0019sa] user expected (H) for q0
+[0019sa] user expected (H) for tq0
+
+0014: 010100  LLLH
+0015: 110110  NLNL
+0016: X10010  LLHL
+0017: 000010  LLHL
+0018: 0X1011  HLHL
+0019: 001100  LLLL
+0020: X11010  LLHL
+0021: 111010  LLHL
+0022: 100010  LLHL
+0023: 010010  LNHL
+0024: 100001  HLLH

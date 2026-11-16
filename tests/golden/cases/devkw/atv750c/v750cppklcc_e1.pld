@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cppklcc;
+
+/* @local */ /* @bypass */
+pin 10 = !UNDEF;
+pin 13 = i1;
+pin 23 = !o0;
+pinnode 29 = o1;
+pin 21 = o2;
+
+o0 = (!i1 & !UNDEF);
+o0.oe = (!i1 & UNDEF);
+o1.t = UNDEF;
+o1.ck = !UNDEF;
+o2 = (UNDEF # (o1 & !i1) # !UNDEF);
+o2.oe = UNDEF;
+
+/* @expect
+o0 = ((not i1) and (not UNDEF))
+o0.oe = ((not i1) and UNDEF)
+o1.t = UNDEF
+o1.ck = (not UNDEF)
+o2 = (UNDEF or (o1 and (not i1)) or (not UNDEF))
+o2.oe = UNDEF
+*/

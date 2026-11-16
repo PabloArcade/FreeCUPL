@@ -1,0 +1,5 @@
+Name gal_cp_p; Partno GAL_CP_P; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g16v8cp;
+pin 2 = a; pin 3 = b; pin 5 = c;
+pin 18 = y;
+y = a & b # c;

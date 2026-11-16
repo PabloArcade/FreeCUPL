@@ -1,0 +1,21 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_n1.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: ORDER: a, b, c, d, %1, y, z, w;
+
+=================
+      abcd yzw   
+=================
+0001: 0000 LLL
+0002: 1000 LHH
+            ^^
+[0019sa] user expected (L) for z
+[0019sa] user expected (L) for w
+
+0003: 1111 HHL

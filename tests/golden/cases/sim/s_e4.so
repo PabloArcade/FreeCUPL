@@ -1,0 +1,32 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 1.0.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: s_e4.si
+
+   1: Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device g16v8a;
+   3: BASE: octal;
+   4: 
+   5: FIELD in = [a,b,
+   6:   c,d];   /* two
+   7: lines */
+   8: FIELD io = [y, z];
+   9: FIELD in = [a,b,c,d];
+  10: FIELD io = [y,z];
+  11:
+  12: ORDER: in, %2,
+  13:    io, w;
+  14: VAR v = a, b;
+  15: VAR u = y..z;
+               ^
+[0009sa] invalid syntax:  .
+
+  16: 
+
+==================
+       in   iow   
+==================
+0001: 0000  LLL
+0002: 1111  HHL

@@ -1,0 +1,9 @@
+Name seq_out_comb; Partno SEQ_OUTC; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 1 = clk; pin 2 = a; pin 3 = b;
+pin [22..23] = [q0..1]; pin 21 = y;
+field st = [q1..0];
+sequence st {
+  present 0 next 1 out y;
+  present 1 next 0;
+}

@@ -1,0 +1,29 @@
+Name g16v8_au; Partno G16V8_AU; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device g16v8;
+pin 1 = a;
+pin 2 = b;
+pin 11 = en;
+pin 18 = x;
+pin 19 = y;
+pin 17 = !z;
+pin 12 = w;
+
+y = a & x;
+y.oe = en;
+z = !x # b;
+z.oe = !en;
+w = a & !b & !x
+    # !a & b & !x
+    # !a & !b & x
+    # a & b & x;
+
+/* @expect
+y = a and x
+y.oe = en
+z = not x or b
+z.oe = not en
+w = (a and not b and not x)
+    or (not a and b and not x)
+    or (not a and not b and x)
+    or (a and b and x)
+*/

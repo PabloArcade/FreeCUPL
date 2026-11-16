@@ -1,0 +1,20 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f18v8zs;
+/* @flags -jaxm3 */
+pin 1 = in_x;
+pin 2 = in_y;
+pin 3 = !in_z;
+pin 5 = !in_w;
+pin 8 = in_v;
+pin 19 = out_a;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+out_a = !in_y;

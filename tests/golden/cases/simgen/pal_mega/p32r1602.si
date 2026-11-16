@@ -1,0 +1,39 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p32r16lcc;
+
+ORDER: in_x, in_z, in_y, %2, !s0, out_b;
+
+VECTORS:
+010 **
+101 **
+$MSG "vector 3";
+011 **
+110 **
+$REPEAT 3;
+001 **
+000 **
+000 **
+111 **
+101 **
+011 **
+001 **
+101 **
+00X HL
+010 **
+101 **
+001 **
+110 **
+001 **
+000 **
+X01 **
+001 **
+000 **
+10X **
+001 **

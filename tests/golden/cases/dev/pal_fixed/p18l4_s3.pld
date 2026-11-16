@@ -1,0 +1,21 @@
+Name R7003; Partno R7003; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p18l4;
+pin 23 = i0;
+pin 2 = i1;
+pin 14 = i2;
+pin 19 = !o0;
+pin 20 = o1;
+pin 17 = o2;
+pin 18 = o3;
+
+o0 = 'b'0;
+o1 = (i0 $ i2);
+o2 = (i0 & i1 & !i2);
+o3 = ((i2 & i0 & i1) # (i2 & i0));
+
+/* @expect
+o0 = 0
+o1 = (i0 ^ i2)
+o2 = (i0 and i1 and (not i2))
+o3 = ((i2 and i0 and i1) or (i2 and i0))
+*/

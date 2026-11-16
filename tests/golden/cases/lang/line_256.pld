@@ -1,0 +1,4 @@
+Name line_256; Partno LINE_256; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a; pin 3 = b; pin 23 = y;
+y = a # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b # b;  

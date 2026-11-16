@@ -1,0 +1,23 @@
+Name G1001;
+Partno P1001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16r8;
+/* @flags -jaxm4 */
+pin 3 = in_x;
+pin 6 = !in_y;
+pin 7 = in_z;
+pin 13 = out_a;
+pin 17 = out_b;
+pin 18 = !out_c;
+t0 = !in_z;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+!out_a.d = in_z;
+out_b.d = fsel(in_y, t0, in_x);
+out_c.d = !in_z & !t0 & in_y # in_y & t0 & in_x # in_x & in_z & in_y;

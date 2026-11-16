@@ -1,0 +1,21 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device pc508;
+/* @flags -jaxm3 */
+pin 2 = a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 11 = a3;
+pin 1 = clk;
+pin 23 = !q0;
+pin 24 = !q1;
+pin 25 = !q2;
+q0.l = !a2 & a3 & !a1;
+q1.l = 'h'1 # !a1 & a0 & a1 & a0;
+q2.l = !a0 & a3;

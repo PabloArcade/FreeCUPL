@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL16Z8 (zero-power GAL16V8, 24 pins): the GAL16V8 fuse map with another
+# pinout and one more fuse, left unprogrammed.  Power pins not located.
+
+device g16z8
+inherit g16v8
+powerup x
+descr GAL16Z8: GAL16V8 fuse map in a 24-pin package
+alias g16z8 auto simple=g16z8s complex=g16z8ma registered=g16z8ms
+partname g16z8 GAL16Z8 (zero-power, automatic mode)
+alias g16z8s simple quirk=fbinput
+partname g16z8s GAL16Z8 (zero-power, simple mode)
+alias g16z8ma complex
+partname g16z8ma GAL16Z8 (zero-power, complex mode)
+alias g16z8ms registered
+partname g16z8ms GAL16Z8 (zero-power, registered mode)
+pins 24
+fuses 2195
+pinmap 1=1 2=3 3=4 4=5 5=6 6=7 7=8 8=9 9=10 10=0 11=13 12=15 13=16 14=17 15=18 16=19 17=20 18=21 19=22 20=0
+refdefect kbnoflip      # B001
+end
+
+# f series 16V8/20V8-type parts.  The automatic mnemonic picks the simple
+# or the registered description; an OE selects f16v8d but f20v8s.
+device f16v8_auto
+inherit f16v8d
+alias f16v8 auto simple=f16v8s complex=f16v8d registered=f16v8d autofb=simple via=1
+partname f16v8 16V8-type part, f series (automatic mode)
+refdefect kbnoflip      # B001
+end
+
+device f20v8_auto
+inherit f20v8d
+alias f20v8 auto simple=f20v8s complex=f20v8s registered=f20v8d autofb=simple via=1
+partname f20v8 20V8-type part, f series (automatic mode)
+refdefect kbnoflip      # B001
+end
+
+# 28-pin package, PLCC-28 numbering.  Simple mode rejects any declaration
+# of pin 10.
+device g16z8lcc
+inherit g16z8
+descr GAL16Z8 in a 28-pin package
+alias g16z8lcc auto simple=g16z8slcc complex=g16z8malcc registered=g16z8mslcc
+partname g16z8lcc GAL16Z8 (zero-power, automatic mode, PLCC28)
+alias g16z8slcc simple quirk=fbinput reserve=10
+partname g16z8slcc GAL16Z8 (zero-power, simple mode, PLCC28)
+alias g16z8malcc complex
+partname g16z8malcc GAL16Z8 (zero-power, complex mode, PLCC28)
+alias g16z8mslcc registered
+partname g16z8mslcc GAL16Z8 (zero-power, registered mode, PLCC28)
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+libtag g16z8lcc DLIB-h-40-3
+libtag g16z8slcc DLIB-h-40-3
+libtag g16z8malcc DLIB-h-40-3
+libtag g16z8mslcc DLIB-h-40-3
+refdefect kbnoflip      # B001
+end

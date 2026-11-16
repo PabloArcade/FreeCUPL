@@ -1,0 +1,5 @@
+Name set_ops_; Partno SET_OPS_; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = b; pin 3 = c; pin 4 = e;
+pin 21 = p; pin 20 = q;
+[p, q] = [b, c] & 'b'01 # [c, e] & 'b'10;

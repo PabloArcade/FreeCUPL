@@ -1,0 +1,8 @@
+Name append_b; Partno APPEND_B; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin 2 = a0; pin 3 = a1; pin 4 = b0; pin 5 = b1;
+pin 23 = y; pin 22 = z;
+APPEND y = a0 & a1;
+APPEND y = b0 & b1;
+z = a0;
+APPEND z = b1;

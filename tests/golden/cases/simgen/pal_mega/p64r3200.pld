@@ -1,0 +1,21 @@
+Name G9003;
+Partno P9003;
+Revision 01;
+Date 01/01/26;
+Company gen;
+Assembly x;
+Location x;
+Device p64r32pga;
+/* @flags -jaxm4 */
+pin 1 = a0;
+pin 2 = a1;
+pin 3 = a2;
+pin 5 = !a3;
+pin 6 = a4;
+pin 45 = a5;
+pin 81 = a6;
+pin [27] = [q0];
+field fa = [a0..a4];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0.d = fa:[1,3];

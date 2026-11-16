@@ -1,0 +1,25 @@
+Name G1003;
+Partno P1003;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p22v10;
+pin 1 = !in_x;
+pin 2 = in_y;
+pin 4 = in_z;
+pin 8 = in_w;
+pin 10 = in_v;
+pin 11 = !in_u;
+pin 18 = s0;
+pin 22 = s1;
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+field st = [s0,s1];
+sequence st {
+  present 1 next 1;
+  present 0 if in_w next 3; default next 3;
+}

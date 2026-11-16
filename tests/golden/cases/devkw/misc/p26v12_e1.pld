@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p26v12;
+pin 6 = SEQUENCE;
+pin 28 = PINNNODE;
+pin 12 = !i2;
+pin 10 = i3;
+pin 14 = !i4;
+pin 4 = i5;
+pin 20 = !o0;
+pin 26 = !o1;
+pin 19 = o2;
+
+o0 = (i4 & i3 & !i5);
+o0.oe = i2;
+o1.d = ((!i4 & !PINNNODE) # (!PINNNODE & i5));
+o2 = !i3;
+
+/* @expect
+o0 = (i4 and i3 and (not i5))
+o0.oe = i2
+o1.d = (((not i4) and (not PINNNODE)) or ((not PINNNODE) and i5))
+o2 = (not i3)
+*/

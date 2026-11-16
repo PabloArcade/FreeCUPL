@@ -1,0 +1,11 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20l2;
+pin 17 = !Endif;
+pin 23 = OFF;
+pin 19 = o0;
+
+o0 = (!OFF & Endif);
+
+/* @expect
+o0 = ((not OFF) and Endif)
+*/

@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v750cextppklcc;
+
+/* @local */ /* @bypass */
+pin 11 = !i0;
+pin 7 = i1;
+pin 23 = !o0;
+pinnode 29 = fuse;
+pin 21 = o2;
+
+o0 = (!i1 & !i0);
+o0.oe = (!i1 & i0);
+fuse.t = i0;
+fuse.ck = !i0;
+o2 = (i0 # (fuse & !i1) # !i0);
+o2.oe = i0;
+
+/* @expect
+o0 = ((not i1) and (not i0))
+o0.oe = ((not i1) and i0)
+fuse.t = i0
+fuse.ck = (not i0)
+o2 = (i0 or (fuse and (not i1)) or (not i0))
+o2.oe = i0
+*/

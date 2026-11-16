@@ -1,0 +1,25 @@
+Name G9009;
+Partno P9009;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Assembly x;
+Location x;
+Device m16v8as;
+
+ORDER: in_x, in_u, in_w, in_z, in_y, !in_v, %2, out_a, out_b, out_c, !out_d, out_e;
+
+VECTORS:
+111110 *****
+011010 *****
+111101 **N**
+111001 *****
+X01011 *****
+000011 *****
+X10000 HHHHH
+X00011 **N**
+110001 ***N*
+001000 *****
+010011 *N***
+1101X1 *****
+100011 *****

@@ -1,0 +1,4 @@
+Name err_rede; Partno ERR_REDE; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device p16l8;
+pin 2 = a; pin 18 = y; pin 18 = z;
+y = a;

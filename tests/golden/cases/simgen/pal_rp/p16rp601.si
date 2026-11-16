@@ -1,0 +1,35 @@
+Name G9006;
+Partno P9006;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p16rp6v;
+
+ORDER: clk, oe, a2, a0, a3, a1, %2, s0, q1;
+
+VECTORS:
+C01100 **
+C01001 **
+$MSG "vector 3";
+000110 **
+C010X0 N*
+000110 **
+C0000X **
+K001X0 **
+001100 **
+K01011 **
+00110X N*
+C0X11X LH
+P00X11 0X
+C01000 **
+C01001 **
+000010 **
+000010 *N
+K00001 **
+C00001 *N
+001001 N*
+C00011 **
+C01000 **

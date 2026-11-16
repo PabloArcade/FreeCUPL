@@ -1,0 +1,22 @@
+
+FreeCUPL 1.0.0 (DARKSOFT)
+Device          p20xrp4  Library 
+Created         Thu Jan  1 00:00:00 1970
+Name            R7002
+Partno          R7002
+Revision        01
+Date            01/01/26
+Designer        gen
+Company         gen
+Assembly        x
+Location        x
+*QP24 
+*QF3450 
+*G0 
+*F0 
+*L03072 00000000111111111111111111111111
+*L03104 10111111111111111111111111110111
+*L03136 11111111111111111111111111111111
+*L03168 11111011111111111011111111111111
+*C0EBD
+*65ED

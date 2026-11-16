@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20v8as;
+pin 6 = i0;
+pin 23 = FUSE;
+pin 11 = !i2;
+pin 9 = i3;
+pin 14 = !i4;
+pin 4 = INCLUDE;
+pin 21 = !o0;
+pin 17 = !o1;
+pin 18 = o2;
+pin 16 = o3;
+
+o0 = ((!i2 & FUSE) # INCLUDE # (!i3 & !INCLUDE & !i4));
+o1 = (i3 & !INCLUDE);
+o2 = (!INCLUDE & FUSE & i4);
+o3 = (FUSE # (i4 & !i2) # !i0);
+
+/* @expect
+o0 = (((not i2) and FUSE) or INCLUDE or ((not i3) and (not INCLUDE) and (not i4)))
+o1 = (i3 and (not INCLUDE))
+o2 = ((not INCLUDE) and FUSE and i4)
+o3 = (FUSE or (i4 and (not i2)) or (not i0))
+*/

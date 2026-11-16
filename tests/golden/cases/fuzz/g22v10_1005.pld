@@ -1,0 +1,27 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g22v10;
+/* @flags -jaxm3 */
+pin 1 = in_x;
+pin 2 = in_y;
+pin 3 = in_z;
+pin 5 = in_w;
+pin 8 = in_v;
+pin 10 = in_u;
+pin 13 = in_t;
+pin 22 = out_a;
+pin 21 = !out_b;
+pin 20 = !out_c;
+t0 = !in_z;
+t1 = !(!(in_y));
+!out_a = (t0 $ !in_w & !(in_y) $ !(!(!t0)));
+!out_b = [in_w,in_t,in_x,in_u]:&;
+out_b.oe = in_t & in_v;
+out_c.d = !t0 # !in_t # !in_x # !in_w & in_z & in_v;
+out_c.sp = !in_u & !in_x;

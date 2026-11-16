@@ -1,0 +1,22 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g16v8hmslcc;
+/* @flags -jaxm0 */
+pin 3 = a0;
+pin 6 = a1;
+pin 7 = a2;
+pin 10 = a3;
+pin 27 = !q0;
+pin 23 = q1;
+field fa = [a0..a1];
+function fsel(x, y, s) {
+  fsel = x & s # y & !s;
+}
+q0 = a0;
+!q1.d = a2;

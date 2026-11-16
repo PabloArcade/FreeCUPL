@@ -1,0 +1,27 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device f20v8;
+/* @flags -jaxkb */
+pin 5 = !in_x;
+pin 7 = in_y;
+pin 9 = in_z;
+pin 10 = in_w;
+pin 13 = !oe;
+pin 19 = s0;
+pin 18 = out_b;
+out_b = (!in_z $ (in_y $ in_x) $ !in_w);
+field st = [s0];
+sequence st {
+  present 0 next 0;
+  present 1 next 1;
+}
+pin 21 = c0; pin 16 = !c1;
+condition {
+  if in_z out c1;
+}

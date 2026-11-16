@@ -1,0 +1,10 @@
+Name pp_repea; Partno PP_REPEA; Revision 01; Date 01/01/26; Designer test; Company test; Assembly x; Location x;
+Device g22v10;
+pin [2..3] = [a0..1];
+pin 4 = e;
+pin [20..23] = [y0..3];
+$REPEAT i = [0..1]
+$REPEAT j = [0,1]
+y{i*2+j} = a{j} & e;
+$REPEND
+$REPEND

@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v2500blcc;
+/* @local */ /* @bypass */
+pin 21 = i0;
+pin 44 = i1;
+pin 41 = !sequencet;
+pin 24 = i3;
+pin 43 = !i4;
+pin 19 = i5;
+pin 37 = o0;
+pinnode 52 = o1;
+
+o0.t = (sequencet # !i3 # (!sequencet & !i4 & !i3));
+o0.ck = sequencet;
+o1.d = ((i4 & i1) # (sequencet & !i3));
+o1.ck = !i0;
+
+/* @expect
+o0.t = (sequencet or (not i3) or ((not sequencet) and (not i4) and (not i3)))
+o0.ck = sequencet
+o1.d = ((i4 and i1) or (sequencet and (not i3)))
+o1.ck = (not i0)
+*/

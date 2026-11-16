@@ -1,0 +1,40 @@
+Name p10l8_in; Partno P10L8_IN; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p10l8;
+pin 1 = i0;
+pin 2 = !i1;
+pin 3 = i2;
+pin 4 = !i3;
+pin 5 = i4;
+pin 6 = !i5;
+pin 7 = i6;
+pin 8 = !i7;
+pin 9 = i8;
+pin 11 = !i9;
+pin 19 = !y0;
+pin 18 = !y1;
+pin 17 = !y2;
+pin 16 = !y3;
+pin 15 = !y4;
+pin 14 = !y5;
+pin 13 = !y6;
+pin 12 = !y7;
+
+y0 = 'b'1;
+y1 = 'b'0;
+y2 = i2 & !i3;
+y3 = i3 & !i4;
+y4 = i4 & !i5;
+y5 = i5 & !i6;
+y6 = i6 & !i7;
+y7 = i7 & !i8;
+
+/* @expect
+y0 = 1
+y1 = 0
+y2 = i2 and not i3
+y3 = i3 and not i4
+y4 = i4 and not i5
+y5 = i5 and not i6
+y6 = i6 and not i7
+y7 = i7 and not i8
+*/

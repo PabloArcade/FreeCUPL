@@ -1,0 +1,24 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20v8cp;
+
+pin 6 = a0;
+pin 7 = a1;
+pin 10 = a2;
+pin 17 = q0;
+pin 21 = q1;
+pin 22 = !q2;
+field fa = [a2..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0.d = ON & a1 # OFF;
+q1 = [a1,a2,a0]:&;
+q1.oe = a0 & !a2;
+q2 = OFF & q0 # OFF;
+min q2 = 4;

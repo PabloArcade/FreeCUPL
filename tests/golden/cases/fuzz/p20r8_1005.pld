@@ -1,0 +1,31 @@
+Name G1005;
+Partno P1005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20r8;
+/* @flags -jaxm2 */
+pin 3 = a0;
+pin 5 = a1;
+pin 7 = a2;
+pin 9 = !a3;
+pin 10 = a4;
+pin 11 = a5;
+pin 23 = a6;
+pin 1 = clk;
+pin 16 = s0;
+pin 19 = q1;
+pin 18 = q2;
+field fa = [a0..a5];
+t0 = (a5 $ a2);
+t1 = !a1 # t0;
+q1.d = 'b'0;
+APPEND q2.d = !a3;
+field st = [s0];
+sequence st {
+  present 0 if a1 next 1;
+  present 1 if a1 & !a5 next 0;
+}

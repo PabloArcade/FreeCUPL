@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20rp6;
+pin 9 = !define;
+pin 14 = i1;
+pin 16 = o0;
+pin 21 = o1;
+pin 19 = o2;
+pin 18 = Jump;
+pin 15 = o4;
+
+o0.d = (define $ i1);
+o1.d = 'b'0;
+o2.d = o1;
+Jump.d = ((o1 & o2 & !o0) # o0 # !define);
+o4 = (i1 # (!o0 & i1 & o2) # (!i1 & o0 & Jump));
+
+/* @expect
+o0.d = (define ^ i1)
+o1.d = 0
+o2.d = o1
+Jump.d = ((o1 and o2 and (not o0)) or o0 or (not define))
+o4 = (i1 or ((not o0) and i1 and o2) or ((not i1) and o0 and Jump))
+*/

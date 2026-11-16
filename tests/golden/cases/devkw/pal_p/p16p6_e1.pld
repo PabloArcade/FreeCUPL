@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p16p6;
+pin 6 = i0;
+pin 7 = FORMAT;
+pin 11 = !i2;
+pin 9 = Partno;
+pin 22 = !i4;
+pin 4 = i5;
+pin 20 = !o0;
+pin 18 = !o1;
+pin 19 = o2;
+pin 17 = o3;
+
+o0 = ((!i2 & FORMAT) # i5 # (!Partno & !i5 & !i4));
+o1 = (Partno & !i5);
+o2 = (!i5 & FORMAT & i4);
+o3 = (FORMAT # (i4 & !i2) # !i0);
+
+/* @expect
+o0 = (((not i2) and FORMAT) or i5 or ((not Partno) and (not i5) and (not i4)))
+o1 = (Partno and (not i5))
+o2 = ((not i5) and FORMAT and i4)
+o3 = (FORMAT or (i4 and (not i2)) or (not i0))
+*/

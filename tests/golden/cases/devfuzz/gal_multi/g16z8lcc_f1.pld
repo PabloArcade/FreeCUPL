@@ -1,0 +1,26 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Assembly x;
+Location x;
+Device g16z8lcc;
+/* @flags -jaxm0 */
+pin 2 = in_x;
+pin 5 = !in_y;
+pin 7 = in_z;
+pin 11 = in_w;
+pin 2 = clk;
+pin 18 = !out_a;
+t0 = !in_x;
+out_a = ((in_x $ in_y) # !in_w & !t0 # !(!in_z)) & (!in_y & !in_w) & !t0;
+out_a.oe = 'b'1;
+pin 21 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_z, in_x, in_w, fflag) # fflag;
+bad_int = in_x & undefined_var;
+out_a.oe = bad_int;

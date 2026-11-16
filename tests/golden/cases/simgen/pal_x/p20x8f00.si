@@ -1,0 +1,35 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device p20x8;
+
+ORDER: !clk, a0, a2, a1, %2, q0, q1, q2, q3, q4;
+
+VECTORS:
+00X0 *****
+K0X0 *****
+P011 01101
+C100 *****
+0101 *****
+K101 *****
+K101 *****
+C000 *****
+K000 *****
+C010 *****
+K110 *****
+C001 HHLLH
+C01X *****
+P001 01010
+0110 *****
+C011 *N***
+C110 *****
+CX0X *****
+0000 *****
+0010 *****
+0010 *****
+1100 *****
