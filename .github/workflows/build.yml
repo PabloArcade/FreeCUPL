@@ -13,10 +13,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-24.04, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build
         run: make native
       - name: Version
@@ -28,9 +28,9 @@ jobs:
         run: make check
 
   win32:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install the i686 mingw cross compiler
         run: |
           sudo apt-get update
@@ -39,8 +39,10 @@ jobs:
         run: make win32 WINCC=i686-w64-mingw32-gcc-win32
       - name: Windows XP SP3 compatibility check
         run: sh tools/check_xp.sh build/win32/*.exe
+      - name: XP check self-test
+        run: WINCC=i686-w64-mingw32-gcc-win32 sh tools/check_xp.sh --selftest
       - name: Upload the executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: freecupl-win32
           path: build/win32/*.exe
