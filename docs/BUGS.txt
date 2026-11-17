@@ -4,18 +4,18 @@ This file lists the faults found in the WinCUPL 5.0a compiler and
 simulator while writing FreeCUPL, a replacement for Atmel WinCUPL's
 command-line tools.
 
-FreeCUPL 1.0.0 reproduces every bug in this list by default, so that its
-JEDEC file behaves like WinCUPL's for every design and freecsim gives the
-same listing and test vectors.  The option -fix gives the corrected
-behaviour.  Version 2 will make -fix the default and keep
--compat-refdefect to reproduce the bugs.  In both modes a message names
-the bug where it affects the design:
+Every bug in this list is fixed in FreeCUPL 2.0.0: by default the
+JEDEC file and the simulation follow the source.  -compat-refdefect
+reproduces the bugs, so that the JEDEC file behaves like WinCUPL's for
+every design and freecsim gives the same listing and test vectors; this
+was the default of FreeCUPL 1.0.0.  -fix is accepted and does nothing.
+In both modes a message names the bug where it affects the design:
 
-    WinCUPL bug #Bnnn: ...; use -fix for the corrected result
-    deviates from WinCUPL (bug #Bnnn fixed): ...           (with -fix)
+    deviates from WinCUPL (bug #Bnnn fixed): ...
+    WinCUPL bug #Bnnn: ...; reproduced for -compat-refdefect
 
-Where WinCUPL stops with an error, the default mode prints the same
-error and writes nothing.
+Where WinCUPL stops with an error or crashes, -compat-refdefect prints
+the same error and writes nothing.
 
 An entry is listed only when WinCUPL's output contradicts the source as
 the CUPL language reference defines it, WinCUPL's own output for an
@@ -57,6 +57,7 @@ complement of its equation.
 WinCUPL 5.0a: y is high with all inputs low.
 Corrected: y follows its equation; the JEDEC file is equivalent to the
 one written without -kb.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 The complement is chosen when its term count is smaller.  An empty sum
@@ -82,6 +83,7 @@ by the array as if it had been complemented.
 
 WinCUPL 5.0a: z reads the inverse of y.
 Corrected: z = y & c, as without -kb.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -101,6 +103,7 @@ before that operand takes its place (!'b'1 & !b is !b).
 
 WinCUPL 5.0a: y = a and z = !(b & c).
 Corrected: y = a & 0 (always low) and z = b & c.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0903ca.
 
 WinCUPL complements an operand that is compared with a field value bit
@@ -124,6 +127,7 @@ polarity, a complemented constant keeps its value.
 
 WinCUPL 5.0a: y is always high.
 Corrected: y = a.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -143,6 +147,7 @@ the sum and implements neither.
 WinCUPL 5.0a: y = a & b # !c, z = !y.
 Corrected: the device cannot implement two independent functions; the
 design is rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0902cb.
 
 
@@ -164,6 +169,7 @@ This happens with LF and with CRLF line ends.
 WinCUPL 5.0a: X is defined as "y = a;" and y has no equation.
 Corrected: X is defined with an empty value (the rest of the line);
 y = a is compiled.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0901cx.
 
 
@@ -175,7 +181,8 @@ In some generated designs a name defined before an $IFDEF ... $ELSE ...
 $ENDIF block that is followed by more $DEFINEs is undefined afterwards
 (0018ca).  Reduced versions of the same text compile correctly and the
 trigger is not known.  Not reproduced: FreeCUPL compiles such designs as
-written.  A design that shows the effect would be welcome.
+written, in both modes.  A design that shows the effect would be
+welcome.
 
 
 B008  a second Name statement loses the target device
@@ -193,9 +200,11 @@ repeated Device or Format is accepted (part A).
     Name second;
     y = a;
 
-WinCUPL 5.0a: 0038ca, no output.  The default mode stops the same way.
+WinCUPL 5.0a: 0038ca, no output.  -compat-refdefect stops the same
+way.
 Corrected: [0021ca] header item already declared, as for any other
 repeated item.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0038ca, 0021ca.
 
 
@@ -211,7 +220,7 @@ with one literal less, compiles.  One such design contains, at -m4:
     q5 = a6 & a5 # !t1 & !a6 # !a3 & !a6;
 
 Not reproduced: the condition depends on the internal state of
-WinCUPL's minimiser.  FreeCUPL compiles these designs.
+WinCUPL's minimiser.  FreeCUPL compiles these designs in both modes.
 
 
 B010  GAL registered mode: combinational and .D equations on one pin
@@ -232,6 +241,7 @@ the rows; otherwise it rejects with 0013cc.
 
 WinCUPL 5.0a: compiled as y.d = a & b # d # c.
 Corrected: a pin is either registered or combinational; rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0013cc.
 
 
@@ -250,6 +260,7 @@ combinational pin 19 sum is also written 100 fuses after its rows.
 
 WinCUPL 5.0a: the register loads 1 also when a = 0.
 Corrected: y.d = a & !b.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -279,6 +290,7 @@ The B011 ones are written as well.
 
 WinCUPL 5.0a: a JEDEC file with a scrambled configuration.
 Corrected: the output does not fit; rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0907cb.
 
 
@@ -297,6 +309,7 @@ WinCUPL 5.0a: pin 19 is never enabled.
 Corrected: the output enable defaults to 1, as the CUPL language
 reference says for extensions; y.oe = 'b'1 gives the same result in
 both modes.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -316,6 +329,7 @@ with the extension instead of making the term false.
 
 WinCUPL 5.0a: p = !o.
 Corrected: x & !x is false; p is always low.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0906cb.
 
 
@@ -336,6 +350,7 @@ shows the register as written.
 
 WinCUPL 5.0a: x is the complement of i1 & i3 after the clock.
 Corrected: x = q as declared.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -357,6 +372,7 @@ first 4 rows.  The ATV2500 rejects the same design (0010cb).
     x = q;
 
 Corrected: a buried register cannot be combinational; rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0907cb.
 
 
@@ -379,6 +395,7 @@ terms 9 and up do not reach the output.
 WinCUPL 5.0a: the last two terms are lost.
 Corrected: all ten terms reach the output.  The data sheet says the
 three sum terms of a macrocell may be combined into a single term.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -399,6 +416,7 @@ gives fuse maps that differ only in the column polarity.
 
 WinCUPL 5.0a: y reads the inverse of the register.
 Corrected: the same result as y = r & a.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -419,6 +437,7 @@ equation into the pin's sum.  Otherwise it rejects the design (0025cb).
 WinCUPL 5.0a: fo = b # !a.
 Corrected: the macrocell has one sum, which is also the D input of the
 register; rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0907cb.
 
 
@@ -437,6 +456,7 @@ combinational.
 
 WinCUPL 5.0a: z = b, combinational.
 Corrected: rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0907cb.
 
 
@@ -452,6 +472,7 @@ Devices: p32r16*, p64r32*.
 WinCUPL 5.0a: the JEDEC file of y = a # b.  Every other device rejects
 this design (0025cb).
 Corrected: rejected.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb, 0907cb.
 
 
@@ -469,6 +490,7 @@ early, at another macrocell's select.
 
 WinCUPL 5.0a: q17.io reads the register of pin 17 instead of the pin.
 Corrected: the select of the macrocell that is read is written.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -484,6 +506,7 @@ register instead of the pin.
     y = x & a;
 
 Corrected: pin 19 is configured as an input.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -500,6 +523,7 @@ WinCUPL 5.0a: the T flip-flop fuse of the macrocell is programmed and q
 toggles instead of loading a.
 Corrected: the register stays the .D register of the source; .TFB only
 selects the feedback path.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -527,6 +551,7 @@ Corrected: the register takes the pin's rows (registered configuration,
 output never enabled).  This is the fuse map WinCUPL writes for the
 documented workaround, the equation written on the pin with
 .oe = 'b'0.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905cb.
 
 
@@ -544,9 +569,10 @@ The same happens with "property;", "property 5 { x };", a reserved
 word as the property name, end of file inside the body, and
 "Device ;".  With a name but no "{" WinCUPL first reports 0007ca.
 
-WinCUPL 5.0a: page fault, no message, no output.  The default mode
+WinCUPL 5.0a: page fault, no message, no output.  -compat-refdefect
 stops at the statement with 0007ca invalid syntax.
 Corrected: 0007ca, and compilation goes on to report further errors.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0007ca.
 
 
@@ -569,9 +595,10 @@ fills the eight header fields of the JEDEC file from that list, so
 every field after the doubled one takes the value of the field before.
 
 WinCUPL 5.0a: Revision R2, Date R1, Designer d, ... Location A1.  The
-default mode writes the same header.
+-compat-refdefect writes the same header.
 Corrected: [0021ca] header item already declared, as for any other
 repeated item.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0021ca.
 
 
@@ -593,8 +620,9 @@ APPEND of an empty equation to one with terms, WinCUPL stops with
 [1014cb] program error.  APPEND of terms to an empty equation replaces
 it.  "NODE;" with no name is accepted and does nothing.
 
-WinCUPL 5.0a: y is high.  The default mode compiles the same.
+WinCUPL 5.0a: y is high.  -compat-refdefect compiles the same.
 Corrected: [0009ca] missing symbol: =.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0009ca.
 
 
@@ -623,6 +651,7 @@ registers that have an equation for them.
 WinCUPL 5.0a: r resets q0 but not q1.
 Corrected: every register is reset and preset, as in the data sheet;
 the JEDEC file has one row for each.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
@@ -644,6 +673,7 @@ although its own JEDEC file gates the output with that term.
     C00 *
 
 Corrected: r1 is Z while e is low.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
@@ -667,6 +697,7 @@ the D terms.
     10 *
 
 Corrected: the registers load their D terms.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
@@ -690,6 +721,7 @@ GAL16V8's OE pin, which is an I/O pin in this package.
 Corrected: the output enable comes from the package's OE pin, pin 10.
 This is from the data sheet; the pin does not reach the array, so the
 JEDEC file cannot confirm it.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
@@ -713,6 +745,7 @@ WinCUPL 5.0a: the register loads at every clock, whatever en is.
 Corrected: the register loads only while en is high, as the CUPL
 language reference defines .CE.  The JEDEC file programs the CE term in
 both modes.
+Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
@@ -831,7 +864,7 @@ WinCUPL 5.0a:
     FreeCUPL.
  6  ATV2500B: "excessive number of product terms" for a node of more
     than 4 terms with a buried node.  Still present (0006cc).  B029:
-    same rejection by default, -fix fits it.
+    same rejection with -compat-refdefect, the default fits it.
  7  ATV2500B: combinational configuration chosen where registered would
     give 8 terms.  Same cause as 6 (B029).
  8, 9  Register_Select keyword (RS or JK to T or D).  Not testable

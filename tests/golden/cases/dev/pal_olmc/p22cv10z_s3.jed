@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p22cv10z  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -38,4 +38,4 @@ Location        x
 *L05792 00000000000000000000001000101000
 *L05824 00100010001000101000110000011000
 *C4248
-*F97D
+*F97E

@@ -52,5 +52,6 @@ void bug_text(char *buf, size_t n, int bug, const char *what)
     if (g_fix)
         snprintf(buf, n, "deviates from WinCUPL (bug #B%03d fixed): %s", bug, what);
     else
-        snprintf(buf, n, "WinCUPL bug #B%03d: %s; use -fix for the corrected result", bug, what);
+        snprintf(buf, n, FREECUPL_FIX_DEFAULT ? "WinCUPL bug #B%03d: %s; reproduced for -compat-refdefect"
+                                              : "WinCUPL bug #B%03d: %s; use -fix for the corrected result", bug, what);
 }

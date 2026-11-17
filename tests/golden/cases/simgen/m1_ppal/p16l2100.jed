@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16l2  Library DLIB-h-40-7
 Created         Thu Jan  1 00:00:00 1970
 Name            G1005
@@ -35,4 +35,4 @@ Location        x
 *V0015 XX10XX0XXNXXXXXHXX1N
 *V0016 XX00XX0XXNXXXXXLXX0N
 *V0017 XX10XXXXXNXXXXXHXX0N
-*DE0E
+*DE0F

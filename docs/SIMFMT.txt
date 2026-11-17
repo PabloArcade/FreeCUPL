@@ -213,8 +213,8 @@ synchronous preset (22V10 SP) with X does nothing either.
 
 The 22V10 has one AR and one SP product term for all registers.  The
 original applies them only to the registers that have an .AR or .SP
-equation (B025).  freecsim does the same by default and warns 0905sa
-when it matters; with -fix it applies them to all registers.
+equation (B025).  freecsim applies them to all registers and warns
+0905sa when it matters; with -compat-refdefect it does as the original.
 
 Buried nodes are shown at their own level; the declared ! of a PINNODE
 does not apply to the display.  A node alias (ATV750 or ATV2500 PINNODE
@@ -234,14 +234,15 @@ $SIMOFF vectors are not evaluated and the state does not change; their
 values are only checked for syntax and written as given.
 
 Bugs of the original simulator (B025 to B028 and B030 in docs/BUGS.txt)
-are reproduced by default with warning 0905sa where the result is
-affected; with -fix the fuse map is simulated.  Besides the 22V10 AR and
-SP above: on the PEEL18CV8 the OE term of registered outputs is ignored
-and outputs without .OE are enabled, while the compiler's JEDEC file
-gates them; on the PAL10016RD4 and RD8 the registers load 0 at every
-clock edge and C, K and P are rejected, while the JEDEC file programs
-the D terms; on the GAL16VP8 the registered outputs are enabled from pin
-11, an I/O macrocell of this package.
+are fixed: the fuse map is simulated, with warning 0905sa where the
+result differs from the original; -compat-refdefect reproduces them.
+Besides the 22V10 AR and SP above: on the PEEL18CV8 the OE term of
+registered outputs is ignored and outputs without .OE are enabled,
+while the compiler's JEDEC file gates them; on the PAL10016RD4 and RD8
+the registers load 0 at every clock edge and C, K and P are rejected,
+while the JEDEC file programs the D terms; on the GAL16VP8 the
+registered outputs are enabled from pin 11, an I/O macrocell of this
+package.
 
 
 6. PRELOAD
@@ -324,7 +325,7 @@ CRLF line ends.  It starts with a banner of four lines (the original
 names its own program and version):
 
     FreeCSIM: CUPL compatible simulation program
-    FreeCUPL 1.0.0 (DARKSOFT)
+    FreeCUPL 2.0.0 (DARKSOFT)
 
     CREATED Thu Jan  1 00:00:00 1970
 

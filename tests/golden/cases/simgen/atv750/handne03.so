@@ -1,5 +1,5 @@
 FreeCSIM: CUPL compatible simulation program
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 
 CREATED Thu Jan  1 00:00:00 1970
 
@@ -17,11 +17,11 @@ LISTING FOR SIMULATION FILE: handne03.si
       iii       
       213  xq   
 ================
-0001: 101  LH
-0002: 001  LH
-0003: 100  HL
-0004: 101  HL
-0005: 000  LL
+0001: 101  HL
+0002: 001  LL
+0003: 100  LH
+0004: 101  LH
+0005: 000  LH
 0006: 111  HL
 0007: 110  HL
 0008: 000  LL
@@ -29,5 +29,5 @@ LISTING FOR SIMULATION FILE: handne03.si
 0010: 1X1  XX
 0011: 111  HL
 0012: 000  LL
-0013: 100  HL
-0014: 010  LL
+0013: 100  LH
+0014: 010  LH

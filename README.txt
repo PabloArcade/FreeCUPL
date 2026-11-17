@@ -1,4 +1,4 @@
-FreeCUPL 1.0.0
+FreeCUPL 2.0.0
 
 FreeCUPL is a free replacement for the command-line compiler and
 simulator of WinCUPL 5.0a, the CUPL tools for simple programmable logic
@@ -15,10 +15,11 @@ and contains no code or data from WinCUPL.
 Command lines, file formats and messages follow WinCUPL, so existing
 designs and build scripts can be used unchanged.  For every design that
 WinCUPL compiles, freecupl writes a JEDEC file that makes the device
-behave the same way.  This includes the known bugs of WinCUPL 5.0a,
-which are reproduced by default and reported with a warning; the -fix
-option gives the corrected result.  The bugs are listed in
-docs/BUGS.txt.
+behave the same way, except where WinCUPL 5.0a is wrong.  Its known
+bugs are corrected by default and reported with a warning; the option
+-compat-refdefect reproduces them, for exact WinCUPL 5.0a output.  The
+bugs are listed in docs/BUGS.txt.  FreeCUPL 1.0.0 had the opposite
+default; make FIX_DEFAULT=0 builds that behaviour.
 
 307 device mnemonics are supported: GAL16V8, GAL20V8, 22V10, GAL18V10,
 GAL20RA10, ATV750, ATF750C, ATV2500, ATF2500C, PEEL18CV8 and most PAL

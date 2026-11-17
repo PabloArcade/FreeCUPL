@@ -6,13 +6,16 @@
 #   BINDIR   directory with freecupl, freecsim, equiv and jedtool
 #   PATTERN  shell patterns on the case id, e.g. 'bugs/*'
 # RUN=wine EXE=.exe runs the win32 tools; KEEP=1 keeps failed cases in
-# build/check-failed.
+# build/check-failed.  DEFAULT_ARGS=-fix is for tools built with
+# FIX_DEFAULT=0: it is added where a case gives neither -fix nor
+# -compat-refdefect.
 #
-# MANIFEST lines: ID SOURCE ARGS EXIT CODES.  cases/SOURCE.pld (and .si)
-# is compiled with ARGS (comma separated; '@freecsim,FLAGS' runs
-# freecupl -ajn and then freecsim FLAGS).  The exit status and the set of
-# message codes must match; cases/ID.jed must be equivalent (equiv) with
-# the same test vectors, cases/ID.so must be identical.
+# MANIFEST lines: ID SOURCE ARGS EXIT CODES [EXPECT].  cases/SOURCE.pld
+# (and .si) is compiled with ARGS (comma separated; '@freecsim,FLAGS' runs
+# freecupl -ajn and then freecsim FLAGS, a mode flag in FLAGS goes to
+# both).  The exit status and the set of message codes must match;
+# cases/EXPECT.jed (EXPECT defaults to ID) must be equivalent (equiv) with
+# the same test vectors, cases/EXPECT.so must be identical.
 set -u
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 G="$ROOT/tests/golden"
@@ -46,8 +49,18 @@ selected() {
 }
 
 n=0
-while read -r ID SRC ARGS EXP CODES; do
+while read -r ID SRC ARGS EXP CODES REF; do
   case "$ID" in ''|'#'*) continue ;; esac
+  [ -n "$REF" ] || REF=$ID
+  case ",$ARGS," in
+    *,-fix,*|*,-compat-refdefect,*) ;;
+    *) [ -n "${DEFAULT_ARGS:-}" ] && ARGS="$ARGS,$DEFAULT_ARGS" ;;
+  esac
+  MODE=""
+  case ",$ARGS," in
+    *,-compat-refdefect,*) MODE=-compat-refdefect ;;
+    *,-fix,*) MODE=-fix ;;
+  esac
   selected "$@" || continue
   n=$((n + 1))
   W="$TMP/w$n"
@@ -59,7 +72,7 @@ while read -r ID SRC ARGS EXP CODES; do
     @freecsim,*)
       ARGV=$(echo "${ARGS#@freecsim,}" | tr ',' ' ')
       # shellcheck disable=SC2086
-      (cd "$W" && SOURCE_DATE_EPOCH=0 $RUN "$BIN/freecupl$EXE" -ajn "$NAME.pld" > out.txt 2>&1 < /dev/null &&
+      (cd "$W" && SOURCE_DATE_EPOCH=0 $RUN "$BIN/freecupl$EXE" $MODE -ajn "$NAME.pld" > out.txt 2>&1 < /dev/null &&
         SOURCE_DATE_EPOCH=0 $RUN "$BIN/freecsim$EXE" $ARGV "$NAME" >> out.txt 2>&1 < /dev/null; echo $? > rc) ;;
     *)
       ARGV=$(echo "$ARGS" | tr ',' ' ')
@@ -73,16 +86,16 @@ while read -r ID SRC ARGS EXP CODES; do
   [ -n "$got" ] || got=-
   [ -z "$why" ] && [ "$got" != "$CODES" ] && why="message codes $got, expected $CODES"
   if [ -z "$why" ]; then
-    if [ -f "$G/cases/$ID.jed" ]; then
+    if [ -f "$G/cases/$REF.jed" ]; then
       if [ ! -f "$W/$NAME.jed" ]; then
         why="no JEDEC file written"
       elif ! $RUN "$BIN/jedtool$EXE" check "$W/$NAME.jed" > "$W/check.txt" 2>&1 < /dev/null; then
         why="jedtool check: $(tail -1 "$W/check.txt")"
-      elif ! $RUN "$BIN/equiv$EXE" -q "$G/cases/$ID.jed" "$W/$NAME.jed" > "$W/equiv.txt" 2>&1 < /dev/null; then
-        $RUN "$BIN/equiv$EXE" "$G/cases/$ID.jed" "$W/$NAME.jed" > "$W/equiv.txt" 2>&1 < /dev/null
+      elif ! $RUN "$BIN/equiv$EXE" -q "$G/cases/$REF.jed" "$W/$NAME.jed" > "$W/equiv.txt" 2>&1 < /dev/null; then
+        $RUN "$BIN/equiv$EXE" "$G/cases/$REF.jed" "$W/$NAME.jed" > "$W/equiv.txt" 2>&1 < /dev/null
         why="not equivalent: $(tail -1 "$W/equiv.txt")"
       else
-        vectors "$G/cases/$ID.jed" > "$W/v.exp"
+        vectors "$G/cases/$REF.jed" > "$W/v.exp"
         vectors "$W/$NAME.jed" > "$W/v.got"
         cmp -s "$W/v.exp" "$W/v.got" || why="JEDEC test vectors differ"
       fi
@@ -90,10 +103,10 @@ while read -r ID SRC ARGS EXP CODES; do
       why="JEDEC file written, none expected"
     fi
   fi
-  if [ -z "$why" ] && [ -f "$G/cases/$ID.so" ]; then
+  if [ -z "$why" ] && [ -f "$G/cases/$REF.so" ]; then
     if [ ! -f "$W/$NAME.so" ]; then
       why="no simulation listing written"
-    elif ! cmp -s "$G/cases/$ID.so" "$W/$NAME.so"; then
+    elif ! cmp -s "$G/cases/$REF.so" "$W/$NAME.so"; then
       why="simulation listing differs"
     fi
   fi

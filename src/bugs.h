@@ -1,13 +1,13 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* freecupl - registry of the WinCUPL 5.0a bugs (docs/BUGS.txt).  DARKSOFT.
-   Reproduced by default, corrected with -fix; FREECUPL_FIX_DEFAULT=1
-   reverses the default. */
+   Corrected by default since 2.0.0; -compat-refdefect reproduces them.
+   FREECUPL_FIX_DEFAULT=0 builds the 1.0 behaviour (bugs by default). */
 #ifndef FREECUPL_BUGS_H
 #define FREECUPL_BUGS_H
 #include <stddef.h>
 
 #ifndef FREECUPL_FIX_DEFAULT
-#define FREECUPL_FIX_DEFAULT 0
+#define FREECUPL_FIX_DEFAULT 1
 #endif
 
 /* bug numbers: B001.. in docs/BUGS.txt (the order of this list) */

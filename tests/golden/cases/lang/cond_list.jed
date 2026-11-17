@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            cond_list
@@ -29,4 +29,4 @@ Location        x
 *L05856 01000101111101001100010100110101
 *L05888 0100
 *C237C
-*B4F2
+*B4F3

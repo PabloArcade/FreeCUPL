@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p19r4tlcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -24,4 +24,4 @@ Location        x
 *L01952 11111111111111111111111100000000
 *L02432 11001100000
 *C1A46
-*897B
+*897C

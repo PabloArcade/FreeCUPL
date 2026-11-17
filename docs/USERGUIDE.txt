@@ -1,4 +1,4 @@
-FreeCUPL 1.0.0 USER GUIDE
+FreeCUPL 2.0.0 USER GUIDE
 
 FreeCUPL consists of two programs with the command lines of the WinCUPL
 5.0a command-line tools.  freecupl compiles CUPL source (.pld) into a
@@ -13,7 +13,7 @@ helper tools jedsim, equiv and jedtool are described in section 7.
   2. freecsim
   3. Files
   4. Messages
-  5. WinCUPL bugs and -fix
+  5. WinCUPL bugs and -compat-refdefect
   6. Limitations
   7. Helper tools
   8. Supported devices
@@ -75,15 +75,15 @@ letter, or -m5 and above, is rejected with [0007ck] invalid flag.
 
 Options given as separate arguments:
 
-  -fix               correct the WinCUPL 5.0a bugs instead of
-                     reproducing them (section 5)
-  -compat-refdefect  the default: reproduce WinCUPL 5.0a's behaviour,
-                     including its bugs
+  -compat-refdefect  reproduce WinCUPL 5.0a exactly, including its
+                     bugs (section 5)
+  -fix               correct the bugs: the default, accepted for
+                     scripts written for 1.0.0
   -simlatch          with -s, simulate latched outputs and registered or
                      latched inputs (timing not verified; by default
                      they show X, as in WinCUPL's simulator)
   -devices           print the supported mnemonics and exit
-  -V, --version      print "FreeCUPL 1.0.0 (DARKSOFT)" and exit
+  -V, --version      print "FreeCUPL 2.0.0 (DARKSOFT)" and exit
 
 Without arguments freecupl prints a usage summary and exits with 1.
 
@@ -97,7 +97,8 @@ Examples:
     freecupl -jxf counter.pld      JEDEC and .doc with fuse plot
     freecupl -jn g22v10 counter    compile for g22v10, counter.jed
     freecupl -jas counter          compile and simulate counter.si
-    freecupl -fix -jx counter      compile with the bugs corrected
+    freecupl -compat-refdefect -jx counter
+                                   exactly as WinCUPL 5.0a, bugs included
 
 The language is WinCUPL's, including what it accepts and rejects.  The
 words APPEND, CONDITION, DEFAULT, FIELD, FLD, FUNCTION, GROUP, IF, MIN,
@@ -130,10 +131,9 @@ docs/SIMFMT.txt.
 
 Options given as separate arguments:
 
-  -fix               correct the bugs of WinCUPL's simulator (B025 to
-                     B028, B030)
-  -compat-refdefect  the default: reproduce WinCUPL 5.0a's behaviour,
-                     including its bugs
+  -compat-refdefect  reproduce WinCUPL 5.0a's simulator exactly,
+                     including its bugs (B025 to B028, B030)
+  -fix               correct the bugs: the default
   -simlatch          simulate latched outputs and registered or latched
                      inputs (timing not verified)
   -fuses FILE.jed    simulate the fuse map of FILE.jed instead of the one
@@ -183,7 +183,7 @@ Output files:
   .wo    freecsim      waveform data (also freecupl -s)
 
 The headers of .jed, .doc, .lst and .so name the version, "FreeCUPL
-1.0.0 (DARKSOFT)", and the creation date.
+2.0.0 (DARKSOFT)", and the creation date.
 
 If the environment variable SOURCE_DATE_EPOCH is set to a number of
 seconds since 1970-01-01 UTC, that time is written as the creation date
@@ -275,7 +275,7 @@ Compiler messages (E error, W warning, N note):
             behaviour FreeCUPL copies; the text names the pin
   0906cb W  a product term reads one signal in both polarities through
             two names (B014)
-  0907cb E  the device cannot implement the design (with -fix, where
+  0907cb E  the device cannot implement the design (by default, where
             WinCUPL writes a wrong fuse map: B012, B016, B019, B020,
             B021)
   0908cb W  a pin read through both .IO and .DFB; both read the pin, as
@@ -302,39 +302,44 @@ Simulator messages:
   0905sa W  the simulation meets a bug of WinCUPL's simulator
 
 
-5. WINCUPL BUGS AND -FIX
+5. WINCUPL BUGS AND -COMPAT-REFDEFECT
 
-FreeCUPL 1.0.0 reproduces WinCUPL 5.0a.  For every design WinCUPL
-compiles it writes a JEDEC file that makes the device behave as
-WinCUPL's does, and the simulator gives the same listing and test
-vectors, also where WinCUPL is wrong.  Programmed parts and existing
-test benches keep their behaviour.
+FreeCUPL 2.0.0 corrects the known bugs of WinCUPL 5.0a.  Where a design
+meets one, the JEDEC file or the simulation follows the source as the
+CUPL language reference defines it, and a message names the bug.  For
+every other design the JEDEC file makes the device behave as WinCUPL's
+does.
+
+-compat-refdefect reproduces WinCUPL 5.0a exactly, bugs included, so
+that parts programmed from WinCUPL's files and existing test benches
+keep their behaviour.  This was the default of FreeCUPL 1.0.0; make
+FIX_DEFAULT=0 builds tools with that default.  -fix is accepted and
+does nothing.
 
 The known bugs are numbered B001 to B033 and described with an example
-and the correct behaviour in docs/BUGS.txt.  When a design meets one, a
-message names it:
-
-    [0905cb] Warning: WinCUPL bug #B013: F18V8ZS: the output enable of
-    pin 19 (y) is left false when no .OE is given; use -fix for the
-    corrected result
-
-With -fix the corrected result is written and the message reads:
+and the correct behaviour in docs/BUGS.txt.  By default the message
+reads:
 
     [0905cb] Warning: deviates from WinCUPL (bug #B013 fixed): F18V8ZS:
     output enable of pin 19 (y) without .OE: always enabled (CUPL
     default)
 
+With -compat-refdefect:
+
+    [0905cb] Warning: WinCUPL bug #B013: F18V8ZS: the output enable of
+    pin 19 (y) is left false when no .OE is given; reproduced for
+    -compat-refdefect
+
 Where the device cannot do what the source asks and WinCUPL writes a
-wrong fuse map, -fix rejects the design (0902cb, 0907cb, 0013cc).
-Where WinCUPL stops with an error (B008, B029), the default mode stops
-with the same error and -fix gives the documented result.  -fix works
-for the compiler and the simulator (freecupl -fix -s, freecsim -fix).
+wrong fuse map, the default rejects the design (0902cb, 0907cb,
+0013cc).  Where WinCUPL stops with an error or crashes (B008, B029,
+B031), -compat-refdefect stops with the same error and the default
+gives the documented result.  Both modes work for the compiler and the
+simulator (freecupl -s, freecsim).
 
 Behaviour that WinCUPL documents, or that is odd but not shown to be
 wrong, is not treated as a bug and is the same in both modes (see
 docs/BUGS.txt, parts A and B).
-
-Version 2 will be the same program with -fix as the default.
 
 
 6. LIMITATIONS

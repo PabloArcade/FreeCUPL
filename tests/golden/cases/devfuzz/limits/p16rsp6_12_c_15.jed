@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16rsp6  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -34,4 +34,4 @@ Location        x
 *L02144 00000010101010101010101010101010
 *L02176 1010
 *C3C7F
-*D1DB
+*D1DC

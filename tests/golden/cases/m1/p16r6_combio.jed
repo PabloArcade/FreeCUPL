@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16r6  Library DLIB-h-40-14
 Created         Thu Jan  1 00:00:00 1970
 Name            p16r6_co
@@ -20,4 +20,4 @@ Location        x
 *L01536 01111111111111111111111111111101
 *L01568 10111111111111111111111111111110
 *C12E3
-*70A3
+*70A4

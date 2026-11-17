@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16p2v  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -32,4 +32,4 @@ Location        x
 *L00992 01010111011101111011111111111111
 *L01024 000001
 *C3C30
-*C220
+*C221

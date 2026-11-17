@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p22xp10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -43,4 +43,4 @@ Location        x
 *L03936 00000000000000000000000000100000
 *L03968 11
 *C502A
-*1A2D
+*1A2E

@@ -3,8 +3,8 @@
 #ifndef FREECUPL_VERSION_H
 #define FREECUPL_VERSION_H
 #define FREECUPL_PRODUCT "FreeCUPL"
-#define FREECUPL_VERSION "1.0.0"
+#define FREECUPL_VERSION "2.0.0"
 #define FREECUPL_CREDIT  "DARKSOFT"
-/* "FreeCUPL 1.0.0 (DARKSOFT)": -V, the JEDEC header, listings */
+/* "FreeCUPL 2.0.0 (DARKSOFT)": -V, the JEDEC header, listings */
 #define FREECUPL_VERSION_STRING FREECUPL_PRODUCT " " FREECUPL_VERSION " (" FREECUPL_CREDIT ")"
 #endif

@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16rp6v  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            G9006
@@ -44,4 +44,4 @@ Location        x
 *V0019 0X011XXX1N1XXXNXXXLN
 *V0020 CX010XXX0N1XXXZXXXZN
 *V0021 CX001XXX1N1XXXZXXXLN
-*1A6C
+*1A6D

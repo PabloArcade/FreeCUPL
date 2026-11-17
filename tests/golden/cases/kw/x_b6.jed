@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16sp8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -18,4 +18,4 @@ Location        x
 *L00032 10111111111111111111111111111111
 *L02048 10000000010000000000000000000000
 *C07F9
-*5A41
+*5A42

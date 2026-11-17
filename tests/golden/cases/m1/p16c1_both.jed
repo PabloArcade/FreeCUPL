@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16c1  Library DLIB-h-40-7
 Created         Thu Jan  1 00:00:00 1970
 Name            p16c1_bo
@@ -31,4 +31,4 @@ Location        x
 *L00448 10100111011101111111111111111111
 *L00480 01010111011101111111111111111111
 *C3C30
-*C54C
+*C54D

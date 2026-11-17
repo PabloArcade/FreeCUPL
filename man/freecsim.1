@@ -1,5 +1,5 @@
 .\" SPDX-License-Identifier: GPL-3.0-or-later
-.TH FREECSIM 1 2026-11-16 "FreeCUPL 1.0.0" "User Commands"
+.TH FREECSIM 1 2026-11-17 "FreeCUPL 2.0.0" "User Commands"
 .SH NAME
 freecsim \- CSIM compatible PLD simulator
 .SH SYNOPSIS
@@ -60,11 +60,11 @@ The next positional argument is the library (ignored).
 Accepted; no effect.
 .SH OPTIONS
 .TP
-.B \-fix
-Correct the bugs of WinCUPL 5.0a's simulator instead of reproducing them.
-.TP
 .B \-compat\-refdefect
-The default: reproduce WinCUPL 5.0a's behaviour, including its bugs.
+Reproduce WinCUPL 5.0a's simulator exactly, including its bugs.
+.TP
+.B \-fix
+Correct the bugs: the default.
 .TP
 .B \-simlatch
 Simulate latched outputs and registered or latched inputs (timing not

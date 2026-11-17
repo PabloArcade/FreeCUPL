@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p20r8lcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -23,4 +23,4 @@ Location        x
 *L02304 11111111111110111111111111111111
 *L02336 11111111111111111011111100000000
 *C1D9C
-*8555
+*8556

@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p12h6  Library DLIB-h-40-9
 Created         Thu Jan  1 00:00:00 1970
 Name            p12h6_ga
@@ -24,4 +24,4 @@ Location        x
 *L00288 11111111111101101111111111111111
 *L00320 11111111011111110000000000000000
 *C1CF2
-*8EFF
+*8F00

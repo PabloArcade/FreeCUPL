@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p20p8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -33,4 +33,4 @@ Location        x
 *L02016 11111111111111111111011100000000
 *L02560 00000110
 *C3D8D
-*CD4B
+*CD4C

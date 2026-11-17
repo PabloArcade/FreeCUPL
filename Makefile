@@ -7,6 +7,8 @@
 #   make check        golden tests (tests/golden)
 #   make check-win32  the same with the win32 tools under wine
 #   make test         development test harness, not in the source release
+#   make FIX_DEFAULT=0  WinCUPL's bugs by default, as in 1.0 (with check
+#                     and check-win32 too)
 
 CC        ?= cc
 WINCC     ?= i686-w64-mingw32-gcc
@@ -36,7 +38,17 @@ GEN  = build/gen
 
 LIBSRC = src/util.c src/bugs.c src/jed.c src/device.c src/sim.c src/sim3.c src/devload.c
 CUPLSRC = $(sort $(wildcard src/cupl/*.c)) $(sort $(wildcard src/csim/*.c))
-HDRS   = $(wildcard src/*.h) $(wildcard src/cupl/*.h) $(wildcard src/csim/*.h)
+HDRS   = $(wildcard src/*.h) $(wildcard src/cupl/*.h) $(wildcard src/csim/*.h) build/fixdefault
+# FIX_DEFAULT=0 builds the 1.0 behaviour: WinCUPL's bugs by default.
+FIX_DEFAULT ?=
+ifneq ($(FIX_DEFAULT),)
+CFLAGS_N += -DFREECUPL_FIX_DEFAULT=$(FIX_DEFAULT)
+CFLAGS_W += -DFREECUPL_FIX_DEFAULT=$(FIX_DEFAULT)
+endif
+# rebuild when FIX_DEFAULT changes
+$(shell mkdir -p build && printf '%s\n' '$(FIX_DEFAULT)' > build/fixdefault.new && \
+  { cmp -s build/fixdefault.new build/fixdefault || cp build/fixdefault.new build/fixdefault; }; \
+  rm -f build/fixdefault.new)
 DEVS   = $(sort $(wildcard devices/*.dev))
 TOOLS  = freecupl freecsim jedsim equiv jedtool
 HAVE_WINCC := $(shell command -v $(WINCC) >/dev/null 2>&1 && echo yes)
@@ -86,14 +98,17 @@ $(B_W)/%.exe: src/tools/%.c $(LIBSRC) $(GEN)/devdb.c $(HDRS)
 	@mkdir -p $(B_W)
 	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $< $(LIBSRC) $(GEN)/devdb.c $(LDFLAGS_W)
 
+# FIX_DEFAULT=0: the golden default cases are run with -fix
+GOLDEN_ENV = $(if $(filter 0,$(FIX_DEFAULT)),DEFAULT_ARGS=-fix)
+
 check: native
-	sh tests/golden/run.sh $(B_N)
+	$(GOLDEN_ENV) sh tests/golden/run.sh $(B_N)
 
 check-win32: win32
-	RUN=wine EXE=.exe sh tests/golden/run.sh $(B_W)
+	$(GOLDEN_ENV) RUN=wine EXE=.exe sh tests/golden/run.sh $(B_W)
 
 test: all
-	@if [ -f tests/run_tests.sh ]; then sh tests/run_tests.sh; \
+	@if [ -f tests/run_tests.sh ]; then FIX_DEFAULT='$(FIX_DEFAULT)' sh tests/run_tests.sh; \
 	else echo "make test: the development harness is not part of this tree; use make check"; exit 1; fi
 
 clean:

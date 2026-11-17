@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p18cv8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -37,4 +37,4 @@ Location        x
 *L02656 00000000111111001111101100111111
 *L02688 10111011
 *C3736
-*EC3B
+*EC3C

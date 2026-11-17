@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p20s10mlcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -43,4 +43,4 @@ Location        x
 *L03264 00101010000000000000000000000010
 *L03296 10000000000000000000000000
 *C4F4F
-*1FCD
+*1FCE

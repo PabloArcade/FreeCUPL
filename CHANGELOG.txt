@@ -1,5 +1,18 @@
 FreeCUPL changes
 
+2.0.0  2026-11-17
+
+The WinCUPL 5.0a bugs B001 to B033 (docs/BUGS.txt) are corrected by
+default.  The warning still names the bug where it affects a design.
+-compat-refdefect reproduces WinCUPL 5.0a exactly, bugs included, as
+1.0.0 did by default; -fix is accepted and does nothing.  Building with
+make FIX_DEFAULT=0 gives the 1.0.0 default.
+
+make check runs every test case in both modes.
+
+The Windows XP check (tools/check_xp.sh) reads the import table of
+newer binutils and has a self-test.
+
 1.0.0  2026-11-16
 
 First public release.

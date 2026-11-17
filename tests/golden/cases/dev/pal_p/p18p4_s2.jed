@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p18p4  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -30,4 +30,4 @@ Location        x
 *L00544 11110111111111101111111111111111
 *L00704 00000000000000001101
 *C29DA
-*B798
+*B799

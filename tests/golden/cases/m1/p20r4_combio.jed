@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p20r4  Library DLIB-h-40-10
 Created         Thu Jan  1 00:00:00 1970
 Name            p20r4_co
@@ -22,4 +22,4 @@ Location        x
 *L01984 11111111110111111111111111111111
 *L02016 11111111110111111111111100000000
 *C18CE
-*8033
+*8034

@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16r8  Library DLIB-h-40-10
 Created         Thu Jan  1 00:00:00 1970
 Name            p16r8_wi
@@ -23,4 +23,4 @@ Location        x
 *L00192 01111011011101111111111111111111
 *L00224 10110111011101111111111111111111
 *C1E48
-*87F9
+*87FA

@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          g16z8s  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -22,4 +22,4 @@ Location        x
 *L02144 11111111111111111111111111111111
 *L02176 1111111111111111100
 *C12B4
-*7A0F
+*7A10

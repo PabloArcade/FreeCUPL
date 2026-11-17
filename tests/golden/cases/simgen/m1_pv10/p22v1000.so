@@ -1,5 +1,5 @@
 FreeCSIM: CUPL compatible simulation program
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 
 CREATED Thu Jan  1 00:00:00 1970
 
@@ -25,7 +25,7 @@ LISTING FOR SIMULATION FILE: p22v1000.si
       laaaaa  qqss   
       k01324  0101   
 =====================
-0001: 101100  HHHL
+0001: 101100  HHHH
 0002: C10010  HHLL
 vector 3
 0003: C01001  HHLL
@@ -35,12 +35,11 @@ vector 3
 0007: K1100X  HHLL
 0008: K00011  LHLH
 0009: C11101  HHLH
-0010: K01111  HLHL
-0011: C00110  LHHL
-              ^^ ^
+0010: K01111  HLHH
+0011: C00110  LHHH
+              ^^
 [0019sa] user expected (H) for q0
 [0019sa] user expected (L) for q1
-[0019sa] user expected (H) for s1
 
 0012: C10100  HNNL
 0013: 001100  HHLL

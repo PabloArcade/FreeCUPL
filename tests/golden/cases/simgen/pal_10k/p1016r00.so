@@ -1,5 +1,5 @@
 FreeCSIM: CUPL compatible simulation program
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 
 CREATED Thu Jan  1 00:00:00 1970
 
@@ -26,32 +26,16 @@ LISTING FOR SIMULATION FILE: p1016r00.si
       k102e  01234ab   
 =======================
 0001: K0100  HZZZZLH
-      ^
-[0021sa] invalid test value:  K
-
 0002: C1000  LZZZZLH
-      ^
-[0021sa] invalid test value:  C
-
 vector 3
 0003: 10100  HZZZZLH
 0004: 10110  HNZZZHL
 0005: C1000  LZZZZLH
-      ^
-[0021sa] invalid test value:  C
-
 0006: C1000  LZZZZLH
-      ^
-[0021sa] invalid test value:  C
-
 0007: CX000  LZZZZXH
-      ^
-[0021sa] invalid test value:  C
-
 0008: 10110  HZZZZNL
 0009: C0110  HZZZZHL
-      ^       ^^^^ ^
-[0021sa] invalid test value:  C
+              ^^^^ ^
 [0019sa] user expected (H) for q1
 [0019sa] user expected (H) for q2
 [0019sa] user expected (H) for q3
@@ -59,24 +43,9 @@ vector 3
 [0019sa] user expected (H) for tb
 
 0010: C1110  HZZZZLL
-      ^
-[0021sa] invalid test value:  C
-
 0011: C1100  HZZZZLL
-      ^
-[0021sa] invalid test value:  C
-
 0012: 01000  LZZZZLH
 0013: C0X00  XZNZNXH
-      ^
-[0021sa] invalid test value:  C
-
 0014: 01X10  XZZZZLX
 0015: P1100  X1110XX
-      ^
-[0021sa] invalid test value:  P
-
 0016: C1000  LZZZZLH
-      ^
-[0021sa] invalid test value:  C
-

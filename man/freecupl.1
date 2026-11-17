@@ -1,5 +1,5 @@
 .\" SPDX-License-Identifier: GPL-3.0-or-later
-.TH FREECUPL 1 2026-11-16 "FreeCUPL 1.0.0" "User Commands"
+.TH FREECUPL 1 2026-11-17 "FreeCUPL 2.0.0" "User Commands"
 .SH NAME
 freecupl \- CUPL compatible PLD compiler
 .SH SYNOPSIS
@@ -124,14 +124,15 @@ is the source file's name without extension.
 Outputs are written next to the source file.
 .SH OPTIONS
 .TP
-.B \-fix
-Correct the bugs of WinCUPL 5.0a instead of reproducing them, in the
-compiler and in the simulator.
-By default they are reproduced, with a warning where a design is
+.B \-compat\-refdefect
+Reproduce WinCUPL 5.0a exactly, including its bugs, in the compiler and
+in the simulator.
+By default the bugs are corrected, with a warning where a design is
 affected.
 .TP
-.B \-compat\-refdefect
-The default: reproduce WinCUPL 5.0a's behaviour, including its bugs.
+.B \-fix
+Correct the bugs: the default.
+Accepted for scripts written for FreeCUPL 1.0.0.
 .TP
 .B \-simlatch
 With
@@ -188,14 +189,15 @@ Messages have the form
 as in WinCUPL; codes 0901 to 0908 are FreeCUPL's notes about WinCUPL
 behaviour.
 Where a design meets a WinCUPL bug the message names it
-.RB ( "WinCUPL bug #B001" ...).
+.RB ( "bug #B001 fixed" ...).
+FreeCUPL 1.0.0 reproduced the bugs by default.
 docs/USERGUIDE.txt lists all codes.
 .SH EXAMPLES
 .nf
 freecupl \-jxf counter.pld
 freecupl \-jn g22v10 counter
 freecupl \-jas counter
-freecupl \-fix \-jx counter
+freecupl \-compat\-refdefect \-jx counter
 .fi
 .SH SEE ALSO
 .BR freecsim (1),

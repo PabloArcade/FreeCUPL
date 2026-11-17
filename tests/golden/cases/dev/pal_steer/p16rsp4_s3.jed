@@ -1,5 +1,5 @@
 
-FreeCUPL 1.0.0 (DARKSOFT)
+FreeCUPL 2.0.0 (DARKSOFT)
 Device          p16rsp4  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -27,4 +27,4 @@ Location        x
 *L02080 00001000000000000000000000000000
 *L02112 00000101010000000000000000000000
 *C23C8
-*A3A1
+*A3A2
