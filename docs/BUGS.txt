@@ -4,11 +4,12 @@ This file lists the faults found in the WinCUPL 5.0a compiler and
 simulator while writing FreeCUPL, a replacement for Atmel WinCUPL's
 command-line tools.
 
-Every bug in this list is fixed in FreeCUPL 2.0.0: by default the
-JEDEC file and the simulation follow the source.  -compat-refdefect
-reproduces the bugs, so that the JEDEC file behaves like WinCUPL's for
-every design and freecsim gives the same listing and test vectors; this
-was the default of FreeCUPL 1.0.0.  -fix is accepted and does nothing.
+Every bug in this list is fixed in FreeCUPL 2.0.0 (B034 and later:
+2.1.0): by default the JEDEC file and the simulation follow the
+source.  -compat-refdefect reproduces the bugs, so that the JEDEC file
+behaves like WinCUPL's for every design and freecsim gives the same
+listing and test vectors; this was the default of FreeCUPL 1.0.0.
+-fix is accepted and does nothing.
 In both modes a message names the bug where it affects the design:
 
     deviates from WinCUPL (bug #Bnnn fixed): ...
@@ -133,7 +134,7 @@ Message: 0905cb.
 
 B005  PAL16C1/20C1: both equations written into the shared sum
 
-Devices: p16c1, p20c1.
+Devices: p16c1, p20c1 and its 28-pin variants.
 
 The two complementary outputs share one sum.  Given two equations that
 are not complements of each other, WinCUPL writes the terms of both into
@@ -626,6 +627,123 @@ Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0009ca.
 
 
+B034  ATV5000: a register of another quadrant is read through the
+      reader's own regional bus
+
+Devices: v5000.
+
+The regional bus of a quadrant carries the flip-flops of that quadrant
+only (data sheet).  WinCUPL accepts a product term that reads a
+register of another quadrant and connects, on the reader's regional
+bus, the column that register has in its own quadrant.  There it is
+another signal.
+
+    Device v5000;
+    pin 1=a; pin 2=b; pin 32=c; pin 5=o; pin 30=q;
+    o.d = a; o.ck = b;
+    q = o & c;
+
+WinCUPL 5.0a: q = (the register of pin 30) & c.
+Corrected: [0907cb], the design is rejected.  Read the register
+through its pin (o.io) or keep reader and register in one quadrant.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Messages: 0905cb, 0907cb.
+
+
+B035  ATV5000: second register of an I/O cell in quadrant 1 or 3: sum
+      term C is cut off on the wrong cell
+
+Devices: v5000.
+
+The second register of an I/O cell (pinnodes 93 to 144) takes sum term
+C of the cell, and a fuse separates C from the sum that drives the pin
+and the first register.  For the cells of quadrants 1 and 3 WinCUPL
+clears that fuse on the cell at the mirrored position of the quadrant
+and leaves it set on the register's own cell, whose sum then includes
+the terms of the second register.  In quadrants 2 and 4 the right
+fuse is cleared.
+
+    Device v5000;
+    pin 1=a; pin 2=b; pin 32=c; pin 34=d;
+    pin 5=o; pin 6=q; pinnode 104=n;
+    o = a & b;
+    n.d = c; n.ck = d;
+    q = n;
+
+WinCUPL 5.0a: o = a & b # c.
+Corrected: o = a & b.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Message: 0905cb.
+
+
+B036  ATV5000: a register without .CK and .CE is never clocked
+
+Devices: v5000.
+
+A register is clocked by its clock product term, or by the clock pin
+of its quadrant ANDed with that term (data sheet, "Flip-Flop Clock
+Options").  Without .CK and .CE WinCUPL selects the pin clock (I/O
+cells) or the term (buried cells) and leaves the term unprogrammed,
+which is false like every unused term.  Its own simulator, and the
+test vectors it writes, clock such a register from the pin.
+
+    Device v5000;
+    pin 1=a; pin 5=o;
+    o.d = a;
+
+WinCUPL 5.0a: o never changes.
+Corrected: the term is written true and the pin clock selected: o
+loads a at the rising edge of pin 2.  The correction follows the data
+sheet; it has not been verified on a device.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Message: 0905cb.
+
+
+B037  a combinational equation next to a .D equation complemented at
+      its root is ORed into the register
+
+Devices: all with registered outputs of programmable polarity.
+
+A pin with a registered and a combinational equation is rejected
+(0025cb).  When the right side of the .D or .T equation is a
+complemented expression, WinCUPL misses the conflict and ORs the
+combinational expression, without its own root complement, into the
+register's sum.
+
+    Device g22v10;
+    pin 1=clk; pin 2=a; pin 3=b; pin 4=c; pin 20=o;
+    o.d = !(a & b);
+    o = c;
+
+WinCUPL 5.0a: a register loading !(c # a & b).  "!o.d = a & b; o = c;"
+is rejected.
+Corrected: [0025cb] pin/node 20 output mutually excluded by previous
+output.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Messages: 0905cb, 0025cb.
+
+
+B038  ATV5000: a .IOL read of pin 25 cuts sum term C off the sum of
+      pin 30
+
+Devices: v5000.
+
+Reading pin 25 through its input latch with .IOL clears the fuse that
+joins sum term C to the sum of pin 30.  No other pin does this, nor
+does .LQ of pin 25.  Pin 30 loses the product terms written into C.
+
+    Device v5000;
+    pin 1=a; pin 2=b; pin 32=c; pin 34=d; pin 35=e;
+    pin 25=p; pin 26=q; pin 30=o;
+    q = p.iol;
+    o = a&b # a&c # a&d # b&c # b&d # c&d # a&e # b&e # c&e # d&e;
+
+WinCUPL 5.0a: o lacks c & e and d & e.
+Corrected: the fuse of pin 30 is left alone.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Message: 0905cb.
+
+
 SIMULATOR
 
 B025  22V10: shared AR/SP act only on registers with an .AR/.SP
@@ -749,6 +867,65 @@ Fixed in 2.0.0; -compat-refdefect reproduces it.
 Message: 0905sa.
 
 
+B039  ATV5000: input values are pin levels
+
+Devices: v5000.
+
+A test value is the value of the variable: 1 on an input declared
+active low puts the pin low.  On the ATV5000 WinCUPL's simulator takes
+the value as the pin level, while the test vectors it writes into the
+JEDEC file are converted as usual, so the vectors do not describe the
+simulation.  B036 also shows in the simulator: a register without
+.CK is clocked from its clock pin, and .CE is ignored as in B030.
+
+    Device v5000;
+    pin 2=!a; pin 34=b; pin 7=x; pin 9=y;
+    x = a & b;
+    y = !a;
+
+    ORDER: a, b, %2, x, y;
+    VECTORS:
+    01 **
+    11 **
+    00 **
+
+WinCUPL 5.0a: HL, LH, LL.
+Corrected: LH, HL, LH.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Message: 0905sa.
+
+
+B040  ATV5000: an output read by other equations is complemented
+
+Devices: v5000.
+
+An equation that reads an output pin gets the value of the variable.
+On the ATV5000 WinCUPL's simulator gives it the pin level of a
+combinational output, wrong when the pin is declared active low, and
+for a registered output the register as its equation is written,
+wrong when the equation has '!' on the left or a complement at the
+root of the right side.  The output itself is shown correctly, and the
+fuse map is correct.  Buried nodes are not affected.
+
+    Device v5000;
+    pin 1=a; pin 2=c; pin 31=q; pin 30=x;
+    !q.d = a;
+    q.ck = c;
+    x = q;
+
+    ORDER: c, a, %2, q, x;
+    VECTORS:
+    00 **
+    10 **
+    01 **
+    11 **
+
+WinCUPL 5.0a: q and x are HL, HL, HL, LH.
+Corrected: HH, HH, HH, LL.
+Fixed in 2.1.0; -compat-refdefect reproduces it.
+Message: 0905sa.
+
+
 A. DOCUMENTED BEHAVIOUR (SAME IN BOTH MODES)
 
 GAL16V8/20V8 simple mode (g16v8s, g20v8s, g20v8slcc, g16z8s): an output
@@ -807,12 +984,33 @@ member before the comparison: !st:3 is [!a0,!a1,!a2]:3.
 -m1 quick minimisation: the term counts decide whether a design fits.
 FreeCUPL reproduces them so that the accept and reject decisions match.
 
-Simulation models that cannot be checked against the fuse map are
-copied from WinCUPL's simulator: the RA parts (pin 13 gates every
-output), the MegaPAL clock and OE, PAL10020EV8 (clocked on pin 3),
-parts with latches only, the PEEL18CV8 reset and preload levels, input
-registers and latches.  freecsim marks them with "simulation model for
-DEVICE follows WinCUPL and is not verified against the data sheet".
+PAL16C1, PAL20C1 with an equation on both outputs: of the two
+variables the one whose name sorts later is rejected (0025cb) when its
+declaration, with the '!' on the left of its equation, gives the
+polarity of its pin; otherwise B005 applies.
+
+-kb also complements a registered output whose reset or preset is in
+use; on a 22V10 the reset then drives the pin high.
+
+ATV5000 (v5000): the buried nodes 81 to 84 and 87 to 92 are rejected
+(0012cb or 0010cb), so 10 of the 24 buried cells cannot be used;
+pinnode 85 takes no .CK, .CE, .AR or .AP; a register takes sum term B
+alone only when its terms that read I/O pins would fit sum term A; the
+latched read (.IOL) of a registered output has the polarity of the
+register; .CE and .CK on one register are accepted when both are the
+same product term, which then is the clock.  With -kb the sums of T
+flip-flops and of registers with .AR or .AP are complemented too
+(B001).
+
+Simulation models that cannot be checked against the fuse map are copied
+from WinCUPL's simulator: the RA parts (pin 13 gates every output), the
+MegaPAL clock and OE, PAL10020EV8 (clocked on pin 3), parts with latches
+only, the PEEL18CV8 reset and preload levels, input registers and
+latches, the ATV5000 (input latches transparent while the latch clock
+pin of the quadrant is high). freecsim marks them with "simulation model
+for DEVICE follows WinCUPL and is not verified against the data sheet".
+The ATV5000 model as a whole is not verified: no device was available,
+and WinCUPL's simulator does not work from the fuse map on this part.
 
 
 B. UNEXPLAINED DIFFERENCES
@@ -837,11 +1035,27 @@ SEQUENCE on indexed state bits that do not start at 0.
 Whether a pin in a product term removed by a constant counts as read
 (0014cb).
 
+GAL20XV10: a combinational and a .D equation on one pin (WinCUPL
+writes the terms of both into the macrocell, FreeCUPL rejects with
+0025cb); at -m2 to -m4 the two compilers do not always find the same
+split of an equation over the two XOR sums.
+
+ATV5000: a .D and a .T equation on one register (on an I/O pin
+WinCUPL writes the terms three rows before the rows of the cell; on a
+second register .CK decides between a D and a T flip-flop); a
+combinational and a registered equation on one buried node (WinCUPL
+ORs both into a combinational node, FreeCUPL rejects with 0025cb).
+
 Simulator: the $TRACE 3 per-term listing, a detail of the table header,
 oversize quoted values, one $TRACE 1 line count, the latch preload
 polarity of two ECL parts, PAL32R16 outputs disabled by the OE pin and
 turned into inputs, and the register behind a combinational output read
-through .TFB or .DFB.
+through .TFB or .DFB.  ATV5000: an output that reads itself through
+.IOL, and a pin read both through .LQ and by its plain name.  ATV5000
+designs that meet B034 or B035: WinCUPL's simulator does not work from
+the fuse map on this part and shows the equations of the source, while
+freecsim -compat-refdefect simulates the fuse map, which WinCUPL's own
+compiler wrote with the bug.
 
 
 C. ATMEL'S PUBLISHED BUG LIST FOR WINCUPL

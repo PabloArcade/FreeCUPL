@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20ra10slcc;
+/* @local */ /* @bypass */
+pin 12 = !MEND;
+pin 7 = i1;
+pin 22 = !o0;
+pin 20 = !o1;
+pin 24 = SEQUENCET;
+
+o0.d = ((!i1 & MEND) # i1 # (!MEND & !i1));
+o0.ck = i1;
+o0.oe = MEND;
+o1 = (!MEND # i1 # !i1);
+SEQUENCET.d = !MEND;
+SEQUENCET.ck = i1;
+
+/* @expect
+o0.d = (((not i1) and MEND) or i1 or ((not MEND) and (not i1)))
+o0.ck = i1
+o0.oe = MEND
+o1 = ((not MEND) or i1 or (not i1))
+SEQUENCET.d = (not MEND)
+SEQUENCET.ck = i1
+*/

@@ -1,0 +1,29 @@
+Name G9007;
+Partno P9007;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10;
+/* @flags -jaxm3 */
+pin 2 = a0;
+pin 5 = a1;
+pin 6 = a2;
+pin 7 = a3;
+pin 9 = a4;
+pin 10 = a5;
+pin 11 = a6;
+pin 1 = clk;
+pin 15 = s0;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a2 # (!(a1) & a6);
+t1 = !((t0 # t0 & a3 & (!a2 # a5)));
+t2 = a4;
+field st = [s0];
+sequence st {
+  present 0 if !a1 next 1; if a3 next 0;
+  present 1 if a1 next 1; default next 0;
+}

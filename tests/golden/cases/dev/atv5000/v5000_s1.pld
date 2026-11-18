@@ -1,0 +1,48 @@
+Name R7001; Partno R7001; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v5000;
+/* @local */
+pin 1 = i0;
+pin 34 = i1;
+pinnode 134 = o0;
+pin 62 = o1;
+pin 52 = !o2;
+pin 58 = o3;
+pin 64 = o4;
+
+o0.d = ((i0 & i1) # i0 # (!i1 & !i0));
+o0.ck = (i0 & i1);
+o0.ar = !i0;
+o1.d = (o0 $ i1);
+o1.ck = (!i0 & !i1);
+o1.ar = i1;
+o1.oe = (i1 & i0);
+o2.d = (!o0 # (i1 & o0) # (!i1 & !i0 & !o0));
+o2.ck = (!i1 & i0);
+o2.ap = (i1 & i0);
+o2.oe = i1;
+o3.d = (!i1 & o0);
+o3.ck = i1;
+o4.d = ((!i0 & !o3 & o0) # (o0 & o3 & !i1));
+o4.ck = (i0 & !i1);
+o4.ar = (!i0 & !i1);
+o4.oe = (i1 & i0);
+
+/* @expect
+o0.d = ((i0 and i1) or i0 or ((not i1) and (not i0)))
+o0.ck = (i0 and i1)
+o0.ar = (not i0)
+o1.d = (o0 ^ i1)
+o1.ck = ((not i0) and (not i1))
+o1.ar = i1
+o1.oe = (i1 and i0)
+o2.d = ((not o0) or (i1 and o0) or ((not i1) and (not i0) and (not o0)))
+o2.ck = ((not i1) and i0)
+o2.ap = (i1 and i0)
+o2.oe = i1
+o3.d = ((not i1) and o0)
+o3.ck = i1
+o4.d = (((not i0) and (not o3) and o0) or (o0 and o3 and (not i1)))
+o4.ck = (i0 and (not i1))
+o4.ar = ((not i0) and (not i1))
+o4.oe = (i1 and i0)
+*/

@@ -30,6 +30,7 @@ typedef struct {
     unsigned char *gar, *gsp;            /* per macrocell: the device-wide AR / SP term applies (default all) */
     int powerup;                         /* power-up register state (V0 or VX) */
     int fbx;                             /* evaluating with combinational loops unknown */
+    unsigned char *fbinv;                /* per macrocell: the array reads the complement (reference simulator bug B040) */
     unsigned char *fbunk;                /* per macrocell: the array reads X (buried node without an equation, as the reference simulator) */
     int oepin;                           /* the device OE pin as the simulator uses it (normally d->oe_pin) */
     int noce;                            /* clock enables ignored (reference simulator bug B030) */
@@ -40,6 +41,8 @@ typedef struct {
                                             reference simulator: they never load, input registers read X) */
     unsigned char *oeforce;              /* per macrocell: always enabled (reference simulator defect on devices
                                             with 'simdefect regoe', -compat-refdefect) */
+    const unsigned char *firepins;       /* C/K vector: the pins pulsed (NULL: the device clock pin) */
+    unsigned char inle[SIM_MAXPINS + 1];   /* latch enable pin of an input latch (0: the device's simle pin) */
     unsigned char inmode[SIM_MAXPINS + 1]; /* 1: the array reads the pin through its input register (.DQ), 2: latch (.LQ) */
     unsigned char inq[SIM_MAXPINS + 1];  /* input register / latch state */
     unsigned char insv[SIM_MAXPINS + 1]; /* pin value sampled at the last clock step */

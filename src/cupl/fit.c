@@ -27,6 +27,9 @@ typedef struct {
     int tfbread;        /* read through .TFB: the register is a T flip-flop */
     int muxio, muxdfb;
     int plainread;      /* read by its plain name */
+    int iolread;        /* read through .IOL */
+    int xvoe;           /* GAL20XV10 macrocell in the OE-term configuration */
+    int ioread;         /* read through .IO (macrocell with a pin line and a feedback line) */
     int latchdone;      /* .L moved to the register's equation */  /* read through .IO / .DFB on a pin whose line is a feedback multiplexer */
     Cover sum;
     Cover xsum;         /* MC_GEN second (XOR) sum */
@@ -162,7 +165,7 @@ static void leaf_cover(const Expr *e, Cover *out)
         char nm[160];
         if ((e->ext == X_DFB || e->ext == X_IO) && pi && s->kind == SK_PIN && has_fb_and_pin_lines(s->pin) && !(e->ext == X_DFB && D->nodfb)) {
             /* register feedback (.dfb) or pin (.io) of a macrocell that has both */
-            if (g_mark) pi->input = 1;
+            if (g_mark) { pi->input = 1; if (e->ext == X_IO) pi->ioread = 1; }
             lit_cover(out, var_of(s, e->ext), !e->neg);
             return;
         }
@@ -185,7 +188,7 @@ static void leaf_cover(const Expr *e, Cover *out)
             /* read through the pin's input latch (or register, .DQ): the
                same array line; the pin's 'input transparent' fuse stays 0 */
             if (inflag_of(s->pin) && (e->ext != X_IOL || dev_mc_at(D, s->pin) >= 0)) {
-                if (g_mark && pi) { pi->input = 1; pi->lq = 1; }
+                if (g_mark && pi) { pi->input = 1; pi->lq = 1; if (e->ext == X_IOL) pi->iolread = 1; }
                 /* a variable of its own (as the reference: 'a & !a.lq' is
                    not simplified; both literals reach the same column) */
                 lit_cover(out, var_of(s, e->ext), !e->neg);
@@ -399,6 +402,13 @@ static const Expr *root_strip(const Eqn *q, int *flip)
     return c;
 }
 
+int fit_eqn_flip(const Eqn *q)
+{
+    int flip;
+    root_strip(q, &flip);
+    return flip;
+}
+
 static int ngroups(const Eqn *q)
 {
     int g, n = 0;
@@ -499,10 +509,35 @@ static void minimize(Cover *f, int level, int capacity)
     if (capacity > 0 && f->n > capacity) cv_minimize_exact(f, 14);
 }
 
+/* GAL20XV10 macrocell: OE-term configuration (3 rows ORed) or XOR of
+   two 2-row sums */
+static int xv_oe(int mc)
+{
+    const Macrocell *k = &D->mc[mc];
+    return k->type == MC_GEN && k->xv_fuse >= 0 && k->pin <= NP && PI[k->pin].xvoe;
+}
+
+static int xv_xor(int mc)
+{
+    const Macrocell *k = &D->mc[mc];
+    return k->type == MC_GEN && k->xv_fuse >= 0 && !(k->pin <= NP && PI[k->pin].xvoe);
+}
+
+/* second (XOR) sum of a macrocell: first row, -1 if none; *last */
+static int mc_xsum(int mc, int *last)
+{
+    const Macrocell *k = &D->mc[mc];
+    if (xv_xor(mc)) { *last = k->sum1; return k->sum0 + 2; }
+    if (k->type == MC_GEN && k->xv_fuse >= 0) return -1;
+    *last = k->xsum1;
+    return k->type == MC_GEN ? k->xsum0 : -1;
+}
+
 static int mc_capacity(int mc, int regcfg)
 {
     const Macrocell *k = &D->mc[mc];
     int n = k->sum1 - k->sum0 + 1;
+    if (k->type == MC_GEN && k->xv_fuse >= 0) return xv_oe(mc) ? n - 1 : 2;
     if (k->type == MC_GEN && k->qsplit_fuse >= 0 && g_qsplit && g_qsplit[mc]) return k->qhalf1 - k->qhalf0 + 1;
     if (k->type == MC_GEN && k->split_fuse >= 0 && g_split && g_split[mc]) return k->half1 - k->half0 + 1;
     if (k->type == MC_GAL) {
@@ -516,6 +551,7 @@ static int mc_capacity(int mc, int regcfg)
 static int mc_first_row(int mc, int regcfg)
 {
     const Macrocell *k = &D->mc[mc];
+    if (k->type == MC_GEN && k->xv_fuse >= 0) return xv_oe(mc) ? k->sum0 + 1 : k->sum0;
     if (k->type == MC_GEN && k->qsplit_fuse >= 0 && g_qsplit && g_qsplit[mc]) return k->qhalf0;
     if (k->type == MC_GEN && k->split_fuse >= 0 && g_split && g_split[mc]) return k->half0;
     if (k->type == MC_GAL) {
@@ -535,6 +571,7 @@ static int mc_oe_row(int mc, int regcfg)
         return regcfg ? -1 : k->sum0;
     }
     if (k->type == MC_REG) return -1;
+    if (k->type == MC_GEN && k->xv_fuse >= 0) return xv_oe(mc) ? k->sum0 : -1;
     if (k->type == MC_GEN && k->oe_kind != GO_ROW && k->oe_kind != GO_ROWPIN) return -1;
     if (k->type == MC_GEN && k->oe_reg_pin && regcfg) return -1;
     return k->oe_row;
@@ -543,6 +580,7 @@ static int mc_oe_row(int mc, int regcfg)
 static int prog_polarity(int mc)
 {
     int t = D->mc[mc].type;
+    if (t == MC_GEN && D->mc[mc].xv_fuse >= 0) return xv_oe(mc);
     return t == MC_GAL || t == MC_V10 || (t == MC_GEN && D->mc[mc].pol_fuse >= 0);
 }
 
@@ -573,8 +611,8 @@ static int ext_known(int ext)
             if (ext == X_OE && (k->oe_kind == GO_ROW || k->oe_kind == GO_ROWPIN)) return 1;
             if (ext == X_CK && k->ck_row >= 0) return 1;
             if (ext == X_CKMUX && k->ckmux_fuse >= 0) return 1;
-            if (ext == X_OEMUX && k->oemux_fuse >= 0) return 1;   /* accepted, no effect (as the reference) */
-            if (ext == X_CE && k->ce_fuse >= 0) return 1;
+            if (ext == X_OEMUX && (k->oemux_fuse >= 0 || k->xv_fuse >= 0)) return 1;   /* accepted, no effect (as the reference) */
+            if (ext == X_CE && (k->ce_fuse >= 0 || k->cksync_fuse >= 0)) return 1;
             if (ext == X_AR && (k->ar_row >= 0 || D->ar_row >= 0)) return 1;
             if (ext == X_AP && (k->ap_row >= 0 || D->ap_row >= 0)) return 1;
             if (ext == X_SP && (k->sp_row >= 0 || D->sp_row >= 0)) return 1;
@@ -616,17 +654,47 @@ static int qsplit_alias(int pin)
 
 /* a macrocell with both a feedback and a pin line is read through the
    feedback line when registered (or named by its node alias) */
+static int g_row = -1;      /* row being written (devices with row windows) */
+static int g_xline;         /* the line found has no column in g_row: line of the same position in the row's own window, -2: none */
+
 static int find_line_pref(int pin, int fb)
 {
     const LineSrc *L = dev_lines(D, MODE);
-    int k, any = -1, ap = alias_pin(pin);
+    int k, any = -1, miss = -1, ap = alias_pin(pin);
+    g_xline = -1;
     if (ap) { pin = ap; fb = 1; }
+    if (D->vr_addr) {
+        /* a signal with lines of one kind only */
+        int has = 0;
+        for (k = 0; k < D->nlines; k++)
+            if ((L[k].kind == SRC_PIN || L[k].kind == SRC_FB) && L[k].pin == pin && (L[k].kind == SRC_FB) == (fb != 0)) has = 1;
+        if (!has) fb = !fb;
+    }
     for (k = 0; k < D->nlines; k++) {
         if ((L[k].kind == SRC_PIN || L[k].kind == SRC_FB) && L[k].pin == pin) {
+            if (D->vr_addr && g_row >= 0 && dev_fuse(D, g_row, 2 * k) < 0) {
+                if ((L[k].kind == SRC_FB) == (fb != 0) && miss < 0) miss = k;
+                continue;
+            }
             if ((L[k].kind == SRC_FB) == (fb != 0)) return k;
-            if (any < 0) any = k;
+            if (any < 0 && !D->vr_addr) any = k;
         }
     }
+    if (D->vr_addr && g_row >= 0 && miss >= 0) {
+        /* the line exists, but not in this row */
+        int r, c = 2 * miss;
+        g_xline = -2;
+        for (r = 0; r < D->nrows; r++)
+            if (c >= D->vr_v0[r] && c < D->vr_v0[r] + D->vr_w0[r]) {
+                int off = c - D->vr_v0[r];
+                if (off < D->vr_w0[g_row]) g_xline = (D->vr_v0[g_row] + off) / 2;
+                break;
+            }
+        return miss;
+    }
+    if (D->vr_addr && g_row < 0 && any < 0)
+        for (k = 0; k < D->nlines; k++)
+            if ((L[k].kind == SRC_PIN || L[k].kind == SRC_FB) && L[k].pin == pin) return k;
     return any;
 }
 
@@ -748,6 +816,77 @@ static unsigned char *g_amoved;
 static Cube g_spill[8];
 static int g_spillrow[8], g_nspill;   /* BUG_ATV2500_ALIAS8 corrected on this macrocell (-fix) */
 
+static unsigned char *g_xqdone;
+
+/* BUG_V5K_XQUAD: variable v, a register outside the quadrant of this
+   row, is not on the row's regional bus */
+static void xquad_report(int row, int v)
+{
+    int i, owner = 0;
+    char nm[160];
+    for (i = 0; i < D->nmc; i++) {
+        const Macrocell *k = &D->mc[i];
+        if ((row >= k->sum0 && row <= k->sum1) || row == k->oe_row || row == k->ck_row || row == k->ar_row || row == k->ap_row) { owner = k->pin; if (!k->node) break; }
+    }
+    if (g_xqdone && owner <= NP) { if (g_xqdone[owner]) return; g_xqdone[owner] = 1; }
+    name_ext(nm, sizeof nm, VS[v], VE[v]);
+    if (g_fix) {
+        diag(DG_ERROR, "0907cb", 0, "%s: %s is a register of another quadrant; only the registers of its own quadrant reach pin/node %d:  %s", upname(), nm, owner, nm);
+        diag_bug(DG_NOTE, "0907cb", 0, BUG_V5K_XQUAD, "%s: pin/node %d reading %s: rejected", upname(), owner, nm);
+    } else
+        diag_bug(DG_WARN, "0905cb", 0, BUG_V5K_XQUAD, "%s: pin/node %d reads %s, a register of another quadrant, through the column of the same number in its own regional bus: it reads another signal", upname(), owner, nm);
+}
+
+/* can every literal of the cube be connected in this row? */
+static int cube_fits_row(int row, const Cube *c)
+{
+    int v, ok = 1;
+    if (!D->vr_addr) return 1;
+    g_row = row;
+    for (v = 0; v < NV && ok; v++) {
+        int line;
+        if (cube_lit(c, v) < 0) continue;
+        if (VE[v] == X_DFB || VE[v] == X_IO) line = find_line_pref(VS[v]->pin, VE[v] == X_DFB);
+        else if (VE[v] == X_LQ || VE[v] == X_DQ || VE[v] == X_IOL) line = D->inflag_pinread ? find_line_pref(VS[v]->pin, 0) : find_line(VS[v]->pin);
+        else line = find_line(VS[v]->pin);
+        if (line >= 0 && g_xline == -2) ok = 0;
+    }
+    g_row = -1;
+    g_xline = -1;
+    return ok;
+}
+
+/* rows with column windows: terms that fit only some rows are placed
+   first; rowat[t] receives the row of term t.  0: placed, 1: too many
+   terms, 2: a term fits no row of the list */
+static int place_rows(const int *rows, int nrows, const Cover *f, int *rowat)
+{
+    unsigned char *taken = (unsigned char *)xcalloc((size_t)nrows + 1, 1);
+    unsigned char *all = (unsigned char *)xcalloc((size_t)f->n + 1, 1);
+    int t, j, rc = 0, pass, zeros = f->n ? f->zeros : 0;
+    for (t = 0; t < f->n; t++) {
+        int n = 0;
+        for (j = 0; j < nrows; j++) if (cube_fits_row(rows[j], &f->c[t])) n++;
+        if (!n) rc = 2;
+        all[t] = (unsigned char)(n == nrows);
+    }
+    for (pass = 0; pass < 2 && !rc; pass++)
+        for (t = 0; t < f->n && !rc; t++) {
+            if (all[t] != pass) continue;
+            for (j = 0; j < nrows; j++) if (!taken[j] && (pass ? !D->vr_w1[rows[j]] : cube_fits_row(rows[j], &f->c[t]))) break;
+            /* (as WinCUPL: the rows of the narrow kind first) */
+            if (j == nrows && pass) for (j = 0; j < nrows; j++) if (!taken[j]) break;
+            if (j == nrows) { rc = 1; break; }
+            taken[j] = 1;
+            rowat[t] = rows[j];
+        }
+    for (j = 0, t = 0; j < nrows; j++) if (!taken[j]) t++;
+    if (!rc && zeros > t) rc = 1;
+    free(taken);
+    free(all);
+    return rc;
+}
+
 static void write_row(int row, const Cube *c)
 {
     int base = dev_row_addr(D, row), k, v, pass;
@@ -757,6 +896,10 @@ static void write_row(int row, const Cube *c)
         save = (unsigned char *)xmalloc((size_t)D->ncols);
         memcpy(save, R->fuse + base, (size_t)D->ncols);
     }
+    if (D->vr_addr) {
+        for (k = 0; k < D->ncols; k++) { int a = dev_fuse(D, row, k); if (a >= 0) R->fuse[a] = 1; }
+        g_row = row;
+    } else
     for (k = 0; k < D->ncols; k++) R->fuse[base + k] = 1;
     /* plain names first, then names with an extension: where two names
        of one signal meet, WinCUPL keeps the literal with the extension
@@ -770,13 +913,41 @@ static void write_row(int row, const Cube *c)
             if (line < 0) continue;
             need = pol ^ line_inv_ext(VS[v], line, VE[v]);
         } else if (VE[v] == X_LQ || VE[v] == X_DQ || VE[v] == X_IOL) {
-            line = find_line(VS[v]->pin);     /* the pin's line, through its latch */
+            line = D->inflag_pinread ? find_line_pref(VS[v]->pin, 0) : find_line(VS[v]->pin);     /* the pin's line, through its latch */
             if (line < 0) continue;
             need = pol ^ line_inv(VS[v], line);
         } else {
             line = find_line(VS[v]->pin);
             if (line < 0) continue;
             need = pol ^ line_inv(VS[v], line);
+        }
+        if (D->vr_addr) {
+            int col, a;
+            if (g_xline == -2) continue;     /* (reported by the placement) */
+            if (g_xline >= 0) {
+                xquad_report(row, v);
+                if (g_fix) continue;
+                line = g_xline;
+            }
+            /* as WinCUPL: the latched read of a registered output has the
+               polarity of the register */
+            if (VE[v] == X_IOL && VS[v]->pin <= NP && PI[VS[v]->pin].regcfg && PI[VS[v]->pin].out)
+                need = pol ^ VS[v]->neg ^ PI[VS[v]->pin].inv;
+            col = 2 * line + ((need ? 0 : 1) ^ D->truecol_odd);
+            a = dev_fuse(D, row, col);
+            if (a < 0) continue;
+            k = dev_fuse(D, row, col ^ 1);
+            if (k >= 0 && R->fuse[k] == 0) {
+                if (!g_dupline_warned) {
+                    g_dupline_warned = 1;
+                    diag_bug(DG_WARN, "0906cb", 0, BUG_TWO_NAMES, g_fix ? "a product term reads %s%s%s with both polarities through another name of the same signal; the term is false"
+                                                             : "a product term reads %s%s%s with both polarities through another name of the same signal; only the last literal is kept",
+                             VS[v]->name, VE[v] ? "." : "", VE[v] ? ext_names[VE[v]] : "");
+                }
+                if (!g_fix) R->fuse[k] = 1;
+            }
+            R->fuse[a] = 0;
+            continue;
         }
         {
             int col = 2 * line + ((need ? 0 : 1) ^ D->truecol_odd), other = col ^ 1;
@@ -793,6 +964,7 @@ static void write_row(int row, const Cube *c)
             R->fuse[base + col] = 0;
         }
     }
+    g_row = -1;
     if (save) {
         unsigned char *row_fuses = (unsigned char *)xmalloc((size_t)D->ncols);
         memcpy(row_fuses, R->fuse + base, (size_t)D->ncols);
@@ -807,6 +979,17 @@ static void write_row(int row, const Cube *c)
 static int put_rows(int r0, int cap, const Cover *f, const char *name)
 {
     int i;
+    if (D->vr_addr) {
+        int *rows = (int *)xmalloc(sizeof(int) * (size_t)(cap + 1)), *at = (int *)xmalloc(sizeof(int) * (size_t)(f->n + 1)), rc;
+        for (i = 0; i < cap; i++) rows[i] = r0 + i;
+        rc = place_rows(rows, cap, f, at);
+        if (rc == 2) diag(DG_ERROR, "0017cc", 0, "global feedback in local product term: %s", name);
+        else if (rc) diag(DG_ERROR, "0006cc", 0, "excessive number of product terms:  %s", name);
+        else for (i = 0; i < f->n; i++) write_row(at[i], &f->c[i]);
+        free(rows);
+        free(at);
+        return rc ? -1 : 0;
+    }
     /* constant-false placeholder terms (-m0) count unless the sum is empty */
     if (f->n + (f->n ? f->zeros : 0) > cap) {
         diag(DG_ERROR, "0006cc", 0, "excessive number of product terms:  %s", name);
@@ -881,6 +1064,42 @@ static void gen_controls(int mc, PinInfo *pi)
             x = X_CE;
             R->fuse[k->ce_fuse] = 1;
         }
+        if (j == 0 && k->cksync_fuse >= 0) {
+            /* clock pin ANDed with the CK term (.CE, or nothing) or the CK
+               term alone (.CK) */
+            if (pi->eq[X_CE] && pi->eq[X_CK]) {
+                /* both go into the one row: accepted when they are the
+                   same term, which then is the clock (as WinCUPL) */
+                Cover a, b;
+                int la, lb, same;
+                cv_init(&a); cv_init(&b);
+                control_cover(&pi->eq[X_CE], 1, &a, &la);
+                control_cover(&pi->eq[X_CK], 1, &b, &lb);
+                same = a.n == 1 && b.n == 1 && cube_same(&a.c[0], &b.c[0]);
+                cv_free(&a); cv_free(&b);
+                if (!same) {
+                    name_ext(nm, sizeof nm, pi->s, X_CE);
+                    diag(DG_ERROR, "0006cc", 0, "excessive number of product terms:  %s", nm);
+                    continue;
+                }
+                R->fuse[k->cksync_fuse] = 0;
+            }
+            else if (pi->eq[X_CE]) { x = X_CE; R->fuse[k->cksync_fuse] = 1; }
+            else if (pi->eq[X_CK]) R->fuse[k->cksync_fuse] = 0;
+            else if (pi->reg) {
+                /* the data sheet ANDs the pin clock with the term, which
+                   WinCUPL leaves false */
+                diag_bug(DG_WARN, "0905cb", 0, BUG_V5K_CLOCK, g_fix ? "%s: clock term of %s (no .CK, no .CE) written true: clocked by the clock pin"
+                                                               : "%s: the clock term of %s (no .CK, no .CE) is left false: the register is never clocked",
+                         upname(), pi->s->name);
+                if (g_fix) {
+                    Cube u;
+                    cube_universe(&u);
+                    R->fuse[k->cksync_fuse] = 1;
+                    write_row(k->ck_row, &u);
+                } else R->fuse[k->cksync_fuse] = (unsigned char)k->cksync_idle;
+            }
+        }
         if (rows[j] < 0 || !pi->eq[x]) continue;
         cv_init(&f);
         control_cover(&pi->eq[x], 1, &f, &lvl);
@@ -889,6 +1108,35 @@ static void gen_controls(int mc, PinInfo *pi)
         add_doc(pi->s, x, 0, &f, 1, lvl);
         cv_free(&f);
     }
+}
+
+/* BUG_ROOTNOT_COMBD: a pin with a registered equation complemented at
+   its root and a combinational equation.  WinCUPL misses the conflict and
+   ORs the combinational expression (its own root complement dropped) into
+   the register's sum.  Returns 1 when reproduced. */
+static int rootnot_combd(PinInfo *pi, int i)
+{
+    int x = pi->tff ? X_T : X_D, flip, f2;
+    Eqn *rq = pi->eq[x], *cq = pi->eq[X_NONE], *m;
+    const Expr *cd, *cc;
+    if (!rq || !cq) return 0;
+    cd = root_strip(rq, &flip);
+    if (cd == resolve_top(rq->e)) return 0;
+    if (g_fix) {
+        diag_bug(DG_NOTE, "0025cb", 0, BUG_ROOTNOT_COMBD, "pin %d (%s): rejected", i, pi->s->name);
+        return 0;
+    }
+    cc = root_strip(cq, &f2);
+    m = (Eqn *)xcalloc(1, sizeof *m);
+    *m = *rq;
+    m->e = mk_not(mk_bin(E_OR, (Expr *)cc, (Expr *)cd));
+    memset(m->grp, 0, sizeof m->grp);
+    m->grp[0] = m->e;
+    pi->eq[x] = m;
+    pi->eq[X_NONE] = NULL;
+    pi->comb = 0;
+    diag_bug(DG_WARN, "0905cb", 0, BUG_ROOTNOT_COMBD, "pin %d (%s) has a combinational and a registered equation: the combinational one is ORed into the register's sum", i, pi->s->name);
+    return 1;
 }
 
 static char g_redirect[24];
@@ -925,13 +1173,14 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
 {
     const DevAlias *al = NULL;
     int i, j, nerr0 = g_diag.nerr;
-    int anyreg = 0, anyoe = 0, anyfb = 0, anyar = 0, anysp = 0;
+    int anyreg = 0, anyoe = 0, anyfb = 0;
     Eqn **arq = NULL, **spq = NULL, **apq = NULL;
     int nar = 0, nsp = 0, nap = 0;
     unsigned char *rowowner;
     Cover *mcsum;
     int *mcsumset;
     unsigned char *steerdone;   /* product-term steering groups: 1 written, 2 too many terms */
+    unsigned char *summode;     /* three-sum macrocells: 1 A, 2 B, 3 A+B, 4 A+B+C */
     int *steerrow;              /* row of each term of a steered sum (64 per macrocell) */
 
     memset(r, 0, sizeof *r);
@@ -1084,6 +1333,13 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
             pi->eq[X_D] = NULL;
         }
         pi->out = pi->comb || pi->reg;
+        if (pi->mc >= 0 && D->mc[pi->mc].type == MC_GEN && D->mc[pi->mc].xv_fuse >= 0) {
+            /* OE-term configuration: combinational (unless .OEMUX asks for
+               the OE pin), a register with .OE, a pin that is no output */
+            pi->xvoe = pi->reg ? pi->eq[X_OE] != NULL : pi->comb ? !pi->eq[X_OEMUX] : (pi->input || pi->eq[X_OE]);
+            if (pi->eq[X_OE] && pi->eq[X_OEMUX])
+                diag(DG_ERROR, "0013cc", 0, "conflicting usage of pinnode:  %s", pi->s->name);
+        }
         if (pi->reg) anyreg = 1;
         if (pi->eq[X_OE]) anyoe = 1;
         if (pi->out && pi->input) anyfb = 1;
@@ -1126,6 +1382,7 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         if (al && al->nreserve >= 0) {
             for (i = 0; i < al->nreserve; i++) res[nres++] = al->reserve[i];
         } else if (D->pd_pin > 0) res[nres++] = D->pd_pin;
+        for (i = 0; i < D->nnopin && nres < 12; i++) res[nres++] = D->nopin[i];
         /* an automatic mnemonic: the pins its resolved mnemonic reserves */
         if (al && strcmp(r->resolved, al->name) && dev_find(r->resolved, &ra) == D && ra && ra->nreserve > 0)
             for (i = 0; i < ra->nreserve && nres < 12; i++) res[nres++] = ra->reserve[i];
@@ -1205,11 +1462,11 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
             pi->regcfg = pi->reg && !strcmp(MODENAME, "registered");
             break;
         case MC_V10:
-            if (pi->reg && pi->comb) { name_ext(nm, sizeof nm, pi->s, X_D); diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", i, nm); }
+            if (pi->reg && pi->comb && !rootnot_combd(pi, i)) { name_ext(nm, sizeof nm, pi->s, X_D); diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", i, nm); }
             pi->regcfg = pi->reg || (!pi->comb && !pi->input);
             break;
         case MC_GEN:
-            if ((k->node || alias_pin(i)) && pi->comb) {
+            if ((k->node || alias_pin(i)) && pi->comb && !(k->node && k->reg_kind == GR_FUSE)) {
                 if (k->node && D->refdefect_nodecomb) {
                     /* the reference accepts this and writes a never-clocked
                        register (and cuts the sum of the macrocell's pin) */
@@ -1276,6 +1533,12 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                     diag(DG_ERROR, "0013cc", 0, "conflicting usage of pinnode:  %s", nm);
                 }
             }
+            if (k->noctl) {
+                static const int cx[4] = { X_CK, X_CE, X_AR, X_AP };
+                for (x = 0; x < 4; x++)
+                    if (pi->eq[cx[x]]) { name_ext(nm, sizeof nm, pi->s, cx[x]); diag(DG_ERROR, "0012cb", 0, "pin/node %d invalid usage:  %s", i, nm); break; }
+                if (x < 4) break;
+            }
             for (x = X_CK; x < X_COUNT; x++) {
                 int ok = (x == X_CK && k->ck_row >= 0) || (x == X_AR && (k->ar_row >= 0 || D->ar_row >= 0)) ||
                          (x == X_AP && (k->ap_row >= 0 || D->ap_row >= 0)) || (x == X_SP && (k->sp_row >= 0 || D->sp_row >= 0));
@@ -1313,7 +1576,7 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                         diag_bug(DG_WARN, "0905cb", 0, BUG_MEGA_COMBD, "%s: pin %d (%s) has a combinational and a registered equation; both are ORed into one combinational output", up, i, pi->s->name);
                     }
                     if (g_fix) diag_bug(DG_NOTE, "0907cb", 0, BUG_MEGA_COMBD, "%s: pin %d (%s): rejected", up, i, pi->s->name);
-                } else if (pi->reg && pi->comb) { name_ext(nm, sizeof nm, pi->s, X_D); diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", i, nm); }
+                } else if (pi->reg && pi->comb && !rootnot_combd(pi, i)) { name_ext(nm, sizeof nm, pi->s, pi->tff ? X_T : X_D); diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", i, nm); }
                 pi->regcfg = pi->reg;
             }
             break;
@@ -1393,17 +1656,11 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         }
     }
     for (i = 1; i <= NP; i++) {
-        if (!PI[i].s) continue;
-        if (PI[i].eq[X_AR] && D->ar_row >= 0) anyar = 1;
-        if (PI[i].eq[X_SP] && D->sp_row >= 0) anysp = 1;
-        if (PI[i].eq[X_AP] && D->ap_row >= 0) anysp = 1;
-    }
-    for (i = 1; i <= NP; i++) {
         PinInfo *pi = &PI[i];
         Eqn *q;
         const Macrocell *k;
         const Expr *core;
-        int flip, want, level, cap, pp, kpol, qa, cflip, gq, rootnot;
+        int flip, want, level, cap, pp, kpol, qa, cflip, gq, rootnot, xs0, xs1 = -1;
         Cover f;
         if (!pi->s || !pi->out || pi->mc < 0) continue;
         q = pi->reg ? pi->eq[pi->tff ? X_T : X_D] : pi->eq[X_NONE];
@@ -1429,6 +1686,7 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
            into the sum, as the reference does */
         pp = prog_polarity(pi->mc) && !qa && !(alias_pin(i) && !k->node && !gq);
         kpol = qa ? 1 : k->pol;
+        if (xv_xor(pi->mc)) kpol = 0;     /* the XOR configuration is active low */
         if (D->refdefect_nodeneg && pi->s->neg && (k->node || alias_pin(i))) {
             /* CUPLREF: '!' in a PINNODE declaration gives the node's
                polarity (the equation is complemented); the reference reads
@@ -1445,7 +1703,7 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                the sum is the expression itself */
             pi->inv = want;
             group_cover(q, level, &f);
-        } else if (k->type == MC_GEN && k->xsum0 >= 0) {
+        } else if (k->type == MC_GEN && (xs0 = mc_xsum(pi->mc, &xs1)) >= 0) {
             /* XOR macrocell: a top-level '$' is split over the two sums, the
                complement (fixed polarity) goes on the first operand */
             int inv = pp ? want : !kpol;
@@ -1455,26 +1713,26 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                 eqn_cover_pol(core->a, level, inv != want, pi->s, &f);
                 minimize(&f, level, cap);
                 eqn_cover(core->b, level, &pi->xsum);
-                minimize(&pi->xsum, level, k->xsum1 - k->xsum0 + 1);
+                minimize(&pi->xsum, level, xs1 - xs0 + 1);
             } else {
                 eqn_cover_pol(core, level, inv != want, pi->s, &f);
                 minimize(&f, level, cap);
             }
-            if (k->xone && f.n + (f.n ? f.zeros : 0) <= k->xsum1 - k->xsum0 + 1) {
+            if (k->xone && f.n + (f.n ? f.zeros : 0) <= xs1 - xs0 + 1) {
                 /* the first operand (or the whole sum) in the second sum
                    when it fits, as the reference */
                 Cover t = f;
                 f = pi->xsum;
                 pi->xsum = t;
             } else if (k->xswap && (core->op == E_XOR ? f.n + (f.n ? f.zeros : 0) <= pi->xsum.n + (pi->xsum.n ? pi->xsum.zeros : 0)
-                                               : f.n + (f.n ? f.zeros : 0) <= k->xsum1 - k->xsum0 + 1)) {
+                                               : f.n + (f.n ? f.zeros : 0) <= xs1 - xs0 + 1)) {
                 /* the smaller operand (or the whole sum, when it fits) in the
                    second sum, as the reference */
                 Cover t = f;
                 f = pi->xsum;
                 pi->xsum = t;
             }
-            if (level >= 2 && (f.n > cap || pi->xsum.n > k->xsum1 - k->xsum0 + 1)) {
+            if (level >= 2 && (f.n > cap || pi->xsum.n > xs1 - xs0 + 1)) {
                 /* with full minimisation the reference finds another split
                    when the written one does not fit: try F = A $ v for every
                    single variable v */
@@ -1505,9 +1763,9 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         } else if (pp) {
             eqn_cover_neg(core, level, cflip, &f);
             pi->inv = gq ? pi->s->neg : want;
-            /* -kb never flips a register whose reset/preset is in use: that
-               would change what AR/SP do to the pin */
-            if (O.kb && !(pi->regcfg && (anyar || anysp || pi->eq[X_AR] || pi->eq[X_AP])) && !pi->tff) {
+            /* (as WinCUPL, -kb also flips a register whose reset or preset
+               is in use, which changes what they do to the pin) */
+            if (O.kb && (!pi->tff || (D->refdefect_kball && !g_fix))) {
                 Cover a, b;
                 cv_init(&a); cv_init(&b);
                 cv_copy(&a, &f);
@@ -1586,6 +1844,14 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         for (i = 0; i < D->refdefect_nones; i++) if (D->refdefect_ones + i < D->nfuses) r->fuse[D->refdefect_ones + i] = 1;
     for (i = 0; i < D->nconst; i++) if (D->const_fuse[i] < D->nfuses) r->fuse[D->const_fuse[i]] = 1;
     for (i = 0; i < D->modes[MODE].ncond; i++) r->fuse[D->modes[MODE].cond_fuse[i]] = (unsigned char)D->modes[MODE].cond_val[i];
+    for (i = 0; i < D->nmc; i++) {
+        if (D->mc[i].type != MC_GEN) continue;
+        if (D->mc[i].cksync_fuse >= 0) r->fuse[D->mc[i].cksync_fuse] = (unsigned char)D->mc[i].cksync_idle;
+        if (D->mc[i].cjoin_fuse >= 0) r->fuse[D->mc[i].cjoin_fuse] = 1;
+    }
+    free(g_xqdone);
+    g_xqdone = (unsigned char *)xcalloc((size_t)NP + 2, 1);
+    summode = (unsigned char *)xcalloc((size_t)D->nmc + 1, 1);
     rowowner = (unsigned char *)xcalloc((size_t)D->nrows + 1, 1);
     mcsum = (Cover *)xcalloc((size_t)D->nmc + 1, sizeof(Cover));
     mcsumset = (int *)xcalloc((size_t)D->nmc + 1, sizeof(int));
@@ -1634,7 +1900,12 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         } else if (k->type == MC_GEN) {
             if (k->pol_fuse >= 0)
                 r->fuse[k->pol_fuse] = (unsigned char)(pi && pi->out && (!alias_pin(pi->pin) || g_amoved[i]) ? (pi->inv ? !k->pol_hi : k->pol_hi) : 0);
-            if (k->reg_kind == GR_FUSE) {
+            if (k->xv_fuse >= 0) {
+                r->fuse[k->xv_fuse] = (unsigned char)(pi && xv_oe(i));
+                if (k->pol_fuse >= 0 && !(pi && pi->out && xv_oe(i))) r->fuse[k->pol_fuse] = 0;
+            }
+            if (k->reg_kind == GR_FUSE && k->reg_nout >= 0 && !(pi && pi->out)) r->fuse[k->reg_fuse] = (unsigned char)k->reg_nout;
+            else if (k->reg_kind == GR_FUSE) {
                 if (k->qsplit_fuse >= 0 && g_qsplit[i] && pi && pi->out) r->fuse[k->reg_fuse] = (unsigned char)!k->reg_on;
                 else if (k->reg_idle >= 0 && !(pi && (pi->out || pi->input || pi->eq[X_OE]))) r->fuse[k->reg_fuse] = (unsigned char)k->reg_idle;
                 else if (k->reg_idle >= 0 && !pi->out) r->fuse[k->reg_fuse] = (unsigned char)!k->reg_on;
@@ -1864,6 +2135,44 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                 add_doc(pi->s, pi->reg ? (pi->tff ? X_T : X_D) : X_NONE, pi->inv, &pi->sum, size, level_of(pi->reg ? pi->eq[pi->tff ? X_T : X_D] : pi->eq[X_NONE]));
             continue;
         }
+        if (k->type == MC_GEN && k->sumb >= 0) {
+            /* three sum terms: the first of A (registers only), B, A+B,
+               A+B+C that takes the terms; C belongs to the cell's second
+               register when that is used */
+            int lo[4], hi[4], m, ok = -1, q2 = 0, rows[64], *at = (int *)xmalloc(sizeof(int) * (size_t)(pi->sum.n + 1));
+            lo[0] = k->sum0; hi[0] = k->sumb - 1;
+            lo[1] = k->sumb; hi[1] = k->sumc - 1;
+            lo[2] = k->sum0; hi[2] = k->sumc - 1;
+            lo[3] = k->sum0; hi[3] = k->sum1;
+            for (j = 0; j < D->nmc; j++) {
+                const Macrocell *b = &D->mc[j];
+                if (b->node && b->sum0 >= k->sumc && b->sum1 <= k->sum1 && b->pin <= NP && PI[b->pin].s && PI[b->pin].out) q2 = 1;
+            }
+            name_ext(nm, sizeof nm, pi->s, pi->reg ? (pi->tff ? X_T : X_D) : X_NONE);
+            for (m = pi->regcfg ? 0 : 1; m < 4 && ok < 0; m++) {
+                int n = 0, rr;
+                if (m == 1 && pi->regcfg) {
+                    /* as WinCUPL: a register takes B alone only when A's
+                       universal rows would do for its terms */
+                    int t2, nu = 0, ua = 0;
+                    for (t2 = 0; t2 < pi->sum.n; t2++) if (!cube_fits_row(k->sum0, &pi->sum.c[t2])) nu++;
+                    for (rr = lo[0]; rr <= hi[0]; rr++) if (D->vr_w1[rr]) ua++;
+                    if (nu > ua) continue;
+                }
+                for (rr = lo[m]; rr <= hi[m] && n < 64; rr++) rows[n++] = rr;
+                if (place_rows(rows, n, &pi->sum, at) == 0) ok = m;
+            }
+            if (ok == 3 && q2) diag(DG_ERROR, "0013cc", 0, "conflicting usage of pinnode:  %s", nm);
+            else if (ok < 0) diag(DG_ERROR, "0006cc", 0, "excessive number of product terms:  %s", nm);
+            else {
+                for (j = 0; j < pi->sum.n; j++) write_row(at[j], &pi->sum.c[j]);
+                summode[i] = (unsigned char)(ok + 1);
+                if (k->cjoin_fuse >= 0) r->fuse[k->cjoin_fuse] = (unsigned char)(ok != 2);
+                add_doc(pi->s, pi->reg ? (pi->tff ? X_T : X_D) : X_NONE, pi->inv, &pi->sum, k->sum1 - k->sum0 + 1, level_of(pi->reg ? pi->eq[pi->tff ? X_T : X_D] : pi->eq[X_NONE]));
+            }
+            free(at);
+            continue;
+        }
         /* rows shared with an earlier macrocell (complementary outputs) */
         for (j = 0; j < i; j++)
             if (mcsumset[j] && !k->node && !D->mc[j].node && D->mc[j].sum0 <= k->sum1 && k->sum0 <= D->mc[j].sum1) shared = j;
@@ -1907,11 +2216,15 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
             continue;
         }
         if (shared >= 0) {
-            /* PAL16C1: one sum for both outputs; a second equation is
-               rejected on an active-low pin, else both are ORed into the
-               sum (BUG_C1_SECOND) */
-            if (pi->s->neg)
-                diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", k->pin, pi->s->name);
+            /* PAL16C1: one sum for both outputs.  As WinCUPL: of the two,
+               the later name (strcmp) is rejected when its declaration
+               and the '!' of its equation give the polarity of its pin,
+               else both are ORed into the sum (BUG_C1_SECOND) */
+            const Macrocell *k2 = k;
+            PinInfo *p2 = pi;
+            if (strcmp(pi->s->name, PI[D->mc[shared].pin].s->name) < 0) { k2 = &D->mc[shared]; p2 = &PI[k2->pin]; }
+            if ((p2->s->neg ^ (p2->eq[X_NONE] ? p2->eq[X_NONE]->neg : 0)) == !k2->pol)
+                diag(DG_ERROR, "0025cb", 0, "pin/node %d output mutually excluded by previous output:  %s", k2->pin, p2->s->name);
             else if (!cv_equal(&mcsum[shared], &pi->sum)) {
                 Cover u;
                 if (g_fix) {
@@ -1941,12 +2254,44 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
         }
         if (cap >= pi->sum.n + (pi->sum.n ? pi->sum.zeros : 0))
             add_doc(pi->s, pi->reg ? (pi->tff ? X_T : X_D) : X_NONE, pi->inv, &pi->sum, cap, level_of(pi->reg ? pi->eq[pi->tff ? X_T : X_D] : pi->eq[X_NONE]));
-        if (k->type == MC_GEN && k->xsum0 >= 0 && pi->xsum.n)
-            put_rows(k->xsum0, k->xsum1 - k->xsum0 + 1, &pi->xsum, nm);
+        {
+            int x0, x1 = -1;
+            if (k->type == MC_GEN && (x0 = mc_xsum(i, &x1)) >= 0 && pi->xsum.n)
+                put_rows(x0, x1 - x0 + 1, &pi->xsum, nm);
+        }
         cv_init(&mcsum[i]);
         cv_copy(&mcsum[i], &pi->sum);
         mcsumset[i] = 1;
         (void)rowowner;
+    }
+    /* a second register in use takes sum C away from its cell */
+    for (i = 0; i < D->nmc; i++) {
+        const Macrocell *b = &D->mc[i];
+        int own = -1, target;
+        if (b->type != MC_GEN || !b->node || b->pin > NP || !PI[b->pin].s || !PI[b->pin].out) continue;
+        for (j = 0; j < D->nmc; j++)
+            if (D->mc[j].type == MC_GEN && D->mc[j].sumc >= 0 && D->mc[j].cjoin_fuse >= 0 && b->sum0 >= D->mc[j].sumc && b->sum1 <= D->mc[j].sum1) own = j;
+        if (own < 0) continue;
+        target = own;
+        if (b->cjoin_bug >= 0) {
+            for (j = 0; j < D->nmc; j++) if (D->mc[j].type == MC_GEN && D->mc[j].cjoin_fuse == b->cjoin_bug) break;
+            if (j < D->nmc && j != own) {
+                diag_bug(DG_WARN, "0905cb", 0, BUG_V5K_CJOIN, g_fix ? "%s: pinnode %d (%s): sum term C separated from the sum of its own cell (pin %d)"
+                         : "%s: pinnode %d (%s): sum term C is separated from the sum of pin %d instead of pin %d, whose sum now includes the register's terms",
+                         upname(), b->pin, PI[b->pin].s->name, g_fix ? D->mc[own].pin : D->mc[j].pin, D->mc[own].pin);
+                if (!g_fix) target = j;
+            }
+        }
+        if (summode[target] != 4) r->fuse[D->mc[target].cjoin_fuse] = 0;
+    }
+    free(summode);
+    if (D->iolbug_pin > 0 && D->iolbug_pin <= NP && PI[D->iolbug_pin].s && PI[D->iolbug_pin].iolread) {
+        /* BUG_V5K_IOL25: a fuse of another cell is cleared */
+        for (j = 0; j < D->nmc; j++) if (D->mc[j].type == MC_GEN && D->mc[j].cjoin_fuse == D->iolbug_fuse) break;
+        diag_bug(DG_WARN, "0905cb", 0, BUG_V5K_IOL25, g_fix ? "%s: .IOL read of pin %d (%s): the sum of pin %d is left as it is"
+                 : "%s: the .IOL read of pin %d (%s) cuts sum term C off the sum of pin %d",
+                 upname(), D->iolbug_pin, PI[D->iolbug_pin].s->name, j < D->nmc ? D->mc[j].pin : 0);
+        if (!g_fix) r->fuse[D->iolbug_fuse] = 0;
     }
     /* bank fuse (PAL32R16): combinational if any output of the bank is;
        a mixed bank is rejected (the original silently makes it combinational) */
@@ -2097,7 +2442,13 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
     if (D->pd_fuse >= 0) r->fuse[D->pd_fuse] = 1;
     for (i = 0; i < D->ninflag; i++) {
         int p = D->inflag_pin[i];
-        if (p >= 1 && p <= NP && PI[p].s && PI[p].input && !PI[p].lq) r->fuse[D->inflag_fuse[i]] = 1;
+        if (D->inflag_pinread) {
+            /* set when the pin itself is read (a register read by its plain
+               name is not), also when minimisation removes the literal;
+               a latched read anywhere keeps it 0 */
+            if (p >= 1 && p <= NP && PI[p].s && !PI[p].lq && ((PI[p].plainread && !PI[p].regcfg) || PI[p].ioread)) r->fuse[D->inflag_fuse[i]] = 1;
+        }
+        else if (p >= 1 && p <= NP && PI[p].s && PI[p].input && !PI[p].lq) r->fuse[D->inflag_fuse[i]] = 1;
     }
     /* BUG_COMBFULL: rows written past the macrocell, after everything else */
     for (i = 0; i < g_nspill; i++) write_row(g_spillrow[i], &g_spill[i]);

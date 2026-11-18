@@ -31,9 +31,18 @@ const Device *dev_find(const char *m, const DevAlias **alias)
     return NULL;
 }
 
+int dev_fuse(const Device *d, int r, int c)
+{
+    if (!d->vr_addr) return c < d->ncols ? dev_row_addr(d, r) + c : -1;
+    if (c >= d->vr_v0[r] && c < d->vr_v0[r] + d->vr_w0[r]) return d->vr_addr[r] + c - d->vr_v0[r];
+    if (c >= d->vr_v1[r] && c < d->vr_v1[r] + d->vr_w1[r]) return d->vr_addr[r] + d->vr_w0[r] + c - d->vr_v1[r];
+    return -1;
+}
+
 int dev_row_addr(const Device *d, int r)
 {
     int i;
+    if (d->vr_addr) return d->vr_addr[r];
     for (i = 0; i < d->nrowat; i++) if (d->rowat_row[i] == r) return d->rowat_addr[i];
     return r * d->ncols;
 }
@@ -151,6 +160,15 @@ static Device *dev_clone(const Device *s)
             memcpy(d->modes[m].lines, s->modes[m].lines, sizeof(LineSrc) * (size_t)s->nlines);
         }
     }
+    if (s->vr_addr) {
+        int **dst[5], *const *src[5], q;
+        dst[0] = &d->vr_addr; dst[1] = &d->vr_v0; dst[2] = &d->vr_w0; dst[3] = &d->vr_v1; dst[4] = &d->vr_w1;
+        src[0] = &s->vr_addr; src[1] = &s->vr_v0; src[2] = &s->vr_w0; src[3] = &s->vr_v1; src[4] = &s->vr_w1;
+        for (q = 0; q < 5; q++) {
+            *dst[q] = (int *)xmalloc(sizeof(int) * (size_t)(s->nrows + 1));
+            memcpy(*dst[q], *src[q], sizeof(int) * (size_t)s->nrows);
+        }
+    }
     d->nalias = 0;
     d->alias = NULL;
     if (s->nlibtag) {
@@ -195,8 +213,9 @@ static void check_device(Ctx *c, Device *d)
 {
     int m, i;
     if (!d->npins || !d->nfuses || !d->ncols || !d->nrows) { perr(c, "device lacks pins/fuses/array", d->name); return; }
-    if (d->ncols * d->nrows > d->nfuses && !d->nrowat) perr(c, "array larger than fuse count", d->name);
-    for (i = 0; i < d->nrows; i++) if (dev_row_addr(d, i) + d->ncols > d->nfuses) { perr(c, "array row beyond the fuse count", d->name); break; }
+    if (d->ncols * d->nrows > d->nfuses && !d->nrowat && !d->vr_addr) perr(c, "array larger than fuse count", d->name);
+    for (i = 0; i < d->nrows; i++)
+        if (dev_row_addr(d, i) + (d->vr_addr ? d->vr_w0[i] + d->vr_w1[i] : d->ncols) > d->nfuses || (d->vr_addr && d->vr_w0[i] == 0)) { perr(c, "array row beyond the fuse count", d->name); break; }
     if (d->nmodes == 0) perr(c, "device has no 'lines'", d->name);
     for (m = 0; m < d->nmodes; m++)
         if (!d->modes[m].lines) perr(c, "mode without lines", d->modes[m].name);
@@ -377,6 +396,8 @@ int dev_parse(const char *text, const char *srcname)
             d->nlines = d->ncols / 2;
         } else if (!strcmp(tok[0], "clock") && n == 2) {
             d->clk_pin = to_int(&c, tok[1]);
+        } else if (!strcmp(tok[0], "simdefect") && n == 2 && !strcmp(tok[1], "inlevel")) {
+            d->sim_inlevel = 1;
         } else if (!strcmp(tok[0], "simdefect") && n == 2 && !strcmp(tok[1], "regoe")) {
             d->sim_regoe = 1;
         } else if (!strcmp(tok[0], "simdefect") && n == 2 && !strcmp(tok[1], "noclock")) {
@@ -432,8 +453,37 @@ int dev_parse(const char *text, const char *srcname)
             if (d->ntec == 16) { perr(&c, "too many tec statements", NULL); break; }
             d->tec_pin[d->ntec] = to_int(&c, tok[1]);
             d->tec_fuse[d->ntec++] = to_int(&c, tok[2]);
-        } else if (!strcmp(tok[0], "inflag") && n == 3) {
-            if (d->ninflag == 32) { perr(&c, "too many inflag statements", NULL); break; }
+        } else if (!strcmp(tok[0], "vrows") && (n == 7 || n == 9)) {
+            int r0 = to_int(&c, tok[1]), cnt = to_int(&c, tok[2]), a = to_int(&c, tok[3]), st = to_int(&c, tok[4]);
+            if (!d->nrows || r0 < 0 || r0 + cnt > d->nrows) { perr(&c, "vrows outside the array", tok[1]); break; }
+            if (!d->vr_addr) {
+                d->vr_addr = (int *)xcalloc((size_t)d->nrows + 1, sizeof(int));
+                d->vr_v0 = (int *)xcalloc((size_t)d->nrows + 1, sizeof(int));
+                d->vr_w0 = (int *)xcalloc((size_t)d->nrows + 1, sizeof(int));
+                d->vr_v1 = (int *)xcalloc((size_t)d->nrows + 1, sizeof(int));
+                d->vr_w1 = (int *)xcalloc((size_t)d->nrows + 1, sizeof(int));
+            }
+            for (i = 0; i < cnt; i++) {
+                d->vr_addr[r0 + i] = a + i * st;
+                d->vr_v0[r0 + i] = to_int(&c, tok[5]);
+                d->vr_w0[r0 + i] = to_int(&c, tok[6]);
+                d->vr_v1[r0 + i] = n == 9 ? to_int(&c, tok[7]) : 0;
+                d->vr_w1[r0 + i] = n == 9 ? to_int(&c, tok[8]) : 0;
+            }
+        } else if (!strcmp(tok[0], "nopin") && n >= 2) {
+            for (i = 1; i < n && d->nnopin < 8; i++) d->nopin[d->nnopin++] = to_int(&c, tok[i]);
+        } else if (!strcmp(tok[0], "refdefect") && n == 4 && !strcmp(tok[1], "iolfuse")) {
+            d->iolbug_pin = to_int(&c, tok[2]);
+            d->iolbug_fuse = to_int(&c, tok[3]);
+        } else if (!strcmp(tok[0], "refdefect") && n == 2 && !strcmp(tok[1], "kball")) {
+            d->refdefect_kball = 1;
+        } else if (!strcmp(tok[0], "refdefect") && n == 2 && !strcmp(tok[1], "xquad")) {
+            d->refdefect_xquad = 1;
+        } else if (!strcmp(tok[0], "inflag") && n == 2 && !strcmp(tok[1], "pinread")) {
+            d->inflag_pinread = 1;
+        } else if (!strcmp(tok[0], "inflag") && (n == 3 || n == 4)) {
+            if (d->ninflag == 64) { perr(&c, "too many inflag statements", NULL); break; }
+            d->inflag_le[d->ninflag] = n == 4 ? to_int(&c, tok[3]) : 0;
             d->inflag_pin[d->ninflag] = to_int(&c, tok[1]);
             d->inflag_fuse[d->ninflag++] = to_int(&c, tok[2]);
         } else if (!strcmp(tok[0], "fbkind") && n == 3) {
@@ -570,6 +620,20 @@ int dev_parse(const char *text, const char *srcname)
                 dm->cond_val[dm->ncond] = to_int(&c, eq + 1) ? 1 : 0;
                 dm->ncond++;
             }
+        } else if (!strcmp(tok[0], "lines+") && n >= 2) {
+            /* a long line list in several statements */
+            int m = add_mode(&c, d, "all");
+            if (!d->nlines) { perr(&c, "'array' must precede 'lines'", NULL); break; }
+            if (!d->modes[m].lines) { d->modes[m].lines = (LineSrc *)xcalloc((size_t)d->nlines, sizeof(LineSrc)); d->lines_fill = 0; }
+            if (d->lines_fill + n - 1 > d->nlines) { perr(&c, "line count does not match array columns/2", "lines+"); break; }
+            for (i = 1; i < n; i++) {
+                LineSrc *s = &d->modes[m].lines[d->lines_fill++];
+                if (!strcmp(tok[i], "-")) s->kind = SRC_NONE;
+                else if (tok[i][0] == 'p' || tok[i][0] == 'f') {
+                    s->kind = tok[i][0] == 'p' ? SRC_PIN : SRC_FB;
+                    s->pin = (unsigned char)to_int(&c, tok[i] + 1);
+                } else perr(&c, "bad line source", tok[i]);
+            }
         } else if (!strcmp(tok[0], "lines") && n >= 2) {
             int first = 1, m;
             const char *mname = "all";
@@ -622,6 +686,11 @@ int dev_parse(const char *text, const char *srcname)
             k.ac1_val = 1;
             k.xorr_fuse = -1;
             k.xorr_val = 1;
+            k.sumb = k.sumc = -1;
+            k.xv_fuse = -1;
+            k.cjoin_fuse = k.cjoin_bug = k.cksync_fuse = -1;
+            k.cksync_idle = 1;
+            k.reg_nout = -1;
             if (!strcmp(tok[2], "comb")) k.type = MC_COMB;
             else if (!strcmp(tok[2], "reg")) k.type = MC_REG;
             else if (!strcmp(tok[2], "gal")) k.type = MC_GAL;
@@ -682,6 +751,16 @@ int dev_parse(const char *text, const char *srcname)
                 else if (!strcmp(tok[i], "xorr")) k.xorr_fuse = fuse_ref(&c, d, eq);
                 else if (!strcmp(tok[i], "xorrval")) k.xorr_val = to_int(&c, eq) ? 1 : 0;
                 else if (!strcmp(tok[i], "cefuse")) k.ce_fuse = fuse_ref(&c, d, eq);
+                else if (!strcmp(tok[i], "sumb")) k.sumb = to_int(&c, eq);
+                else if (!strcmp(tok[i], "sumc")) k.sumc = to_int(&c, eq);
+                else if (!strcmp(tok[i], "cjoin")) k.cjoin_fuse = fuse_ref(&c, d, eq);
+                else if (!strcmp(tok[i], "cjoinbug")) k.cjoin_bug = fuse_ref(&c, d, eq);
+                else if (!strcmp(tok[i], "cksync")) k.cksync_fuse = fuse_ref(&c, d, eq);
+                else if (!strcmp(tok[i], "cksyncidle")) k.cksync_idle = to_int(&c, eq) ? 1 : 0;
+                else if (!strcmp(tok[i], "ckpin")) k.ck_pin = to_int(&c, eq);
+                else if (!strcmp(tok[i], "regnout")) k.reg_nout = to_int(&c, eq) ? 1 : 0;
+                else if (!strcmp(tok[i], "noctl")) k.noctl = to_int(&c, eq) ? 1 : 0;
+                else if (!strcmp(tok[i], "xvfuse")) k.xv_fuse = fuse_ref(&c, d, eq);
                 else if (!strcmp(tok[i], "tfuse")) k.t_fuse = fuse_ref(&c, d, eq);
                 else if (!strcmp(tok[i], "tval")) k.t_val = to_int(&c, eq) ? 1 : 0;
                 else if (!strcmp(tok[i], "pold")) k.pol_d = to_int(&c, eq);

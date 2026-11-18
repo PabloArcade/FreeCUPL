@@ -1,0 +1,25 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p1016rd4lcc;
+pin 13 = i0;
+pin 12 = !i1;
+pin 4 = !i2;
+pin 27 = !i3;
+pin 6 = ELSE;
+pin 24 = o1;
+pin 20 = o2;
+pin 10 = o3;
+pin 5 = o4;
+
+ELSE.d = (i1 $ i3);
+o1.d = 'b'0;
+o2 = i3;
+o3 = ((i3 & !o2 & !ELSE) # i2 # !i0);
+o4 = (i3 # (ELSE & i1 & !o1) # (!i2 & o3 & !ELSE));
+
+/* @expect
+ELSE.d = (i1 ^ i3)
+o1.d = 0
+o2 = i3
+o3 = ((i3 and (not o2) and (not ELSE)) or i2 or (not i0))
+o4 = (i3 or (ELSE and i1 and (not o1)) or ((not i2) and o3 and (not ELSE)))
+*/

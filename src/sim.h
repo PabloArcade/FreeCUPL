@@ -5,7 +5,7 @@
 #include "device.h"
 #include "util.h"
 
-#define SIM_MAXPINS 96
+#define SIM_MAXPINS 160
 #define SIM_HASREG(m) ((m)->kind == MK_REG || (m)->hasreg)
 
 enum { MK_NONE = 0, MK_COMB, MK_REG, MK_INPUT };
@@ -28,6 +28,7 @@ typedef struct {
     int rs0, rs1;      /* rows of the register's D input when they differ from the pin's sum (rs0 < 0: same) */
     int sp_row;        /* per-macrocell synchronous preset row (-1 none) */
     int ce;            /* clocked by the clock pin, ck_row is a clock enable */
+    int ck_pin;        /* that clock pin when it is not the device's (0) */
     int steer, steer_step; /* steering fuses of the sum rows (-1: none) */
     int steer_other;   /* steershare: the partner's steering fuses (-1: none) */
     int sel;           /* select column: only rows connected there are ORed (-1: all rows) */

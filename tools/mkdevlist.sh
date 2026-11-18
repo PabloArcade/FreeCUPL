@@ -15,7 +15,7 @@ mkdir "$TMP" || exit 2
 trap 'rm -rf "$TMP"' EXIT INT TERM
 
 # family titles, in the order of the list
-FILES="v10 gal8 gal_vp8 gal_z8 gal16h m16v8 gal24 peel18 atv750 atv2500
+FILES="v10 gal8 gal_vp8 gal_z8 gal16h m16v8 gal24 gal_xv10 peel18 atv750 atv2500 atv5000
 pal20_small pal64 pal_steer pal_xrp pal_mega m3_gal m3_pal_fixed m3_pal_p
 m3_pal_rp m3_pal_olmc m3_pal_10k m3_pal_inreg m3_pal_latch m3_pal_x m3_ra
 m3_misc lcc m3_lcc"
@@ -28,9 +28,11 @@ title() {
     gal16h)       echo "GAL16V8 variants with input latches (24 pins)" ;;
     m16v8)        echo "MMI-type 16V8" ;;
     gal24)        echo "GAL24V10-type" ;;
+    gal_xv10)     echo "GAL20XV10" ;;
     peel18)       echo "PEEL18CV8-type" ;;
     atv750)       echo "ATV750 / ATF750C family" ;;
     atv2500)      echo "ATV2500 / ATF2500C family" ;;
+    atv5000)      echo "ATV5000" ;;
     pal20_small)  echo "Small 20-pin combinational PALs" ;;
     pal64)        echo "20- and 24-pin PALs with 64 product terms" ;;
     pal_steer)    echo "Product-term steering PALs" ;;

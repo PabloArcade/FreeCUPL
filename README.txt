@@ -1,4 +1,4 @@
-FreeCUPL 2.0.0
+FreeCUPL 2.1.0
 
 FreeCUPL is a free replacement for the command-line compiler and
 simulator of WinCUPL 5.0a, the CUPL tools for simple programmable logic
@@ -21,10 +21,12 @@ bugs are corrected by default and reported with a warning; the option
 bugs are listed in docs/BUGS.txt.  FreeCUPL 1.0.0 had the opposite
 default; make FIX_DEFAULT=0 builds that behaviour.
 
-307 device mnemonics are supported: GAL16V8, GAL20V8, 22V10, GAL18V10,
-GAL20RA10, ATV750, ATF750C, ATV2500, ATF2500C, PEEL18CV8 and most PAL
-families, with their PLCC variants.  The full list is in section 8 of
-docs/USERGUIDE.txt.  CPLDs that need WinCUPL's external fitter are not
+327 device mnemonics are supported: GAL16V8, GAL20V8, 22V10, GAL18V10,
+GAL20RA10, GAL20XV10, GAL26CV12, ATV750, ATF750C, ATV2500, ATF2500C,
+ATV5000, PEEL18CV8 and most PAL families, with their PLCC variants.
+The full list is in section 8 of docs/USERGUIDE.txt; section 6 lists
+the mnemonics that are not supported (PLS/IFL, GAL6001, EP300 to EP1800
+and others).  CPLDs that need WinCUPL's external fitter are not
 supported.
 
 Platforms: Windows XP SP3 and later (32-bit), Linux, macOS.  The macOS

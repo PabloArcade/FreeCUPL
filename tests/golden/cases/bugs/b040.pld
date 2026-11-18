@@ -1,0 +1,7 @@
+Name B040; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 1 = a; pin 2 = c;
+pin 31 = q; pin 30 = x;
+!q.d = a;
+q.ck = c;
+x = q;

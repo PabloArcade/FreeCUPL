@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          p26v12  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -45,4 +45,4 @@ Location        x
 *L07776 00000000000000000000000001001001
 *L07808 00111011011111110000000000000000
 *C5BA8
-*2F90
+*2F91

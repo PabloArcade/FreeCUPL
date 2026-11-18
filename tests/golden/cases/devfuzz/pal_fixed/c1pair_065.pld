@@ -1,0 +1,3 @@
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p16c1;
+pin 2 = a; pin 3 = b; pin 15 = x; pin 16 = y; x = a; y = b;

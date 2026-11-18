@@ -1,0 +1,24 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10i;
+/* @flags -jaxm0kb */
+pin 3 = in_x;
+pin 4 = in_y;
+pin 6 = in_z;
+pin 8 = in_w;
+pin 11 = in_v;
+pin 23 = !out_a;
+pin 14 = !out_b;
+pin 22 = out_c;
+t0 = !(!in_w);
+t1 = (!((t0 $ !in_y)) $ t0);
+t2 = t1 & in_y & !in_w;
+out_a.d = !in_v;
+out_b.d = [in_z,in_x,in_w]:$;
+out_c.d = !t0 & !in_y # in_z & in_v;

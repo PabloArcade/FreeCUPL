@@ -150,6 +150,19 @@ static void design_for_sim(CsDesign *cd, const FitResult *fr, const char *mnemon
                 cd->noeqn_used[cd->nnoeqn++] = (unsigned char)pin_read(s);
             }
         }
+        if (fr->dev->sim_inlevel && s->kind == SK_PIN && s->pin > 0 && cd->nfbinv < 128 && pin_read(s)) {
+            /* B040: the original simulator gives the readers of an output
+               the pin level (combinational) or the register as its
+               equation is written, without the '!' on the left or at the
+               root of the right side */
+            int j;
+            for (j = 0; j < g_des.neqns; j++) {
+                const Eqn *q = g_des.eqns[j];
+                if (q->sym != s || (q->ext != X_NONE && q->ext != X_D && q->ext != X_T)) continue;
+                if (q->ext == X_NONE ? s->neg : fit_eqn_flip(q)) cd->fbinv[cd->nfbinv++] = s->pin;
+                break;
+            }
+        }
         if ((s->kind == SK_PIN || s->kind == SK_NODE) && s->pin > 0) {
             cd->sym = (CsSym *)xrealloc(cd->sym, sizeof(CsSym) * (size_t)(cd->nsym + 1));
             cd->sym[cd->nsym].name = xstrdup(s->name);

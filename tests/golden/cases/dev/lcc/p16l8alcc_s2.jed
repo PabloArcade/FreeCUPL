@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          p16l8alcc  Library DLIB-h-40-9
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -21,4 +21,4 @@ Location        x
 *L01792 11111111111111111111111111111111
 *L01824 10111111111111111111111111111011
 *C179E
-*78DB
+*78DC

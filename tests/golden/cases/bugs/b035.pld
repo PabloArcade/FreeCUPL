@@ -1,0 +1,15 @@
+
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 1 = a; pin 2 = b; pin 32 = c; pin 34 = d;
+pin 5 = o; pin 6 = q; pinnode 104 = n;
+o = a & b;
+n.d = c; n.ck = d;
+q = n;
+/* @local */
+/* @expect
+o = a and b
+n.d = c
+n.ck = d
+q = n
+*/

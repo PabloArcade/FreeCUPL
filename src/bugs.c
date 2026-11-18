@@ -40,6 +40,13 @@ static const char *const titles[BUG_COUNT] = {
     "a PROPERTY statement without a name and a { } body, or an empty Device statement, crashes WinCUPL",
     "a header item given under both of its names (REV/REVISION, ASSY/ASSEMBLY, LOC/LOCATION) shifts the JED header fields",
     "a statement without '=' ('name;') is taken as an equation that sets the output true",
+    "ATV5000: a register of another quadrant is read through a column of the reader's regional bus",
+    "ATV5000: second register of an I/O cell in quadrant 1 or 3: sum term C is cut off on the wrong cell",
+    "ATV5000: a register without .CK and .CE gets a clock term that is never true",
+    "a combinational equation next to a .D or .T equation with a complement at its root is ORed into the register's sum",
+    "ATV5000: a .IOL read of pin 25 cuts sum term C off the cell of pin 30",
+    "simulator: ATV5000 input values are pin levels, the polarity of the pin declaration is ignored",
+    "simulator: ATV5000 outputs are read complemented by other equations (active-low pin, or '!' on a registered equation)",
 };
 
 const char *bug_title(int bug)

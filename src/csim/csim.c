@@ -21,6 +21,7 @@ typedef struct {
     int pin;           /* pin or node number */
     int neg;           /* pin level = value ^ neg (declared ! xor ORDER !) */
     int ordneg;        /* '!' written in ORDER */
+    int dneg;          /* level driven on an input = value ^ dneg (neg, except B039) */
     int mc;            /* macrocell, -1 none */
     int pos;           /* display column (after "nnnn: ") */
 } Col;
@@ -465,6 +466,15 @@ static void add_col(Cs *c, const char *name, int ordneg)
     k->ordneg = ordneg;
     k->neg = (s ? s->neg : 0) ^ ordneg;
     k->mc = c->simok && k->pin ? sim3_mc_of(&c->sim, k->pin) : -1;
+    k->dneg = k->neg;
+    /* B039: the value of an input is its pin level */
+    if (c->refdef && c->d->dev->sim_inlevel && c->simok && k->pin) {
+        const McCfg *m = k->mc >= 0 ? &c->sim.s.mc[k->mc] : NULL;
+        /* (a cell whose OE term is false never drives its pin) */
+        if (!m || m->node == 0) {
+            if (!m || !sim3_is_output(&c->sim, k->pin) || (m->oe_kind == OE_ROW && !c->sim.s.live[m->oe_row])) k->dneg = ordneg;
+        }
+    }
     if (k->pin > 0 && k->pin <= SIM_MAXPINS) c->pinseen[k->pin] = 1;
 }
 
@@ -1208,7 +1218,7 @@ static void run_vector(Cs *c, const char *user)
         phase(c);
     } else {
         int p, pfound = 0;
-        unsigned char prev[SIM_MAXPINS + 1], nd[SIM_MAXPINS + 1];
+        unsigned char prev[SIM_MAXPINS + 1], nd[SIM_MAXPINS + 1], fired[SIM_MAXPINS + 1];
         memcpy(prev, c->sim.drv, sizeof prev);
         for (p = 0; p <= SIM_MAXPINS; p++) nd[p] = prev[p];
         for (p = 1; p <= c->d->dev->npins; p++) {
@@ -1224,7 +1234,7 @@ static void run_vector(Cs *c, const char *user)
         }
         for (k = 0; k < c->ncol; k++) if (u[k] == 'P') pfound = 1;
         for (k = 0; k < c->ncol; k++) {
-            int pin = c->col[k].pin, neg = c->col[k].neg;
+            int pin = c->col[k].pin, neg = c->col[k].dneg;
             char ch = u[k];
             if (!pin || pin > SIM_MAXPINS) continue;
             if (col_is_output(c, k)) {
@@ -1270,6 +1280,12 @@ static void run_vector(Cs *c, const char *user)
                 else sim3_drive(&c->sim, p, nd[p]);
             }
             if (anyc || anyk) {
+                /* (registers on another clock pin keep their own edges) */
+                memset(fired, 0, sizeof fired);
+                for (k = 0; k < c->ncol; k++)
+                    if (c->col[k].pin && c->col[k].pin <= SIM_MAXPINS && !col_is_output(c, k) && is_clock_pin(c, c->col[k].pin) && (u[k] == 'K' || u[k] == 'C'))
+                        fired[c->col[k].pin] = 1;
+                c->sim.firepins = fired;
                 c->sim.pinclk_off = 1;
                 phase(c);
                 if (pre) { so_line(c, "****** Before Clock ******"); trace_line(c, "      "); }
@@ -1306,6 +1322,7 @@ static void run_vector(Cs *c, const char *user)
                         sim3_drive(&c->sim, c->col[k].pin, u[k] == 'K' ? V1 : V0);
                 phase(c);
                 c->sim.pinclk_off = 0;
+                c->sim.firepins = NULL;
                 sim3_clock_sync(&c->sim);
                 if (pre) { so_line(c, "****** After Clock ******"); trace_line(c, "      "); }
             } else {
@@ -2017,7 +2034,7 @@ static int run_one(const CsDesign *d, const CsOpts *o, Buf *keep)
                 if (mc->oe_kind == OE_PIN || mc->oe_pin_too) {
                     if (mc->kind == MK_COMB || mc->kind == MK_REG) c->oepin_used = 1;
                 }
-                if (SIM_HASREG(mc) && mc->ce && !dv->clk_pin) c->clockish[1] = 1;
+                if (SIM_HASREG(mc) && mc->ce && !dv->clk_pin) c->clockish[mc->ck_pin > 0 && mc->ck_pin <= SIM_MAXPINS ? mc->ck_pin : 1] = 1;
                 if (SIM_HASREG(mc) && mc->ck_row >= 0 && !mc->ce)
                     for (k = 0; k < dv->nlines; k++)
                         if (c->sim.s.lines[k].kind == SRC_PIN && sim_row_uses_line(&c->sim.s, mc->ck_row, k) && c->sim.s.lines[k].pin <= SIM_MAXPINS)
@@ -2033,6 +2050,28 @@ static int run_one(const CsDesign *d, const CsOpts *o, Buf *keep)
         c->sim.simlatch = o->simlatch;
         c->sim.regzero = o->refdefect && d->dev->sim_regzero;
         c->sim.noce = o->refdefect;
+        if (o->refdefect && d->dev->sim_inlevel)
+            for (j2 = 0; j2 < d->nfbinv; j2++)
+                if ((m3 = dev_mc_at(d->dev, d->fbinv[j2])) >= 0 && !d->dev->mc[m3].node) c->sim.fbinv[m3] = 1;
+        if (o->refdefect) {
+            /* WinCUPL's simulator clocks a register without .CK from its
+               clock pin although the clock term in the fuse map is left
+               unprogrammed (B036) */
+            int m2, cc;
+            for (m2 = 0; m2 < d->dev->nmc; m2++) {
+                const Macrocell *k = &d->dev->mc[m2];
+                McCfg *mc = &c->sim.s.mc[m2];
+                int used = 0;
+                if (k->cksync_fuse < 0 || k->ck_row < 0 || mc->ce || !k->ck_pin) continue;
+                for (cc = 0; cc < d->dev->ncols && !used; cc++) {
+                    int a = dev_fuse(d->dev, k->ck_row, cc);
+                    if (a >= 0 && d->fuse[a]) used = 1;
+                }
+                if (used) continue;
+                mc->ce = 1;
+                if (k->ck_pin <= SIM_MAXPINS) c->clockish[k->ck_pin] = 1;
+            }
+        }
         if (o->refdefect && d->dev->sim_oepin) c->sim.oepin = d->dev->sim_oepin;
         if (o->refdefect && d->dev->sim_regoe) {
             /* the reference simulator works from the equations: registered
@@ -2117,6 +2156,19 @@ int csim_unverified(const Device *dv)
     return 0;
 }
 
+/* a register whose D/T sum has a programmed row */
+static int reg_used(const Device *dv, const unsigned char *fuse, int i)
+{
+    int r, cc;
+    for (r = dv->mc[i].sum0; r <= dv->mc[i].sum1; r++)
+        for (cc = 0; cc < dv->ncols; cc++) {
+            int a = dev_fuse(dv, r, cc);
+            if (a >= 0 && fuse[a]) return 1;
+        }
+    return 0;
+}
+#define SIM_HASREG_FUSES(dv, fuse, i) reg_used(dv, fuse, i)
+
 /* the design meets a bug of the reference simulator (bugs.h); *what
    describes it */
 static int refdefect_bug(const CsDesign *d, const char **what)
@@ -2135,6 +2187,32 @@ static int refdefect_bug(const CsDesign *d, const char **what)
         *what = "the registers of this device load 0 at the clock (C, K and P on its clock pin are rejected)";
         return BUG_SIM_REGZERO;
     }
+    if (dv->sim_inlevel)
+        for (i = 0; i < d->nsym; i++)
+            if (d->sym[i].neg && d->sym[i].pin <= dv->npins) {
+                *what = "the test values of inputs declared active low are taken as pin levels";
+                return BUG_SIM_V5K_INLEVEL;
+            }
+    if (dv->sim_inlevel && d->nfbinv) {
+        *what = "an output declared active low, or registered with '!' on its equation, is read complemented by other equations";
+        return BUG_SIM_V5K_READ;
+    }
+    for (i = 0; i < dv->nmc; i++)
+        if (dv->mc[i].cksync_fuse >= 0 && dv->mc[i].ck_row >= 0 && d->fuse && SIM_HASREG_FUSES(dv, d->fuse, i)) {
+            int cc, used = 0;
+            for (cc = 0; cc < dv->ncols && !used; cc++) {
+                int a = dev_fuse(dv, dv->mc[i].ck_row, cc);
+                if (a >= 0 && d->fuse[a]) used = 1;
+            }
+            if (!used) {
+                *what = "a register without .CK and .CE is clocked from its clock pin although its clock term is false in the fuse map";
+                return BUG_V5K_CLOCK;
+            }
+            if (d->fuse[dv->mc[i].cksync_fuse]) {
+                *what = "the clock enable (.CE) of the registers is ignored";
+                return BUG_SIM_NOCE;
+            }
+        }
     for (i = 0; i < dv->nmc; i++)
         if (dv->mc[i].ce_fuse >= 0 && d->fuse && d->fuse[dv->mc[i].ce_fuse]) {
             *what = "the clock enable (.CE) of the registers is ignored";
@@ -2211,6 +2289,7 @@ int cs_abs_write(const char *path, const CsDesign *d)
         buf_puts(&b, "\n");
     }
     for (i = 0; i < d->nnoeqn; i++) buf_printf(&b, "NOEQN %d %d\n", d->noeqn[i], d->noeqn_used[i]);
+    for (i = 0; i < d->nfbinv; i++) buf_printf(&b, "FBINV %d\n", d->fbinv[i]);
     for (i = 0; i < d->nfld; i++) {
         buf_printf(&b, "FIELD %s %d", d->fld[i].name, d->fld[i].n);
         for (k = 0; k < d->fld[i].n; k++) buf_printf(&b, " %s", d->fld[i].mem[k]);
@@ -2301,6 +2380,8 @@ int cs_abs_read(const char *path, CsDesign *d, char *err, size_t errlen)
             char *e;
             int pin = (int)strtol(p + 6, &e, 10);
             if (d->nnoeqn < 64) { d->noeqn[d->nnoeqn] = pin; d->noeqn_used[d->nnoeqn++] = (unsigned char)(atoi(e) != 0); }
+        } else if (!strncmp(p, "FBINV ", 6)) {
+            if (d->nfbinv < 128) d->fbinv[d->nfbinv++] = atoi(p + 6);
         } else if (!strncmp(p, "RESERVE ", 8)) {
             if (d->nreserve < 8) d->reserve[d->nreserve++] = atoi(p + 8);
         } else if (!strncmp(p, "FUSES ", 6)) {

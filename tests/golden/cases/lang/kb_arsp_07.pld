@@ -1,0 +1,4 @@
+/* @flags -jaxkb */
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device p22cv10lcc;
+pin 2 = k; pin 3 = a; pin 4 = b; pin 5 = c; pin 6 = d; pin 27 = y; y.d = (a # b) & (c # d); y.sp = a;

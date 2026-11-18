@@ -1,0 +1,18 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10;
+pin 1 = a0;
+pin 2 = a1;
+pin 4 = a2;
+pin 7 = a3;
+pin 9 = a4;
+pin 13 = !oe;
+pin 20 = q0;
+t0 = (a0 # !a4);
+q0 = (a3 & (!a4 # a1 # a4 & 'b'1 & !t0 # !a2 # a3));

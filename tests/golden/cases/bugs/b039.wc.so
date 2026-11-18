@@ -1,0 +1,18 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 2.1.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+Note: simulation model for V5000 follows WinCUPL and is not verified against the data sheet
+
+LISTING FOR SIMULATION FILE: b039.si
+
+   1: Name B039; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+   2: Device v5000;
+   3: ORDER: a, b, %2, x, y;
+
+===============
+      ab  xy   
+===============
+0001: 01  HL
+0002: 11  LH
+0003: 00  LL

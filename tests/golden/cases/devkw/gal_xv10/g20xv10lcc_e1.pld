@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20xv10lcc;
+pin 10 = !LOCATION;
+pin 13 = i1;
+pin 21 = !o0;
+pin 19 = o1;
+pin 24 = FUSE;
+
+o0.d = ((!i1 & LOCATION) # i1 # (!LOCATION & !i1));
+o0.oe = (!LOCATION & i1);
+o1.d = (!LOCATION & i1);
+FUSE = !i1;
+
+/* @expect
+o0.d = (((not i1) and LOCATION) or i1 or ((not LOCATION) and (not i1)))
+o0.oe = ((not LOCATION) and i1)
+o1.d = ((not LOCATION) and i1)
+FUSE = (not i1)
+*/

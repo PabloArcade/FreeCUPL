@@ -1,0 +1,28 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g26cv12;
+pin [4,9,11,28] = [a0, a1, a2, a3];
+pin 1 = clk;
+pin 26 = q0;
+pin 24 = q1;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = a1;
+t1 = a1;
+t2 = (a1 $ a2);
+!q0.d = [a2,a3,a0,a1]:#;
+q1.d = ON & a3 # ON;
+q0.sp = !a3 & !a0;
+min q0.d = 4;
+pin 27 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(a1, a3, a2, fflag) # fflag;

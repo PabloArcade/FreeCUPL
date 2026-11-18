@@ -1,0 +1,24 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device p20ra10lcc;
+/* @local */ /* @bypass */
+pin 11 = !i0;
+pin 7 = i1;
+pin 21 = !o0;
+pin 19 = !o1;
+pin 24 = vectors;
+
+o0.d = ((!i1 & i0) # i1 # (!i0 & !i1));
+o0.ck = i1;
+o0.oe = i0;
+o1 = (!i0 # i1 # !i1);
+vectors.d = !i0;
+vectors.ck = i1;
+
+/* @expect
+o0.d = (((not i1) and i0) or i1 or ((not i0) and (not i1)))
+o0.ck = i1
+o0.oe = i0
+o1 = ((not i0) or i1 or (not i1))
+vectors.d = (not i0)
+vectors.ck = i1
+*/

@@ -1,0 +1,25 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10f;
+pin [1,9,13] = [!in_x, in_y, in_z];
+pin 18 = out_a;
+pin 19 = out_b;
+pin 20 = !out_c;
+pin 14 = !out_d;
+pin 16 = out_e;
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+t0 = !(in_x) $ in_x;
+t1 = (!in_x # !in_y # in_x & !(!in_x)) & t0 & !(in_y) & !(!in_x);
+out_a = in_y # !in_y;
+out_b.d = ON & in_x # OFF;
+out_c.d = ((!in_x & out_a & t1) # in_x # !out_a # in_x # !in_x);
+out_c.oe = !in_x;
+!out_d = in_z;
+!out_e.d = OFF & out_c # OFF;

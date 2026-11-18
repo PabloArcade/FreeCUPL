@@ -1,0 +1,20 @@
+Name R7011; Partno R7011; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20xv10;
+pin 9 = i0;
+pin 13 = i1;
+pin 16 = !o0;
+pin 17 = !o1;
+pin 22 = o2;
+pin 18 = o3;
+
+o0 = ((i1 & i0) # (i1 & i0));
+o1 = (i0 & i1);
+o2 = (!o0 & !o1 & !i1);
+o3 = (o1 # (o1 & !o2));
+
+/* @expect
+o0 = ((i1 and i0) or (i1 and i0))
+o1 = (i0 and i1)
+o2 = ((not o0) and (not o1) and (not i1))
+o3 = (o1 or (o1 and (not o2)))
+*/

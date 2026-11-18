@@ -1,0 +1,26 @@
+Name G9007;
+Partno P9007;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g26cv12;
+
+ORDER: clk, a2, a0, a3, a1, a4, %2, s0, !s1, q2, q3, q4, !so;
+
+VECTORS:
+C00111 ******
+C00010 *****N
+C01011 ******
+C10010 ******
+C11110 ******
+0X0000 ******
+C11110 LHLLLL
+CX11X0 ******
+C101X1 ***N**
+C10010 ******
+111100 ******
+C00000 ******
+C01100 ******

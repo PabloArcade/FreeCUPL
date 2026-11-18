@@ -1,5 +1,48 @@
 FreeCUPL changes
 
+2.1.0  2026-11-17
+
+New device: ATV5000 (v5000).  Two registers and three sum terms in
+every I/O cell, buried cells, universal and regional product terms,
+clock pin or product-term clock, .CE, .LQ and .IOL; simulated by
+freecsim.  No device was available: the simulation model of this part
+is not verified, and freecsim says so.
+
+New devices: GAL26CV12 (g26cv12) and GAL20XV10 (g20xv10, g20xv10i,
+g20xv10f and the 28-pin g20xv10lcc, g20xv10ilcc, g20xv10flcc).
+
+New 28-pin mnemonics: GAL20RA10 (g20ra10lcc), PAL20RA10 (p20ra10lcc,
+p20ra10mlcc, p20ra10slcc), PAL22CV10 (p22cv10lcc), PAL20C1 (p20c1lcc,
+p20c1mlcc), PAL10016RD4 and RD8 (p1016rd4lcc, p1016rd8lcc),
+PAL10016ET6 (p1016et6lcc), PLSI1016LD4 and PAL10016LD8 (p1016ld4lcc,
+p1016ld8lcc).  327 mnemonics are supported; docs/USERGUIDE.txt,
+section 6, lists the 93 that are not, with the reasons.
+
+WinCUPL bugs B034 to B040 (docs/BUGS.txt), corrected by default and
+reproduced by -compat-refdefect:
+  B034 to B036, B038  ATV5000 compiler: a register of another quadrant
+        read through the reader's regional bus (now rejected), sum term
+        C cut off on the wrong cell, a register without .CK and .CE
+        never clocked (the clock term is now written true, after the
+        data sheet; not verified on a device), .IOL of pin 25.
+  B037  every registered part: a combinational equation next to a .D
+        equation complemented at its root was ORed into the register.
+        FreeCUPL rejected such designs in both modes; with
+        -compat-refdefect it now accepts what WinCUPL accepts.
+  B039, B040  ATV5000 simulator: input values taken as pin levels;
+        outputs read complemented by other equations.
+
+-compat-refdefect, closer to WinCUPL:
+  -kb also complements registers with reset or preset in use (22V10
+  types, ATV750, RA parts);
+  PAL16C1 and PAL20C1 with an equation on both outputs are accepted or
+  rejected by WinCUPL's rule;
+  PAL10016ET6: -kb follows B001 as on the other parts.
+
+Device descriptions: rows of different widths (vrows), lines+
+(docs/DEVFMT.txt).  The absolute file has a new record, FBINV
+(docs/SIMFMT.txt).
+
 2.0.0  2026-11-17
 
 The WinCUPL 5.0a bugs B001 to B033 (docs/BUGS.txt) are corrected by

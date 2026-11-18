@@ -1,0 +1,40 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 2.1.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g2603.si
+
+   1: Name R7003;
+   2: Device g26cv12;
+   3: 
+[0026sa] Please note: missing header item(s) 
+   4: ORDER: i1, i3, i0, i2, %2, o0;
+   5: 
+
+================
+      iiii  o   
+      1302  0   
+================
+0001: C100  L
+0002: C001  H
+0003: 110X  H
+0004: C111  L
+0005: 0000  L
+0006: K110  L
+0007: 1110  L
+0008: C100  L
+0009: C111  L
+0010: C100  L
+0011: C1X0  L
+0012: P101  1
+0013: 1001  L
+0014: 1001  L
+0015: C100  L
+0016: P001  1
+0017: C101  L
+0018: C001  H
+0019: C111  L
+0020: 0011  H
+0021: 111X  H
+0022: C010  H

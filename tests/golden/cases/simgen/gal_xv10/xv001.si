@@ -1,0 +1,36 @@
+Name G9002;
+Partno P9002;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Device g20xv10;
+
+ORDER: !clk, in_y, in_x, in_z, %2, out_a, out_b, !out_c, out_d, !out_e, out_f, fo;
+
+VECTORS:
+C010 *******
+C010 *****N*
+$MSG "vector 3";
+K111 *******
+C1X1 *******
+C000 *******
+C110 *******
+C011 *******
+C001 *******
+C111 *******
+0110 *******
+P010 1X1111X
+C0X1 HHLHLLL
+C001 *******
+C111 *******
+C00X *******
+CX01 *******
+P101 0X0110X
+C000 *******
+P101 1X1001X
+C000 *******
+C110 *******
+C000 *******
+C010 *******

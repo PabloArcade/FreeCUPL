@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          g20vp8ma  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            G12
@@ -66,4 +66,4 @@ Location        x
 *V0018 0XXXXN1XXX1XXXXZLNLXLLXX
 *V0019 0XXXXN1XX01XXHXZLNLXLLXX
 *V0020 0XXXXN0XX01XXLXZLNLXLHXX
-*E334
+*E335

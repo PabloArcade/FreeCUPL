@@ -65,6 +65,7 @@ mc 17 gen sum=24-31 polfuse=1539 polhi=0 oe=pin reg=1 pold=1 latch=1
 mc 20 gen sum=16-23 polfuse=1538 polhi=0 oe=pin reg=1 pold=1 latch=1
 mc 21 gen sum=8-15 polfuse=1537 polhi=0 oe=pin reg=1 pold=1 latch=1
 mc 22 gen sum=0-7 polfuse=1536 polhi=0 oe=pin reg=1 pold=1 latch=1
+refdefect kbnoflip      # B001
 end
 
 device pc508

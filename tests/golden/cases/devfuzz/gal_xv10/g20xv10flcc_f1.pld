@@ -1,0 +1,25 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10flcc;
+pin 2 = a0;
+pin 11 = a1;
+pin 13 = !a2;
+pin 24 = !q0;
+pin 18 = q1;
+field fa = [a1..0];
+$DEFINE ON 'b'1
+$DEFINE OFF 'b'0
+q0.d = ON & a0 # ON;
+q1 = ON & a1 # ON;
+q1.oe = a1;
+pin 27 = !ta; pin 20 = tb;
+table fa => [ta, tb] {
+  'b'0 => 2;
+  1 => 'b'10;
+}

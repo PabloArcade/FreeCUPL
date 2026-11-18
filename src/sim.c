@@ -44,11 +44,15 @@ int sim_init(Sim *s, const Device *d, const unsigned char *fuse, char *err, size
         }
         for (r = 0; r < d->nrows; r++) {
             int live = 1;
-            for (c = 0; c < d->ncols; c++)
-                if (fuse[dev_row_addr(d, r) + c] == 0)
+            for (c = 0; c < d->ncols; c++) {
+                int a = dev_fuse(d, r, c);
+                if (a >= 0 && fuse[a] == 0)
                     (issel[c] ? s->selmask : s->rowmask)[r * s->nw + c / 64] |= (Word)1 << (c % 64);
-            for (c = 0; c < d->ncols; c += 2)
-                if (!issel[c] && !issel[c + 1] && fuse[dev_row_addr(d, r) + c] == 0 && fuse[dev_row_addr(d, r) + c + 1] == 0) live = 0;
+            }
+            for (c = 0; c < d->ncols; c += 2) {
+                int a = dev_fuse(d, r, c), b = dev_fuse(d, r, c + 1);
+                if (!issel[c] && !issel[c + 1] && a >= 0 && b >= 0 && fuse[a] == 0 && fuse[b] == 0) live = 0;
+            }
             if (d->ptd_base >= 0 && fuse[d->ptd_base + r] == 0) live = 0;
             s->live[r] = (unsigned char)live;
         }
@@ -100,6 +104,9 @@ int sim_init(Sim *s, const Device *d, const unsigned char *fuse, char *err, size
                product-term clock and a clock enable behave alike (the
                register loads at a clock step while the row is true) */
             m->ce = k->ce_fuse >= 0 && F(s, k->ce_fuse);
+            if (k->cksync_fuse >= 0) m->ce = F(s, k->cksync_fuse);
+            m->ck_pin = k->ck_pin;
+            if (k->cjoin_fuse >= 0 && !F(s, k->cjoin_fuse)) m->sum1 = k->sumc - 1;
             m->ck_row = k->ck_row;
             if (k->ckmux_fuse >= 0 && F(s, k->ckmux_fuse)) m->ck_row = -1;
             m->ar_row = k->ar_row;
@@ -116,6 +123,20 @@ int sim_init(Sim *s, const Device *d, const unsigned char *fuse, char *err, size
             }
             if (reg && k->oe_reg_pin) m->oe_kind = OE_PIN;
             if (k->oemux_fuse >= 0) m->oe_kind = reg && F(s, k->oemux_fuse) ? OE_PIN : OE_ROW;
+            if (k->xv_fuse >= 0) {
+                if (F(s, k->xv_fuse)) {
+                    m->oe_kind = OE_ROW;
+                    m->oe_row = k->sum0;
+                    m->sum0 = k->sum0 + 1;
+                } else {
+                    m->oe_kind = d->oe_pin ? OE_PIN : OE_ALWAYS;
+                    m->sum1 = k->sum0 + 1;
+                    m->xs0 = k->sum0 + 2;
+                    m->xs1 = k->sum1;
+                    m->out_inv = 1;
+                    m->d_inv = 0;
+                }
+            }
             break;
         }
         case MC_COMB:
@@ -409,7 +430,8 @@ static void put_row(const Sim *s, Buf *b, int r)
     int c, first = 1;
     if (!s->live[r]) { buf_puts(b, "0"); return; }
     for (c = 0; c < d->ncols; c++) {
-        if (s->fuse[dev_row_addr(d, r) + c] == 0) {
+        int a = dev_fuse(d, r, c);
+        if (a >= 0 && s->fuse[a] == 0) {
             if (!first) buf_puts(b, " & ");
             put_line(s, b, c);
             first = 0;

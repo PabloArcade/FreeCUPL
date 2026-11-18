@@ -1,0 +1,59 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 2.1.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: xv001.si
+
+   1: Name G9002;
+   2: Partno P9002;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Device g20xv10;
+   9: 
+[0026sa] Please note: missing header item(s) 
+  10: ORDER: !clk, in_y, in_x, in_z, %2, out_a, out_b, !out_c, out_d, !out_e, out_f, fo;
+  11: 
+
+======================
+              ! !     
+            oooooo    
+      !iii  uuuuuu    
+      cnnn  tttttt    
+      l___  ______f   
+      kyxz  abcdefo   
+======================
+0001: C010  LHHHLLL
+0002: C010  LHHHLNL
+vector 3
+0003: K111  HHZLLLH
+0004: C1X1  HHZLLLX
+0005: C000  LLZLLHL
+0006: C110  LHZHLLH
+0007: C011  HHHLLLH
+0008: C001  HHZHLHH
+0009: C111  HHZLLLH
+0010: 0110  LHZHLLH
+0011: P010  1X1111X
+0012: C0X1  LHXHHHH
+            ^ ^ ^^^
+[0019sa] user expected (H) for out_a
+[0019sa] user expected (L) for out_c
+[0019sa] user expected (L) for out_e
+[0019sa] user expected (L) for out_f
+[0019sa] user expected (L) for fo
+
+0013: C001  HHZHLHH
+0014: C111  HHZLLLH
+0015: C00X  XXZXLHX
+0016: CX01  HHZHLXX
+0017: P101  0X0110X
+0018: C000  LLZLLHL
+0019: P101  1X1001X
+0020: C000  LLZLLHL
+0021: C110  LHZHLLH
+0022: C000  LLZLLHL
+0023: C010  LHHHLLL

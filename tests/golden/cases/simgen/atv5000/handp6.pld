@@ -1,0 +1,5 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 1 = !a0; pin 34 = a1; pin 5 = !b0; pin 6 = p;
+pin 7 = x1; pin 8 = x2; pin 9 = x3; pin 10 = x4; pin 11 = x5; pin 12 = x6; pin 13 = x7;
+x1 = a0; x2 = a0 & p; x3 = !a0; x4 = b0; x5 = !b0; x6.d = a0; x6.ck = a1; x7 = a0 & a1;

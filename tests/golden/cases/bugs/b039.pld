@@ -1,0 +1,6 @@
+Name B039; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 2 = !a; pin 34 = b;
+pin 7 = x; pin 9 = y;
+x = a & b;
+y = !a;

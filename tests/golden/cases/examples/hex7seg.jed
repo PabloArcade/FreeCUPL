@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          g16v8s  Library DLIB-h-40-9
 Created         Thu Jan  1 00:00:00 1970
 Name            hex7seg
@@ -80,4 +80,4 @@ Location        None
 *V0016 X11110XXXNXXHHHLLLHN
 *V0017 X00011XXXNXXLLLLLLLN
 *V0018 X00001XXXNXXLLLLLLLN
-*34DF
+*34E0

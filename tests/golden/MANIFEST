@@ -92,6 +92,27 @@ bugs/b032.wc bugs/b032 -jaxn,-compat-refdefect 0 0021ca
 bugs/b033 bugs/b033 -jaxn 1 0009ca
 bugs/b033.fix bugs/b033 -jaxn,-fix 1 0009ca bugs/b033
 bugs/b033.wc bugs/b033 -jaxn,-compat-refdefect 0 0009ca
+bugs/b034 bugs/b034 -jaxn 1 0907cb
+bugs/b034.fix bugs/b034 -jaxn,-fix 1 0907cb bugs/b034
+bugs/b034.wc bugs/b034 -jaxn,-compat-refdefect 0 0905cb
+bugs/b035 bugs/b035 -jaxn 0 0905cb
+bugs/b035.fix bugs/b035 -jaxn,-fix 0 0905cb bugs/b035
+bugs/b035.wc bugs/b035 -jaxn,-compat-refdefect 0 0905cb
+bugs/b036 bugs/b036 -jaxn 0 0905cb
+bugs/b036.fix bugs/b036 -jaxn,-fix 0 0905cb bugs/b036
+bugs/b036.wc bugs/b036 -jaxn,-compat-refdefect 0 0905cb
+bugs/b037 bugs/b037 -jaxn 1 0025cb
+bugs/b037.fix bugs/b037 -jaxn,-fix 1 0025cb bugs/b037
+bugs/b037.wc bugs/b037 -jaxn,-compat-refdefect 0 0016cb,0905cb
+bugs/b038 bugs/b038 -jaxn 0 0905cb
+bugs/b038.fix bugs/b038 -jaxn,-fix 0 0905cb bugs/b038
+bugs/b038.wc bugs/b038 -jaxn,-compat-refdefect 0 0905cb
+bugs/b039 bugs/b039 -jasn 0 0905sa
+bugs/b039.fix bugs/b039 -jasn,-fix 0 0905sa bugs/b039
+bugs/b039.wc bugs/b039 -jasn,-compat-refdefect 0 0905sa
+bugs/b040 bugs/b040 -jasn 0 0905sa
+bugs/b040.fix bugs/b040 -jasn,-fix 0 0905sa bugs/b040
+bugs/b040.wc bugs/b040 -jasn,-compat-refdefect 0 0905sa
 dev/atv2500/v2500_s1 dev/atv2500/v2500_s1 -jaxn 0 -
 dev/atv2500/v2500_s1.wc dev/atv2500/v2500_s1 -jaxn,-compat-refdefect 0 - dev/atv2500/v2500_s1
 dev/atv2500/v2500_s10 dev/atv2500/v2500_s10 -jaxn 0 -
@@ -140,6 +161,12 @@ dev/atv2500/v2500lcc_s10 dev/atv2500/v2500lcc_s10 -jaxn 0 -
 dev/atv2500/v2500lcc_s10.wc dev/atv2500/v2500lcc_s10 -jaxn,-compat-refdefect 0 - dev/atv2500/v2500lcc_s10
 dev/atv2500/v2500lcc_s2 dev/atv2500/v2500lcc_s2 -jaxn 0 -
 dev/atv2500/v2500lcc_s2.wc dev/atv2500/v2500lcc_s2 -jaxn,-compat-refdefect 0 - dev/atv2500/v2500lcc_s2
+dev/atv5000/v5000_s1 dev/atv5000/v5000_s1 -jaxn 0 -
+dev/atv5000/v5000_s1.wc dev/atv5000/v5000_s1 -jaxn,-compat-refdefect 0 - dev/atv5000/v5000_s1
+dev/atv5000/v5000_s10 dev/atv5000/v5000_s10 -jaxn 0 -
+dev/atv5000/v5000_s10.wc dev/atv5000/v5000_s10 -jaxn,-compat-refdefect 0 - dev/atv5000/v5000_s10
+dev/atv5000/v5000_s11 dev/atv5000/v5000_s11 -jaxn 0 -
+dev/atv5000/v5000_s11.wc dev/atv5000/v5000_s11 -jaxn,-compat-refdefect 0 - dev/atv5000/v5000_s11
 dev/atv750/known_v750_dfb_twice dev/atv750/known_v750_dfb_twice -jaxn 0 0016cb,0906cb
 dev/atv750/known_v750_dfb_twice.wc dev/atv750/known_v750_dfb_twice -jaxn,-compat-refdefect 0 0016cb,0906cb
 dev/atv750/v750_s1 dev/atv750/v750_s1 -jaxn 0 0016cb
@@ -296,6 +323,12 @@ dev/gal/g24v10ma_s2 dev/gal/g24v10ma_s2 -jaxn 0 -
 dev/gal/g24v10ma_s2.wc dev/gal/g24v10ma_s2 -jaxn,-compat-refdefect 0 - dev/gal/g24v10ma_s2
 dev/gal/g24v10ma_s3 dev/gal/g24v10ma_s3 -jaxn 0 -
 dev/gal/g24v10ma_s3.wc dev/gal/g24v10ma_s3 -jaxn,-compat-refdefect 0 - dev/gal/g24v10ma_s3
+dev/gal/g26cv12_s1 dev/gal/g26cv12_s1 -jaxn 0 0016cb
+dev/gal/g26cv12_s1.wc dev/gal/g26cv12_s1 -jaxn,-compat-refdefect 0 0016cb dev/gal/g26cv12_s1
+dev/gal/g26cv12_s2 dev/gal/g26cv12_s2 -jaxn 0 0016cb
+dev/gal/g26cv12_s2.wc dev/gal/g26cv12_s2 -jaxn,-compat-refdefect 0 0016cb dev/gal/g26cv12_s2
+dev/gal/g26cv12_s3 dev/gal/g26cv12_s3 -jaxn 0 0016cb
+dev/gal/g26cv12_s3.wc dev/gal/g26cv12_s3 -jaxn,-compat-refdefect 0 0016cb dev/gal/g26cv12_s3
 dev/gal16h/g16v8h_s1 dev/gal16h/g16v8h_s1 -jaxn 0 -
 dev/gal16h/g16v8h_s1.wc dev/gal16h/g16v8h_s1 -jaxn,-compat-refdefect 0 - dev/gal16h/g16v8h_s1
 dev/gal16h/g16v8h_s2 dev/gal16h/g16v8h_s2 -jaxn 0 -
@@ -446,6 +479,42 @@ dev/gal_multi/g20vp8slcc_s2 dev/gal_multi/g20vp8slcc_s2 -jaxn 0 -
 dev/gal_multi/g20vp8slcc_s2.wc dev/gal_multi/g20vp8slcc_s2 -jaxn,-compat-refdefect 0 - dev/gal_multi/g20vp8slcc_s2
 dev/gal_multi/g20vp8slcc_s3 dev/gal_multi/g20vp8slcc_s3 -jaxn 0 -
 dev/gal_multi/g20vp8slcc_s3.wc dev/gal_multi/g20vp8slcc_s3 -jaxn,-compat-refdefect 0 - dev/gal_multi/g20vp8slcc_s3
+dev/gal_xv10/g20xv10_s1 dev/gal_xv10/g20xv10_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10_s1.wc dev/gal_xv10/g20xv10_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10_s1
+dev/gal_xv10/g20xv10_s10 dev/gal_xv10/g20xv10_s10 -jaxn 1 0014cb
+dev/gal_xv10/g20xv10_s10.wc dev/gal_xv10/g20xv10_s10 -jaxn,-compat-refdefect 1 0014cb dev/gal_xv10/g20xv10_s10
+dev/gal_xv10/g20xv10_s11 dev/gal_xv10/g20xv10_s11 -jaxn 0 -
+dev/gal_xv10/g20xv10_s11.wc dev/gal_xv10/g20xv10_s11 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10_s11
+dev/gal_xv10/g20xv10f_s1 dev/gal_xv10/g20xv10f_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10f_s1.wc dev/gal_xv10/g20xv10f_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10f_s1
+dev/gal_xv10/g20xv10f_s10 dev/gal_xv10/g20xv10f_s10 -jaxn 1 0014cb
+dev/gal_xv10/g20xv10f_s10.wc dev/gal_xv10/g20xv10f_s10 -jaxn,-compat-refdefect 1 0014cb dev/gal_xv10/g20xv10f_s10
+dev/gal_xv10/g20xv10f_s11 dev/gal_xv10/g20xv10f_s11 -jaxn 1 0014cb
+dev/gal_xv10/g20xv10f_s11.wc dev/gal_xv10/g20xv10f_s11 -jaxn,-compat-refdefect 1 0014cb dev/gal_xv10/g20xv10f_s11
+dev/gal_xv10/g20xv10flcc_s1 dev/gal_xv10/g20xv10flcc_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10flcc_s1.wc dev/gal_xv10/g20xv10flcc_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10flcc_s1
+dev/gal_xv10/g20xv10flcc_s2 dev/gal_xv10/g20xv10flcc_s2 -jaxn 1 0006cc
+dev/gal_xv10/g20xv10flcc_s2.wc dev/gal_xv10/g20xv10flcc_s2 -jaxn,-compat-refdefect 1 0006cc dev/gal_xv10/g20xv10flcc_s2
+dev/gal_xv10/g20xv10flcc_s3 dev/gal_xv10/g20xv10flcc_s3 -jaxn 1 0014cb
+dev/gal_xv10/g20xv10flcc_s3.wc dev/gal_xv10/g20xv10flcc_s3 -jaxn,-compat-refdefect 1 0014cb dev/gal_xv10/g20xv10flcc_s3
+dev/gal_xv10/g20xv10i_s1 dev/gal_xv10/g20xv10i_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10i_s1.wc dev/gal_xv10/g20xv10i_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10i_s1
+dev/gal_xv10/g20xv10i_s10 dev/gal_xv10/g20xv10i_s10 -jaxn 1 0006cc
+dev/gal_xv10/g20xv10i_s10.wc dev/gal_xv10/g20xv10i_s10 -jaxn,-compat-refdefect 1 0006cc dev/gal_xv10/g20xv10i_s10
+dev/gal_xv10/g20xv10i_s11 dev/gal_xv10/g20xv10i_s11 -jaxn 0 -
+dev/gal_xv10/g20xv10i_s11.wc dev/gal_xv10/g20xv10i_s11 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10i_s11
+dev/gal_xv10/g20xv10ilcc_s1 dev/gal_xv10/g20xv10ilcc_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10ilcc_s1.wc dev/gal_xv10/g20xv10ilcc_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10ilcc_s1
+dev/gal_xv10/g20xv10ilcc_s2 dev/gal_xv10/g20xv10ilcc_s2 -jaxn 1 0006cc
+dev/gal_xv10/g20xv10ilcc_s2.wc dev/gal_xv10/g20xv10ilcc_s2 -jaxn,-compat-refdefect 1 0006cc dev/gal_xv10/g20xv10ilcc_s2
+dev/gal_xv10/g20xv10ilcc_s3 dev/gal_xv10/g20xv10ilcc_s3 -jaxn 0 -
+dev/gal_xv10/g20xv10ilcc_s3.wc dev/gal_xv10/g20xv10ilcc_s3 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10ilcc_s3
+dev/gal_xv10/g20xv10lcc_s1 dev/gal_xv10/g20xv10lcc_s1 -jaxn 0 -
+dev/gal_xv10/g20xv10lcc_s1.wc dev/gal_xv10/g20xv10lcc_s1 -jaxn,-compat-refdefect 0 - dev/gal_xv10/g20xv10lcc_s1
+dev/gal_xv10/g20xv10lcc_s2 dev/gal_xv10/g20xv10lcc_s2 -jaxn 1 0006cc
+dev/gal_xv10/g20xv10lcc_s2.wc dev/gal_xv10/g20xv10lcc_s2 -jaxn,-compat-refdefect 1 0006cc dev/gal_xv10/g20xv10lcc_s2
+dev/gal_xv10/g20xv10lcc_s3 dev/gal_xv10/g20xv10lcc_s3 -jaxn 1 0014cb
+dev/gal_xv10/g20xv10lcc_s3.wc dev/gal_xv10/g20xv10lcc_s3 -jaxn,-compat-refdefect 1 0014cb dev/gal_xv10/g20xv10lcc_s3
 dev/lcc/g20v8alcc_s1 dev/lcc/g20v8alcc_s1 -jaxn 0 -
 dev/lcc/g20v8alcc_s1.wc dev/lcc/g20v8alcc_s1 -jaxn,-compat-refdefect 0 - dev/lcc/g20v8alcc_s1
 dev/lcc/g20v8alcc_s2 dev/lcc/g20v8alcc_s2 -jaxn 0 -
@@ -626,6 +695,24 @@ dev/m16v8/m16v8as_s2 dev/m16v8/m16v8as_s2 -jaxn 0 -
 dev/m16v8/m16v8as_s2.wc dev/m16v8/m16v8as_s2 -jaxn,-compat-refdefect 0 - dev/m16v8/m16v8as_s2
 dev/m16v8/m16v8as_s3 dev/m16v8/m16v8as_s3 -jaxn 0 -
 dev/m16v8/m16v8as_s3.wc dev/m16v8/m16v8as_s3 -jaxn,-compat-refdefect 0 - dev/m16v8/m16v8as_s3
+dev/m3lcc/g20ra10lcc_s1 dev/m3lcc/g20ra10lcc_s1 -jaxn 0 -
+dev/m3lcc/g20ra10lcc_s1.wc dev/m3lcc/g20ra10lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/g20ra10lcc_s1
+dev/m3lcc/g20ra10lcc_s2 dev/m3lcc/g20ra10lcc_s2 -jaxn 0 -
+dev/m3lcc/g20ra10lcc_s2.wc dev/m3lcc/g20ra10lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/g20ra10lcc_s2
+dev/m3lcc/g20ra10lcc_s3 dev/m3lcc/g20ra10lcc_s3 -jaxn 0 -
+dev/m3lcc/g20ra10lcc_s3.wc dev/m3lcc/g20ra10lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/g20ra10lcc_s3
+dev/m3lcc/p1016rd4lcc_s1 dev/m3lcc/p1016rd4lcc_s1 -jaxn 0 -
+dev/m3lcc/p1016rd4lcc_s1.wc dev/m3lcc/p1016rd4lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd4lcc_s1
+dev/m3lcc/p1016rd4lcc_s2 dev/m3lcc/p1016rd4lcc_s2 -jaxn 0 -
+dev/m3lcc/p1016rd4lcc_s2.wc dev/m3lcc/p1016rd4lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd4lcc_s2
+dev/m3lcc/p1016rd4lcc_s3 dev/m3lcc/p1016rd4lcc_s3 -jaxn 0 -
+dev/m3lcc/p1016rd4lcc_s3.wc dev/m3lcc/p1016rd4lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd4lcc_s3
+dev/m3lcc/p1016rd8lcc_s1 dev/m3lcc/p1016rd8lcc_s1 -jaxn 0 -
+dev/m3lcc/p1016rd8lcc_s1.wc dev/m3lcc/p1016rd8lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd8lcc_s1
+dev/m3lcc/p1016rd8lcc_s2 dev/m3lcc/p1016rd8lcc_s2 -jaxn 0 -
+dev/m3lcc/p1016rd8lcc_s2.wc dev/m3lcc/p1016rd8lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd8lcc_s2
+dev/m3lcc/p1016rd8lcc_s3 dev/m3lcc/p1016rd8lcc_s3 -jaxn 0 -
+dev/m3lcc/p1016rd8lcc_s3.wc dev/m3lcc/p1016rd8lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1016rd8lcc_s3
 dev/m3lcc/p1020ev8lcc_s1 dev/m3lcc/p1020ev8lcc_s1 -jaxn 0 -
 dev/m3lcc/p1020ev8lcc_s1.wc dev/m3lcc/p1020ev8lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p1020ev8lcc_s1
 dev/m3lcc/p1020ev8lcc_s2 dev/m3lcc/p1020ev8lcc_s2 -jaxn 0 0016cb
@@ -704,6 +791,18 @@ dev/m3lcc/p18p4lcc_s2 dev/m3lcc/p18p4lcc_s2 -jaxn 0 -
 dev/m3lcc/p18p4lcc_s2.wc dev/m3lcc/p18p4lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p18p4lcc_s2
 dev/m3lcc/p18p4lcc_s3 dev/m3lcc/p18p4lcc_s3 -jaxn 0 -
 dev/m3lcc/p18p4lcc_s3.wc dev/m3lcc/p18p4lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p18p4lcc_s3
+dev/m3lcc/p20c1lcc_s1 dev/m3lcc/p20c1lcc_s1 -jaxn 0 -
+dev/m3lcc/p20c1lcc_s1.wc dev/m3lcc/p20c1lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1lcc_s1
+dev/m3lcc/p20c1lcc_s2 dev/m3lcc/p20c1lcc_s2 -jaxn 0 -
+dev/m3lcc/p20c1lcc_s2.wc dev/m3lcc/p20c1lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1lcc_s2
+dev/m3lcc/p20c1lcc_s3 dev/m3lcc/p20c1lcc_s3 -jaxn 0 -
+dev/m3lcc/p20c1lcc_s3.wc dev/m3lcc/p20c1lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1lcc_s3
+dev/m3lcc/p20c1mlcc_s1 dev/m3lcc/p20c1mlcc_s1 -jaxn 0 -
+dev/m3lcc/p20c1mlcc_s1.wc dev/m3lcc/p20c1mlcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1mlcc_s1
+dev/m3lcc/p20c1mlcc_s2 dev/m3lcc/p20c1mlcc_s2 -jaxn 0 -
+dev/m3lcc/p20c1mlcc_s2.wc dev/m3lcc/p20c1mlcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1mlcc_s2
+dev/m3lcc/p20c1mlcc_s3 dev/m3lcc/p20c1mlcc_s3 -jaxn 0 -
+dev/m3lcc/p20c1mlcc_s3.wc dev/m3lcc/p20c1mlcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20c1mlcc_s3
 dev/m3lcc/p20l10lcc_s1 dev/m3lcc/p20l10lcc_s1 -jaxn 0 -
 dev/m3lcc/p20l10lcc_s1.wc dev/m3lcc/p20l10lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20l10lcc_s1
 dev/m3lcc/p20l10lcc_s2 dev/m3lcc/p20l10lcc_s2 -jaxn 1 0006cc
@@ -740,6 +839,24 @@ dev/m3lcc/p20p8lcc_s2 dev/m3lcc/p20p8lcc_s2 -jaxn 0 -
 dev/m3lcc/p20p8lcc_s2.wc dev/m3lcc/p20p8lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20p8lcc_s2
 dev/m3lcc/p20p8lcc_s3 dev/m3lcc/p20p8lcc_s3 -jaxn 0 -
 dev/m3lcc/p20p8lcc_s3.wc dev/m3lcc/p20p8lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20p8lcc_s3
+dev/m3lcc/p20ra10lcc_s1 dev/m3lcc/p20ra10lcc_s1 -jaxn 0 -
+dev/m3lcc/p20ra10lcc_s1.wc dev/m3lcc/p20ra10lcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10lcc_s1
+dev/m3lcc/p20ra10lcc_s2 dev/m3lcc/p20ra10lcc_s2 -jaxn 0 -
+dev/m3lcc/p20ra10lcc_s2.wc dev/m3lcc/p20ra10lcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10lcc_s2
+dev/m3lcc/p20ra10lcc_s3 dev/m3lcc/p20ra10lcc_s3 -jaxn 0 -
+dev/m3lcc/p20ra10lcc_s3.wc dev/m3lcc/p20ra10lcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10lcc_s3
+dev/m3lcc/p20ra10mlcc_s1 dev/m3lcc/p20ra10mlcc_s1 -jaxn 0 -
+dev/m3lcc/p20ra10mlcc_s1.wc dev/m3lcc/p20ra10mlcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10mlcc_s1
+dev/m3lcc/p20ra10mlcc_s2 dev/m3lcc/p20ra10mlcc_s2 -jaxn 0 -
+dev/m3lcc/p20ra10mlcc_s2.wc dev/m3lcc/p20ra10mlcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10mlcc_s2
+dev/m3lcc/p20ra10mlcc_s3 dev/m3lcc/p20ra10mlcc_s3 -jaxn 0 -
+dev/m3lcc/p20ra10mlcc_s3.wc dev/m3lcc/p20ra10mlcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10mlcc_s3
+dev/m3lcc/p20ra10slcc_s1 dev/m3lcc/p20ra10slcc_s1 -jaxn 0 -
+dev/m3lcc/p20ra10slcc_s1.wc dev/m3lcc/p20ra10slcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10slcc_s1
+dev/m3lcc/p20ra10slcc_s2 dev/m3lcc/p20ra10slcc_s2 -jaxn 0 -
+dev/m3lcc/p20ra10slcc_s2.wc dev/m3lcc/p20ra10slcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10slcc_s2
+dev/m3lcc/p20ra10slcc_s3 dev/m3lcc/p20ra10slcc_s3 -jaxn 0 -
+dev/m3lcc/p20ra10slcc_s3.wc dev/m3lcc/p20ra10slcc_s3 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20ra10slcc_s3
 dev/m3lcc/p20rp10alcc_s1 dev/m3lcc/p20rp10alcc_s1 -jaxn 0 -
 dev/m3lcc/p20rp10alcc_s1.wc dev/m3lcc/p20rp10alcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20rp10alcc_s1
 dev/m3lcc/p20rp10alcc_s2 dev/m3lcc/p20rp10alcc_s2 -jaxn 0 -
@@ -812,6 +929,12 @@ dev/m3lcc/p20x8mlcc_s2 dev/m3lcc/p20x8mlcc_s2 -jaxn 0 -
 dev/m3lcc/p20x8mlcc_s2.wc dev/m3lcc/p20x8mlcc_s2 -jaxn,-compat-refdefect 0 - dev/m3lcc/p20x8mlcc_s2
 dev/m3lcc/p20x8mlcc_s3 dev/m3lcc/p20x8mlcc_s3 -jaxn 1 0006cc
 dev/m3lcc/p20x8mlcc_s3.wc dev/m3lcc/p20x8mlcc_s3 -jaxn,-compat-refdefect 1 0006cc dev/m3lcc/p20x8mlcc_s3
+dev/m3lcc/p22cv10lcc_s1 dev/m3lcc/p22cv10lcc_s1 -jaxn 0 0016cb
+dev/m3lcc/p22cv10lcc_s1.wc dev/m3lcc/p22cv10lcc_s1 -jaxn,-compat-refdefect 0 0016cb dev/m3lcc/p22cv10lcc_s1
+dev/m3lcc/p22cv10lcc_s2 dev/m3lcc/p22cv10lcc_s2 -jaxn 0 0016cb
+dev/m3lcc/p22cv10lcc_s2.wc dev/m3lcc/p22cv10lcc_s2 -jaxn,-compat-refdefect 0 0016cb dev/m3lcc/p22cv10lcc_s2
+dev/m3lcc/p22cv10lcc_s3 dev/m3lcc/p22cv10lcc_s3 -jaxn 0 0016cb
+dev/m3lcc/p22cv10lcc_s3.wc dev/m3lcc/p22cv10lcc_s3 -jaxn,-compat-refdefect 0 0016cb dev/m3lcc/p22cv10lcc_s3
 dev/m3lcc/p22p10alcc_s1 dev/m3lcc/p22p10alcc_s1 -jaxn 0 -
 dev/m3lcc/p22p10alcc_s1.wc dev/m3lcc/p22p10alcc_s1 -jaxn,-compat-refdefect 0 - dev/m3lcc/p22p10alcc_s1
 dev/m3lcc/p22p10alcc_s2 dev/m3lcc/p22p10alcc_s2 -jaxn 0 -
@@ -1590,6 +1713,8 @@ devfuzz/atv2500/hand_neg_v2500cppklcc_45 devfuzz/atv2500/hand_neg_v2500cppklcc_4
 devfuzz/atv2500/hand_neg_v2500cppklcc_45.wc devfuzz/atv2500/hand_neg_v2500cppklcc_45 -jaxn,-compat-refdefect 0 - devfuzz/atv2500/hand_neg_v2500cppklcc_45
 devfuzz/atv2500/hand_neg_v2500lcc_45 devfuzz/atv2500/hand_neg_v2500lcc_45 -jaxn 0 0905cb
 devfuzz/atv2500/hand_neg_v2500lcc_45.wc devfuzz/atv2500/hand_neg_v2500lcc_45 -jaxn,-compat-refdefect 0 0905cb
+devfuzz/atv5000/v5000_f1 devfuzz/atv5000/v5000_f1 -jaxkbn 1 0009cb,0022ca
+devfuzz/atv5000/v5000_f1.wc devfuzz/atv5000/v5000_f1 -jaxkbn,-compat-refdefect 1 0009cb,0022ca devfuzz/atv5000/v5000_f1
 devfuzz/atv750/hand_aliascomb_v750_d devfuzz/atv750/hand_aliascomb_v750_d -jaxn 1 0905cb,0907cb
 devfuzz/atv750/hand_aliascomb_v750_d.wc devfuzz/atv750/hand_aliascomb_v750_d -jaxn,-compat-refdefect 0 0905cb
 devfuzz/atv750/hand_aliascomb_v750b_d devfuzz/atv750/hand_aliascomb_v750b_d -jaxn 1 0905cb,0907cb
@@ -1642,6 +1767,8 @@ devfuzz/gal/g22v10i_f1 devfuzz/gal/g22v10i_f1 -jaxn 1 0011ca
 devfuzz/gal/g22v10i_f1.wc devfuzz/gal/g22v10i_f1 -jaxn,-compat-refdefect 1 0011ca devfuzz/gal/g22v10i_f1
 devfuzz/gal/g24v10ma_f1 devfuzz/gal/g24v10ma_f1 -jaxn 0 -
 devfuzz/gal/g24v10ma_f1.wc devfuzz/gal/g24v10ma_f1 -jaxn,-compat-refdefect 0 - devfuzz/gal/g24v10ma_f1
+devfuzz/gal/g26cv12_f1 devfuzz/gal/g26cv12_f1 -jaxn 1 0009cb
+devfuzz/gal/g26cv12_f1.wc devfuzz/gal/g26cv12_f1 -jaxn,-compat-refdefect 1 0009cb devfuzz/gal/g26cv12_f1
 devfuzz/gal16h/g16v8h_f1 devfuzz/gal16h/g16v8h_f1 -jaxm3n 0 -
 devfuzz/gal16h/g16v8h_f1.wc devfuzz/gal16h/g16v8h_f1 -jaxm3n,-compat-refdefect 0 - devfuzz/gal16h/g16v8h_f1
 devfuzz/gal16h/g16v8hlcc_f1 devfuzz/gal16h/g16v8hlcc_f1 -jaxfn 0 -
@@ -1692,6 +1819,18 @@ devfuzz/gal_multi/g20vp8mslcc_f1 devfuzz/gal_multi/g20vp8mslcc_f1 -jaxn 1 0025cx
 devfuzz/gal_multi/g20vp8mslcc_f1.wc devfuzz/gal_multi/g20vp8mslcc_f1 -jaxn,-compat-refdefect 1 0025cx devfuzz/gal_multi/g20vp8mslcc_f1
 devfuzz/gal_multi/g20vp8slcc_f1 devfuzz/gal_multi/g20vp8slcc_f1 -jaxn 0 0022ca
 devfuzz/gal_multi/g20vp8slcc_f1.wc devfuzz/gal_multi/g20vp8slcc_f1 -jaxn,-compat-refdefect 0 0022ca devfuzz/gal_multi/g20vp8slcc_f1
+devfuzz/gal_xv10/g20xv10_f1 devfuzz/gal_xv10/g20xv10_f1 -jaxn 0 -
+devfuzz/gal_xv10/g20xv10_f1.wc devfuzz/gal_xv10/g20xv10_f1 -jaxn,-compat-refdefect 0 - devfuzz/gal_xv10/g20xv10_f1
+devfuzz/gal_xv10/g20xv10f_f1 devfuzz/gal_xv10/g20xv10f_f1 -jaxn 1 0014cb
+devfuzz/gal_xv10/g20xv10f_f1.wc devfuzz/gal_xv10/g20xv10f_f1 -jaxn,-compat-refdefect 1 0014cb devfuzz/gal_xv10/g20xv10f_f1
+devfuzz/gal_xv10/g20xv10flcc_f1 devfuzz/gal_xv10/g20xv10flcc_f1 -jaxn 1 0014cb
+devfuzz/gal_xv10/g20xv10flcc_f1.wc devfuzz/gal_xv10/g20xv10flcc_f1 -jaxn,-compat-refdefect 1 0014cb devfuzz/gal_xv10/g20xv10flcc_f1
+devfuzz/gal_xv10/g20xv10i_f1 devfuzz/gal_xv10/g20xv10i_f1 -jaxm0kbn 1 0006cc
+devfuzz/gal_xv10/g20xv10i_f1.wc devfuzz/gal_xv10/g20xv10i_f1 -jaxm0kbn,-compat-refdefect 1 0006cc devfuzz/gal_xv10/g20xv10i_f1
+devfuzz/gal_xv10/g20xv10ilcc_f1 devfuzz/gal_xv10/g20xv10ilcc_f1 -jaxn 1 0009cb
+devfuzz/gal_xv10/g20xv10ilcc_f1.wc devfuzz/gal_xv10/g20xv10ilcc_f1 -jaxn,-compat-refdefect 1 0009cb devfuzz/gal_xv10/g20xv10ilcc_f1
+devfuzz/gal_xv10/g20xv10lcc_f1 devfuzz/gal_xv10/g20xv10lcc_f1 -jaxm2n 1 0009cb,0022ca
+devfuzz/gal_xv10/g20xv10lcc_f1.wc devfuzz/gal_xv10/g20xv10lcc_f1 -jaxm2n,-compat-refdefect 1 0009cb,0022ca devfuzz/gal_xv10/g20xv10lcc_f1
 devfuzz/lcc/g20v8alcc_f1 devfuzz/lcc/g20v8alcc_f1 -jaxfn 0 -
 devfuzz/lcc/g20v8alcc_f1.wc devfuzz/lcc/g20v8alcc_f1 -jaxfn,-compat-refdefect 0 - devfuzz/lcc/g20v8alcc_f1
 devfuzz/lcc/g20v8aslcc_f1 devfuzz/lcc/g20v8aslcc_f1 -jaxm0kbn 1 0009cb
@@ -1758,6 +1897,8 @@ devfuzz/limits/f18v8zs_12_c_8 devfuzz/limits/f18v8zs_12_c_8 -jaxn 0 0905cb
 devfuzz/limits/f18v8zs_12_c_8.wc devfuzz/limits/f18v8zs_12_c_8 -jaxn,-compat-refdefect 0 0905cb
 devfuzz/limits/f20v8s_15_c_8 devfuzz/limits/f20v8s_15_c_8 -jaxn 0 -
 devfuzz/limits/f20v8s_15_c_8.wc devfuzz/limits/f20v8s_15_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/f20v8s_15_c_8
+devfuzz/limits/g20ra10lcc_17_c_4 devfuzz/limits/g20ra10lcc_17_c_4 -jaxn 0 -
+devfuzz/limits/g20ra10lcc_17_c_4.wc devfuzz/limits/g20ra10lcc_17_c_4 -jaxn,-compat-refdefect 0 - devfuzz/limits/g20ra10lcc_17_c_4
 devfuzz/limits/m16v8a_12_c_8 devfuzz/limits/m16v8a_12_c_8 -jaxn 0 -
 devfuzz/limits/m16v8a_12_c_8.wc devfuzz/limits/m16v8a_12_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/m16v8a_12_c_8
 devfuzz/limits/m16v8ac_12_c_8 devfuzz/limits/m16v8ac_12_c_8 -jaxn 1 0006cc
@@ -1768,16 +1909,26 @@ devfuzz/limits/m16v8as_12_c_8 devfuzz/limits/m16v8as_12_c_8 -jaxn 0 -
 devfuzz/limits/m16v8as_12_c_8.wc devfuzz/limits/m16v8as_12_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/m16v8as_12_c_8
 devfuzz/limits/p1016et6_15_r_8 devfuzz/limits/p1016et6_15_r_8 -jaxn 0 -
 devfuzz/limits/p1016et6_15_r_8.wc devfuzz/limits/p1016et6_15_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016et6_15_r_8
+devfuzz/limits/p1016et6lcc_18_r_8 devfuzz/limits/p1016et6lcc_18_r_8 -jaxn 0 -
+devfuzz/limits/p1016et6lcc_18_r_8.wc devfuzz/limits/p1016et6lcc_18_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016et6lcc_18_r_8
+devfuzz/limits/p1016ld4lcc_25_c_8 devfuzz/limits/p1016ld4lcc_25_c_8 -jaxn 0 -
+devfuzz/limits/p1016ld4lcc_25_c_8.wc devfuzz/limits/p1016ld4lcc_25_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016ld4lcc_25_c_8
 devfuzz/limits/p1016ld8_4_r_8 devfuzz/limits/p1016ld8_4_r_8 -jaxn 0 -
 devfuzz/limits/p1016ld8_4_r_8.wc devfuzz/limits/p1016ld8_4_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016ld8_4_r_8
+devfuzz/limits/p1016ld8lcc_25_r_8 devfuzz/limits/p1016ld8lcc_25_r_8 -jaxn 0 -
+devfuzz/limits/p1016ld8lcc_25_r_8.wc devfuzz/limits/p1016ld8lcc_25_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016ld8lcc_25_r_8
 devfuzz/limits/p1016p8_4_c_8 devfuzz/limits/p1016p8_4_c_8 -jaxn 0 -
 devfuzz/limits/p1016p8_4_c_8.wc devfuzz/limits/p1016p8_4_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016p8_4_c_8
 devfuzz/limits/p1016pe8_5_c_8 devfuzz/limits/p1016pe8_5_c_8 -jaxn 0 -
 devfuzz/limits/p1016pe8_5_c_8.wc devfuzz/limits/p1016pe8_5_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016pe8_5_c_8
 devfuzz/limits/p1016rd4_4_c_8 devfuzz/limits/p1016rd4_4_c_8 -jaxn 0 -
 devfuzz/limits/p1016rd4_4_c_8.wc devfuzz/limits/p1016rd4_4_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016rd4_4_c_8
+devfuzz/limits/p1016rd4lcc_25_c_8 devfuzz/limits/p1016rd4lcc_25_c_8 -jaxn 0 -
+devfuzz/limits/p1016rd4lcc_25_c_8.wc devfuzz/limits/p1016rd4lcc_25_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016rd4lcc_25_c_8
 devfuzz/limits/p1016rd8_4_r_8 devfuzz/limits/p1016rd8_4_r_8 -jaxn 0 -
 devfuzz/limits/p1016rd8_4_r_8.wc devfuzz/limits/p1016rd8_4_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016rd8_4_r_8
+devfuzz/limits/p1016rd8lcc_25_r_8 devfuzz/limits/p1016rd8lcc_25_r_8 -jaxn 0 -
+devfuzz/limits/p1016rd8lcc_25_r_8.wc devfuzz/limits/p1016rd8lcc_25_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1016rd8lcc_25_r_8
 devfuzz/limits/p1020ev8_4_c_8 devfuzz/limits/p1020ev8_4_c_8 -jaxn 0 -
 devfuzz/limits/p1020ev8_4_c_8.wc devfuzz/limits/p1020ev8_4_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p1020ev8_4_c_8
 devfuzz/limits/p1020ev8lcc_5_c_8 devfuzz/limits/p1020ev8lcc_5_c_8 -jaxn 0 -
@@ -1926,6 +2077,10 @@ devfuzz/limits/p19r8tlcc_18_r_8 devfuzz/limits/p19r8tlcc_18_r_8 -jaxn 1 0006cc
 devfuzz/limits/p19r8tlcc_18_r_8.wc devfuzz/limits/p19r8tlcc_18_r_8 -jaxn,-compat-refdefect 1 0006cc devfuzz/limits/p19r8tlcc_18_r_8
 devfuzz/limits/p20c1_18_c_16 devfuzz/limits/p20c1_18_c_16 -jaxn 1 0006cc
 devfuzz/limits/p20c1_18_c_16.wc devfuzz/limits/p20c1_18_c_16 -jaxn,-compat-refdefect 1 0006cc devfuzz/limits/p20c1_18_c_16
+devfuzz/limits/p20c1lcc_21_c_16 devfuzz/limits/p20c1lcc_21_c_16 -jaxn 1 0006cc
+devfuzz/limits/p20c1lcc_21_c_16.wc devfuzz/limits/p20c1lcc_21_c_16 -jaxn,-compat-refdefect 1 0006cc devfuzz/limits/p20c1lcc_21_c_16
+devfuzz/limits/p20c1mlcc_22_c_16 devfuzz/limits/p20c1mlcc_22_c_16 -jaxn 1 0006cc
+devfuzz/limits/p20c1mlcc_22_c_16.wc devfuzz/limits/p20c1mlcc_22_c_16 -jaxn,-compat-refdefect 1 0006cc devfuzz/limits/p20c1mlcc_22_c_16
 devfuzz/limits/p20cg10_14_c_8 devfuzz/limits/p20cg10_14_c_8 -jaxn 0 -
 devfuzz/limits/p20cg10_14_c_8.wc devfuzz/limits/p20cg10_14_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20cg10_14_c_8
 devfuzz/limits/p20g10_14_c_8 devfuzz/limits/p20g10_14_c_8 -jaxn 0 -
@@ -1958,6 +2113,12 @@ devfuzz/limits/p20p8lcc_18_c_7 devfuzz/limits/p20p8lcc_18_c_7 -jaxn 0 -
 devfuzz/limits/p20p8lcc_18_c_7.wc devfuzz/limits/p20p8lcc_18_c_7 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20p8lcc_18_c_7
 devfuzz/limits/p20ra10_14_c_4 devfuzz/limits/p20ra10_14_c_4 -jaxn 0 -
 devfuzz/limits/p20ra10_14_c_4.wc devfuzz/limits/p20ra10_14_c_4 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20ra10_14_c_4
+devfuzz/limits/p20ra10lcc_17_c_4 devfuzz/limits/p20ra10lcc_17_c_4 -jaxn 0 -
+devfuzz/limits/p20ra10lcc_17_c_4.wc devfuzz/limits/p20ra10lcc_17_c_4 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20ra10lcc_17_c_4
+devfuzz/limits/p20ra10mlcc_16_c_4 devfuzz/limits/p20ra10mlcc_16_c_4 -jaxn 0 -
+devfuzz/limits/p20ra10mlcc_16_c_4.wc devfuzz/limits/p20ra10mlcc_16_c_4 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20ra10mlcc_16_c_4
+devfuzz/limits/p20ra10slcc_17_c_4 devfuzz/limits/p20ra10slcc_17_c_4 -jaxn 0 -
+devfuzz/limits/p20ra10slcc_17_c_4.wc devfuzz/limits/p20ra10slcc_17_c_4 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20ra10slcc_17_c_4
 devfuzz/limits/p20rp10a_14_r_8 devfuzz/limits/p20rp10a_14_r_8 -jaxn 0 -
 devfuzz/limits/p20rp10a_14_r_8.wc devfuzz/limits/p20rp10a_14_r_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20rp10a_14_r_8
 devfuzz/limits/p20rp10alcc_17_r_8 devfuzz/limits/p20rp10alcc_17_r_8 -jaxn 0 -
@@ -2060,6 +2221,8 @@ devfuzz/limits/p20xrp8_14_c_8 devfuzz/limits/p20xrp8_14_c_8 -jaxn 0 -
 devfuzz/limits/p20xrp8_14_c_8.wc devfuzz/limits/p20xrp8_14_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20xrp8_14_c_8
 devfuzz/limits/p20xrp8lcc_17_c_8 devfuzz/limits/p20xrp8lcc_17_c_8 -jaxn 0 -
 devfuzz/limits/p20xrp8lcc_17_c_8.wc devfuzz/limits/p20xrp8lcc_17_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p20xrp8lcc_17_c_8
+devfuzz/limits/p22cv10lcc_17_c_8 devfuzz/limits/p22cv10lcc_17_c_8 -jaxn 0 -
+devfuzz/limits/p22cv10lcc_17_c_8.wc devfuzz/limits/p22cv10lcc_17_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p22cv10lcc_17_c_8
 devfuzz/limits/p22cv10z_14_c_8 devfuzz/limits/p22cv10z_14_c_8 -jaxn 0 -
 devfuzz/limits/p22cv10z_14_c_8.wc devfuzz/limits/p22cv10z_14_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/p22cv10z_14_c_8
 devfuzz/limits/p22p10a_14_c_8 devfuzz/limits/p22p10a_14_c_8 -jaxn 0 -
@@ -2100,6 +2263,8 @@ devfuzz/limits/pc508_18_r_1 devfuzz/limits/pc508_18_r_1 -jaxn 1 0006cc
 devfuzz/limits/pc508_18_r_1.wc devfuzz/limits/pc508_18_r_1 -jaxn,-compat-refdefect 1 0006cc devfuzz/limits/pc508_18_r_1
 devfuzz/limits/plsi1016ld4_4_c_8 devfuzz/limits/plsi1016ld4_4_c_8 -jaxn 0 -
 devfuzz/limits/plsi1016ld4_4_c_8.wc devfuzz/limits/plsi1016ld4_4_c_8 -jaxn,-compat-refdefect 0 - devfuzz/limits/plsi1016ld4_4_c_8
+devfuzz/pal_fixed/c1pair_065 devfuzz/pal_fixed/c1pair_065 -jaxn 1 0025cb
+devfuzz/pal_fixed/c1pair_065.wc devfuzz/pal_fixed/c1pair_065 -jaxn,-compat-refdefect 1 0025cb devfuzz/pal_fixed/c1pair_065
 devkw/atv2500/v2500_e1 devkw/atv2500/v2500_e1 -jaxn 1 0007ca,0021ca
 devkw/atv2500/v2500_e1.wc devkw/atv2500/v2500_e1 -jaxn,-compat-refdefect 1 0007ca,0038ca devkw/atv2500/v2500_e1
 devkw/atv2500/v2500b_e1 devkw/atv2500/v2500b_e1 -jaxn 0 -
@@ -2116,6 +2281,8 @@ devkw/atv2500/v2500cppklcc_e1 devkw/atv2500/v2500cppklcc_e1 -jaxn 0 -
 devkw/atv2500/v2500cppklcc_e1.wc devkw/atv2500/v2500cppklcc_e1 -jaxn,-compat-refdefect 0 - devkw/atv2500/v2500cppklcc_e1
 devkw/atv2500/v2500lcc_e1 devkw/atv2500/v2500lcc_e1 -jaxn 0 -
 devkw/atv2500/v2500lcc_e1.wc devkw/atv2500/v2500lcc_e1 -jaxn,-compat-refdefect 0 - devkw/atv2500/v2500lcc_e1
+devkw/atv5000/v5000_e1 devkw/atv5000/v5000_e1 -jaxn 1 0007ca
+devkw/atv5000/v5000_e1.wc devkw/atv5000/v5000_e1 -jaxn,-compat-refdefect 1 0007ca devkw/atv5000/v5000_e1
 devkw/atv750/v750_e1 devkw/atv750/v750_e1 -jaxn 0 0016cb
 devkw/atv750/v750_e1.wc devkw/atv750/v750_e1 -jaxn,-compat-refdefect 0 0016cb devkw/atv750/v750_e1
 devkw/atv750/v750b_e1 devkw/atv750/v750b_e1 -jaxn 0 0016cb
@@ -2260,6 +2427,8 @@ devkw/gal/g22v10i_e1 devkw/gal/g22v10i_e1 -jaxn 0 0016cb
 devkw/gal/g22v10i_e1.wc devkw/gal/g22v10i_e1 -jaxn,-compat-refdefect 0 0016cb devkw/gal/g22v10i_e1
 devkw/gal/g24v10ma_e1 devkw/gal/g24v10ma_e1 -jaxn 0 -
 devkw/gal/g24v10ma_e1.wc devkw/gal/g24v10ma_e1 -jaxn,-compat-refdefect 0 - devkw/gal/g24v10ma_e1
+devkw/gal/g26cv12_e1 devkw/gal/g26cv12_e1 -jaxn 0 0016cb
+devkw/gal/g26cv12_e1.wc devkw/gal/g26cv12_e1 -jaxn,-compat-refdefect 0 0016cb devkw/gal/g26cv12_e1
 devkw/gal16h/g16v8h_e1 devkw/gal16h/g16v8h_e1 -jaxn 0 -
 devkw/gal16h/g16v8h_e1.wc devkw/gal16h/g16v8h_e1 -jaxn,-compat-refdefect 0 - devkw/gal16h/g16v8h_e1
 devkw/gal16h/g16v8hlcc_e1 devkw/gal16h/g16v8hlcc_e1 -jaxn 0 -
@@ -2310,6 +2479,18 @@ devkw/gal_multi/g20vp8mslcc_e1 devkw/gal_multi/g20vp8mslcc_e1 -jaxn 1 0014cx
 devkw/gal_multi/g20vp8mslcc_e1.wc devkw/gal_multi/g20vp8mslcc_e1 -jaxn,-compat-refdefect 1 0014cx devkw/gal_multi/g20vp8mslcc_e1
 devkw/gal_multi/g20vp8slcc_e1 devkw/gal_multi/g20vp8slcc_e1 -jaxn 1 0014cx
 devkw/gal_multi/g20vp8slcc_e1.wc devkw/gal_multi/g20vp8slcc_e1 -jaxn,-compat-refdefect 1 0014cx devkw/gal_multi/g20vp8slcc_e1
+devkw/gal_xv10/g20xv10_e1 devkw/gal_xv10/g20xv10_e1 -jaxn 1 0007ca
+devkw/gal_xv10/g20xv10_e1.wc devkw/gal_xv10/g20xv10_e1 -jaxn,-compat-refdefect 1 0007ca devkw/gal_xv10/g20xv10_e1
+devkw/gal_xv10/g20xv10f_e1 devkw/gal_xv10/g20xv10f_e1 -jaxn 0 -
+devkw/gal_xv10/g20xv10f_e1.wc devkw/gal_xv10/g20xv10f_e1 -jaxn,-compat-refdefect 0 - devkw/gal_xv10/g20xv10f_e1
+devkw/gal_xv10/g20xv10flcc_e1 devkw/gal_xv10/g20xv10flcc_e1 -jaxn 0 -
+devkw/gal_xv10/g20xv10flcc_e1.wc devkw/gal_xv10/g20xv10flcc_e1 -jaxn,-compat-refdefect 0 - devkw/gal_xv10/g20xv10flcc_e1
+devkw/gal_xv10/g20xv10i_e1 devkw/gal_xv10/g20xv10i_e1 -jaxn 1 0007ca
+devkw/gal_xv10/g20xv10i_e1.wc devkw/gal_xv10/g20xv10i_e1 -jaxn,-compat-refdefect 1 0007ca devkw/gal_xv10/g20xv10i_e1
+devkw/gal_xv10/g20xv10ilcc_e1 devkw/gal_xv10/g20xv10ilcc_e1 -jaxn 1 0007ca,0009ca
+devkw/gal_xv10/g20xv10ilcc_e1.wc devkw/gal_xv10/g20xv10ilcc_e1 -jaxn,-compat-refdefect 1 0007ca,0009ca devkw/gal_xv10/g20xv10ilcc_e1
+devkw/gal_xv10/g20xv10lcc_e1 devkw/gal_xv10/g20xv10lcc_e1 -jaxn 1 0014cx
+devkw/gal_xv10/g20xv10lcc_e1.wc devkw/gal_xv10/g20xv10lcc_e1 -jaxn,-compat-refdefect 1 0014cx devkw/gal_xv10/g20xv10lcc_e1
 devkw/lcc/g20v8alcc_e1 devkw/lcc/g20v8alcc_e1 -jaxn 0 -
 devkw/lcc/g20v8alcc_e1.wc devkw/lcc/g20v8alcc_e1 -jaxn,-compat-refdefect 0 - devkw/lcc/g20v8alcc_e1
 devkw/lcc/g20v8aslcc_e1 devkw/lcc/g20v8aslcc_e1 -jaxn 1 0007ca
@@ -2370,6 +2551,18 @@ devkw/m16v8/m16v8ar_e1 devkw/m16v8/m16v8ar_e1 -jaxn 0 -
 devkw/m16v8/m16v8ar_e1.wc devkw/m16v8/m16v8ar_e1 -jaxn,-compat-refdefect 0 - devkw/m16v8/m16v8ar_e1
 devkw/m16v8/m16v8as_e1 devkw/m16v8/m16v8as_e1 -jaxn 1 0007ca
 devkw/m16v8/m16v8as_e1.wc devkw/m16v8/m16v8as_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m16v8/m16v8as_e1
+devkw/m3lcc/g20ra10lcc_e1 devkw/m3lcc/g20ra10lcc_e1 -jaxn 0 -
+devkw/m3lcc/g20ra10lcc_e1.wc devkw/m3lcc/g20ra10lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/g20ra10lcc_e1
+devkw/m3lcc/p1016et6lcc_e1 devkw/m3lcc/p1016et6lcc_e1 -jaxn 1 0007ca
+devkw/m3lcc/p1016et6lcc_e1.wc devkw/m3lcc/p1016et6lcc_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m3lcc/p1016et6lcc_e1
+devkw/m3lcc/p1016ld4lcc_e1 devkw/m3lcc/p1016ld4lcc_e1 -jaxn 1 0011cb,0012cb
+devkw/m3lcc/p1016ld4lcc_e1.wc devkw/m3lcc/p1016ld4lcc_e1 -jaxn,-compat-refdefect 1 0011cb,0012cb devkw/m3lcc/p1016ld4lcc_e1
+devkw/m3lcc/p1016ld8lcc_e1 devkw/m3lcc/p1016ld8lcc_e1 -jaxn 1 0011cb,0012cb
+devkw/m3lcc/p1016ld8lcc_e1.wc devkw/m3lcc/p1016ld8lcc_e1 -jaxn,-compat-refdefect 1 0011cb,0012cb devkw/m3lcc/p1016ld8lcc_e1
+devkw/m3lcc/p1016rd4lcc_e1 devkw/m3lcc/p1016rd4lcc_e1 -jaxn 0 -
+devkw/m3lcc/p1016rd4lcc_e1.wc devkw/m3lcc/p1016rd4lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p1016rd4lcc_e1
+devkw/m3lcc/p1016rd8lcc_e1 devkw/m3lcc/p1016rd8lcc_e1 -jaxn 0 -
+devkw/m3lcc/p1016rd8lcc_e1.wc devkw/m3lcc/p1016rd8lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p1016rd8lcc_e1
 devkw/m3lcc/p1020ev8lcc_e1 devkw/m3lcc/p1020ev8lcc_e1 -jaxn 0 0016cb
 devkw/m3lcc/p1020ev8lcc_e1.wc devkw/m3lcc/p1020ev8lcc_e1 -jaxn,-compat-refdefect 0 0016cb devkw/m3lcc/p1020ev8lcc_e1
 devkw/m3lcc/p12l10lcc_e1 devkw/m3lcc/p12l10lcc_e1 -jaxn 1 0007ca,0021ca
@@ -2396,6 +2589,10 @@ devkw/m3lcc/p18l4mlcc_e1 devkw/m3lcc/p18l4mlcc_e1 -jaxn 0 -
 devkw/m3lcc/p18l4mlcc_e1.wc devkw/m3lcc/p18l4mlcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p18l4mlcc_e1
 devkw/m3lcc/p18p4lcc_e1 devkw/m3lcc/p18p4lcc_e1 -jaxn 1 0007ca
 devkw/m3lcc/p18p4lcc_e1.wc devkw/m3lcc/p18p4lcc_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m3lcc/p18p4lcc_e1
+devkw/m3lcc/p20c1lcc_e1 devkw/m3lcc/p20c1lcc_e1 -jaxn 0 -
+devkw/m3lcc/p20c1lcc_e1.wc devkw/m3lcc/p20c1lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20c1lcc_e1
+devkw/m3lcc/p20c1mlcc_e1 devkw/m3lcc/p20c1mlcc_e1 -jaxn 1 0014cx
+devkw/m3lcc/p20c1mlcc_e1.wc devkw/m3lcc/p20c1mlcc_e1 -jaxn,-compat-refdefect 1 0014cx devkw/m3lcc/p20c1mlcc_e1
 devkw/m3lcc/p20l10lcc_e1 devkw/m3lcc/p20l10lcc_e1 -jaxn 1 0007ca
 devkw/m3lcc/p20l10lcc_e1.wc devkw/m3lcc/p20l10lcc_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m3lcc/p20l10lcc_e1
 devkw/m3lcc/p20l10mlcc_e1 devkw/m3lcc/p20l10mlcc_e1 -jaxn 1 0007ca,0021ca
@@ -2408,6 +2605,12 @@ devkw/m3lcc/p20p2lcc_e1 devkw/m3lcc/p20p2lcc_e1 -jaxn 0 -
 devkw/m3lcc/p20p2lcc_e1.wc devkw/m3lcc/p20p2lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20p2lcc_e1
 devkw/m3lcc/p20p8lcc_e1 devkw/m3lcc/p20p8lcc_e1 -jaxn 1 0007ca
 devkw/m3lcc/p20p8lcc_e1.wc devkw/m3lcc/p20p8lcc_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m3lcc/p20p8lcc_e1
+devkw/m3lcc/p20ra10lcc_e1 devkw/m3lcc/p20ra10lcc_e1 -jaxn 0 -
+devkw/m3lcc/p20ra10lcc_e1.wc devkw/m3lcc/p20ra10lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20ra10lcc_e1
+devkw/m3lcc/p20ra10mlcc_e1 devkw/m3lcc/p20ra10mlcc_e1 -jaxn 0 -
+devkw/m3lcc/p20ra10mlcc_e1.wc devkw/m3lcc/p20ra10mlcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20ra10mlcc_e1
+devkw/m3lcc/p20ra10slcc_e1 devkw/m3lcc/p20ra10slcc_e1 -jaxn 1 0007ca
+devkw/m3lcc/p20ra10slcc_e1.wc devkw/m3lcc/p20ra10slcc_e1 -jaxn,-compat-refdefect 1 0007ca devkw/m3lcc/p20ra10slcc_e1
 devkw/m3lcc/p20rp10alcc_e1 devkw/m3lcc/p20rp10alcc_e1 -jaxn 0 -
 devkw/m3lcc/p20rp10alcc_e1.wc devkw/m3lcc/p20rp10alcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20rp10alcc_e1
 devkw/m3lcc/p20rp4alcc_e1 devkw/m3lcc/p20rp4alcc_e1 -jaxn 0 -
@@ -2432,6 +2635,8 @@ devkw/m3lcc/p20x8lcc_e1 devkw/m3lcc/p20x8lcc_e1 -jaxn 0 -
 devkw/m3lcc/p20x8lcc_e1.wc devkw/m3lcc/p20x8lcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20x8lcc_e1
 devkw/m3lcc/p20x8mlcc_e1 devkw/m3lcc/p20x8mlcc_e1 -jaxn 0 -
 devkw/m3lcc/p20x8mlcc_e1.wc devkw/m3lcc/p20x8mlcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p20x8mlcc_e1
+devkw/m3lcc/p22cv10lcc_e1 devkw/m3lcc/p22cv10lcc_e1 -jaxn 1 0007ca,0021ca
+devkw/m3lcc/p22cv10lcc_e1.wc devkw/m3lcc/p22cv10lcc_e1 -jaxn,-compat-refdefect 1 0007ca,0021ca devkw/m3lcc/p22cv10lcc_e1
 devkw/m3lcc/p22p10alcc_e1 devkw/m3lcc/p22p10alcc_e1 -jaxn 0 -
 devkw/m3lcc/p22p10alcc_e1.wc devkw/m3lcc/p22p10alcc_e1 -jaxn,-compat-refdefect 0 - devkw/m3lcc/p22p10alcc_e1
 devkw/m3lcc/p22vp10lcc_e1 devkw/m3lcc/p22vp10lcc_e1 -jaxn 1 0007ca
@@ -4450,6 +4655,34 @@ lang/inter_basic lang/inter_basic -jaxn 0 -
 lang/inter_basic.wc lang/inter_basic -jaxn,-compat-refdefect 0 - lang/inter_basic
 lang/inter_polarity_ar lang/inter_polarity_ar -jaxn 0 0016cb
 lang/inter_polarity_ar.wc lang/inter_polarity_ar -jaxn,-compat-refdefect 0 0016cb lang/inter_polarity_ar
+lang/kb_arsp_01 lang/kb_arsp_01 -jaxkbn 0 -
+lang/kb_arsp_01.wc lang/kb_arsp_01 -jaxkbn,-compat-refdefect 0 - lang/kb_arsp_01
+lang/kb_arsp_02 lang/kb_arsp_02 -jaxkbn 0 0016cb
+lang/kb_arsp_02.wc lang/kb_arsp_02 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_02
+lang/kb_arsp_03 lang/kb_arsp_03 -jaxkbn 0 0016cb,0905cb
+lang/kb_arsp_03.wc lang/kb_arsp_03 -jaxkbn,-compat-refdefect 0 0016cb,0905cb
+lang/kb_arsp_04 lang/kb_arsp_04 -jaxkbn 0 0016cb
+lang/kb_arsp_04.wc lang/kb_arsp_04 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_04
+lang/kb_arsp_05 lang/kb_arsp_05 -jaxkbn 0 0016cb
+lang/kb_arsp_05.wc lang/kb_arsp_05 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_05
+lang/kb_arsp_06 lang/kb_arsp_06 -jaxkbn 0 0016cb
+lang/kb_arsp_06.wc lang/kb_arsp_06 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_06
+lang/kb_arsp_07 lang/kb_arsp_07 -jaxkbn 0 0016cb
+lang/kb_arsp_07.wc lang/kb_arsp_07 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_07
+lang/kb_arsp_08 lang/kb_arsp_08 -jaxkbn 0 0016cb
+lang/kb_arsp_08.wc lang/kb_arsp_08 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_08
+lang/kb_arsp_09 lang/kb_arsp_09 -jaxkbn 0 0016cb
+lang/kb_arsp_09.wc lang/kb_arsp_09 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_09
+lang/kb_arsp_10 lang/kb_arsp_10 -jaxkbn 0 0016cb
+lang/kb_arsp_10.wc lang/kb_arsp_10 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_10
+lang/kb_arsp_11 lang/kb_arsp_11 -jaxkbn 0 0016cb
+lang/kb_arsp_11.wc lang/kb_arsp_11 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_11
+lang/kb_arsp_12 lang/kb_arsp_12 -jaxkbn 0 0016cb
+lang/kb_arsp_12.wc lang/kb_arsp_12 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_12
+lang/kb_arsp_13 lang/kb_arsp_13 -jaxkbn 0 0016cb
+lang/kb_arsp_13.wc lang/kb_arsp_13 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_13
+lang/kb_arsp_14 lang/kb_arsp_14 -jaxkbn 0 0016cb
+lang/kb_arsp_14.wc lang/kb_arsp_14 -jaxkbn,-compat-refdefect 0 0016cb lang/kb_arsp_14
 lang/known_define_novalue lang/known_define_novalue -jaxn 0 0901cx
 lang/known_define_novalue.wc lang/known_define_novalue -jaxn,-compat-refdefect 1 0006cx,0007cx,0901cx
 lang/known_gal_comb_reg lang/known_gal_comb_reg -jaxfn 1 0013cc
@@ -4540,6 +4773,106 @@ lang/range_partial lang/range_partial -jaxn 0 -
 lang/range_partial.wc lang/range_partial -jaxn,-compat-refdefect 0 - lang/range_partial
 lang/reduce_ops lang/reduce_ops -jaxn 0 -
 lang/reduce_ops.wc lang/reduce_ops -jaxn,-compat-refdefect 0 - lang/reduce_ops
+lang/rootnot_combd_01 lang/rootnot_combd_01 -jaxn 1 0025cb
+lang/rootnot_combd_01.wc lang/rootnot_combd_01 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_02 lang/rootnot_combd_02 -jaxn 1 0025cb
+lang/rootnot_combd_02.wc lang/rootnot_combd_02 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_03 lang/rootnot_combd_03 -jaxn 1 0025cb
+lang/rootnot_combd_03.wc lang/rootnot_combd_03 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_04 lang/rootnot_combd_04 -jaxn 1 0025cb
+lang/rootnot_combd_04.wc lang/rootnot_combd_04 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_04
+lang/rootnot_combd_05 lang/rootnot_combd_05 -jaxn 1 0025cb
+lang/rootnot_combd_05.wc lang/rootnot_combd_05 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_06 lang/rootnot_combd_06 -jaxn 1 0025cb
+lang/rootnot_combd_06.wc lang/rootnot_combd_06 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_07 lang/rootnot_combd_07 -jaxn 1 0025cb
+lang/rootnot_combd_07.wc lang/rootnot_combd_07 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_08 lang/rootnot_combd_08 -jaxn 1 0025cb
+lang/rootnot_combd_08.wc lang/rootnot_combd_08 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_08
+lang/rootnot_combd_09 lang/rootnot_combd_09 -jaxn 1 0025cb
+lang/rootnot_combd_09.wc lang/rootnot_combd_09 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_09
+lang/rootnot_combd_10 lang/rootnot_combd_10 -jaxn 1 0025cb
+lang/rootnot_combd_10.wc lang/rootnot_combd_10 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_11 lang/rootnot_combd_11 -jaxn 1 0025cb
+lang/rootnot_combd_11.wc lang/rootnot_combd_11 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_12 lang/rootnot_combd_12 -jaxn 1 0025cb
+lang/rootnot_combd_12.wc lang/rootnot_combd_12 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_13 lang/rootnot_combd_13 -jaxn 1 0025cb
+lang/rootnot_combd_13.wc lang/rootnot_combd_13 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_14 lang/rootnot_combd_14 -jaxn 1 0025cb
+lang/rootnot_combd_14.wc lang/rootnot_combd_14 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_14
+lang/rootnot_combd_15 lang/rootnot_combd_15 -jaxn 1 0025cb
+lang/rootnot_combd_15.wc lang/rootnot_combd_15 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_16 lang/rootnot_combd_16 -jaxn 1 0025cb
+lang/rootnot_combd_16.wc lang/rootnot_combd_16 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_17 lang/rootnot_combd_17 -jaxn 1 0025cb
+lang/rootnot_combd_17.wc lang/rootnot_combd_17 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_18 lang/rootnot_combd_18 -jaxn 1 0025cb
+lang/rootnot_combd_18.wc lang/rootnot_combd_18 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_18
+lang/rootnot_combd_19 lang/rootnot_combd_19 -jaxn 1 0025cb
+lang/rootnot_combd_19.wc lang/rootnot_combd_19 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_20 lang/rootnot_combd_20 -jaxn 1 0025cb
+lang/rootnot_combd_20.wc lang/rootnot_combd_20 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_21 lang/rootnot_combd_21 -jaxn 1 0025cb
+lang/rootnot_combd_21.wc lang/rootnot_combd_21 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_22 lang/rootnot_combd_22 -jaxn 1 0025cb
+lang/rootnot_combd_22.wc lang/rootnot_combd_22 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_22
+lang/rootnot_combd_23 lang/rootnot_combd_23 -jaxn 1 0025cb
+lang/rootnot_combd_23.wc lang/rootnot_combd_23 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_23
+lang/rootnot_combd_24 lang/rootnot_combd_24 -jaxn 1 0025cb
+lang/rootnot_combd_24.wc lang/rootnot_combd_24 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_25 lang/rootnot_combd_25 -jaxn 1 0025cb
+lang/rootnot_combd_25.wc lang/rootnot_combd_25 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_26 lang/rootnot_combd_26 -jaxn 1 0025cb
+lang/rootnot_combd_26.wc lang/rootnot_combd_26 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_27 lang/rootnot_combd_27 -jaxn 1 0025cb
+lang/rootnot_combd_27.wc lang/rootnot_combd_27 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_28 lang/rootnot_combd_28 -jaxn 1 0025cb
+lang/rootnot_combd_28.wc lang/rootnot_combd_28 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_28
+lang/rootnot_combd_29 lang/rootnot_combd_29 -jaxn 1 0025cb
+lang/rootnot_combd_29.wc lang/rootnot_combd_29 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_30 lang/rootnot_combd_30 -jaxn 1 0025cb
+lang/rootnot_combd_30.wc lang/rootnot_combd_30 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_31 lang/rootnot_combd_31 -jaxn 1 0025cb
+lang/rootnot_combd_31.wc lang/rootnot_combd_31 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_32 lang/rootnot_combd_32 -jaxn 1 0025cb
+lang/rootnot_combd_32.wc lang/rootnot_combd_32 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_32
+lang/rootnot_combd_33 lang/rootnot_combd_33 -jaxn 1 0025cb
+lang/rootnot_combd_33.wc lang/rootnot_combd_33 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_34 lang/rootnot_combd_34 -jaxn 1 0025cb
+lang/rootnot_combd_34.wc lang/rootnot_combd_34 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_35 lang/rootnot_combd_35 -jaxn 1 0025cb
+lang/rootnot_combd_35.wc lang/rootnot_combd_35 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_36 lang/rootnot_combd_36 -jaxn 1 0025cb
+lang/rootnot_combd_36.wc lang/rootnot_combd_36 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_36
+lang/rootnot_combd_37 lang/rootnot_combd_37 -jaxn 1 0025cb
+lang/rootnot_combd_37.wc lang/rootnot_combd_37 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_37
+lang/rootnot_combd_38 lang/rootnot_combd_38 -jaxn 1 0025cb
+lang/rootnot_combd_38.wc lang/rootnot_combd_38 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_39 lang/rootnot_combd_39 -jaxn 1 0025cb
+lang/rootnot_combd_39.wc lang/rootnot_combd_39 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_40 lang/rootnot_combd_40 -jaxn 1 0025cb
+lang/rootnot_combd_40.wc lang/rootnot_combd_40 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_41 lang/rootnot_combd_41 -jaxn 1 0025cb
+lang/rootnot_combd_41.wc lang/rootnot_combd_41 -jaxn,-compat-refdefect 0 0016cb,0905cb
+lang/rootnot_combd_42 lang/rootnot_combd_42 -jaxn 1 0025cb
+lang/rootnot_combd_42.wc lang/rootnot_combd_42 -jaxn,-compat-refdefect 1 0025cb lang/rootnot_combd_42
+lang/rootnot_combd_43 lang/rootnot_combd_43 -jaxn 1 0025cb
+lang/rootnot_combd_43.wc lang/rootnot_combd_43 -jaxn,-compat-refdefect 0 0905cb
+lang/rootnot_combd_44 lang/rootnot_combd_44 -jaxn 1 0025cb
+lang/rootnot_combd_44.wc lang/rootnot_combd_44 -jaxn,-compat-refdefect 0 0905cb
+lang/rootnot_combd_45 lang/rootnot_combd_45 -jaxn 1 0025cb
+lang/rootnot_combd_45.wc lang/rootnot_combd_45 -jaxn,-compat-refdefect 0 0905cb
+lang/rootnot_combd_46 lang/rootnot_combd_46 -jaxn 1 0025cb
+lang/rootnot_combd_46.wc lang/rootnot_combd_46 -jaxn,-compat-refdefect 0 0905cb
+lang/rootnot_combd_47 lang/rootnot_combd_47 -jaxn 1 0013cb
+lang/rootnot_combd_47.wc lang/rootnot_combd_47 -jaxn,-compat-refdefect 1 0013cb lang/rootnot_combd_47
+lang/rootnot_combd_48 lang/rootnot_combd_48 -jaxn 1 0013cc
+lang/rootnot_combd_48.wc lang/rootnot_combd_48 -jaxn,-compat-refdefect 1 0013cc lang/rootnot_combd_48
+lang/rootnot_combd_49 lang/rootnot_combd_49 -jaxn 1 0025cb
+lang/rootnot_combd_49.wc lang/rootnot_combd_49 -jaxn,-compat-refdefect 0 0905cb
+lang/rootnot_combd_50 lang/rootnot_combd_50 -jaxn 1 0013cb
+lang/rootnot_combd_50.wc lang/rootnot_combd_50 -jaxn,-compat-refdefect 1 0013cb lang/rootnot_combd_50
 lang/security_fuse lang/security_fuse -jaxgn 0 -
 lang/security_fuse.wc lang/security_fuse -jaxgn,-compat-refdefect 0 - lang/security_fuse
 lang/seq_async_out lang/seq_async_out -jaxn 0 0016cb
@@ -5362,6 +5695,14 @@ simgen/atv2500/knownv00 simgen/atv2500/knownv00 -jasn 0 0905cb
 simgen/atv2500/knownv00.wc simgen/atv2500/knownv00 -jasn,-compat-refdefect 1 0905cb
 simgen/atv2500/v2500c03 simgen/atv2500/v2500c03 -jasn 1 -
 simgen/atv2500/v2500c03.wc simgen/atv2500/v2500c03 -jasn,-compat-refdefect 1 - simgen/atv2500/v2500c03
+simgen/atv5000/handp1 simgen/atv5000/handp1 -jasn 0 0905cb
+simgen/atv5000/handp1.wc simgen/atv5000/handp1 -jasn,-compat-refdefect 0 0905cb,0905sa
+simgen/atv5000/handp2 simgen/atv5000/handp2 -jasn 0 0905cb
+simgen/atv5000/handp2.wc simgen/atv5000/handp2 -jasn,-compat-refdefect 0 0905cb,0905sa
+simgen/atv5000/handp5 simgen/atv5000/handp5 -jasn 0 0905sa
+simgen/atv5000/handp5.wc simgen/atv5000/handp5 -jasn,-compat-refdefect 0 0905sa
+simgen/atv5000/handp6 simgen/atv5000/handp6 -jasn 0 0905sa
+simgen/atv5000/handp6.wc simgen/atv5000/handp6 -jasn,-compat-refdefect 0 0905sa
 simgen/atv750/handne00 simgen/atv750/handne00 -jasn 1 0016cb,0905cb
 simgen/atv750/handne00.wc simgen/atv750/handne00 -jasn,-compat-refdefect 0 0016cb,0905cb
 simgen/atv750/handne02 simgen/atv750/handne02 -jasn 1 0016cb,0905cb
@@ -5392,6 +5733,14 @@ simgen/gal24/g24v1002 simgen/gal24/g24v1002 -jasn 1 -
 simgen/gal24/g24v1002.wc simgen/gal24/g24v1002 -jasn,-compat-refdefect 1 - simgen/gal24/g24v1002
 simgen/gal24/g24v1003 simgen/gal24/g24v1003 -jasn 1 -
 simgen/gal24/g24v1003.wc simgen/gal24/g24v1003 -jasn,-compat-refdefect 1 - simgen/gal24/g24v1003
+simgen/gal26/g2600 simgen/gal26/g2600 -jasn 1 0016cb
+simgen/gal26/g2600.wc simgen/gal26/g2600 -jasn,-compat-refdefect 1 0016cb simgen/gal26/g2600
+simgen/gal26/g2601 simgen/gal26/g2601 -jasn 1 0016cb
+simgen/gal26/g2601.wc simgen/gal26/g2601 -jasn,-compat-refdefect 1 0016cb simgen/gal26/g2601
+simgen/gal26/g2602 simgen/gal26/g2602 -jasn 1 0016cb
+simgen/gal26/g2602.wc simgen/gal26/g2602 -jasn,-compat-refdefect 1 0016cb simgen/gal26/g2602
+simgen/gal26/g2603 simgen/gal26/g2603 -jasn 0 0016cb
+simgen/gal26/g2603.wc simgen/gal26/g2603 -jasn,-compat-refdefect 0 0016cb simgen/gal26/g2603
 simgen/gal_multi/g16z8f00 simgen/gal_multi/g16z8f00 -jasn 1 -
 simgen/gal_multi/g16z8f00.wc simgen/gal_multi/g16z8f00 -jasn,-compat-refdefect 1 - simgen/gal_multi/g16z8f00
 simgen/gal_multi/g16z8m03 simgen/gal_multi/g16z8m03 -jasn 1 -
@@ -5400,6 +5749,18 @@ simgen/gal_multi/g20vp801 simgen/gal_multi/g20vp801 -jasn 1 -
 simgen/gal_multi/g20vp801.wc simgen/gal_multi/g20vp801 -jasn,-compat-refdefect 1 - simgen/gal_multi/g20vp801
 simgen/gal_multi/g20vp802 simgen/gal_multi/g20vp802 -jasn 1 -
 simgen/gal_multi/g20vp802.wc simgen/gal_multi/g20vp802 -jasn,-compat-refdefect 1 - simgen/gal_multi/g20vp802
+simgen/gal_xv10/xv000 simgen/gal_xv10/xv000 -jasn 0 -
+simgen/gal_xv10/xv000.wc simgen/gal_xv10/xv000 -jasn,-compat-refdefect 0 - simgen/gal_xv10/xv000
+simgen/gal_xv10/xv001 simgen/gal_xv10/xv001 -jasn 1 0022ca
+simgen/gal_xv10/xv001.wc simgen/gal_xv10/xv001 -jasn,-compat-refdefect 1 0022ca simgen/gal_xv10/xv001
+simgen/gal_xv10/xv002 simgen/gal_xv10/xv002 -jasn 1 0022ca
+simgen/gal_xv10/xv002.wc simgen/gal_xv10/xv002 -jasn,-compat-refdefect 1 0022ca simgen/gal_xv10/xv002
+simgen/gal_xv10/xv003 simgen/gal_xv10/xv003 -jasn 1 -
+simgen/gal_xv10/xv003.wc simgen/gal_xv10/xv003 -jasn,-compat-refdefect 1 - simgen/gal_xv10/xv003
+simgen/gal_xv10/xv004 simgen/gal_xv10/xv004 -jasn 0 -
+simgen/gal_xv10/xv004.wc simgen/gal_xv10/xv004 -jasn,-compat-refdefect 0 - simgen/gal_xv10/xv004
+simgen/gal_xv10/xv005 simgen/gal_xv10/xv005 -jasn 1 -
+simgen/gal_xv10/xv005.wc simgen/gal_xv10/xv005 -jasn,-compat-refdefect 1 - simgen/gal_xv10/xv005
 simgen/lcc/g20v8a00 simgen/lcc/g20v8a00 -jasn 0 -
 simgen/lcc/g20v8a00.wc simgen/lcc/g20v8a00 -jasn,-compat-refdefect 0 - simgen/lcc/g20v8a00
 simgen/lcc/g20v8a02 simgen/lcc/g20v8a02 -jasn 1 0022ca

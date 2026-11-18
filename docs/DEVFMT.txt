@@ -76,6 +76,22 @@ lines [MODE] SRC...
     macrocell on pin N) or - (unconnected).  Without MODE the lines
     apply to the single mode "all".
 
+lines+ SRC...
+    The next lines of mode "all": a long list in several statements.
+
+vrows ROW N ADDR STEP V0 W0 [V1 W1]
+    Rows of different widths (ATV5000).  Rows ROW to ROW+N-1 start at
+    fuse ADDR, ADDR+STEP, ...  Each has W0 fuses for columns V0 to
+    V0+W0-1, followed by W1 fuses for columns V1 to V1+W1-1; it has no
+    other columns.  The rows are numbered freely, so that every sum is
+    one range.  A signal with several lines is read through the one
+    the row has.  A product term goes into a row that has all its
+    columns; terms that fit only some rows of a sum are placed first.
+    A term that fits no row of its range is rejected (0017cc).
+
+nopin P...
+    Pins that may not be declared (0012cb): the extra power pins.
+
 fuse NAME ADDR
     Name a configuration fuse, for use in mode, xor= and similar.
 
@@ -118,10 +134,11 @@ pd FUSE PIN
 mc PIN TYPE key=value...
     Macrocell on PIN; see MACROCELL TYPES.
 
-inflag PIN FUSE
+inflag PIN FUSE [LEPIN]
     FUSE is programmed (1) when PIN is read as an input, an output read
     back included, and left 0 otherwise (unused, or read through its
-    input latch).  Such pins accept .LQ (input latch), and .IOL when they
+    input latch).  LEPIN: WinCUPL's simulator holds this latch while
+    LEPIN is low.  Such pins accept .LQ (input latch), and .IOL when they
     also have a macrocell.  A latch read uses the pin's line but is a
     separate variable for minimisation (a & !a.lq stays a term, written
     false with warning 0906cb), and the latch wins over a plain read of
@@ -130,6 +147,11 @@ inflag PIN FUSE
 inflag dq
     The inflag pins have input registers read through .DQ instead of
     latches read through .LQ.
+
+inflag pinread
+    The inflag fuse is set only when the pin's own line is read: by the
+    plain name of a pin that is not registered, or through .IO.  A
+    latched read anywhere keeps it 0.
 
 nolatch PIN
     The pin has an inflag fuse but no input latch; .LQ on it is rejected
@@ -247,6 +269,18 @@ refdefect kbfbinv
     With -kb a registered output that -kb does not complement is read
     back as if it were (B002).
 
+refdefect kball
+    With kbnoflip: -kb also complements the sums of T flip-flops and
+    of registers with reset or preset equations (ATV5000).
+
+refdefect xquad
+    A line that a row does not have is written at the same position of
+    the row's first window: a register of another quadrant read through
+    the reader's regional bus (B034).  freecupl rejects (0907cb).
+
+refdefect iolfuse PIN FUSE
+    A .IOL read of PIN clears FUSE (B038).
+
 refdefect ones ADDR N
     With the refdefect MODE PIN output in use, N ones are first written
     from ADDR (B011).
@@ -305,6 +339,12 @@ simdefect regzero
 simdefect oepin N
     Registered outputs are enabled from pin N (B028; GAL16VP8: pin 11,
     an I/O pin of the package).  Reproduced by default.
+
+simdefect inlevel
+    The test value of an input declared active low is taken as the pin
+    level (B039; ATV5000).  An output pin read by other equations is
+    complemented when it is combinational and declared active low, or
+    registered with a complemented equation (B040).
 
 
 MACROCELL TYPES
@@ -375,7 +415,8 @@ gen
                    writes F = V; .D writes F = !V; otherwise 0.
     node=1         buried register, "mc NODE gen node=1 ..." with the
                    PINNODE number; drives no pin, read through fNODE,
-                   registered equations only
+                   registered equations only (with reg=F also
+                   combinational: the sum feeds the array)
     split=F half=A-B
                    the sum is only rows A-B, and F is programmed, when a
                    buried register whose sum lies inside this one is
@@ -446,6 +487,32 @@ gen
                    described so far (ATF750C).
     pold=1         polarity applied before the register, register
                    output inverted (the feedback follows the pin)
+    sumb=ROW sumc=ROW cjoin=F
+                   three sum terms in the sum range: A up to row
+                   sumb-1, B up to sumc-1, C the rest.  The compiler
+                   takes the first of A (registers only), B, A+B,
+                   A+B+C that holds the terms; F is 0 for A+B and 1
+                   otherwise (C joins the sum).  A register node whose
+                   sum is C clears F when it is used, and A+B+C is
+                   then rejected (0013cc).
+    cjoinbug=F     on that register node: the fuse WinCUPL clears
+                   instead (B035)
+    cksync=F ckpin=P cksyncidle=V
+                   clock select: F = 1 clocks the register from pin P
+                   ANDed with its ck= row, F = 0 from the row alone.
+                   .CK writes 0 and the term, .CE 1 and the term.
+                   Without both, 1 and a true term; WinCUPL writes V
+                   and no term (B036).
+    xvfuse=F       GAL20XV10 macrocell on 4 rows.  F = 1: the first
+                   row is the OE term, the other three are ORed,
+                   polarity from polfuse.  F = 0: enabled from the OE
+                   pin, rows 1-2 XOR rows 3-4, active low.  The
+                   compiler writes 1 for a combinational output
+                   (0 with .OEMUX), for a register with .OE and for a
+                   pin that is only read.
+    regnout=V      value of the reg= fuse for a pin or node that is not
+                   an output
+    noctl=1        .CK .CE .AR .AP are rejected (0012cb)
     cfg=F1,F2,... cfgu= cfgi= cfgc= cfgcn= cfgr= cfgrn= cfgcf= cfgo=
                    configuration fuses written as WinCUPL writes them
                    for each role: unused, input only, combinational

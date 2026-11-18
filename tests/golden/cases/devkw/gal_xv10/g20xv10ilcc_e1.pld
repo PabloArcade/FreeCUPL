@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20xv10ilcc;
+pin 10 = !i0;
+pin 13 = Rev;
+pin 21 = !group;
+pin 19 = o1;
+pin 24 = o2;
+
+group.d = ((!Rev & i0) # Rev # (!i0 & !Rev));
+group.oe = (!i0 & Rev);
+o1.d = (!i0 & Rev);
+o2 = !Rev;
+
+/* @expect
+group.d = (((not Rev) and i0) or Rev or ((not i0) and (not Rev)))
+group.oe = ((not i0) and Rev)
+o1.d = ((not i0) and Rev)
+o2 = (not Rev)
+*/

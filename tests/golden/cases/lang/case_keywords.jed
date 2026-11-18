@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            case_keywords
@@ -22,4 +22,4 @@ Location        x
 *L05824 00000100001101000001010100110100
 *L05856 01010101111101001011010101110000
 *C0DAA
-*854A
+*854B

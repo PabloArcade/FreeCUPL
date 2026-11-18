@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GAL20XV10: 10 macrocells of 4 rows.  A macrocell is an OE term and a
+# 3-term sum with programmable polarity, or the XOR of two 2-term sums,
+# active low and enabled from pin 13; each combinational or registered.
+# One fuse frees pins 1 and 13 as inputs (the 'i' mnemonics).
+device g20xv10
+descr GAL20XV10
+alias g20xv10 auto simple=g20xv10i complex=g20xv10i registered=g20xv10f
+partname g20xv10 GAL20XV10
+alias g20xv10i simple
+partname g20xv10i GAL20XV10 (pins 1 and 13 as inputs)
+alias g20xv10f registered
+partname g20xv10f GAL20XV10 (clock on pin 1, OE on pin 13)
+libtag g20xv10i DLIB-h-40-3
+libtag g20xv10f DLIB-h-40-3
+pins 24
+power 12 24
+fuses 1671
+array 40 40
+clock 1
+oepin 13
+fuse syn 1630
+mode simple syn=1
+mode registered syn=0
+lines simple p2 p1 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 p13
+lines registered p2 f23 p3 f22 p4 f21 p5 f20 p6 f19 p7 f18 p8 f17 p9 f16 p10 f15 p11 f14
+ues 1631 40
+powerup reset
+mc 23 gen sum=0-3 oe=0 xvfuse=1610 polfuse=1600 polhi=0 reg=1620 regon=0 regnout=1 fb=pin
+mc 22 gen sum=4-7 oe=4 xvfuse=1611 polfuse=1601 polhi=0 reg=1621 regon=0 regnout=1 fb=pin
+mc 21 gen sum=8-11 oe=8 xvfuse=1612 polfuse=1602 polhi=0 reg=1622 regon=0 regnout=1 fb=pin
+mc 20 gen sum=12-15 oe=12 xvfuse=1613 polfuse=1603 polhi=0 reg=1623 regon=0 regnout=1 fb=pin
+mc 19 gen sum=16-19 oe=16 xvfuse=1614 polfuse=1604 polhi=0 reg=1624 regon=0 regnout=1 fb=pin
+mc 18 gen sum=20-23 oe=20 xvfuse=1615 polfuse=1605 polhi=0 reg=1625 regon=0 regnout=1 fb=pin
+mc 17 gen sum=24-27 oe=24 xvfuse=1616 polfuse=1606 polhi=0 reg=1626 regon=0 regnout=1 fb=pin
+mc 16 gen sum=28-31 oe=28 xvfuse=1617 polfuse=1607 polhi=0 reg=1627 regon=0 regnout=1 fb=pin
+mc 15 gen sum=32-35 oe=32 xvfuse=1618 polfuse=1608 polhi=0 reg=1628 regon=0 regnout=1 fb=pin
+mc 14 gen sum=36-39 oe=36 xvfuse=1619 polfuse=1609 polhi=0 reg=1629 regon=0 regnout=1 fb=pin
+end
+
+device g20xv10lcc
+inherit g20xv10
+descr GAL20XV10 in a 28-pin package
+alias g20xv10lcc auto simple=g20xv10ilcc complex=g20xv10ilcc registered=g20xv10flcc
+partname g20xv10lcc GAL20XV10 (PLCC28)
+alias g20xv10ilcc simple
+partname g20xv10ilcc GAL20XV10 (PLCC28, pins 2 and 16 as inputs)
+alias g20xv10flcc registered
+partname g20xv10flcc GAL20XV10 (PLCC28, clock on pin 2, OE on pin 16)
+libtag g20xv10ilcc DLIB-h-40-3
+libtag g20xv10flcc DLIB-h-40-3
+pins 28
+pinmap 1=2 2=3 3=4 4=5 5=6 6=7 7=9 8=10 9=11 10=12 11=13 12=14 13=16 14=17 15=18 16=19 17=20 18=21 19=23 20=24 21=25 22=26 23=27 24=28
+end

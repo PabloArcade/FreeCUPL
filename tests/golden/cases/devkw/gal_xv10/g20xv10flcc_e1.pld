@@ -1,0 +1,19 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g20xv10flcc;
+pin 10 = !i0;
+pin 13 = i1;
+pin 21 = !ELSE;
+pin 19 = o1;
+pin 24 = o2;
+
+ELSE.d = ((!i1 & i0) # i1 # (!i0 & !i1));
+ELSE.oe = (!i0 & i1);
+o1.d = (!i0 & i1);
+o2 = !i1;
+
+/* @expect
+ELSE.d = (((not i1) and i0) or i1 or ((not i0) and (not i1)))
+ELSE.oe = ((not i0) and i1)
+o1.d = ((not i0) and i1)
+o2 = (not i1)
+*/

@@ -46,6 +46,13 @@ enum {
     BUG_PROP_CRASH,              /* B031 */
     BUG_HDR_ALIAS,               /* B032 */
     BUG_BARE_EQN,                /* B033 */
+    BUG_V5K_XQUAD,               /* B034 */
+    BUG_V5K_CJOIN,               /* B035 */
+    BUG_V5K_CLOCK,               /* B036 */
+    BUG_ROOTNOT_COMBD,           /* B037 */
+    BUG_V5K_IOL25,               /* B038 */
+    BUG_SIM_V5K_INLEVEL,         /* B039 */
+    BUG_SIM_V5K_READ,            /* B040 */
     BUG_COUNT
 };
 

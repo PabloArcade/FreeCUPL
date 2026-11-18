@@ -40,6 +40,9 @@ typedef struct {
        from the source and treats them as inputs (used = read by the
        design) or leaves their column as written (not read) */
     int noeqn[64]; unsigned char noeqn_used[64]; int nnoeqn;
+    /* output pins that other equations read complemented in the reference
+       simulator (B040) */
+    int fbinv[128]; int nfbinv;
 } CsDesign;
 
 typedef struct {

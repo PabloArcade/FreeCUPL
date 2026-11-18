@@ -71,6 +71,15 @@ typedef struct {
     int sel_comb, sel_reg; /* GAL: select columns - a row reaches the combinational output / the register only when its fuse in that column is 0 (-1: none) */
     int ac1_val;        /* GAL: value of the ac1 fuse that means 'input' (simple) / 'combinational' (registered) */
     int xorr_fuse, xorr_val; /* GAL: separate polarity fuse of a register, active high when == xorr_val (-1: none) */
+    int sumb, sumc;     /* three sum terms in one row range: A = sum0..sumb-1, B = sumb..sumc-1, C = sumc..sum1 (-1: one sum) */
+    int cjoin_fuse;     /* 1: sum C is ORed into the macrocell's sum (-1: none) */
+    int cjoin_bug;      /* on the register that owns sum C: the fuse the reference clears instead of the cjoin fuse of its own macrocell (-1: none) */
+    int cksync_fuse;    /* 1: clocked by ck_pin ANDed with the CK row, 0: by the CK row alone (-1: none) */
+    int cksync_idle;    /* value the reference writes when the register has neither .CK nor .CE */
+    int ck_pin;         /* clock pin of this macrocell (0: the device clock pin) */
+    int xv_fuse;        /* GAL20XV10: 1 = first row is the OE term, the others are ORed, polarity from polfuse; 0 = OE pin, rows 0-1 XOR rows 2-3, active low (-1: none) */
+    int noctl;          /* .CK .CE .AR .AP are rejected on this macrocell (0012cb) */
+    int reg_nout;       /* value of reg_fuse for a pin that is not an output (-1: see reg_idle) */
     /* configuration fuses written exactly as the reference compiler does,
        per role (CR_*); values are bit strings over cfg_fuse[] */
     int ncfg;
@@ -130,6 +139,14 @@ typedef struct Device {
     int tfb;               /* 'tfb': .TFB reads the register like .DFB and makes it a T flip-flop */
     int nnodealias;        /* 'nodealias NODE PIN': PINNODE NODE names the register of the macrocell on PIN */
     int nodealias_node[48], nodealias_pin[48];
+    int *vr_addr;          /* 'vrows': per row, first fuse and up to two column windows (NULL: rows of ncols fuses) */
+    int *vr_v0, *vr_w0, *vr_v1, *vr_w1;
+    int nnopin, nopin[8];  /* 'nopin P...': pins that may not be declared (extra power pins) */
+    int lines_fill;        /* 'lines+': lines given so far */
+    int refdefect_kball;   /* 'refdefect kball': -kb also complements the sums of T flip-flops and of registers with reset/preset (with kbnoflip) */
+    int iolbug_pin, iolbug_fuse; /* 'refdefect iolfuse PIN FUSE': a .IOL read of PIN clears FUSE */
+    int refdefect_xquad;   /* 'refdefect xquad': a line missing in a row is written at the same position of the row's own window */
+    int inflag_pinread;    /* 'inflag pinread': the input fuse is set only when the pin's own line is read */
     int nrowat;            /* 'rowat ROW FUSE': rows not at ROW*ncols */
     int rowat_row[8], rowat_addr[8];
     int inflag_dq;         /* 'inflag dq': the input fuses ('inflag') belong to input registers read through .DQ (instead of latches, .LQ) */
@@ -140,7 +157,8 @@ typedef struct Device {
     int rowfill;           /* 'rowfill 1': AND-array fuses not written are left 1 (default 0) */
     int galreg_unused_ac1; /* registered mode: AC1 written for an unused GAL OLMC (default 1) */
     int ninflag;           /* 'inflag PIN FUSE': fuse set to 1 when the pin is read as an input */
-    int inflag_pin[32], inflag_fuse[32];
+    int inflag_pin[64], inflag_fuse[64];
+    int inflag_le[64];     /* latch enable pin of that input latch in the reference simulator (0: simle) */
     int nnolatch;          /* 'nolatch PIN': the pin has an 'inflag' fuse but no input latch (.LQ rejected) */
     int nolatch_pin[4];
     int ntec;              /* 'tec PIN FUSE': fuse cleared by PIN.TEC = 'b'0 (.TEC accepted) */
@@ -165,6 +183,7 @@ typedef struct Device {
     int sim_noclock;         /* 'simdefect noclock' (1): the reference simulator has no clock pin (C/K/P invalid, registers never load);
                                 'simdefect noload' (2): C/K/P valid, the registers never load on the clock */
     int sim_oe;              /* 'simdefect oeignore' (1): the device OE pin enables nothing; 'simdefect oehigh' (2): it is active high */
+    int sim_inlevel;         /* 'simdefect inlevel': the reference simulator takes the test values of inputs as pin levels */
     int sim_regzero;         /* 'simdefect regzero': the reference simulator loads 0 into the registers and rejects C/K/P */
     int sim_preload_pin;     /* 'simpreload pin': a preload value is the pin level of the register (else !Q) */
     int sim_unverified;      /* 'simnote unverified': the simulation model of the part is copied from the reference simulator */
@@ -194,6 +213,8 @@ const Device *dev_get(int i);
 int dev_mc_at(const Device *d, int pin);
 /* first fuse of AND-array row r */
 int dev_row_addr(const Device *d, int r);
+/* fuse of row r, column c; -1 when the row has no such column */
+int dev_fuse(const Device *d, int r, int c);
 /* determine mode index from fuses; -1 if no mode matches */
 int dev_mode_of(const Device *d, const unsigned char *fuse);
 const LineSrc *dev_lines(const Device *d, int mode);

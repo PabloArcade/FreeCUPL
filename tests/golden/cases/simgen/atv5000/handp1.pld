@@ -1,0 +1,5 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 1 = a; pin 2 = ck; pin 34 = b;
+pin 5 = o; pin 6 = !p; pin 7 = q; pin 8 = r; pinnode 104 = n; pinnode 69 = m; pinnode 70 = k; pin 9 = s; pin 10 = t; pin 11 = u;
+o.d = a; p.d = a; q.t = a; r = a & b; r.oe = b; n.d = a; m.d = a; k = a; s = n; t = m; u = k;

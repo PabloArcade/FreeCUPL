@@ -35,4 +35,8 @@ int fit_design(const char *mnemonic, const FitOpts *o, FitResult *r);
 /* name of a cover variable (after fit_design) */
 const char *fit_var_name(int v, int *ext);
 
+/* the polarity an equation asks for: '!' on the left, or a complement at
+   the root of the right side */
+int fit_eqn_flip(const Eqn *q);
+
 #endif

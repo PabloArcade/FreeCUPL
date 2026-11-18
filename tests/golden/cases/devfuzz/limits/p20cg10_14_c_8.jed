@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          p20cg10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -30,4 +30,4 @@ Location        x
 *L04000 11110000000000000000000000000000
 *L04064 000000000000000000001100
 *C2E48
-*B63E
+*B63F

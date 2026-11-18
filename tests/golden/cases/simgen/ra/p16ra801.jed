@@ -1,5 +1,5 @@
 
-FreeCUPL 2.0.0 (DARKSOFT)
+FreeCUPL 2.1.0 (DARKSOFT)
 Device          p16ra8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            G9006
@@ -58,4 +58,4 @@ Location        x
 *V0022 X0XXXXX01NXXXXXNLZHN
 *V0023 X1XXXXX00NXXXXXHHZHN
 *V0024 XXXXXXX10NXXXXXHHXNN
-*88B9
+*88BA

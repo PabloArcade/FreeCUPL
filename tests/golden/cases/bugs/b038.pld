@@ -1,0 +1,11 @@
+
+Name P; Partno 0; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+pin 1 = a; pin 2 = b; pin 32 = c; pin 34 = d; pin 35 = e;
+pin 25 = p; pin 26 = q; pin 30 = o;
+q = p.iol;
+o = a&b # a&c # a&d # b&c # b&d # c&d # a&e # b&e # c&e # d&e;
+/* @expect
+q = p
+o = (a + b + c + d + e) >= 2
+*/

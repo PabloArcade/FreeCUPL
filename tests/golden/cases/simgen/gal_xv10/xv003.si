@@ -1,0 +1,28 @@
+Name G9005;
+Partno P9005;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10;
+
+ORDER: a0, a2, a3, a4, a1, oe, %2, !q0;
+
+VECTORS:
+000000 *
+1X1000 *
+$MSG "vector 3";
+001010 *
+011010 *
+X10011 *
+001010 *
+010110 *
+1111X0 H
+001111 *
+011011 *
+101011 *
+010110 *
+100110 *
+X10110 *

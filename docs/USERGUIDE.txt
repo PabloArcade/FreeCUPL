@@ -1,4 +1,4 @@
-FreeCUPL 2.0.0 USER GUIDE
+FreeCUPL 2.1.0 USER GUIDE
 
 FreeCUPL consists of two programs with the command lines of the WinCUPL
 5.0a command-line tools.  freecupl compiles CUPL source (.pld) into a
@@ -83,7 +83,7 @@ Options given as separate arguments:
                      latched inputs (timing not verified; by default
                      they show X, as in WinCUPL's simulator)
   -devices           print the supported mnemonics and exit
-  -V, --version      print "FreeCUPL 2.0.0 (DARKSOFT)" and exit
+  -V, --version      print "FreeCUPL 2.1.0 (DARKSOFT)" and exit
 
 Without arguments freecupl prints a usage summary and exits with 1.
 
@@ -132,7 +132,8 @@ docs/SIMFMT.txt.
 Options given as separate arguments:
 
   -compat-refdefect  reproduce WinCUPL 5.0a's simulator exactly,
-                     including its bugs (B025 to B028, B030)
+                     including its bugs (B025 to B028, B030, B039,
+                     B040)
   -fix               correct the bugs: the default
   -simlatch          simulate latched outputs and registered or latched
                      inputs (timing not verified)
@@ -148,9 +149,9 @@ failed expected value ([0019sa] user expected ...).
 
 Some simulation models follow WinCUPL's simulator and cannot be checked
 against the fuse map: the RA parts, the MegaPALs, parts with latches
-only, the PEEL18CV8 reset levels, and input registers and latches.  For
-these the listing says "simulation model for <device> follows WinCUPL
-and is not verified against the data sheet".
+only, the PEEL18CV8 reset levels, input registers and latches, and the
+ATV5000.  For these the listing says "simulation model for <device>
+follows WinCUPL and is not verified against the data sheet".
 
 
 3. FILES
@@ -183,7 +184,7 @@ Output files:
   .wo    freecsim      waveform data (also freecupl -s)
 
 The headers of .jed, .doc, .lst and .so name the version, "FreeCUPL
-2.0.0 (DARKSOFT)", and the creation date.
+2.1.0 (DARKSOFT)", and the creation date.
 
 If the environment variable SOURCE_DATE_EPOCH is set to a number of
 seconds since 1970-01-01 UTC, that time is written as the creation date
@@ -304,8 +305,8 @@ Simulator messages:
 
 5. WINCUPL BUGS AND -COMPAT-REFDEFECT
 
-FreeCUPL 2.0.0 corrects the known bugs of WinCUPL 5.0a.  Where a design
-meets one, the JEDEC file or the simulation follows the source as the
+Since 2.0.0 FreeCUPL corrects the known bugs of WinCUPL 5.0a.  Where a
+design meets one, the JEDEC file or the simulation follows the source as the
 CUPL language reference defines it, and a message names the bug.  For
 every other design the JEDEC file makes the device behave as WinCUPL's
 does.
@@ -316,7 +317,7 @@ keep their behaviour.  This was the default of FreeCUPL 1.0.0; make
 FIX_DEFAULT=0 builds tools with that default.  -fix is accepted and
 does nothing.
 
-The known bugs are numbered B001 to B033 and described with an example
+The known bugs are numbered B001 to B040 and described with an example
 and the correct behaviour in docs/BUGS.txt.  By default the message
 reads:
 
@@ -344,21 +345,69 @@ docs/BUGS.txt, parts A and B).
 
 6. LIMITATIONS
 
-FreeCUPL supports the 307 mnemonics of section 8.  WinCUPL 5.0a compiles
-113 more mnemonics to a JEDEC file without an external fitter; these
-are not described yet and are rejected with [0006ca] device not in
-library:
+FreeCUPL supports the 327 mnemonics of section 8.  WinCUPL 5.0a compiles
+93 more mnemonics to a JEDEC file without an external fitter.  FreeCUPL
+has no description of these parts and rejects them with [0006ca] device
+not in library.  The mnemonics not supported, with the reason:
 
-  37  PLS/IFL sequencer and FPLA parts (complement array, S/R/J/K
-      buried registers)
-  24  parts beyond the generic macrocell (S/R/T or latch registers,
-      observability, buried logic): 18U8, 22IP6, 22V10S, 23S8, 29M16,
-      32VX10, PC224, PLX448, XL78C800, some LCC variants
-  13  parts with latched outputs
-  13  GAL20XV10, GAL6001/6002, GAL26CV12, GDS22 layouts
-  12  EPLDs EP300 to EP1800
-  14  others with irregular arrays or unverified features, among them
-      the ATV5000
+  PLS/IFL sequencer and FPLA parts (37).  Programmable OR array or
+  complement array, S/R and J/K buried registers.  They need a PLA
+  fitter, which FreeCUPL does not have.
+      f100 f103 f105 f151 f153 f155 f157 f159 f161 f167 f168 f173 f179
+      f253 f273 f405 f415 f473 f501 f502 f506 f507 f529 f839 f30k12
+      f30s16 f42va12 f48n22 f9800 f167lcc f168lcc f173lcc f179lcc
+      f42va12lcc f473lcc f506lcc f507lcc
+
+  GAL6001, GAL6002 (4).  FPLA with a programmable OR array and buried
+  state macrocells: PLA fitter, as above.
+      g6001 g6001lcc g6002 g6002lcc
+
+  ispGDS22 (1).  A switch matrix, not an AND array.
+      gds22
+
+  EPLDs EP300 to EP1800 (12).  Feedback multiplexers, T registers and
+  global clocks are not described.
+      ep300 ep320 ep312 ep324 ep600 ep900 ep1200 ep1800 ep312lcc
+      ep324lcc ep600lcc ep900lcc
+
+  Parts beyond the generic macrocell (16).  S/R, T or latch registers,
+  observability, buried logic.
+      p18u8 p22ip6 p22v10s p23s8 p23sv8 p29m16 p29ma16 p32vx10 pc224
+      plx448 xl78c800 p22v10slcc p29m16lcc p29ma16lcc p32vx10lcc
+      pc224lcc
+
+  Parts with latched outputs (10).  The latch structure is not
+  described.
+      p1016lm4 p1020eg8 p1020g8 pc960 p7b336 p7b337 p7b338 p7b339
+      p1020eg8lcc p1020g8lcc
+
+  Irregular arrays (9).  Outputs share product-term rows; the fuse map
+  is not established.
+      p1012c4 p1016c4 p1016p4 p1016rm4 p1020rp4 p6l16 p8l14 p16p4c
+      p16p4clcc
+
+  Others (4).  p7c332: XOR with programmable polarity, the description
+  did not pass verification.  The other three have no description yet.
+      p14r21 p7c330 p7c331 p7c332
+
+ATV5000 (v5000).  Inputs: pins 1, 2, 32, 34, 35, 36, 66, 68.  I/O
+cells by quadrant: pins 4-15 and 17; 18, 19 and 21-31; 38-49 and 51;
+52, 53 and 55-65.  Clock pins 2, 32, 36, 66 and latch clock pins 1, 34,
+35, 68, one of each per quadrant.  Each I/O cell has a second register,
+PINNODE 105 down to 93 for pins 4 to 17, 106 to 118 for pins 18 to 31,
+131 down to 119 for pins 38 to 51, 132 to 144 for pins 52 to 65.  Buried
+cells: PINNODE 74 down to 69 (quadrant 1), 75 to 80 (quadrant 2), 85
+and 86 (quadrant 3); WinCUPL knows no others and FreeCUPL follows it.
+A register is read by its name only inside its own quadrant; a pin (a
+combinational output, or NAME.io of a registered one) is read anywhere.
+Extensions: .d .t .ck .ce .ar .ap .oe on the left, .io .lq .iol on the
+right.  A sum has 4, 5, 9 or 13 product terms, of which 1, 2, 3 or 4
+may read I/O pins; the second register has 4 (1), a buried cell 5 (1).
+The other terms read inputs and the registers of the quadrant.
+The simulation model of the ATV5000 is not verified.  No device was
+available, WinCUPL's simulator does not work from the fuse map on this
+part (B036, B039, B040), and the correction of B036 follows the data
+sheet only.  Check a programmed part before relying on the simulation.
 
 Devices for which WinCUPL calls an external fitter (the ATF15xx CPLDs
 and others), PROMs and the virtual device are not supported.
@@ -538,6 +587,19 @@ GAL24V10-type
   g24v10ms         28   3942  registered 24V10-type GAL, 28 pins (registered
                                          mode)
 
+GAL20XV10
+
+  mnemonic       pins  fuses  mode       part
+  g20xv10          24   1671  auto       GAL20XV10
+  g20xv10i         24   1671  simple     GAL20XV10 (pins 1 and 13 as inputs)
+  g20xv10f         24   1671  registered GAL20XV10 (clock on pin 1, OE on
+                                         pin 13)
+  g20xv10lcc       28   1671  auto       GAL20XV10 (PLCC28)
+  g20xv10ilcc      28   1671  simple     GAL20XV10 (PLCC28, pins 2 and 16 as
+                                         inputs)
+  g20xv10flcc      28   1671  registered GAL20XV10 (PLCC28, clock on pin 2,
+                                         OE on pin 16)
+
 PEEL18CV8-type
 
   mnemonic       pins  fuses  mode       part
@@ -577,6 +639,11 @@ ATV2500 / ATF2500C family
   v2500clcc        44  71816  -          ATF2500C (PLCC44)
   v2500cppk        40  71816  -          ATF2500C-PPK
   v2500cppklcc     44  71816  -          ATF2500C-PPK (PLCC44)
+
+ATV5000
+
+  mnemonic       pins  fuses  mode       part
+  v5000            68 163164  -          ATV5000
 
 Small 20-pin combinational PALs
 
@@ -651,6 +718,7 @@ Other GAL and GAL-like parts
   g16vp8s          20   2202  -          GAL16VP8 (simple mode)
   g20vp8ma         24   2714  -          GAL20VP8 (complex mode)
   g20vp8s          24   2714  -          GAL20VP8 (simple mode)
+  g26cv12          28   6432  -          GAL26CV12
 
 Fixed-polarity combinational PALs
 
@@ -924,7 +992,22 @@ LCC/PLCC package variants of the other families
   p22rx8lcc        28   3616  -          PAL22RX8 (PLCC28)
   p22vp10lcc       28   5838  -          PAL22VP10 (PLCC28)
   p22xp10lcc       28   3970  -          PAL22XP10 (PLCC28)
+  g20ra10lcc       28   3274  -          GAL20RA10 (PLCC28)
+  p20ra10lcc       28   3210  -          PAL20RA10 (PLCC28)
+  p20ra10mlcc      28   3210  -          PAL20RA10 (LCC28, alternative pin
+                                         numbering)
+  p20ra10slcc      28   3210  -          PAL20RA10 (PLCC28, alternative pin
+                                         numbering)
+  p22cv10lcc       28   5838  -          PAL22CV10 (PLCC28)
+  p20c1lcc         28    640  -          PAL20C1 (PLCC28)
+  p20c1mlcc        28    640  -          PAL20C1 (LCC28, alternative pin
+                                         numbering)
+  p1016rd4lcc      28   2056  -          PAL10016RD4 (PLCC28)
+  p1016rd8lcc      28   2056  -          PAL10016RD8 (PLCC28)
+  p1016et6lcc      28   1542  -          PAL10016ET6 (PLCC28)
+  p1016ld8lcc      28   2056  -          PAL10016LD8 (PLCC28)
+  p1016ld4lcc      28   2056  -          PLSI1016LD4 (PLCC28)
 
-307 mnemonics.
+327 mnemonics.
 
 (end of device list)

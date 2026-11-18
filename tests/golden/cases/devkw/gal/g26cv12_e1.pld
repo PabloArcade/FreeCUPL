@@ -1,0 +1,23 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device g26cv12;
+pin 6 = i0;
+pin 28 = i1;
+pin 12 = !vectors;
+pin 10 = i3;
+pin 14 = !i4;
+pin 4 = i5;
+pin 20 = !o0;
+pin 26 = !on;
+pin 19 = o2;
+
+o0 = (i4 & i3 & !i5);
+o0.oe = vectors;
+on.d = ((!i4 & !i1) # (!i1 & i5));
+o2 = !i3;
+
+/* @expect
+o0 = (i4 and i3 and (not i5))
+o0.oe = vectors
+on.d = (((not i4) and (not i1)) or ((not i1) and i5))
+o2 = (not i3)
+*/

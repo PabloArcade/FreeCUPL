@@ -1,0 +1,10 @@
+Name T; Partno P1; Revision 01; Date 01/01/26; Designer x; Company x; Assembly x; Location x;
+Device v5000;
+ORDER: ck, a, b, %2, o, p, q, r, s, t, u, n, m, k;
+VECTORS:
+000 **********
+010 **********
+011 **********
+C11 **********
+C01 **********
+000 **********

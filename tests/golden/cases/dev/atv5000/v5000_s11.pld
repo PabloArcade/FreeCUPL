@@ -1,0 +1,22 @@
+Name R7011; Partno R7011; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v5000;
+/* @local */
+pin 32 = i0;
+pin 34 = i1;
+pin 15 = !o0;
+pin 6 = o1;
+pin 17 = o2;
+
+o0.d = (i1 $ i0);
+o0.ck = !i1;
+o1 = 'b'1;
+o1.oe = (i0 & !i1);
+o2 = ((!i0 & !o0 & !i1) # i1);
+
+/* @expect
+o0.d = (i1 ^ i0)
+o0.ck = (not i1)
+o1 = 1
+o1.oe = (i0 and (not i1))
+o2 = (((not i0) and (not o0) and (not i1)) or i1)
+*/

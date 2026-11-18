@@ -189,3 +189,30 @@ tec 15 2712
 tec 14 2713
 refdefect kbnoflip      # B001
 end
+
+device g26cv12
+descr GAL26CV12: 22V10-type macrocells, 12 outputs, 28 pins
+partname g26cv12 GAL26CV12
+pins 28
+power 21 7
+fuses 6432
+array 52 122
+clock 1
+ar 0
+sp 121
+ues 6368 64
+lines p1 p28 p2 f27 p3 f26 p4 f25 p5 f24 p6 f23 p8 f22 p9 f20 p10 f19 p11 f18 p12 f17 p13 f16 p14 f15
+mc 15 gen sum=113-120 oe=112 polfuse=6366 polhi=1 reg=6367 regon=0 fb=nq
+mc 16 gen sum=104-111 oe=103 polfuse=6364 polhi=1 reg=6365 regon=0 fb=nq
+mc 17 gen sum=95-102 oe=94 polfuse=6362 polhi=1 reg=6363 regon=0 fb=nq
+mc 18 gen sum=86-93 oe=85 polfuse=6360 polhi=1 reg=6361 regon=0 fb=nq
+mc 19 gen sum=75-84 oe=74 polfuse=6358 polhi=1 reg=6359 regon=0 fb=nq
+mc 20 gen sum=62-73 oe=61 polfuse=6356 polhi=1 reg=6357 regon=0 fb=nq
+mc 22 gen sum=49-60 oe=48 polfuse=6354 polhi=1 reg=6355 regon=0 fb=nq
+mc 23 gen sum=38-47 oe=37 polfuse=6352 polhi=1 reg=6353 regon=0 fb=nq
+mc 24 gen sum=29-36 oe=28 polfuse=6350 polhi=1 reg=6351 regon=0 fb=nq
+mc 25 gen sum=20-27 oe=19 polfuse=6348 polhi=1 reg=6349 regon=0 fb=nq
+mc 26 gen sum=11-18 oe=10 polfuse=6346 polhi=1 reg=6347 regon=0 fb=nq
+mc 27 gen sum=2-9 oe=1 polfuse=6344 polhi=1 reg=6345 regon=0 fb=nq
+refdefect kbfbinv       # B002
+end

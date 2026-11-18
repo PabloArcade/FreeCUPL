@@ -1,0 +1,56 @@
+FreeCSIM: CUPL compatible simulation program
+FreeCUPL 2.1.0 (DARKSOFT)
+
+CREATED Thu Jan  1 00:00:00 1970
+
+LISTING FOR SIMULATION FILE: g2600.si
+
+   1: Name G9010;
+   2: Partno P9010;
+   3: Revision 01;
+   4: Date 01/01/26;
+   5: Designer gen;
+   6: Company gen;
+   7: Assembly x;
+   8: Location x;
+   9: Device g26cv12;
+  10: 
+  11: ORDER: a0, a3, a1, a4, a2, %2, q0, q1, q2, !q3, !q4, c0, c1;
+  12: 
+
+=======================
+                !!     
+      aaaaa  qqqqqcc   
+      03142  0123401   
+=======================
+0001: C00X1  XZXHXH*
+0002: C0010  HHLHLH*
+0003: C1X01  LZLHNL*
+0004: C0101  LZLHHH*
+0005: C0111  HZLNLH*
+0006: C0111  HZLNLH*
+0007: C0111  HZLNLH*
+0008: C111X  HXNHLL*
+0009: 1011X  HXLHLH*
+0010: 11111  HZNHLL*
+0011: K0111  HZLHLH*
+0012: C0100  LHLHLH*
+0013: K0011  NZLHLH*
+0014: K0001  LZLHHHL
+             ^^^^
+[0019sa] user expected (H) for q0
+[0019sa] user expected (H) for q1
+[0019sa] user expected (H) for q2
+[0019sa] user expected (L) for q3
+
+0015: C0100  LLLHHN*
+0016: C0011  HZLHLH*
+0017: C1011  HNLHLL*
+0018: K0110  HHLHLH*
+0019: K0011  NZLHLH*
+0020: 00000  LHLHLN*
+0021: P1111  X00X0X0
+0022: C0000  LHNHLH*
+0023: 00010  HHLHLH*
+0024: K0110  HHLHLH*
+0025: C1X01  LZLHLL*

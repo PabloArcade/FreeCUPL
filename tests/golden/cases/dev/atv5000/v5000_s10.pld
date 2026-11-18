@@ -1,0 +1,16 @@
+Name R7010; Partno R7010; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v5000;
+pin 68 = !i0;
+pin 66 = i1;
+pin 1 = i2;
+pin 36 = i3;
+pin 34 = !i4;
+pin 13 = o0;
+
+o0 = (i2 & i0);
+o0.oe = i2;
+
+/* @expect
+o0 = (i2 and i0)
+o0.oe = i2
+*/

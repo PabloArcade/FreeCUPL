@@ -233,16 +233,23 @@ checked against hardware.
 $SIMOFF vectors are not evaluated and the state does not change; their
 values are only checked for syntax and written as given.
 
-Bugs of the original simulator (B025 to B028 and B030 in docs/BUGS.txt)
-are fixed: the fuse map is simulated, with warning 0905sa where the
-result differs from the original; -compat-refdefect reproduces them.
+Bugs of the original simulator (B025 to B028, B030, B039 and B040 in
+docs/BUGS.txt) are fixed: the fuse map is simulated, with warning
+0905sa where the result differs from the original; -compat-refdefect
+reproduces them.
 Besides the 22V10 AR and SP above: on the PEEL18CV8 the OE term of
 registered outputs is ignored and outputs without .OE are enabled,
 while the compiler's JEDEC file gates them; on the PAL10016RD4 and RD8
 the registers load 0 at every clock edge and C, K and P are rejected,
 while the JEDEC file programs the D terms; on the GAL16VP8 the
 registered outputs are enabled from pin 11, an I/O macrocell of this
-package.
+package; on the ATV5000 test values of active-low inputs are pin levels
+(B039) and outputs are read complemented by other equations when the
+pin is combinational and declared active low or its registered
+equation is complemented (B040).  The original does not simulate the
+fuse map of the ATV5000: where its compiler writes a wrong fuse map
+(B034, B035) its listing still follows the source, and freecsim
+-compat-refdefect, which simulates the fuse map, differs from it.
 
 
 6. PRELOAD
@@ -466,6 +473,9 @@ one record per line:
                                 equations
     NOEQN <pin> <used>          declared pin without an equation; used
                                 1 = read by the design
+    FBINV <pin>                 output pin that WinCUPL's simulator
+                                gives complemented to its readers
+                                (B040; used by -compat-refdefect)
     FIELD <name> <n> <m1> ... <mn>
                                 a FIELD of the design and its members
     FUSES <n>                   fuse count, followed by the fuse map in

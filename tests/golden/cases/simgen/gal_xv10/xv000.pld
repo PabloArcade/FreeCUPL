@@ -1,0 +1,23 @@
+Name G9001;
+Partno P9001;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10;
+pin 6 = !in_x;
+pin 7 = in_y;
+pin 11 = !in_z;
+pin 13 = !oe;
+pin 15 = !out_a;
+t0 = in_y;
+t1 = !t0;
+out_a = in_z;
+pin 21 = fo;
+function mux2(x, y, s, flag) {
+  flag = x & y;
+  mux2 = x & !s # y & s;
+}
+fo = mux2(in_y, in_x, in_z, fflag) # fflag;

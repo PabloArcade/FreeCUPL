@@ -1,0 +1,30 @@
+Name R7100; Partno R7100; Revision 01; Date 01/01/26; Designer gen; Company gen; Assembly x; Location x;
+Device v5000;
+/* @local */
+pin 34 = i0;
+pin 32 = !i1;
+pin 2 = !i2;
+pin 68 = !pin;
+pin 48 = !o0;
+pin 49 = o1;
+pinnode 124 = MEND;
+
+o0 = (i0 $ pin);
+o0.oe = (i1 & !i2);
+o1.t = (i0 & !pin);
+o1.ck = (!pin & i2);
+o1.ap = i0;
+MEND.t = (i0 $ o1);
+MEND.ck = !pin;
+MEND.ap = pin;
+
+/* @expect
+o0 = (i0 ^ pin)
+o0.oe = (i1 and (not i2))
+o1.t = (i0 and (not pin))
+o1.ck = ((not pin) and i2)
+o1.ap = i0
+MEND.t = (i0 ^ o1)
+MEND.ck = (not pin)
+MEND.ap = pin
+*/

@@ -58,7 +58,18 @@ static int bypassed3(const Sim3 *t, int m)
     return c->bypass && row_on3(t, c->ar_row) == V1 && row_on3(t, c->ap_row) == V1;
 }
 
+static int line_raw3(const Sim3 *t, int k);
+
 static int line_value3(const Sim3 *t, int k)
+{
+    LineSrc src = t->s.lines[k];
+    int v = line_raw3(t, k), m;
+    if (v != VX && (src.kind == SRC_PIN || src.kind == SRC_FB) && (m = dev_mc_at(t->d, src.pin)) >= 0 && t->fbinv[m])
+        return NOT3(v);
+    return v;
+}
+
+static int line_raw3(const Sim3 *t, int k)
 {
     LineSrc src = t->s.lines[k];
     if (t->fbx && (src.kind == SRC_PIN || src.kind == SRC_FB)) {
@@ -167,6 +178,7 @@ int sim3_clock_of(const Sim3 *t, int mc)
 {
     const McCfg *m = &t->s.mc[mc];
     if (m->ck_row >= 0 && !m->ce) return t->rowv[m->ck_row];
+    if (m->ce && m->ck_pin) return t->pin[m->ck_pin];
     if (t->d->clk_pin) return t->pin[t->d->clk_pin];
     /* clock enable without a described clock pin (ATV2500B/C): the
        synchronous clock is pin 1 */
@@ -233,6 +245,7 @@ int sim3_init(Sim3 *t, const Device *d, const unsigned char *fuse, char *err, si
     t->oeforce = (unsigned char *)xcalloc((size_t)d->nmc + 1, 1);
     t->chg = (unsigned char *)xcalloc((size_t)d->nmc + 1, 1);
     t->fbunk = (unsigned char *)xcalloc((size_t)d->nmc + 1, 1);
+    t->fbinv = (unsigned char *)xcalloc((size_t)d->nmc + 1, 1);
     t->rowv = (unsigned char *)xcalloc((size_t)d->nrows + 1, 1);
     t->stuck = (signed char *)xmalloc((size_t)d->nrows + 1);
     memset(t->stuck, -1, (size_t)d->nrows + 1);
@@ -263,6 +276,7 @@ int sim3_init(Sim3 *t, const Device *d, const unsigned char *fuse, char *err, si
         if (p > 0 && p <= SIM_MAXPINS && fuse[d->inflag_fuse[i]] == 0) {
             t->inmode[p] = (unsigned char)(d->inflag_dq ? 1 : 2);
             t->inq[p] = VX;
+            if (d->inflag_le[i]) { t->inle[p] = (unsigned char)d->inflag_le[i]; t->inq[p] = V0; }
         }
     }
     t->inck = V0;
@@ -273,7 +287,7 @@ int sim3_init(Sim3 *t, const Device *d, const unsigned char *fuse, char *err, si
 void sim3_free(Sim3 *t)
 {
     sim_free(&t->s);
-    free(t->q); free(t->ck); free(t->oe); free(t->sum); free(t->dsv); free(t->env); free(t->cyc); free(t->gar); free(t->gsp); free(t->unst); free(t->oeforce); free(t->chg); free(t->fbunk);
+    free(t->q); free(t->ck); free(t->oe); free(t->sum); free(t->dsv); free(t->env); free(t->cyc); free(t->gar); free(t->gsp); free(t->unst); free(t->oeforce); free(t->chg); free(t->fbunk); free(t->fbinv);
     free(t->rowv); free(t->stuck);
     memset(t, 0, sizeof *t);
 }
@@ -312,10 +326,10 @@ static int pass3(Sim3 *t)
         }
     }
     for (i = 1; i <= d->npins; i++) {
-        if (t->inmode[i] == 2 && ((t->simlatch && d->clk_pin) || (!t->simlatch && d->sim_le))) {
+        if (t->inmode[i] == 2 && ((t->simlatch && d->clk_pin) || (!t->simlatch && (d->sim_le || t->inle[i])))) {
             /* input latch: enable is the 'simle' pin, or the clock pin with
                -simlatch (unverified) */
-            int en = t->pin[t->simlatch ? d->clk_pin : d->sim_le], v = t->pin[i], nq = t->inq[i];
+            int en = t->pin[t->simlatch ? d->clk_pin : t->inle[i] ? t->inle[i] : d->sim_le], v = t->pin[i], nq = t->inq[i];
             if (en == V1) nq = v;
             else if (en == VX && nq != v && t->simlatch) nq = VX;   /* the reference holds on an X enable */
             if (nq != t->inq[i]) { t->inq[i] = (unsigned char)nq; changed = 1; }
@@ -566,7 +580,7 @@ int sim3_clock_step(Sim3 *t)
         int c;
         if (!SIM_HASREG(m) || d->mc[i].latch) continue;
         c = sim3_clock_of(t, i);
-        if (t->pinclk_off && !(m->ck_row >= 0 && !m->ce)) { t->ck[i] = (unsigned char)c; continue; }
+        if (t->pinclk_off && !(m->ck_row >= 0 && !m->ce) && !(m->ck_pin && t->firepins && !t->firepins[m->ck_pin])) { t->ck[i] = (unsigned char)c; continue; }
         if (t->ck[i] == V0 && c == V1) {
             /* rising edge: D as the array computes it with the clock high (CSIM) */
             int nq = next_q(t, i, OR3(t->gsp[i] ? gsp : V0, row_on3(t, m->sp_row))), en = m->ce && !t->noce ? t->rowv[m->ck_row] : V1, old = t->q[i];
@@ -609,6 +623,7 @@ void sim3_clock_force(Sim3 *t)
         const McCfg *m = &t->s.mc[i];
         int nq, en;
         if (!SIM_HASREG(m) || d->mc[i].latch || (m->ck_row >= 0 && !m->ce)) continue;
+        if (m->ck_pin && t->firepins && !t->firepins[m->ck_pin]) continue;
         nq = next_q(t, i, OR3(t->gsp[i] ? gsp : V0, row_on3(t, m->sp_row)));
         en = m->ce && !t->noce ? t->rowv[m->ck_row] : V1;
         if (en == V1) t->q[i] = (unsigned char)nq;

@@ -1,0 +1,27 @@
+Name G9004;
+Revision 01;
+Date 01/01/26;
+Designer gen;
+Company gen;
+Assembly x;
+Location x;
+Device g20xv10;
+pin 1 = !a0;
+pin 2 = a1;
+pin 4 = a2;
+pin 5 = a3;
+pin 8 = !a4;
+pin 11 = a5;
+pin 13 = a6;
+pin 22 = q0;
+field fa = [a0..a6];
+condition {
+  if !a1 & a2 out q0;
+}
+pin 23 = tq0;
+table fa => tq0 {
+  3B => 1;
+  15 => 0;
+  6F => 0;
+  44 => 0;
+}
