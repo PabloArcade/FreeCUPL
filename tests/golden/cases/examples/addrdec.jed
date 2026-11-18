@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p16l8  Library DLIB-h-40-8
 Created         Thu Jan  1 00:00:00 1970
 Name            addrdec
@@ -41,4 +41,4 @@ Location        None
 *V0011 100000001N0XXXHHHHHN
 *V0012 100000010N0XXXHLHHHN
 *V0013 100000011N0XXXLHHHHN
-*02B6
+*02B7

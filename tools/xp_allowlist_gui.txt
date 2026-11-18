@@ -1,0 +1,38 @@
+# Imports allowed in addition to tools/xp_allowlist.txt in the executables
+# of the Windows GUI subsystem (freecuplw.exe), all present in Windows XP
+# SP3.  Add a name only after checking it on XP; anything newer must be
+# looked up at run time with GetProcAddress.
+dll KERNEL32.dll
+CompareFileTime CreatePipe CreateProcessA CreateThread DuplicateHandle FindResourceA
+FormatMessageA GetExitCodeProcess GetFileAttributesExA GetProcessHeap GlobalAlloc GlobalFree
+GlobalLock GlobalUnlock HeapAlloc HeapFree LoadResource LockResource MulDiv SetFilePointer
+SizeofResource TerminateProcess WaitForSingleObject lstrcatA lstrcmpA lstrcmpiA lstrcpyA
+lstrcpynA GetACP
+dll msvcrt.dll
+strpbrk strcspn
+dll USER32.dll
+CallWindowProcA CheckDlgButton CheckMenuItem ClientToScreen CloseClipboard CreateWindowExA
+DefWindowProcA DeleteMenu DestroyMenu DestroyWindow DialogBoxParamA DispatchMessageA
+DrawFocusRect DrawTextA EmptyClipboard EnableMenuItem EnableWindow EndDialog FillRect
+GetCaretPos GetClientRect GetCursorPos GetDC GetDlgItem GetDlgItemInt GetDlgItemTextA GetFocus
+GetKeyState GetMenu
+GetMenuItemCount GetMenuState GetMessageA GetSubMenu GetSysColor GetSysColorBrush
+GetSystemMetrics GetWindowLongA GetWindowPlacement GetWindowRect InsertMenuA InvalidateRect
+IsDialogMessageA IsDlgButtonChecked IsWindow IsWindowEnabled IsWindowVisible KillTimer
+LoadAcceleratorsA LoadCursorA
+LoadIconA LoadImageA LoadMenuA MapWindowPoints MessageBeep MessageBoxA MoveWindow
+OpenClipboard PostMessageA PostQuitMessage RegisterClassExA RegisterWindowMessageA
+ReleaseCapture ReleaseDC ScreenToClient SendDlgItemMessageA SendMessageA SetCapture
+SetClipboardData SetCursor SetDlgItemInt SetDlgItemTextA SetFocus SetTimer SetWindowLongA
+SetWindowPlacement SetWindowPos SetWindowTextA ShowWindow SystemParametersInfoA
+TrackPopupMenu TranslateAcceleratorA TranslateMessage
+dll GDI32.dll
+CreateFontA CreateFontIndirectA DeleteObject EnumFontFamiliesExA GetDeviceCaps GetStockObject
+TranslateCharsetInfo
+GetTextExtentPoint32A GetTextMetricsA SelectObject SetBkMode SetTextColor
+dll COMDLG32.DLL
+ChooseFontA FindTextA GetOpenFileNameA GetSaveFileNameA ReplaceTextA
+dll COMCTL32.dll
+InitCommonControlsEx
+dll SHELL32.dll
+DragAcceptFiles DragFinish DragQueryFileA

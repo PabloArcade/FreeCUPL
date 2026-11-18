@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p20rs10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -55,4 +55,4 @@ Location        x
 *V0022 0100001XXXXNXXXXHLXXXXXN
 *V0023 1000101XXXXNXXXXHLXXXXXN
 *V0024 P110010XXXXNXXXX00XXXXXN
-*8970
+*8971

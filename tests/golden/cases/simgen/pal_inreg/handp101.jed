@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p19r4t  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -43,4 +43,4 @@ Location        x
 *V0019 KX1X0XX0XXXNXXXXXXXHXXXN
 *V0020 KX1X1XX11XXNXXXXXXXHXXXN
 *V0021 0X0X1XX01XXNXXXXXXXHXXXN
-*2D21
+*2D22

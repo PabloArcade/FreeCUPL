@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p19r6r  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -31,4 +31,4 @@ Location        x
 *L02240 11000000000000000000000000000000
 *L02432 01000100100
 *C2653
-*BE47
+*BE48

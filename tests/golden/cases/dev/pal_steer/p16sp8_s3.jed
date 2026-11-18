@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p16sp8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -22,4 +22,4 @@ Location        x
 *L02048 00000101000000000000000000000000
 *L02112 10000000000000000000000000001010
 *C145A
-*7C80
+*7C81

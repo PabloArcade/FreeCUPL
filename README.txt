@@ -1,4 +1,4 @@
-FreeCUPL 2.1.0
+FreeCUPL 2.2.0
 
 FreeCUPL is a free replacement for the command-line compiler and
 simulator of WinCUPL 5.0a, the CUPL tools for simple programmable logic
@@ -11,6 +11,8 @@ and contains no code or data from WinCUPL.
   jedsim     fuse-level simulator for JEDEC files
   equiv      checks that two JEDEC files behave the same
   jedtool    JEDEC file utilities
+  freecuplw  Windows only: editor and front end that runs freecupl and
+             freecsim (docs/USERGUIDE.txt, section 8)
 
 Command lines, file formats and messages follow WinCUPL, so existing
 designs and build scripts can be used unchanged.  For every design that
@@ -24,13 +26,15 @@ default; make FIX_DEFAULT=0 builds that behaviour.
 327 device mnemonics are supported: GAL16V8, GAL20V8, 22V10, GAL18V10,
 GAL20RA10, GAL20XV10, GAL26CV12, ATV750, ATF750C, ATV2500, ATF2500C,
 ATV5000, PEEL18CV8 and most PAL families, with their PLCC variants.
-The full list is in section 8 of docs/USERGUIDE.txt; section 6 lists
+The full list is in section 9 of docs/USERGUIDE.txt; section 6 lists
 the mnemonics that are not supported (PLS/IFL, GAL6001, EP300 to EP1800
 and others).  CPLDs that need WinCUPL's external fitter are not
 supported.
 
 Platforms: Windows XP SP3 and later (32-bit), Linux, macOS.  The macOS
-build is only tested by continuous integration.
+build is only tested by continuous integration.  freecuplw is a Windows
+program; Linux and macOS have the command line, and freecuplw.exe also
+runs there under Wine (it was tested under Wine).
 
 Usage:
 
@@ -46,7 +50,8 @@ man/freecupl.1 and man/freecsim.1.
 Building needs a C99 compiler and make:
 
     make           tools in build/linux (or build/macos)
-    make win32     build/win32/*.exe with i686-w64-mingw32-gcc
+    make win32     build/win32/*.exe with i686-w64-mingw32-gcc and
+                   windres, freecuplw.exe included
     make check     run the test suite in tests/golden
 
 make also builds the Windows programs when i686-w64-mingw32-gcc is

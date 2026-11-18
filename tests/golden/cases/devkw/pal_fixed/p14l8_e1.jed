@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p14l8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -24,4 +24,4 @@ Location        x
 *L00384 00000000111111111111111111011111
 *L00416 11110000000000000000000000000000
 *C12AF
-*8B33
+*8B34

@@ -2,7 +2,8 @@
 # FreeCUPL.  Builds the tools for the host (cc) and for Windows XP and
 # later (i686-w64-mingw32).  DARKSOFT.
 #   make              host tools in build/<host>/, plus the win32 tools
-#                     when the cross compiler is found
+#                     when the cross compiler is found; the win32 build
+#                     includes the front end freecuplw.exe
 #   make native, make win32, make clean
 #   make check        golden tests (tests/golden)
 #   make check-win32  the same with the win32 tools under wine
@@ -12,6 +13,7 @@
 
 CC        ?= cc
 WINCC     ?= i686-w64-mingw32-gcc
+WINDRES   ?= i686-w64-mingw32-windres
 HOSTCC    ?= $(CC)
 CSTD      = -std=c99 -pedantic
 WARN      = -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
@@ -25,6 +27,11 @@ CFLAGS_W  = $(CSTD) $(WARN) $(OPT) -D_WIN32_WINNT=0x0501 -DWINVER=0x0501 \
 LDFLAGS_W = -static -static-libgcc -Wl,--subsystem,console:5.01 \
             -Wl,--major-os-version,5 -Wl,--minor-os-version,1 \
             -Wl,--major-subsystem-version,5 -Wl,--minor-subsystem-version,1
+# the front end: no console
+LDFLAGS_G = -static -static-libgcc -mwindows -Wl,--subsystem,windows:5.01 \
+            -Wl,--major-os-version,5 -Wl,--minor-os-version,1 \
+            -Wl,--major-subsystem-version,5 -Wl,--minor-subsystem-version,1
+LIBS_G    = -lcomctl32 -lcomdlg32 -lshell32 -lgdi32 -luser32
 
 UNAME    := $(shell uname -s 2>/dev/null | tr A-Z a-z)
 ifeq ($(UNAME),darwin)
@@ -57,7 +64,7 @@ HAVE_WINCC := $(shell command -v $(WINCC) >/dev/null 2>&1 && echo yes)
 all: native $(if $(HAVE_WINCC),win32)
 
 native: $(addprefix $(B_N)/,$(TOOLS))
-win32:  $(addprefix $(B_W)/,$(addsuffix .exe,$(TOOLS)))
+win32:  $(addprefix $(B_W)/,$(addsuffix .exe,$(TOOLS))) $(B_W)/freecuplw.exe
 
 $(GEN)/embed: src/host/embed.c
 	@mkdir -p $(GEN)
@@ -97,6 +104,28 @@ $(B_N)/%: src/tools/%.c $(LIBSRC) $(GEN)/devdb.c $(HDRS)
 $(B_W)/%.exe: src/tools/%.c $(LIBSRC) $(GEN)/devdb.c $(HDRS)
 	@mkdir -p $(B_W)
 	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $< $(LIBSRC) $(GEN)/devdb.c $(LDFLAGS_W)
+
+# freecuplw: the device table comes from the description files, the
+# user guide is a resource
+GUISRC = src/gui/freecuplw.c src/gui/core.c src/gui/proc.c
+GUIHDR = src/gui/core.h src/gui/proc.h src/gui/resource.h src/version.h
+GUIRES = src/gui/freecuplw.rc src/gui/freecuplw.manifest src/gui/freecuplw.ico \
+         src/gui/tools16.bmp src/gui/tools24.bmp docs/USERGUIDE.txt
+
+$(GEN)/guidev: src/host/guidev.c
+	@mkdir -p $(GEN)
+	$(HOSTCC) -O1 -o $@ $<
+
+$(GEN)/guidev.c: $(GEN)/guidev $(DEVS) $(GEN)/devlist
+	$(GEN)/guidev $@ $(DEVS)
+
+$(B_W)/freecuplw.res.o: $(GUIRES) $(GUIHDR)
+	@mkdir -p $(B_W)
+	$(WINDRES) -O coff -Isrc -Isrc/gui -Idocs -o $@ src/gui/freecuplw.rc
+
+$(B_W)/freecuplw.exe: $(GUISRC) $(GUIHDR) $(GEN)/guidev.c $(B_W)/freecuplw.res.o
+	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $(GUISRC) $(GEN)/guidev.c $(B_W)/freecuplw.res.o \
+	    $(LDFLAGS_G) $(LIBS_G)
 
 # FIX_DEFAULT=0: the golden default cases are run with -fix
 GOLDEN_ENV = $(if $(filter 0,$(FIX_DEFAULT)),DEFAULT_ARGS=-fix)

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p24l10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -47,4 +47,4 @@ Location        x
 *L02912 11111111111111111111111111010111
 *L02944 11111111111111111111111111111111
 *C77A6
-*3F1B
+*3F1C

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p20g10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -25,4 +25,4 @@ Location        x
 *L02848 11111111111100000000000000000000
 *L03968 0110000000000101000000
 *C1B76
-*91BD
+*91BE

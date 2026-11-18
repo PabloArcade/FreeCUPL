@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Linux and macOS: build and make check.  Windows: i686 mingw build and
-# the XP check.
+# Linux and macOS: build and make check.  Windows: i686 mingw build
+# (console tools and the front end freecuplw.exe) and the XP check.
 name: build
 
 on:
@@ -37,8 +37,12 @@ jobs:
           sudo apt-get install -y gcc-mingw-w64-i686-win32 binutils-mingw-w64-i686
       - name: Build
         run: make win32 WINCC=i686-w64-mingw32-gcc-win32
+      - name: The front end is built
+        run: test -f build/win32/freecuplw.exe
       - name: Windows XP SP3 compatibility check
-        run: sh tools/check_xp.sh build/win32/*.exe
+        run: |
+          sh tools/check_xp.sh build/win32/*.exe
+          sh tools/check_xp.sh build/win32/freecuplw.exe
       - name: XP check self-test
         run: WINCC=i686-w64-mingw32-gcc-win32 sh tools/check_xp.sh --selftest
       - name: Upload the executables

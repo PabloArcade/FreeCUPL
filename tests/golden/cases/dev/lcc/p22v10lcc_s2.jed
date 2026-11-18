@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          p22v10lcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -42,4 +42,4 @@ Location        x
 *L05792 00000000000000000010100000001100
 *L05824 1011
 *C4ACD
-*13CD
+*13CE

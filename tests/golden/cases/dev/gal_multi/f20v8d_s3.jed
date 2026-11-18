@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          f20v8d  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -20,4 +20,4 @@ Location        x
 *L02848 11110111111100000000000000000000
 *L03168 0000000000000000001100001
 *C0AB1
-*6BB3
+*6BB4

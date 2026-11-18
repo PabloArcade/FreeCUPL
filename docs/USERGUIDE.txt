@@ -1,4 +1,4 @@
-FreeCUPL 2.1.0 USER GUIDE
+FreeCUPL 2.2.0 USER GUIDE
 
 FreeCUPL consists of two programs with the command lines of the WinCUPL
 5.0a command-line tools.  freecupl compiles CUPL source (.pld) into a
@@ -7,7 +7,8 @@ listing (.lst), a macro expansion (.mx) and an absolute file (.abs);
 with -s it also runs the simulator.  freecsim applies test vectors
 (.si) to a compiled design (.abs) and writes a listing (.so), a waveform
 file (.wo) and optionally the test vectors into the JEDEC file.  The
-helper tools jedsim, equiv and jedtool are described in section 7.
+helper tools jedsim, equiv and jedtool are described in section 7.  On
+Windows, freecuplw is an editor and front end for both (section 8).
 
   1. freecupl
   2. freecsim
@@ -16,7 +17,8 @@ helper tools jedsim, equiv and jedtool are described in section 7.
   5. WinCUPL bugs and -compat-refdefect
   6. Limitations
   7. Helper tools
-  8. Supported devices
+  8. freecuplw (Windows)
+  9. Supported devices
 
 
 1. FREECUPL
@@ -24,7 +26,7 @@ helper tools jedsim, equiv and jedtool are described in section 7.
     freecupl [-flags] [library] [device] file[.pld]
 
 If file has no extension and does not exist as given, file.pld and then
-file.PLD are tried.  device is a mnemonic from section 8 and overrides
+file.PLD are tried.  device is a mnemonic from section 9 and overrides
 the Device statement of the source.  library is accepted and ignored;
 an argument is taken as the library when -u is given, when there are
 three positional arguments, or when it ends in .dl.
@@ -83,7 +85,7 @@ Options given as separate arguments:
                      latched inputs (timing not verified; by default
                      they show X, as in WinCUPL's simulator)
   -devices           print the supported mnemonics and exit
-  -V, --version      print "FreeCUPL 2.1.0 (DARKSOFT)" and exit
+  -V, --version      print "FreeCUPL 2.2.0 (DARKSOFT)" and exit
 
 Without arguments freecupl prints a usage summary and exits with 1.
 
@@ -184,7 +186,7 @@ Output files:
   .wo    freecsim      waveform data (also freecupl -s)
 
 The headers of .jed, .doc, .lst and .so name the version, "FreeCUPL
-2.1.0 (DARKSOFT)", and the creation date.
+2.2.0 (DARKSOFT)", and the creation date.
 
 If the environment variable SOURCE_DATE_EPOCH is set to a number of
 seconds since 1970-01-01 UTC, that time is written as the creation date
@@ -345,7 +347,7 @@ docs/BUGS.txt, parts A and B).
 
 6. LIMITATIONS
 
-FreeCUPL supports the 327 mnemonics of section 8.  WinCUPL 5.0a compiles
+FreeCUPL supports the 327 mnemonics of section 9.  WinCUPL 5.0a compiles
 93 more mnemonics to a JEDEC file without an external fitter.  FreeCUPL
 has no description of these parts and rejects them with [0006ca] device
 not in library.  The mnemonics not supported, with the reason:
@@ -425,7 +427,7 @@ but may differ from WinCUPL's.
 WinCUPL rejects with 0006cc.
 
 Not implemented: the output formats of -b -h -i -p -c -d -r -o -q,
-reading WinCUPL's binary absolute files, the waveform display, the GUI.
+reading WinCUPL's binary absolute files, the waveform display.
 
 The macOS build is only tested by the project's continuous integration.
 
@@ -458,7 +460,94 @@ JEDEC utilities: check the checksums, print the fuse map, write a file
 again, list differing fuses, invert fuses.
 
 
-8. SUPPORTED DEVICES
+8. FREECUPLW (WINDOWS)
+
+freecuplw.exe is an editor and front end for Windows XP SP3 and later.
+It does not contain the compiler.  It runs freecupl.exe and freecsim.exe
+from its own directory and shows what they print, so a design gives the
+same files and messages as on the command line.  Keep the three programs
+in one directory.  It also runs on Linux and macOS under Wine, where it
+was tested.
+
+    freecuplw [file ...]
+
+Files.  Files are opened from the command line, with File Open, from the
+recent files at the end of the File menu, or by dropping them anywhere
+on the window, several at a time.  Each file has a tab (Ctrl+Tab, Alt+1
+to Alt+9).  The output files .jed .doc .lst .so .wo .abs .mx are opened
+read only; anything else can be edited.  File New starts a source with
+the header items.
+
+Editor.  Undo and redo, find and replace (Ctrl+F, Ctrl+H, F3), go to
+line (Ctrl+G).  The status bar shows line and column and whether the
+file has CRLF or LF line ends; the file is saved as it was read (a file
+with both kinds, in the more frequent one).  Text is read and written
+in the system code page.  The View menu sets the font, the tab width
+and syntax colouring (comments, keywords, numbers); files of more than
+400000 characters are not coloured.  The font is used for the editor
+and the message pane; it is Consolas 10 where that is installed (Windows
+Vista and later) and Courier New 10 otherwise.
+
+Insert Device (Ctrl+D) lists the supported mnemonics with pin count and
+part name.  The search field takes parts of either, separated by blanks
+("16v8 complex").  Insert replaces the Device statement of the file, or
+puts one on a new line at the caret when there is none.
+
+Compile (F7) saves the changed files and runs freecupl on the source of
+the active tab; on a .si tab, on the .pld of the same name.  Simulate
+(F8) compiles with -a and then runs freecsim on the .si of the same
+name.  Stop (Ctrl+Break) ends the running program.
+
+Options (F9) sets the flags of both programs:
+
+  JEDEC file, Documentation, Fuse plot, Listing,
+  Absolute file, Macro expansion           -j -x -f -l -a -e
+  Name the outputs after the source file   -n
+  Minimisation                             -m0 to -m4
+  Device                                   the device argument
+  Pick the output polarity                 -kb
+  Program the security fuse                -g
+  WinCUPL compatibility                    -compat-refdefect
+  Simulate after compile                   -s on Compile, when the .si
+                                           file exists
+  Listing (.so)                            freecsim -l
+  Test vectors into the JEDEC file         freecsim -j
+  Simulate latches (not verified)          -simlatch
+
+As on the command line, the JEDEC file is also written when none of the
+other outputs is asked for.  With "Keep these options for this file
+only" the options are stored for the source of the active tab and used
+for it alone; otherwise they are the options of every file that has
+none of its own.
+
+Messages.  The lower pane shows the command line, the output of the
+program, the files it wrote and a summary line, "Compile: OK - 0 errors,
+1 warning".  A double click on a message with a line number goes to
+that line of the source (of the .si file for simulator messages); on a
+file name it opens the file.  freecsim writes its messages into the
+listing only: they are shown as "name.so(line): message" and lead to
+that line of the listing.  The right mouse button copies a line or the
+whole pane.
+
+Viewers.  The View menu opens the source, the simulation input and the
+.jed, .doc, .lst and .so files of the active design (Ctrl+1 to Ctrl+4
+for the outputs).  Open viewers are read again after every run.
+
+Help shows this guide and the version of freecupl.exe.
+
+Settings are kept in freecuplw.ini in the directory of the program:
+window position, font, recent files, options.  The registry is not
+used.  If the directory cannot be written the settings are lost at
+exit; delete the file to get the defaults back.
+
+Limits: file names must be in the system code page; no printing; the
+waveform file (.wo) is shown as text.  Run as administrator, the
+program cannot take dragged text (Windows keeps programs without
+administrator rights, Explorer among them, from dragging to it; files
+can still be dropped); the About box says when it runs that way.
+
+
+9. SUPPORTED DEVICES
 
 The mnemonic goes in the Device statement or on the command line.
 freecupl -devices prints the same list.  The PLCC/LCC package variant of

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          g20ra10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -49,4 +49,4 @@ Location        x
 *L03200 00010000100101001000110111001100
 *L03232 00001100000011001100000000000000
 *C6E19
-*4E52
+*4E53

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          g22v10lcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -40,4 +40,4 @@ Location        x
 *L05824 10110101001000110111001100000011
 *L05856 00000011001100000000000000000000
 *C4AF8
-*0987
+*0988

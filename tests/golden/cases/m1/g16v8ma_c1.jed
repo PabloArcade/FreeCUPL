@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          g16v8ma  Library DLIB-h-40-8
 Created         Thu Jan  1 00:00:00 1970
 Name            g16v8ma_
@@ -30,4 +30,4 @@ Location        x
 *L02144 11111111111111111111111111111111
 *L02176 111111111111111111
 *C32BE
-*BC58
+*BC59

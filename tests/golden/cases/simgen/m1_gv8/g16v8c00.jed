@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          g16v8cpma  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            G1006
@@ -60,4 +60,4 @@ Location        x
 *V0022 1X00X0XX0NXZHXLXLLHN
 *V0023 0X10X0XX0NXZLXNXLLHN
 *V0024 XX00X0XX1NXZZXLXLLLN
-*954C
+*954D

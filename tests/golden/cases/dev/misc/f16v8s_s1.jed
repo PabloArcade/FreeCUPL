@@ -1,5 +1,5 @@
 
-FreeCUPL 2.1.0 (DARKSOFT)
+FreeCUPL 2.2.0 (DARKSOFT)
 Device          f16v8s  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -23,4 +23,4 @@ Location        x
 *L01984 01111111101111111111111111110111
 *L02592 0000001000000000000000000
 *C1590
-*82F2
+*82F3

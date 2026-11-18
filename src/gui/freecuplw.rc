@@ -1,0 +1,230 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* freecuplw - resources.  DARKSOFT. */
+#include <windows.h>
+#include <commctrl.h>
+#include "resource.h"
+#include "version.h"
+
+#ifndef DS_SHELLFONT
+#define DS_SHELLFONT (DS_SETFONT | DS_FIXEDSYS)
+#endif
+
+IDI_APP ICON "freecuplw.ico"
+1 24 "freecuplw.manifest"
+IDB_TOOLS16 BITMAP "tools16.bmp"
+IDB_TOOLS24 BITMAP "tools24.bmp"
+IDR_GUIDE RCDATA "USERGUIDE.txt"
+
+IDR_MAIN MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVEAS
+        MENUITEM "Save A&ll\tCtrl+Shift+S",     ID_FILE_SAVEALL
+        MENUITEM "&Close\tCtrl+W",              ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",               ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "&Delete\tDel",                ID_EDIT_DELETE
+        MENUITEM "Select &All\tCtrl+A",         ID_EDIT_SELALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Find...\tCtrl+F",            ID_EDIT_FIND
+        MENUITEM "Find &Next\tF3",              ID_EDIT_FINDNEXT
+        MENUITEM "R&eplace...\tCtrl+H",         ID_EDIT_REPLACE
+        MENUITEM "&Go To Line...\tCtrl+G",      ID_EDIT_GOTO
+        MENUITEM SEPARATOR
+        MENUITEM "&Insert Device...\tCtrl+D",   ID_EDIT_DEVICE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Source (.pld)",              ID_VIEW_PLD
+        MENUITEM "Simulation &Input (.si)",     ID_VIEW_SI
+        MENUITEM SEPARATOR
+        MENUITEM "&JEDEC File (.jed)\tCtrl+1",  ID_VIEW_JED
+        MENUITEM "&Documentation (.doc)\tCtrl+2", ID_VIEW_DOC
+        MENUITEM "&Listing (.lst)\tCtrl+3",     ID_VIEW_LST
+        MENUITEM "Simulation &Output (.so)\tCtrl+4", ID_VIEW_SO
+        MENUITEM SEPARATOR
+        MENUITEM "Syntax &Colouring",           ID_VIEW_COLOUR
+        MENUITEM "&Font...",                    ID_VIEW_FONT
+        POPUP "&Tab Width"
+        BEGIN
+            MENUITEM "&2",                      ID_VIEW_TAB2
+            MENUITEM "&4",                      ID_VIEW_TAB4
+            MENUITEM "&8",                      ID_VIEW_TAB8
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Next File\tCtrl+Tab",        ID_VIEW_NEXT
+        MENUITEM "&Previous File\tCtrl+Shift+Tab", ID_VIEW_PREV
+    END
+    POPUP "&Run"
+    BEGIN
+        MENUITEM "&Compile\tF7",                ID_RUN_COMPILE
+        MENUITEM "&Simulate\tF8",               ID_RUN_SIMULATE
+        MENUITEM "S&top\tCtrl+Break",           ID_RUN_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Options...\tF9",             ID_RUN_OPTIONS
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&User Guide\tF1",             ID_HELP_GUIDE
+        MENUITEM SEPARATOR
+        MENUITEM "&About FreeCUPL",             ID_HELP_ABOUT
+    END
+END
+
+IDR_MSGMENU MENU
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "&Copy Line",                  ID_MSG_COPY
+        MENUITEM "Copy &All",                   ID_MSG_COPYALL
+        MENUITEM SEPARATOR
+        MENUITEM "C&lear",                      ID_MSG_CLEAR
+    END
+END
+
+IDR_MAIN ACCELERATORS
+BEGIN
+    "N",        ID_FILE_NEW,        VIRTKEY, CONTROL
+    "O",        ID_FILE_OPEN,       VIRTKEY, CONTROL
+    "S",        ID_FILE_SAVE,       VIRTKEY, CONTROL
+    "S",        ID_FILE_SAVEALL,    VIRTKEY, CONTROL, SHIFT
+    "W",        ID_FILE_CLOSE,      VIRTKEY, CONTROL
+    VK_F4,      ID_FILE_CLOSE,      VIRTKEY, CONTROL
+    "V",        ID_EDIT_PASTE,      VIRTKEY, CONTROL
+    VK_INSERT,  ID_EDIT_PASTE,      VIRTKEY, SHIFT
+    "F",        ID_EDIT_FIND,       VIRTKEY, CONTROL
+    VK_F3,      ID_EDIT_FINDNEXT,   VIRTKEY
+    "H",        ID_EDIT_REPLACE,    VIRTKEY, CONTROL
+    "G",        ID_EDIT_GOTO,       VIRTKEY, CONTROL
+    "D",        ID_EDIT_DEVICE,     VIRTKEY, CONTROL
+    "1",        ID_VIEW_JED,        VIRTKEY, CONTROL
+    "2",        ID_VIEW_DOC,        VIRTKEY, CONTROL
+    "3",        ID_VIEW_LST,        VIRTKEY, CONTROL
+    "4",        ID_VIEW_SO,         VIRTKEY, CONTROL
+    VK_TAB,     ID_VIEW_NEXT,       VIRTKEY, CONTROL
+    VK_TAB,     ID_VIEW_PREV,       VIRTKEY, CONTROL, SHIFT
+    VK_F7,      ID_RUN_COMPILE,     VIRTKEY
+    VK_F8,      ID_RUN_SIMULATE,    VIRTKEY
+    VK_CANCEL,  ID_RUN_STOP,        VIRTKEY, CONTROL
+    VK_F9,      ID_RUN_OPTIONS,     VIRTKEY
+    VK_F1,      ID_HELP_GUIDE,      VIRTKEY
+    "1",        ID_TAB_FIRST,       VIRTKEY, ALT
+    "2",        ID_TAB_FIRST + 1,   VIRTKEY, ALT
+    "3",        ID_TAB_FIRST + 2,   VIRTKEY, ALT
+    "4",        ID_TAB_FIRST + 3,   VIRTKEY, ALT
+    "5",        ID_TAB_FIRST + 4,   VIRTKEY, ALT
+    "6",        ID_TAB_FIRST + 5,   VIRTKEY, ALT
+    "7",        ID_TAB_FIRST + 6,   VIRTKEY, ALT
+    "8",        ID_TAB_FIRST + 7,   VIRTKEY, ALT
+    "9",        ID_TAB_FIRST + 8,   VIRTKEY, ALT
+END
+
+IDD_OPTIONS DIALOGEX 0, 0, 262, 265
+STYLE DS_SHELLFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Options"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    GROUPBOX        "Output files", -1, 7, 4, 248, 68
+    AUTOCHECKBOX    "&JEDEC file (.jed)", IDC_O_JED, 14, 16, 110, 10, WS_GROUP | WS_TABSTOP
+    AUTOCHECKBOX    "&Documentation (.doc)", IDC_O_DOC, 14, 29, 110, 10
+    AUTOCHECKBOX    "&Fuse plot in the .doc file", IDC_O_FUSEPLOT, 14, 42, 110, 10
+    AUTOCHECKBOX    "&Listing (.lst)", IDC_O_LST, 134, 16, 114, 10
+    AUTOCHECKBOX    "&Absolute file (.abs)", IDC_O_ABS, 134, 29, 114, 10
+    AUTOCHECKBOX    "Macro e&xpansion (.mx)", IDC_O_MX, 134, 42, 114, 10
+    AUTOCHECKBOX    "&Name the outputs after the source file", IDC_O_NAMESRC, 14, 56, 234, 10
+
+    GROUPBOX        "Compiler", -1, 7, 76, 248, 84
+    LTEXT           "&Minimisation:", -1, 14, 90, 50, 8
+    COMBOBOX        IDC_O_MIN, 68, 88, 100, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "D&evice:", -1, 14, 106, 50, 8
+    COMBOBOX        IDC_O_DEVICE, 68, 104, 100, 160, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "&Pick the output polarity with fewer product terms", IDC_O_KB, 14, 121, 234, 10
+    AUTOCHECKBOX    "Program the security f&use", IDC_O_SECURE, 14, 133, 234, 10
+    AUTOCHECKBOX    "&WinCUPL compatibility (reproduce the bugs of 5.0a)", IDC_O_COMPAT, 14, 145, 234, 10
+
+    GROUPBOX        "Simulator", -1, 7, 164, 248, 59
+    AUTOCHECKBOX    "&Simulate after compile", IDC_O_SIMAFTER, 14, 176, 114, 10, WS_GROUP | WS_TABSTOP
+    AUTOCHECKBOX    "Listin&g (.so)", IDC_O_SIMLST, 134, 176, 114, 10
+    AUTOCHECKBOX    "Test &vectors into the JEDEC file", IDC_O_SIMJED, 14, 189, 234, 10
+    AUTOCHECKBOX    "Simulate latc&hes (not verified)", IDC_O_SIMLATCH, 14, 202, 234, 10
+
+    AUTOCHECKBOX    "&Keep these options for this file only", IDC_O_PERFILE, 7, 229, 248, 10, WS_GROUP | WS_TABSTOP
+    DEFPUSHBUTTON   "OK", IDOK, 150, 245, 50, 14, WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "Cancel", IDCANCEL, 205, 245, 50, 14
+END
+
+IDD_DEVICES DIALOGEX 0, 0, 380, 230
+STYLE DS_SHELLFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Devices"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "&Search:", -1, 7, 9, 30, 8
+    EDITTEXT        IDC_D_FILTER, 40, 7, 150, 13, ES_AUTOHSCROLL | WS_TABSTOP
+    RTEXT           "", IDC_D_COUNT, 276, 9, 97, 8
+    CONTROL         "", IDC_D_LIST, WC_LISTVIEW, LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 7, 25, 366, 180
+    DEFPUSHBUTTON   "&Insert", IDOK, 268, 210, 50, 14, WS_TABSTOP
+    PUSHBUTTON      "Close", IDCANCEL, 323, 210, 50, 14
+END
+
+IDD_GOTO DIALOGEX 0, 0, 150, 48
+STYLE DS_SHELLFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Go To Line"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "&Line number:", -1, 7, 9, 50, 8
+    EDITTEXT        IDC_G_LINE, 62, 7, 81, 13, ES_NUMBER | ES_AUTOHSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK", IDOK, 38, 28, 50, 14, WS_TABSTOP
+    PUSHBUTTON      "Cancel", IDCANCEL, 93, 28, 50, 14
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 230, 132
+STYLE DS_SHELLFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About FreeCUPL"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    ICON            IDI_APP, -1, 10, 10, 20, 20
+    LTEXT           "", IDC_A_VERSION, 40, 10, 183, 8
+    LTEXT           "CUPL compiler and simulator for PALs and GALs.", -1, 40, 22, 183, 8
+    LTEXT           "", IDC_A_TOOLS, 40, 34, 183, 18
+    LTEXT           "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3 or any later version.  It comes with no warranty.  See LICENSE.txt.", -1, 40, 58, 183, 42
+    DEFPUSHBUTTON   "OK", IDOK, 173, 111, 50, 14, WS_TABSTOP
+END
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION FREECUPL_VERSION_RC
+PRODUCTVERSION FREECUPL_VERSION_RC
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_APP
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", FREECUPL_CREDIT
+            VALUE "FileDescription", "FreeCUPL"
+            VALUE "FileVersion", FREECUPL_VERSION
+            VALUE "InternalName", "freecuplw"
+            VALUE "LegalCopyright", "GPL-3.0-or-later"
+            VALUE "OriginalFilename", "freecuplw.exe"
+            VALUE "ProductName", FREECUPL_PRODUCT
+            VALUE "ProductVersion", FREECUPL_VERSION
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END

@@ -2,11 +2,14 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Check that Windows executables run on XP SP3: PE32 i386, OS and
 # subsystem version 5.01 or lower, imports only from kernel32.dll and
-# msvcrt.dll and on tools/xp_allowlist.txt, no SSE instructions.
+# msvcrt.dll and on tools/xp_allowlist.txt, no SSE instructions.  An
+# executable of the Windows GUI subsystem may also import what is on
+# tools/xp_allowlist_gui.txt (user32, gdi32, comdlg32, comctl32, shell32).
 # usage: tools/check_xp.sh file.exe ...
 #        tools/check_xp.sh --selftest    (needs the mingw compiler, $WINCC)
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ALLOW="$ROOT/tools/xp_allowlist.txt"
+ALLOWGUI="$ROOT/tools/xp_allowlist_gui.txt"
 if [ -z "$OBJDUMP" ]; then
   OBJDUMP=objdump
   command -v i686-w64-mingw32-objdump >/dev/null 2>&1 && OBJDUMP=i686-w64-mingw32-objdump
@@ -64,6 +67,11 @@ check() {
     fi
   done
   imports "$hdr" > "$TMP/imp"
+  if awk '$1 == "Subsystem" && $2 + 0 == 2 { f = 1 } END { exit !f }' "$hdr"; then
+    cat "$ALLOW" "$ALLOWGUI" > "$TMP/allow"
+  else
+    cat "$ALLOW" > "$TMP/allow"
+  fi
   nimp=$(wc -l < "$TMP/imp")
   [ "$nimp" -gt 0 ] || bad="$bad no-imports-found"
   awk '
@@ -77,7 +85,7 @@ check() {
       d = tolower($1)
       if (!(d in dlls)) { print "  disallowed DLL " $1; next }
       if (!((d SUBSEP $2) in ok)) print "  " $1 "!" $2 " not on XP allowlist"
-    }' "$ALLOW" "$TMP/imp" | sort -u > "$TMP/impbad"
+    }' "$TMP/allow" "$TMP/imp" | sort -u > "$TMP/impbad"
   if [ -s "$TMP/impbad" ]; then
     bad="$bad imports"
     cat "$TMP/impbad"
@@ -115,6 +123,11 @@ EOF
 #include <windows.h>
 int main(void) { return MessageBoxA(0, "x", "x", 0); }
 EOF
+  cat > "$d/guinew.c" <<'EOF'
+#include <windows.h>
+int main(void) { SetProcessDPIAware(); return MessageBoxA(0, "x", "x", 0); }
+EOF
+  xpg="-static -static-libgcc -mwindows -Wl,--subsystem,windows:5.01 -Wl,--major-os-version,5 -Wl,--minor-os-version,1 -Wl,--major-subsystem-version,5 -Wl,--minor-subsystem-version,1"
   cat > "$d/sse.c" <<'EOF'
 int main(void) { __asm__ volatile ("xorps %%xmm0, %%xmm0" ::: "xmm0"); return 0; }
 EOF
@@ -122,6 +135,8 @@ EOF
     "good    pass $d/good.c $xp" \
     "vista   import $d/vista.c -D_WIN32_WINNT=0x0600 $xp" \
     "user32  dll $d/user32.c $xp -luser32" \
+    "gui     pass $d/user32.c $xpg" \
+    "guinew  import $d/guinew.c -D_WIN32_WINNT=0x0600 $xpg" \
     "subsys  version $d/good.c -static -static-libgcc -Wl,--major-os-version,6 -Wl,--minor-os-version,0 -Wl,--major-subsystem-version,6 -Wl,--minor-subsystem-version,0" \
     "sse     sse $d/sse.c -msse $xp"
   cat > "$d/objdump2" <<EOF

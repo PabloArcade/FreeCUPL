@@ -1,5 +1,27 @@
 FreeCUPL changes
 
+2.2.0  2026-11-18
+
+New program for Windows: freecuplw.exe, an editor and front end for
+freecupl and freecsim (docs/USERGUIDE.txt, section 8).  Editor with
+tabs, undo, find and replace and syntax colouring; Compile and Simulate
+commands with an options dialog for the flags; message pane where a
+double click goes to the line of an error or opens an output file;
+read-only viewers for the .jed, .doc, .lst and .so files; searchable
+device list that inserts the Device statement; the user guide under
+Help.  It runs freecupl.exe and freecsim.exe from its own directory, so
+the results are those of the command line.  Settings are kept in
+freecuplw.ini next to the program; the registry is not used.  Windows
+XP SP3 and later, 32-bit, written against the Win32 API.  Linux and
+macOS keep the command line; freecuplw.exe also runs there under Wine.
+
+The compiler and the simulator are unchanged; only the version in the
+file headers differs.  The device list of the user guide is now
+section 9.
+
+tools/check_xp.sh accepts executables of the Windows GUI subsystem
+with the imports on tools/xp_allowlist_gui.txt.
+
 2.1.0  2026-11-17
 
 New device: ATV5000 (v5000).  Two registers and three sum terms in
