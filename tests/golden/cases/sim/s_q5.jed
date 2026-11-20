@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g16v8as  Library DLIB-h-40-2
 Created         Thu Jan  1 00:00:00 1970
 Name            T
@@ -32,4 +32,4 @@ Location        x
 *V0001 X10100101NXHLHLLHLHN
 *V0002 X10101011NXHLHLHLHHN
 *V0003 X01010000NXLHLHLLLLN
-*BF22
+*BF23

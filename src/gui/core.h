@@ -17,6 +17,15 @@ extern const int gui_ndevs;
 
 /* every word of filter occurs in the mnemonic or the part name */
 int gui_dev_match(const char *filter, const GuiDev *d);
+/* Order of two devices in a list sorted by column col: 0 mnemonic,
+   1 pins, 2 part.  Text compares without case and with runs of digits
+   by their value (g16v8 before g20v8, p8 before p10); pins compare as
+   numbers; equal keys fall back to the mnemonic. */
+int gui_dev_cmp(const GuiDev *a, const GuiDev *b, int col);
+/* The devices that match filter, as indices into gui_devs: in table
+   order when col < 0, else sorted by col, downwards when desc.  Returns
+   the count; idx has room for gui_ndevs entries. */
+int gui_dev_list(const char *filter, int col, int desc, int *idx);
 
 /* ---- tool messages ---- */
 enum {
@@ -59,6 +68,20 @@ int gui_compile_cmd(const GuiOpts *o, const char *exe, const char *file,
                     int flags, char *out, size_t n);
 int gui_sim_cmd(const GuiOpts *o, const char *exe, const char *file,
                 char *out, size_t n);
+/* The same as argument vectors: v[0..n-1], NULL after the last.  exe,
+   file and o must outlive the vector. */
+#define GUI_MAXARGS 10
+typedef struct {
+    const char *v[GUI_MAXARGS + 1];
+    int n;
+    char flags[16], min[8];
+} GuiArgv;
+void gui_compile_argv(const GuiOpts *o, const char *exe, const char *file,
+                      int flags, GuiArgv *a);
+void gui_sim_argv(const GuiOpts *o, const char *exe, const char *file,
+                  GuiArgv *a);
+/* the arguments quoted and joined with blanks */
+int gui_join_args(const GuiArgv *a, char *out, size_t n);
 /* one argument by the rules of the Windows C run-time */
 int gui_quote_arg(const char *arg, char *out, size_t n);
 
@@ -87,12 +110,16 @@ void gui_recent_add(char list[GUI_NRECENT][GUI_PATH], const char *path);
 
 /* ---- source text ---- */
 enum { GA_PLAIN = 0, GA_COMMENT, GA_KEYWORD, GA_NUMBER };
+/* reserved words in lower case, sorted */
+extern const char *const gui_keywords[];
+extern const int gui_nkeywords;
 /* attr[i] gets the class of text[i] */
 void gui_scan(const unsigned char *text, size_t n, unsigned char *attr);
 /* common prefix and suffix lengths of two texts (they do not overlap) */
 void gui_diff(const unsigned char *a, size_t na, const unsigned char *b,
               size_t nb, size_t *prefix, size_t *suffix);
-/* value of the Name header item; 0 when there is none */
+/* name of the JEDEC file (without extension) that the Name header item
+   gives; 0 when there is no item or freecupl refuses it */
 int gui_design_name(const char *src, size_t n, char *out, size_t outn);
 /* the Device statement, from its first letter to after the ';' */
 int gui_device_stmt(const char *src, size_t n, size_t *start, size_t *end);
@@ -106,6 +133,8 @@ void gui_set_ext(const char *path, const char *ext, char *out, size_t n);
 /* directory of path without the trailing separator, "." when none */
 void gui_dirname(const char *path, char *out, size_t n);
 int gui_has_ext(const char *path, const char *ext);
+/* a file the tools write: shown read only */
+int gui_is_output(const char *path);
 int gui_stricmp(const char *a, const char *b);
 
 #endif

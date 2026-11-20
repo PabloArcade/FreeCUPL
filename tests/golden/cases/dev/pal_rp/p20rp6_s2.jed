@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p20rp6  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -33,4 +33,4 @@ Location        x
 *L02336 11111111011111111111111100000000
 *L02560 11000001
 *C3B74
-*CD6C
+*CD6D

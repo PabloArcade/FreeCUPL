@@ -1,0 +1,33 @@
+Name     decode;
+PartNo   CLI01;
+Date     01/01/26;
+Revision 01;
+Designer test;
+Company  test;
+Assembly x;
+Location x;
+Device   g22v10;
+
+/* Address decoder.  The three ranges of sel overlap after the quick
+   minimisation (-m1): it merges two of the three terms and leaves a
+   literal that the stronger levels remove. */
+pin 2  = strobe;
+pin 3  = a1;
+pin 4  = a0;
+pin 5  = ready;
+pin 23 = !sel;
+pin 22 = !ack;
+
+low  = !a1 & !a0;
+mid  =  a1 & !a0;
+high =  a1 &  a0;
+io   = !a1 &  a0;
+
+sel = low  & !strobe
+    # mid  & !strobe
+    # high & !strobe;
+
+ack = low  & !strobe & ready
+    # high & !strobe & ready
+    # io   & !strobe & ready
+    # mid  & !strobe & ready & a0;

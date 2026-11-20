@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p64r32pga  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7002
@@ -40,4 +40,4 @@ Location        x
 *L33248 01010000000000000000000000000000
 *L33312 1101
 *C5022
-*04DB
+*04DC

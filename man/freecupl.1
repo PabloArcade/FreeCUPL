@@ -1,5 +1,5 @@
 .\" SPDX-License-Identifier: GPL-3.0-or-later
-.TH FREECUPL 1 2026-11-18 "FreeCUPL 2.2.0" "User Commands"
+.TH FREECUPL 1 2026-11-20 "FreeCUPL 2.3.0" "User Commands"
 .SH NAME
 freecupl \- CUPL compatible PLD compiler
 .SH SYNOPSIS
@@ -15,6 +15,12 @@ freecupl \- CUPL compatible PLD compiler
 .br
 .B freecupl
 .B \-V
+.br
+.B freecupl serve
+.RB [ \-\-port
+.IR n ]
+.RB [ \-\-no\-browser ]
+.RI [ directory ]
 .SH DESCRIPTION
 .B freecupl
 compiles a CUPL source file into a JEDEC fuse file for a programmable
@@ -47,6 +53,35 @@ Single-letter flags may be combined behind one
 (for example
 .BR \-jaxf ),
 in either case.
+.SH SERVE
+.B freecupl serve
+shows an editor page for the files of
+.I directory
+(default: the current one) in the web browser of the same machine:
+editor with syntax colouring, Compile and Simulate with an options
+dialog, messages that lead to the source line, viewers for the output
+files and the device list.
+The page is part of the program; nothing is loaded from the network.
+The program listens on 127.0.0.1 only, prints the address of the page
+with the token of the session, opens it in the default browser and
+runs until it is interrupted or the Quit button of the page is used.
+It runs
+.B freecupl
+and
+.B freecsim
+from its own directory.
+.TP
+.BI \-\-port " n"
+TCP port; default: a free one.
+.TP
+.B \-\-no\-browser
+Only print the address.
+.PP
+A source file called
+.B serve
+is compiled as
+.BR "freecupl ./serve" .
+docs/USERGUIDE.txt, section 9, describes the page.
 .SH FLAGS
 .TP
 .B \-j
@@ -58,7 +93,7 @@ is given.
 .TP
 .B \-x
 Write the documentation file
-.IB NAME .doc\fR.
+.IB SOURCE .doc\fR.
 .TP
 .B \-f
 Add the fuse plot to the documentation file.
@@ -73,7 +108,7 @@ Write the macro expansion
 .TP
 .B \-a
 Write the absolute file
-.IB NAME .abs
+.IB SOURCE .abs
 for
 .BR freecsim (1).
 .TP
@@ -89,20 +124,28 @@ with
 the test vectors are appended to the JEDEC file.
 .TP
 .B \-n
-Name the outputs after the source file instead of the
+Name the JEDEC file after the source file too, instead of the
 .B Name
 header item.
 .TP
 .BR \-m0 " ... " \-m4
 Minimisation level: none, quick (the default,
-.BR \-m1 ),
-and stronger levels that may need fewer product terms than WinCUPL.
+.BR \-m1 ,
+the sums of WinCUPL's default), and stronger levels that also remove
+literals and may need fewer product terms than WinCUPL.
+When a sum has too many product terms for its output, the design is
+fitted once more with the shortest sums found (note 0909cb), at any
+level but
+.BR \-m0 ;
+not with
+.BR \-compat\-refdefect .
 .TP
 .B \-kb
 For each output choose the polarity that needs fewer product terms.
 .TP
 .B \-g
-Program the security fuse.
+Program the security fuse: the JEDEC file has G1 instead of G0
+("Secure Device" in WinCUPL).
 .TP
 .B \-u
 The next positional argument is the library (ignored).
@@ -110,17 +153,20 @@ The next positional argument is the library (ignored).
 .B \-w \-b \-h \-i \-p \-c \-d \-r \-o \-q \-kd \-ks \-kx
 Accepted for compatibility; no effect.
 .PP
-.I NAME
-is the value of the
-.B Name
-header item (the source file's name with
-.BR \-n ,
-.B no_name
-when there is no
-.B Name
-item);
 .I SOURCE
-is the source file's name without extension.
+is the source file's name without extension;
+.I NAME
+is taken from the
+.B Name
+header item as WinCUPL does it: up to the first blank, without a
+directory or drive part, at most 28 characters
+.RB ( no_name
+when there is no item, the source file's name with
+.BR \-n ).
+Only the JEDEC file is named after it.
+A name that is no file name on Windows (one of * ? " < > |, or a
+device name such as CON or LPT1) is refused with message 0001cc on
+every system.
 Outputs are written next to the source file.
 .SH OPTIONS
 .TP
@@ -172,6 +218,14 @@ Compiled design for
 .IR *.si ", " *.so ", " *.wo
 Simulation input, listing and waveform file.
 .SH ENVIRONMENT
+.TP
+.B FREECUPL_SERVE_INI
+Settings file of
+.BR "freecupl serve" ;
+default
+.I $XDG_CONFIG_HOME/freecupl/serve.ini
+or
+.IR ~/.config/freecupl/serve.ini .
 .TP
 .B SOURCE_DATE_EPOCH
 When set to a number of seconds since 1970-01-01 UTC, that time is

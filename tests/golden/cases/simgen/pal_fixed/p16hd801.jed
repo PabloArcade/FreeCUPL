@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p16hd8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            G9004
@@ -38,4 +38,4 @@ Location        x
 *V0013 X11XX1X01NXHXXXLHHXN
 *V0014 X00XX0X1XNXHXXXHLHXN
 *V0015 X10XX1X10NXHXXXHLHXN
-*EE5F
+*EE60

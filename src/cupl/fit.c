@@ -501,12 +501,44 @@ static void eqn_cover(const Expr *e, int level, Cover *out)
 
 /* m1 reproduces the reference quick minimisation (its result decides
    whether a design fits); m2..m4 use the Espresso-style minimiser */
+static long cover_lits(const Cover *f)
+{
+    long l = 0;
+    int i;
+    for (i = 0; i < f->n; i++) l += cube_nlits(&f->c[i]);
+    return l;
+}
+
+/* Second attempt of a design whose product terms did not fit (see
+   fit_design): a cover of the same function with fewer product terms is
+   taken when the stronger minimiser (and the exact one, for few
+   variables) finds it.  The first attempt keeps the covers of the
+   reference minimisation, so that a design that fits has WinCUPL's fuse
+   map and simulates like it (a sum without its redundant terms can show
+   X where the longer one shows a level). */
+static int g_strong;
+
+static void improve(Cover *f, int level)
+{
+    Cover g;
+    if (!g_strong || level < 1 || f->n < 2) return;
+    cv_init(&g);
+    cv_copy(&g, f);
+    cv_minimize(&g, 4);
+    if (g.n > 1) cv_minimize_exact(&g, 12);
+    if (g.n < f->n || (level >= 2 && g.n == f->n && cover_lits(&g) < cover_lits(f))) {
+        cv_free(f);
+        *f = g;
+    } else cv_free(&g);
+}
+
 static void minimize(Cover *f, int level, int capacity)
 {
     if (level <= 0) return;
-    if (level == 1) { cv_quick_merge(f); return; }
+    if (level == 1) { cv_quick_merge(f); improve(f, level); return; }
     cv_minimize(f, level);
     if (capacity > 0 && f->n > capacity) cv_minimize_exact(f, 14);
+    improve(f, level);
 }
 
 /* GAL20XV10 macrocell: OE-term configuration (3 rows ORed) or XOR of
@@ -1145,7 +1177,48 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r);
 
 /* 'via' aliases: a quiet first pass picks the mode, then the design is
    fitted to the description of the resolved mnemonic */
+static int fit_alias(const char *mnemonic, const FitOpts *o, FitResult *r);
+
+/* Fit; when a sum has too many product terms (0006cc) and the mode is
+   not the WinCUPL-exact one, fit again with smaller covers (improve)
+   and take that result if it has no error. */
 int fit_design(const char *mnemonic, const FitOpts *o, FitResult *r)
+{
+    Diag save = g_diag;
+    size_t n0 = g_diag.list.n;
+    int rc, pass;
+    if (!g_fix) return fit_alias(mnemonic, o, r);
+    for (pass = 0; pass < 2; pass++) {
+        g_strong = pass;
+        g_diag.quiet = 1;
+        rc = fit_alias(mnemonic, o, r);
+        g_strong = 0;
+        g_diag.quiet = save.quiet;
+        if (pass == 0 && g_diag.list.p && strstr(g_diag.list.p + n0, "[0006cc]")) {
+            /* drop the messages of the first attempt */
+            save.list = g_diag.list;
+            save.list.n = n0;
+            save.list.p[n0] = 0;
+            g_diag = save;
+            continue;
+        }
+        if (pass == 1 && (rc != 0 || g_diag.nerr != save.nerr)) {
+            /* no better: the messages of the first attempt */
+            save.list = g_diag.list;
+            save.list.n = n0;
+            save.list.p[n0] = 0;
+            g_diag = save;
+            return fit_alias(mnemonic, o, r);
+        }
+        break;
+    }
+    if (!g_diag.quiet && g_diag.list.p) fputs(g_diag.list.p + n0, stdout);
+    if (pass == 1)
+        diag(DG_NOTE, "0909cb", 0, "sums shorter than those of WinCUPL's minimisation used; the product terms would not fit otherwise");
+    return rc;
+}
+
+static int fit_alias(const char *mnemonic, const FitOpts *o, FitResult *r)
 {
     const DevAlias *al = NULL;
     if (dev_find(mnemonic, &al) && al && al->via) {
@@ -1703,6 +1776,7 @@ static int fit_one(const char *mnemonic, const FitOpts *o, FitResult *r)
                the sum is the expression itself */
             pi->inv = want;
             group_cover(q, level, &f);
+            improve(&f, level);
         } else if (k->type == MC_GEN && (xs0 = mc_xsum(pi->mc, &xs1)) >= 0) {
             /* XOR macrocell: a top-level '$' is split over the two sums, the
                complement (fixed polarity) goes on the first operand */

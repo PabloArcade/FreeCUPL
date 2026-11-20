@@ -3,6 +3,7 @@
 #include "device.h"
 #include "util.h"
 #include "version.h"
+#include "namebase.h"
 #include "bugs.h"
 #include "cupl/design.h"
 #include "cupl/diag.h"
@@ -10,6 +11,7 @@
 #include "cupl/output.h"
 #include "cupl/pp.h"
 #include "csim/csim.h"
+#include "web/web.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,10 +21,11 @@ static void usage(void)
 {
     printf("freecupl - CUPL compiler, %s\n", FREECUPL_VERSION_STRING);
     printf("usage: freecupl -flags [library] [device] file[.pld]\n"
+           "       freecupl serve [--port N] [--no-browser] [directory]\n"
            "  -j   write JEDEC file             -a   write absolute file (.abs)\n"
            "  -l   write listing (.lst)         -e   write macro expansion (.mx)\n"
            "  -x   write documentation (.doc)   -f   fuse plot in .doc\n"
-           "  -n   name outputs after source    -g   set security fuse\n"
+           "  -n   .jed named after source      -g   set security fuse\n"
            "  -s   simulate file.si (.so, .wo; vectors into the JEDEC file with -j)\n"
            "  -m0  no minimization   -m1 quick (default)   -m2 -m3 -m4 more\n"
            "  -kb  pick output polarity for fewer product terms\n"
@@ -221,7 +224,7 @@ static int simulate(const CsDesign *cd, const char *dir, const char *stem, const
 int main(int argc, char **argv)
 {
     int i, fj = 0, fa = 0, fl = 0, fe = 0, fx = 0, ff = 0, fn = 0, fg = 0, fu = 0, fs = 0;
-    int nopos = 0, rc;
+    int nopos = 0, rc, jedbad = 0;
     const char *pos[8];
     FitOpts fo;
     PPOut pp;
@@ -231,6 +234,11 @@ int main(int argc, char **argv)
     char used_device[64] = "";
     Buf pb = {0, 0, 0};
 
+    /* the editor page; a source of that name is compiled as ./serve */
+    if (argc >= 2 && !strcmp(argv[1], "serve")) {
+        argv[1] = argv[0];
+        return serve_main(argc - 1, argv + 1);
+    }
     memset(&fo, 0, sizeof fo);
     fo.minlevel = 1;
     dev_load_builtin();
@@ -331,9 +339,13 @@ int main(int argc, char **argv)
             snprintf(used_device, sizeof used_device, "%s", dvl);
         }
     }
+    /* The JEDEC file is named after the Name item, as cupl.exe names it
+       (name_file_base); every other output after the source file. */
     if (g_des.hdr[H_NAME] && !fn) {
         Buf p = {0, 0, 0};
-        buf_printf(&p, "%s%s", dir, g_des.hdr[H_NAME]);
+        char nb[64];
+        jedbad = name_file_base(g_des.hdr[H_NAME], nb, sizeof nb) != 0;
+        buf_printf(&p, "%s%s", dir, nb);
         outbase = p.p;
     } else {
         Buf p = {0, 0, 0};
@@ -341,7 +353,7 @@ int main(int argc, char **argv)
         buf_printf(&p, "%s%s", dir, fn ? stem : "no_name");
         outbase = p.p;
     }
-    path = (char *)xmalloc(strlen(outbase) + 8);
+    path = (char *)xmalloc(strlen(outbase) + strlen(dir) + strlen(stem) + 8);
     if (fl) {
         sprintf(path, "%s%s.lst", dir, stem);
         write_lst(path, src);
@@ -352,17 +364,24 @@ int main(int argc, char **argv)
     }
     if (fj || (!fx && !fl && !fe && !fa)) {
         sprintf(path, "%s.jed", outbase);
+        if (jedbad) {
+            /* no file name on Windows: refused everywhere, so that a
+               design gives the same files on every system */
+            printf("[0001cc] could not open:  %s\n", path + strlen(dir));
+            printf("\nFatal errors encountered ... compilation aborted\n");
+            return 1;
+        }
         if (write_jed(path, &fr, fg) != 0) { printf("[0010cc] disk write error:  %s\n", path); return 1; }
     }
     if (fx || ff) {
-        sprintf(path, "%s.doc", outbase);
+        sprintf(path, "%s%s.doc", dir, stem);
         write_doc(path, &fr, ff, fx);
     }
     if (fa || fs) {
         CsDesign cd;
         int jed_written = fj || (!fx && !fl && !fe && !fa);
         design_for_sim(&cd, &fr, used_device);
-        sprintf(path, "%s.abs", outbase);
+        sprintf(path, "%s%s.abs", dir, stem);
         if (cs_abs_write(path, &cd) != 0) { printf("[0010cc] disk write error:  %s\n", path); return 1; }
         if (fs) rc = simulate(&cd, dir, stem, jed_written && fj ? outbase : NULL);
         cd.dev = NULL;

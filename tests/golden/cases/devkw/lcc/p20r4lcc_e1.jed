@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p20r4lcc  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7100
@@ -32,4 +32,4 @@ Location        x
 *L02304 11110111111111111111111111111111
 *L02336 11011111111101111111110100000000
 *C3828
-*CB07
+*CB08

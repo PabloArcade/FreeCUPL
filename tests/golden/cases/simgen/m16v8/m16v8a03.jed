@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          m16v8as  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            G9009
@@ -128,4 +128,4 @@ Location        x
 *V0011 00XX10X0XN1NXXHHXHHN
 *V0012 1XXX00X0XN1HXXLHXXLN
 *V0013 10XX10X0XN0LXXHHXHLN
-*ADB1
+*ADB2

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p10h8  Library DLIB-h-40-7
 Created         Thu Jan  1 00:00:00 1970
 Name            p10h8_in
@@ -24,4 +24,4 @@ Location        x
 *L00256 11110000000000000000000011111111
 *L00288 11111110101100000000000000000000
 *C0C8A
-*8EB8
+*8EB9

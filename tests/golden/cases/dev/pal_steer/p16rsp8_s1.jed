@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p16rsp8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -27,4 +27,4 @@ Location        x
 *L02112 00000000101000000000000000000000
 *L02144 00000000100000000000000000000000
 *C1F20
-*A37F
+*A380

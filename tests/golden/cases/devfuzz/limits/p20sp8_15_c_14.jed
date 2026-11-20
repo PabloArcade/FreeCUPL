@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p20sp8  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -37,4 +37,4 @@ Location        x
 *L02624 00000000000000000000000000001010
 *L02656 101010101010101010101010
 *C4929
-*EC43
+*EC44

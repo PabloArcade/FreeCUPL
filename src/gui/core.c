@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* freecuplw - the parts that do not need Windows.  DARKSOFT. */
 #include "core.h"
+#include "../namebase.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,6 +60,56 @@ int gui_dev_match(const char *filter, const GuiDev *d)
             !contains(d->part, w, (size_t)(p - w)))
             return 0;
     }
+}
+
+static int text_cmp(const char *a, const char *b)
+{
+    for (;;) {
+        int ca = (unsigned char)*a, cb = (unsigned char)*b;
+        if (ca >= '0' && ca <= '9' && cb >= '0' && cb <= '9') {
+            const char *ea, *eb;
+            while (*a == '0') a++;
+            while (*b == '0') b++;
+            for (ea = a; *ea >= '0' && *ea <= '9'; ea++) ;
+            for (eb = b; *eb >= '0' && *eb <= '9'; eb++) ;
+            if (ea - a != eb - b) return ea - a < eb - b ? -1 : 1;
+            for (; a < ea; a++, b++) if (*a != *b) return *a < *b ? -1 : 1;
+            continue;
+        }
+        if (ca >= 'A' && ca <= 'Z') ca += 'a' - 'A';
+        if (cb >= 'A' && cb <= 'Z') cb += 'a' - 'A';
+        if (ca != cb) return ca < cb ? -1 : 1;
+        if (!ca) return 0;
+        a++; b++;
+    }
+}
+
+int gui_dev_cmp(const GuiDev *a, const GuiDev *b, int col)
+{
+    int r = 0;
+    if (col == 1) r = a->pins < b->pins ? -1 : a->pins > b->pins;
+    else if (col == 2) r = text_cmp(a->part, b->part);
+    if (!r) r = text_cmp(a->mn, b->mn);
+    if (!r) r = strcmp(a->mn, b->mn);
+    return r;
+}
+
+int gui_dev_list(const char *filter, int col, int desc, int *idx)
+{
+    int i, j, n = 0;
+    for (i = 0; i < gui_ndevs; i++)
+        if (gui_dev_match(filter, &gui_devs[i])) idx[n++] = i;
+    if (col < 0 || col > 2) return n;
+    for (i = 1; i < n; i++) {
+        int v = idx[i];
+        for (j = i; j > 0; j--) {
+            int c = gui_dev_cmp(&gui_devs[idx[j - 1]], &gui_devs[v], col);
+            if (desc ? c >= 0 : c <= 0) break;
+            idx[j] = idx[j - 1];
+        }
+        idx[j] = v;
+    }
+    return n;
 }
 
 /* ---- tool messages ---- */
@@ -163,24 +214,18 @@ int gui_quote_arg(const char *arg, char *out, size_t n)
     return 0;
 }
 
-static int add_arg(char *out, size_t n, const char *arg)
+static void arg_push(GuiArgv *a, const char *s)
 {
-    size_t l = strlen(out);
-    if (l) {
-        if (l + 2 >= n) return -1;
-        out[l++] = ' ';
-        out[l] = 0;
-    }
-    return gui_quote_arg(arg, out + l, n - l);
+    if (a->n < GUI_MAXARGS) a->v[a->n++] = s;
+    a->v[a->n] = NULL;
 }
 
-int gui_compile_cmd(const GuiOpts *o, const char *exe, const char *file,
-                    int flags, char *out, size_t n)
+void gui_compile_argv(const GuiOpts *o, const char *exe, const char *file,
+                      int flags, GuiArgv *a)
 {
-    char f[16];
-    int k = 0, r = 0;
-    if (!n) return -1;
-    out[0] = 0;
+    char *f = a->flags;
+    int k = 0;
+    a->n = 0;
     f[k++] = '-';
     if (o->jed) f[k++] = 'j';
     if (o->doc) f[k++] = 'x';
@@ -192,39 +237,68 @@ int gui_compile_cmd(const GuiOpts *o, const char *exe, const char *file,
     if (o->namesrc) f[k++] = 'n';
     if (o->secure) f[k++] = 'g';
     f[k] = 0;
-    r |= add_arg(out, n, exe);
-    if (k > 1) r |= add_arg(out, n, f);
+    arg_push(a, exe);
+    if (k > 1) arg_push(a, f);
     if (o->min != 1 && o->min >= 0 && o->min <= 4) {
-        char m[8];
-        snprintf(m, sizeof m, "-m%d", o->min);
-        r |= add_arg(out, n, m);
+        snprintf(a->min, sizeof a->min, "-m%d", o->min);
+        arg_push(a, a->min);
     }
-    if (o->kb) r |= add_arg(out, n, "-kb");
-    if (o->compat) r |= add_arg(out, n, "-compat-refdefect");
-    if (o->simlatch && (flags & GC_SIM)) r |= add_arg(out, n, "-simlatch");
-    if (o->device[0]) r |= add_arg(out, n, o->device);
-    r |= add_arg(out, n, file);
-    return r ? -1 : 0;
+    if (o->kb) arg_push(a, "-kb");
+    if (o->compat) arg_push(a, "-compat-refdefect");
+    if (o->simlatch && (flags & GC_SIM)) arg_push(a, "-simlatch");
+    if (o->device[0]) arg_push(a, o->device);
+    arg_push(a, file);
 }
 
-int gui_sim_cmd(const GuiOpts *o, const char *exe, const char *file,
-                char *out, size_t n)
+void gui_sim_argv(const GuiOpts *o, const char *exe, const char *file,
+                  GuiArgv *a)
 {
-    char f[8];
-    int k = 0, r = 0;
-    if (!n) return -1;
-    out[0] = 0;
+    char *f = a->flags;
+    int k = 0;
+    a->n = 0;
     f[k++] = '-';
     if (o->simlst) f[k++] = 'l';
     if (o->simjed) f[k++] = 'j';
     if (o->simjed && o->namesrc) f[k++] = 'n';
     f[k] = 0;
-    r |= add_arg(out, n, exe);
-    if (k > 1) r |= add_arg(out, n, f);
-    if (o->compat) r |= add_arg(out, n, "-compat-refdefect");
-    if (o->simlatch) r |= add_arg(out, n, "-simlatch");
-    r |= add_arg(out, n, file);
+    arg_push(a, exe);
+    if (k > 1) arg_push(a, f);
+    if (o->compat) arg_push(a, "-compat-refdefect");
+    if (o->simlatch) arg_push(a, "-simlatch");
+    arg_push(a, file);
+}
+
+int gui_join_args(const GuiArgv *a, char *out, size_t n)
+{
+    int i, r = 0;
+    if (!n) return -1;
+    out[0] = 0;
+    for (i = 0; i < a->n; i++) {
+        size_t l = strlen(out);
+        if (l) {
+            if (l + 2 >= n) return -1;
+            out[l++] = ' ';
+            out[l] = 0;
+        }
+        r |= gui_quote_arg(a->v[i], out + l, n - l);
+    }
     return r ? -1 : 0;
+}
+
+int gui_compile_cmd(const GuiOpts *o, const char *exe, const char *file,
+                    int flags, char *out, size_t n)
+{
+    GuiArgv a;
+    gui_compile_argv(o, exe, file, flags, &a);
+    return gui_join_args(&a, out, n);
+}
+
+int gui_sim_cmd(const GuiOpts *o, const char *exe, const char *file,
+                char *out, size_t n)
+{
+    GuiArgv a;
+    gui_sim_argv(o, exe, file, &a);
+    return gui_join_args(&a, out, n);
 }
 
 /* ---- settings file ---- */
@@ -490,7 +564,7 @@ void gui_recent_add(char list[GUI_NRECENT][GUI_PATH], const char *path)
 
 /* ---- source text ---- */
 
-static const char *const keywords[] = {
+const char *const gui_keywords[] = {
     "append", "assembly", "base", "company", "condition", "date", "default",
     "designer", "device", "else", "field", "fld", "format", "function",
     "fuse", "group", "if", "jump", "location", "macro", "min", "name",
@@ -498,13 +572,14 @@ static const char *const keywords[] = {
     "property", "revision", "sequence", "sequenced", "sequencejk",
     "sequencers", "sequencet", "table", "vectors"
 };
+const int gui_nkeywords = (int)(sizeof gui_keywords / sizeof gui_keywords[0]);
 
 static int is_keyword(const unsigned char *s, size_t l)
 {
-    size_t lo = 0, hi = sizeof keywords / sizeof keywords[0];
+    size_t lo = 0, hi = (size_t)gui_nkeywords;
     while (lo < hi) {
         size_t mid = (lo + hi) / 2, i;
-        const char *k = keywords[mid];
+        const char *k = gui_keywords[mid];
         int d = 0;
         for (i = 0; i < l && !d; i++) d = lower(s[i]) - (unsigned char)k[i];
         if (!d && k[l]) d = -1;
@@ -611,9 +686,16 @@ int gui_design_name(const char *t, size_t n, char *out, size_t outn)
     j = i;
     while (j < n && t[j] != ';' && t[j] != '\r' && t[j] != '\n') j++;
     while (j > i && (t[j - 1] == ' ' || t[j - 1] == '\t')) j--;
-    for (; i < j && k + 1 < outn; i++) out[k++] = t[i];
-    out[k] = 0;
-    return k > 0;
+    {
+        /* the JEDEC file is named after the item as freecupl forms the
+           name (namebase.h); no name when freecupl refuses it */
+        char raw[256], nb[64];
+        for (; i < j && k + 1 < sizeof raw; i++) raw[k++] = t[i];
+        raw[k] = 0;
+        if (!k || name_file_base(raw, nb, sizeof nb)) { out[0] = 0; return 0; }
+        snprintf(out, outn, "%s", nb);
+    }
+    return out[0] != 0;
 }
 
 int gui_device_stmt(const char *t, size_t n, size_t *start, size_t *end)
@@ -683,4 +765,13 @@ int gui_has_ext(const char *path, const char *ext)
 {
     const char *dot = strrchr(gui_basename(path), '.');
     return dot && !gui_stricmp(dot, ext);
+}
+
+int gui_is_output(const char *path)
+{
+    static const char *const ext[] = { ".jed", ".doc", ".lst", ".so", ".wo", ".abs", ".mx" };
+    size_t i;
+    for (i = 0; i < sizeof ext / sizeof ext[0]; i++)
+        if (gui_has_ext(path, ext[i])) return 1;
+    return 0;
 }

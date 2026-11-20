@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            seq_out_comb
@@ -29,4 +29,4 @@ Location        x
 *L05856 11110100111101010101010101000100
 *L05888 0011
 *C1F36
-*B63A
+*B63B

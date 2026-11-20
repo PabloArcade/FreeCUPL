@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p10p8v  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -18,4 +18,4 @@ Location        x
 *L00480 11010111101111111111000000000000
 *L00640 000000001000000000001000
 *C03D5
-*5BAD
+*5BAE

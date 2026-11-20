@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g20v8cpmslcc  Library DLIB-h-40-3
 Created         Thu Jan  1 00:00:00 1970
 Name            R7003
@@ -23,4 +23,4 @@ Location        x
 *L02656 11111111111111111111111111111111
 *L02688 1111111111111111011
 *C14C5
-*86F0
+*86F1

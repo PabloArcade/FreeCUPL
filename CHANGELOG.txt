@@ -1,5 +1,84 @@
 FreeCUPL changes
 
+2.3.0  2026-11-20
+
+New: freecupl serve, an editor and front end for Linux and macOS in the
+web browser (docs/USERGUIDE.txt, section 9).  freecupl serves one page
+to a browser on the same machine and opens it; the page has the
+functions of freecuplw: file list of the working directory, editor
+with tabs, the same syntax colouring, find and replace, go to line,
+CRLF or LF kept; Compile and Simulate with the options dialog; message
+pane where a click goes to the line of an error or opens an output
+file; read-only viewers; device list; the user guide.  The page is
+compiled into freecupl, without libraries and without anything from
+the network.  The server listens on 127.0.0.1 only and asks for a
+random token in a header field of every request for data; it sets no
+cookie, checks the Host field, sends no CORS headers and reads and
+writes only regular files directly in the directory it was started
+for.  Compile and Simulate run freecupl and
+freecsim from the directory of the program, so the results are those of
+the command line.  It also runs on Windows, where freecuplw.exe stays
+the front end.
+
+New package for macOS, freecupl-VERSION-macos.zip, built by continuous
+integration: programs for Apple and Intel processors, signed ad hoc,
+with FreeCUPL.command, which starts freecupl serve with a double
+click.  Not tested on a Mac.
+
+Fixed: a buffer overflow in freecupl.  With -l (listing), freecupl
+wrote past the end of a heap buffer when the name of the source file
+was more than three characters longer than the Name item of the design
+(more than ten characters without a Name item): the listing is named
+after the source, the buffer was sized for the outputs named after the
+Name item.  All versions from 1.0.0 to 2.2.0 have the fault.  It could
+corrupt memory or end the program; the files written were correct when
+it did not.  make check now compiles and simulates with source names
+and Name items of 1 to 200 characters (tests/names).
+
+"freecupl serve" is now a command: a source file of that name is
+compiled as "freecupl ./serve".
+
+Changed: output file names, to those of WinCUPL.  Only the JEDEC file
+is named after the Name item; the .doc and .abs files are now named
+after the source file, like the listing (2.2.0 and earlier named them
+after the Name item, so "freecupl -a" followed by "freecsim SOURCE" did
+not find the absolute file when the two names differed).  The file name
+is formed from the Name item as cupl.exe does it: up to the first
+blank, without a directory or drive part, at most 28 characters.  A
+name that cannot be a file name on Windows (one of * ? " < > |, or a
+device name such as CON or LPT1) is refused with 0001cc on every
+system; earlier versions wrote such files on Linux and macOS, and wrote
+into another directory when the item had one.  -n names the JEDEC file
+after the source as before.  The Windows front end and freecupl serve
+have the option "Name the outputs after the source file" for it.
+
+Changed: when a sum has more product terms than its output (0006cc),
+the design is fitted again with the shortest sums FreeCUPL finds and
+compiled if it then fits, with the note 0909cb (not at -m0 and not
+with -compat-refdefect, which reject it as WinCUPL does).  Designs that
+fit are compiled exactly as before.  The minimisation at -m1, the
+default, gives the sums of cupl.exe -m1; a design compiled in WinCUPL
+with Quine-McCluskey, Presto or Expresso has shorter terms, and
+-m2 to -m4 give those (user guide, section 1).
+
+New: the device lists of freecuplw and of freecupl serve sort by a
+click on a column header and reverse on a second click; pins sort as
+numbers.
+
+Fixed: freecuplw listed, among the files a run wrote, a JEDEC file
+written a moment earlier under the other name (Name item or source).
+
+The device list of the user guide is now section 10.
+
+make check also runs tests/cli (minimisation levels, the second
+fitting attempt, the security fuse).  make check-serve tests freecupl
+serve (tests/serve; needs curl).  The
+console programs for Windows may import ten more functions of
+kernel32, for processes, pipes and handles (tools/xp_allowlist.txt has
+the names and the Windows version each one came with); ws2_32,
+advapi32 and shell32 are looked up at run time, so the programs still
+import kernel32.dll and msvcrt.dll only.
+
 2.2.0  2026-11-18
 
 New program for Windows: freecuplw.exe, an editor and front end for

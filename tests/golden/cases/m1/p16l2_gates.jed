@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p16l2  Library DLIB-h-40-7
 Created         Thu Jan  1 00:00:00 1970
 Name            p16l2_ga
@@ -18,4 +18,4 @@ Location        x
 *L00256 11011111111111111111111111111111
 *L00288 11110111111111111111111111111111
 *C0BDB
-*60A4
+*60A5

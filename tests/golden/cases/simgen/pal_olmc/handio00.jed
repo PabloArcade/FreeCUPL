@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p22cv10z  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            P
@@ -60,4 +60,4 @@ Location        x
 *V0019 C1011XXXXXXNXXXHXHXLHXXN
 *V0020 K1X11XXXXXXNXXXXXXXXHXXN
 *V0021 P1110XXXXXXNXXX0XXX01XXN
-*B34E
+*B34F

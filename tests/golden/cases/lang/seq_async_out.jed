@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            seq_asyn
@@ -37,4 +37,4 @@ Location        x
 *L05856 11110100000101010011010110010100
 *L05888 1110
 *C38CE
-*F2D5
+*F2D6

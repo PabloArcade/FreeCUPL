@@ -1,4 +1,4 @@
-FreeCUPL 2.2.0
+FreeCUPL 2.3.0
 
 FreeCUPL is a free replacement for the command-line compiler and
 simulator of WinCUPL 5.0a, the CUPL tools for simple programmable logic
@@ -14,6 +14,10 @@ and contains no code or data from WinCUPL.
   freecuplw  Windows only: editor and front end that runs freecupl and
              freecsim (docs/USERGUIDE.txt, section 8)
 
+"freecupl serve" is the editor and front end for Linux and macOS: a
+page in the web browser of the same machine, served by freecupl itself
+on 127.0.0.1 (docs/USERGUIDE.txt, section 9).
+
 Command lines, file formats and messages follow WinCUPL, so existing
 designs and build scripts can be used unchanged.  For every design that
 WinCUPL compiles, freecupl writes a JEDEC file that makes the device
@@ -26,15 +30,29 @@ default; make FIX_DEFAULT=0 builds that behaviour.
 327 device mnemonics are supported: GAL16V8, GAL20V8, 22V10, GAL18V10,
 GAL20RA10, GAL20XV10, GAL26CV12, ATV750, ATF750C, ATV2500, ATF2500C,
 ATV5000, PEEL18CV8 and most PAL families, with their PLCC variants.
-The full list is in section 9 of docs/USERGUIDE.txt; section 6 lists
+The full list is in section 10 of docs/USERGUIDE.txt; section 6 lists
 the mnemonics that are not supported (PLS/IFL, GAL6001, EP300 to EP1800
 and others).  CPLDs that need WinCUPL's external fitter are not
 supported.
 
 Platforms: Windows XP SP3 and later (32-bit), Linux, macOS.  The macOS
 build is only tested by continuous integration.  freecuplw is a Windows
-program; Linux and macOS have the command line, and freecuplw.exe also
-runs there under Wine (it was tested under Wine).
+program; Linux and macOS have the command line and freecupl serve, and
+freecuplw.exe also runs there under Wine (it was tested under Wine).
+
+macOS: the package freecupl-VERSION-macos.zip has programs for Apple
+and Intel processors and FreeCUPL.command, which starts freecupl serve
+with a double click.  At the first start it creates the folder FreeCUPL
+in the home folder for the designs, copies the examples into it and
+prints what it did.  The programs are not signed with a developer
+certificate.  macOS refuses the first start of a downloaded copy: open
+FreeCUPL.command with the right mouse button and Open (macOS 15: allow
+it under System Settings, Privacy & Security), or run
+
+    xattr -dr com.apple.quarantine FOLDER
+
+on the unpacked folder.  The package and Safari were not tested on a
+Mac.
 
 Usage:
 
@@ -42,6 +60,7 @@ Usage:
     freecupl -jas counter.pld     compile and simulate counter.si
     freecupl -a counter.pld       write the absolute file, then
     freecsim -l counter           simulate, listing in counter.so
+    freecupl serve examples       editor page for the examples
 
 The examples directory has small designs with simulation inputs.  The
 programs are described in docs/USERGUIDE.txt and in the manual pages
@@ -53,6 +72,7 @@ Building needs a C99 compiler and make:
     make win32     build/win32/*.exe with i686-w64-mingw32-gcc and
                    windres, freecuplw.exe included
     make check     run the test suite in tests/golden
+    make check-serve   test freecupl serve (needs curl)
 
 make also builds the Windows programs when i686-w64-mingw32-gcc is
 installed.  make check compiles and simulates the designs in

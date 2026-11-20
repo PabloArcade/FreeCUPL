@@ -9,6 +9,13 @@ GetSystemTimeAsFileTime TlsAlloc TlsFree TlsGetValue TlsSetValue VirtualProtect 
 IsDBCSLeadByteEx MultiByteToWideChar WideCharToMultiByte GetStdHandle WriteFile ReadFile
 CreateFileA CloseHandle GetFileAttributesA GetFullPathNameA GetCommandLineA
 FindFirstFileA FindNextFileA FindClose GetEnvironmentVariableA RaiseException
+# freecupl serve: processes, pipes, handles.  By Microsoft's
+# documentation in kernel32 since Windows NT 3.1 (the first eight),
+# NT 3.51 (SetHandleInformation) and NT 4.0 (GetFileAttributesExA), so
+# in XP SP3; not looked up on an XP machine.
+CreatePipe CreateProcessA DuplicateHandle FormatMessageA GetExitCodeProcess
+PeekNamedPipe TerminateProcess WaitForSingleObject
+SetHandleInformation GetFileAttributesExA
 dll msvcrt.dll
 __getmainargs __initenv __mb_cur_max __p__commode __p__fmode __set_app_type __setusermatherr
 __dllonexit __lconv_init _amsg_exit _cexit _exit _errno _initterm _iob _lock _unlock _onexit
@@ -20,4 +27,4 @@ sscanf getenv qsort bsearch signal raise setlocale localeconv
 memchr memcmp memcpy memmove memset strcat strchr strcmp strcpy strerror strlen strncat strncmp
 strncpy strrchr strstr strtok strtol strtoul isalnum isalpha isdigit islower isspace isupper
 isxdigit isprint ispunct tolower toupper wcslen time localtime gmtime strftime ctime asctime mktime
-clock difftime
+clock difftime strcspn strpbrk

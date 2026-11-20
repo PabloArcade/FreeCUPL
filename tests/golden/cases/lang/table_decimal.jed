@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            table_de
@@ -40,4 +40,4 @@ Location        x
 *L05856 11000100010101011111010001000100
 *L05888 0101
 *C433C
-*099B
+*099C

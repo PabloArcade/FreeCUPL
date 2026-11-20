@@ -3,6 +3,7 @@
 tests/golden/** -text
 # LF line ends on every platform
 *.sh text eol=lf
+*.command text eol=lf
 Makefile text eol=lf
 # artwork of the Windows front end
 *.ico binary

@@ -4,6 +4,7 @@
 #include "jed.h"
 #include "util.h"
 #include "version.h"
+#include "namebase.h"
 #include "bugs.h"
 #include "csim/csim.h"
 #include "sim3.h"
@@ -173,8 +174,14 @@ int main(int argc, char **argv)
     o.so_path = fl || fv ? so.p : NULL;
     o.wo_path = wo.p;
     if (fj) {
+        /* as in freecupl */
         if (fn || !d.hdr[CH_NAME]) buf_printf(&jp, "%s%s.jed", dir, stem);
-        else buf_printf(&jp, "%s%s.jed", dir, d.hdr[CH_NAME]);
+        else {
+            char nb[64];
+            int bad = name_file_base(d.hdr[CH_NAME], nb, sizeof nb) != 0;
+            buf_printf(&jp, "%s%s.jed", dir, nb);
+            if (bad) { printf("[0001sa] could not open:  %s.jed\n", nb); return 1; }
+        }
         o.jed_path = jp.p;
     }
     buf_printf(&ver, "%s", FREECUPL_VERSION_STRING);

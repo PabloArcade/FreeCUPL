@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p19l8t  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            T
@@ -38,4 +38,4 @@ Location        x
 *V0016 00XXXXXXXXXN0XXXXXLXXX0N
 *V0017 00XXXXXXXXXN1XXXXXLXXX0N
 *V0018 00XXXXXXXXXN0XXXXXLXXX0N
-*0969
+*096A

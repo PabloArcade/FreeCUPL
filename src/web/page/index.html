@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- freecupl serve - the page.  DARKSOFT. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeCUPL</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div id="bar">
+  <span class="grp">
+    <button id="b-new" title="New source">New</button>
+    <button id="b-save" title="Save (Ctrl+S)">Save</button>
+    <button id="b-saveas" title="Save under another name">Save As</button>
+    <button id="b-close" title="Close the tab">Close</button>
+  </span>
+  <span class="grp">
+    <button id="b-find" title="Find (Ctrl+F)">Find</button>
+    <button id="b-replace" title="Replace (Ctrl+H)">Replace</button>
+    <button id="b-goto" title="Go to line (Ctrl+G)">Go To</button>
+    <button id="b-device" title="Insert Device (Ctrl+D)">Device</button>
+  </span>
+  <span class="grp">
+    <button id="b-compile" title="Compile (F7)">Compile</button>
+    <button id="b-sim" title="Simulate (F8)">Simulate</button>
+    <button id="b-stop" title="Stop the running program" disabled>Stop</button>
+    <button id="b-options" title="Options (F9)">Options</button>
+  </span>
+  <span class="grp">
+    <button id="b-vpld" title="Source">.pld</button>
+    <button id="b-vsi" title="Simulation input">.si</button>
+    <button id="b-vjed" title="JEDEC file">.jed</button>
+    <button id="b-vdoc" title="Documentation">.doc</button>
+    <button id="b-vlst" title="Listing">.lst</button>
+    <button id="b-vso" title="Simulation output">.so</button>
+  </span>
+  <span class="grp">
+    <button id="b-guide" title="User guide (F1)">Guide</button>
+    <button id="b-about">About</button>
+    <button id="b-quit" title="End freecupl serve">Quit</button>
+  </span>
+</div>
+<div id="main">
+  <div id="side">
+    <div class="head"><span>Files</span><button id="b-refresh" title="Read the directory again">Refresh</button></div>
+    <div id="files"></div>
+  </div>
+  <div id="work">
+    <div id="tabs"></div>
+    <div id="eds"><div id="empty">No file open.</div></div>
+    <div id="find" hidden>
+      <label>Find <input id="f-what" type="text" spellcheck="false" autocomplete="off"></label>
+      <label id="f-rep">Replace <input id="f-with" type="text" spellcheck="false" autocomplete="off"></label>
+      <label><input id="f-case" type="checkbox"> Match case</label>
+      <button id="f-next" title="F3">Next</button>
+      <button id="f-prev" title="Shift+F3">Previous</button>
+      <button id="f-one">Replace</button>
+      <button id="f-all">Replace All</button>
+      <button id="f-close" title="Esc">Close</button>
+    </div>
+    <div id="split"></div>
+    <div id="msgs"></div>
+  </div>
+</div>
+<div id="status">
+  <span id="st-msg"></span>
+  <span id="st-pos"></span>
+  <span id="st-eol"></span>
+  <label>Tab <select id="st-tab"><option>2</option><option>4</option><option selected>8</option></select></label>
+  <label><input id="st-colour" type="checkbox" checked> Colours</label>
+</div>
+
+<dialog id="d-options">
+  <form method="dialog">
+    <h1 id="o-title">Options</h1>
+    <fieldset><legend>Output files</legend>
+      <div class="cols">
+        <label><input type="checkbox" id="o-jed"> JEDEC file (.jed)</label>
+        <label><input type="checkbox" id="o-lst"> Listing (.lst)</label>
+        <label><input type="checkbox" id="o-doc"> Documentation (.doc)</label>
+        <label><input type="checkbox" id="o-abs"> Absolute file (.abs)</label>
+        <label><input type="checkbox" id="o-fuseplot"> Fuse plot in the .doc file</label>
+        <label><input type="checkbox" id="o-mx"> Macro expansion (.mx)</label>
+      </div>
+      <label><input type="checkbox" id="o-namesrc"> Name the outputs after the source file</label>
+    </fieldset>
+    <fieldset><legend>Compiler</legend>
+      <label class="row">Minimisation: <select id="o-min">
+        <option value="0">0 - none</option><option value="1">1 - quick</option>
+        <option value="2">2</option><option value="3">3</option>
+        <option value="4">4 - strongest</option></select></label>
+      <label class="row">Device: <select id="o-device"><option value="">(from the source)</option></select></label>
+      <label><input type="checkbox" id="o-kb"> Pick the output polarity with fewer product terms</label>
+      <label><input type="checkbox" id="o-secure"> Program the security fuse</label>
+      <label><input type="checkbox" id="o-compat"> WinCUPL compatibility (reproduce the bugs of 5.0a)</label>
+    </fieldset>
+    <fieldset><legend>Simulator</legend>
+      <div class="cols">
+        <label><input type="checkbox" id="o-simafter"> Simulate after compile</label>
+        <label><input type="checkbox" id="o-simlst"> Listing (.so)</label>
+      </div>
+      <label><input type="checkbox" id="o-simjed"> Test vectors into the JEDEC file</label>
+      <label><input type="checkbox" id="o-simlatch"> Simulate latches (not verified)</label>
+    </fieldset>
+    <label><input type="checkbox" id="o-perfile"> Keep these options for this file only</label>
+    <div class="btns"><button id="o-ok" value="ok">OK</button><button value="cancel">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="d-devices">
+  <form method="dialog">
+    <h1>Devices</h1>
+    <div class="row"><label>Search: <input id="dv-filter" type="text" spellcheck="false" autocomplete="off"></label>
+      <span id="dv-count"></span></div>
+    <div id="dv-box"><table id="dv-table">
+      <thead><tr><th data-col="0" title="Sort">Mnemonic</th><th data-col="1" title="Sort">Pins</th><th data-col="2" title="Sort">Part</th></tr></thead>
+      <tbody id="dv-list"></tbody></table></div>
+    <div class="btns"><button id="dv-insert" value="ok">Insert</button><button value="cancel">Close</button></div>
+  </form>
+</dialog>
+
+<dialog id="d-goto">
+  <form method="dialog">
+    <h1>Go To Line</h1>
+    <label class="row">Line number: <input id="g-line" type="text" inputmode="numeric" autocomplete="off"></label>
+    <div class="btns"><button value="ok">OK</button><button value="cancel">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="d-name">
+  <form method="dialog">
+    <h1>Save As</h1>
+    <label class="row">File name: <input id="n-name" type="text" spellcheck="false" autocomplete="off"></label>
+    <div id="n-err" class="err"></div>
+    <div class="btns"><button value="ok">Save</button><button value="cancel">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="d-ask">
+  <form method="dialog">
+    <p id="a-text"></p>
+    <div class="btns" id="a-btns"></div>
+  </form>
+</dialog>
+
+<dialog id="d-about">
+  <form method="dialog">
+    <h1>About FreeCUPL</h1>
+    <p id="ab-version"></p>
+    <p>CUPL compiler and simulator for PALs and GALs.</p>
+    <p id="ab-dir"></p>
+    <p>This program is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License, version 3 or any later
+    version.  It comes with no warranty.  See LICENSE.</p>
+    <div class="btns"><button value="ok">OK</button></div>
+  </form>
+</dialog>
+
+<script src="/kw.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

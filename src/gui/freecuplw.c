@@ -214,15 +214,6 @@ static void errtext(DWORD err, char *out, size_t n)
         out[--l] = 0;
 }
 
-static int is_output(const char *path)
-{
-    static const char *const ext[] = { ".jed", ".doc", ".lst", ".so", ".wo", ".abs", ".mx" };
-    size_t i;
-    for (i = 0; i < sizeof ext / sizeof ext[0]; i++)
-        if (gui_has_ext(path, ext[i])) return 1;
-    return 0;
-}
-
 /* ---- settings ---- */
 
 static void settings_load(void)
@@ -1159,7 +1150,7 @@ static int open_file(const char *name)
         msgbox(MB_ICONWARNING, "Cannot open %s", path);
         return 0;
     }
-    d = doc_new(is_output(path) ? DOC_VIEW : DOC_SRC);
+    d = doc_new(gui_is_output(path) ? DOC_VIEW : DOC_SRC);
     if (!d) return 0;
     doc_set_path(d, path);
     if (!doc_load(d, path)) {
@@ -1305,6 +1296,23 @@ static int out_names(const char *pld, char names[3][MAX_PATH])
     return n;
 }
 
+/* the JEDEC file a run of pld writes, without extension: named after the
+   source with -n, else after the Name item, else no_name */
+static void jed_name(const char *pld, int namesrc, char out[MAX_PATH])
+{
+    char head[65536], nm[80], dir[MAX_PATH];
+    DWORD got = 0;
+    HANDLE h;
+    if (namesrc) { gui_set_ext(pld, "", out, MAX_PATH); return; }
+    h = CreateFileA(pld, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+    gui_dirname(pld, dir, sizeof dir);
+    if (h != INVALID_HANDLE_VALUE) {
+        ReadFile(h, head, sizeof head, &got, NULL);
+        CloseHandle(h);
+    }
+    join(out, dir, gui_design_name(head, got, nm, sizeof nm) ? nm : "no_name");
+}
+
 static void view_output(const char *ext)
 {
     char pld[MAX_PATH], si[MAX_PATH], names[3][MAX_PATH], path[MAX_PATH];
@@ -1321,8 +1329,8 @@ static void view_output(const char *ext)
         return;
     }
     n = out_names(pld, names);
-    /* the listings are named after the source */
-    if (!strcmp(ext, ".lst") || !strcmp(ext, ".so")) {
+    /* only the JEDEC file is named after the Name item */
+    if (strcmp(ext, ".jed")) {
         gui_set_ext(pld, "", names[0], MAX_PATH);
         n = 1;
     }
@@ -1556,11 +1564,11 @@ static void step_start(void)
 {
     int step = g_run.queue[g_run.qi];
     char cmd[2 * MAX_PATH + 128], shown[MAX_PATH + 128], exe[MAX_PATH];
-    char names[3][MAX_PATH], base[MAX_PATH];
+    char jn[MAX_PATH], base[MAX_PATH];
     const char *tool = step == STEP_COMPILE ? "freecupl" : "freecsim";
     const char *file = gui_basename(step == STEP_COMPILE ? g_run.pld : g_run.si);
     int flags = step == STEP_COMPILE ? g_run.flags : 0;
-    int i, n, r;
+    int r;
     DWORD err, tid;
 
     g_run.nerr = g_run.nwarn = 0;
@@ -1577,17 +1585,16 @@ static void step_start(void)
     status("%s %s...", step == STEP_COMPILE ? "Compiling" : "Simulating", file);
 
     gui_set_ext(g_run.pld, "", base, sizeof base);
-    n = file_time(g_run.pld, NULL) ? out_names(g_run.pld, names) : 0;
+    jn[0] = 0;
+    if (file_time(g_run.pld, NULL)) jed_name(g_run.pld, g_run.o.namesrc, jn);
     if (step == STEP_COMPILE) {
-        for (i = 0; i < n; i++) {
-            snap_add(names[i], ".jed");
-            snap_add(names[i], ".doc");
-            snap_add(names[i], ".abs");
-        }
+        if (jn[0]) snap_add(jn, ".jed");
+        snap_add(base, ".doc");
+        snap_add(base, ".abs");
         snap_add(base, ".lst");
         snap_add(base, ".mx");
     } else if (g_run.o.simjed) {
-        for (i = 0; i < n; i++) snap_add(names[i], ".jed");
+        if (jn[0]) snap_add(jn, ".jed");
     }
     if (step == STEP_SIM || (flags & GC_SIM)) {
         gui_set_ext(g_run.si, "", base, sizeof base);
@@ -2009,20 +2016,37 @@ static INT_PTR CALLBACK options_proc(HWND h, UINT m, WPARAM w, LPARAM l)
     return FALSE;
 }
 
+/* column the device list is sorted by (-1: order of the table) and the
+   direction; kept while the program runs */
+static int g_dev_col = -1, g_dev_desc;
+
 static void devices_fill(HWND h)
 {
-    HWND lv = GetDlgItem(h, IDC_D_LIST);
+    HWND lv = GetDlgItem(h, IDC_D_LIST), hd = (HWND)SendMessage(lv, LVM_GETHEADER, 0, 0);
     char filter[80], b[64];
-    int i, n = 0;
+    int i, k, n, keep = -1, sel = 0, *idx;
     GetDlgItemTextA(h, IDC_D_FILTER, filter, sizeof filter);
+    /* the selected device stays selected when it is still listed */
+    i = (int)SendMessage(lv, LVM_GETNEXTITEM, (WPARAM)-1, LVNI_SELECTED);
+    if (i >= 0) {
+        LVITEMA it;
+        memset(&it, 0, sizeof it);
+        it.mask = LVIF_PARAM;
+        it.iItem = i;
+        if (SendMessage(lv, LVM_GETITEMA, 0, (LPARAM)&it)) keep = (int)it.lParam;
+    }
+    idx = (int *)malloc(sizeof(int) * (size_t)(gui_ndevs + 1));
+    if (!idx) return;
+    n = gui_dev_list(filter, g_dev_col, g_dev_desc, idx);
     SendMessage(lv, WM_SETREDRAW, FALSE, 0);
     SendMessage(lv, LVM_DELETEALLITEMS, 0, 0);
-    for (i = 0; i < gui_ndevs; i++) {
+    for (k = 0; k < n; k++) {
         LVITEMA it;
-        if (!gui_dev_match(filter, &gui_devs[i])) continue;
+        i = idx[k];
+        if (i == keep) sel = k;
         memset(&it, 0, sizeof it);
         it.mask = LVIF_TEXT | LVIF_PARAM;
-        it.iItem = n;
+        it.iItem = k;
         it.pszText = (char *)gui_devs[i].mn;
         it.lParam = i;
         SendMessage(lv, LVM_INSERTITEMA, 0, (LPARAM)&it);
@@ -2034,13 +2058,24 @@ static void devices_fill(HWND h)
         it.iSubItem = 2;
         it.pszText = (char *)gui_devs[i].part;
         SendMessage(lv, LVM_SETITEMA, 0, (LPARAM)&it);
-        n++;
+    }
+    free(idx);
+    /* the arrow in the header of the sorted column */
+    for (k = 0; hd && k < 3; k++) {
+        HDITEMA hi;
+        memset(&hi, 0, sizeof hi);
+        hi.mask = HDI_FORMAT;
+        if (!SendMessage(hd, HDM_GETITEMA, (WPARAM)k, (LPARAM)&hi)) continue;
+        hi.fmt &= ~(HDF_SORTUP | HDF_SORTDOWN);
+        if (k == g_dev_col) hi.fmt |= g_dev_desc ? HDF_SORTDOWN : HDF_SORTUP;
+        SendMessage(hd, HDM_SETITEMA, (WPARAM)k, (LPARAM)&hi);
     }
     if (n) {
         LVITEMA it;
         memset(&it, 0, sizeof it);
         it.stateMask = it.state = LVIS_SELECTED | LVIS_FOCUSED;
-        SendMessage(lv, LVM_SETITEMSTATE, 0, (LPARAM)&it);
+        SendMessage(lv, LVM_SETITEMSTATE, (WPARAM)sel, (LPARAM)&it);
+        SendMessage(lv, LVM_ENSUREVISIBLE, (WPARAM)sel, FALSE);
     }
     SendMessage(lv, WM_SETREDRAW, TRUE, 0);
     InvalidateRect(lv, NULL, TRUE);
@@ -2057,7 +2092,7 @@ static INT_PTR CALLBACK devices_proc(HWND h, UINT m, WPARAM w, LPARAM l)
         static const struct {
             const char *t;
             int w;
-        } col[] = { { "Mnemonic", 110 }, { "Pins", 40 }, { "Part", 400 } };
+        } col[] = { { "Mnemonic", 110 }, { "Pins", 56 }, { "Part", 400 } };
         Doc *d = cur();
         int i;
         center(h);
@@ -2078,6 +2113,14 @@ static INT_PTR CALLBACK devices_proc(HWND h, UINT m, WPARAM w, LPARAM l)
         return TRUE;
     }
     case WM_NOTIFY:
+        if (((NMHDR *)l)->idFrom == IDC_D_LIST && ((NMHDR *)l)->code == LVN_COLUMNCLICK) {
+            /* a click on a column header sorts by it, a second one reverses */
+            int c = ((NMLISTVIEW *)l)->iSubItem;
+            if (c == g_dev_col) g_dev_desc = !g_dev_desc;
+            else { g_dev_col = c; g_dev_desc = 0; }
+            devices_fill(h);
+            return TRUE;
+        }
         if (((NMHDR *)l)->idFrom == IDC_D_LIST && ((NMHDR *)l)->code == NM_DBLCLK &&
             IsWindowEnabled(GetDlgItem(h, IDOK)))
             PostMessage(h, WM_COMMAND, IDOK, 0);

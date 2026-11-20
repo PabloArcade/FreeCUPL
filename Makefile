@@ -5,8 +5,11 @@
 #                     when the cross compiler is found; the win32 build
 #                     includes the front end freecuplw.exe
 #   make native, make win32, make clean
-#   make check        golden tests (tests/golden)
+#   make check        golden tests (tests/golden), output file names
+#                     (tests/names) and options (tests/cli)
 #   make check-win32  the same with the win32 tools under wine
+#   make check-serve  tests of freecupl serve (needs curl);
+#                     check-serve-win32 the same under wine
 #   make test         development test harness, not in the source release
 #   make FIX_DEFAULT=0  WinCUPL's bugs by default, as in 1.0 (with check
 #                     and check-win32 too)
@@ -60,7 +63,7 @@ DEVS   = $(sort $(wildcard devices/*.dev))
 TOOLS  = freecupl freecsim jedsim equiv jedtool
 HAVE_WINCC := $(shell command -v $(WINCC) >/dev/null 2>&1 && echo yes)
 
-.PHONY: all native win32 check check-win32 test clean
+.PHONY: all native win32 check check-win32 check-serve check-serve-win32 test clean
 all: native $(if $(HAVE_WINCC),win32)
 
 native: $(addprefix $(B_N)/,$(TOOLS))
@@ -81,13 +84,33 @@ FORCE:
 $(GEN)/devdb.c: $(GEN)/embed $(DEVS) $(GEN)/devlist
 	$(GEN)/embed $@ $(DEVS)
 
-$(B_N)/freecupl: src/tools/freecupl.c $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(HDRS)
-	@mkdir -p $(B_N)
-	$(CC) $(CFLAGS_N) -Isrc -o $@ $< $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(LDFLAGS_N)
+# freecupl serve: the page and the user guide are compiled in, the
+# reserved words of the page come from the table of src/gui/core.c
+WEBSRC  = src/web/http.c src/web/api.c src/web/serve.c src/web/sys_posix.c \
+          src/web/sys_win.c src/gui/core.c
+WEBHDR  = src/web/http.h src/web/web.h src/web/sys.h src/gui/core.h
+WEBPAGE = src/web/page/index.html src/web/page/app.css src/web/page/app.js
+WEBGEN  = $(GEN)/webpage.c $(GEN)/guidev.c
 
-$(B_W)/freecupl.exe: src/tools/freecupl.c $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(HDRS)
+$(GEN)/webgen: src/host/webgen.c src/gui/core.c src/gui/core.h $(GEN)/guidev.c
+	@mkdir -p $(GEN)
+	$(HOSTCC) -O1 -Isrc -o $@ src/host/webgen.c src/gui/core.c $(GEN)/guidev.c
+
+$(GEN)/kw.js: $(GEN)/webgen
+	$(GEN)/webgen -kw $@
+
+$(GEN)/webpage.c: $(GEN)/webgen $(WEBPAGE) $(GEN)/kw.js src/gui/freecuplw.ico docs/USERGUIDE.txt
+	$(GEN)/webgen $@ index_html=src/web/page/index.html app_css=src/web/page/app.css \
+	    app_js=src/web/page/app.js kw_js=$(GEN)/kw.js \
+	    favicon_ico=src/gui/freecuplw.ico userguide_txt=docs/USERGUIDE.txt
+
+$(B_N)/freecupl: src/tools/freecupl.c $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(HDRS) $(WEBSRC) $(WEBHDR) $(WEBGEN)
+	@mkdir -p $(B_N)
+	$(CC) $(CFLAGS_N) -Isrc -o $@ $< $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(WEBSRC) $(WEBGEN) $(LDFLAGS_N)
+
+$(B_W)/freecupl.exe: src/tools/freecupl.c $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(HDRS) $(WEBSRC) $(WEBHDR) $(WEBGEN)
 	@mkdir -p $(B_W)
-	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $< $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(LDFLAGS_W)
+	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $< $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(WEBSRC) $(WEBGEN) $(LDFLAGS_W)
 
 $(B_N)/freecsim: src/tools/freecsim.c $(LIBSRC) $(CUPLSRC) $(GEN)/devdb.c $(HDRS)
 	@mkdir -p $(B_N)
@@ -132,9 +155,35 @@ GOLDEN_ENV = $(if $(filter 0,$(FIX_DEFAULT)),DEFAULT_ARGS=-fix)
 
 check: native
 	$(GOLDEN_ENV) sh tests/golden/run.sh $(B_N)
+	sh tests/names/run.sh $(B_N)
+	sh tests/cli/run.sh $(B_N)
 
 check-win32: win32
 	$(GOLDEN_ENV) RUN=wine EXE=.exe sh tests/golden/run.sh $(B_W)
+	RUN=wine EXE=.exe sh tests/names/run.sh $(B_W)
+	RUN=wine EXE=.exe sh tests/cli/run.sh $(B_W)
+
+# freecupl serve: handlers without a socket, then curl against the server
+WEBUNIT = tests/serve/unit.c src/web/http.c src/web/api.c src/web/sys_posix.c \
+          src/web/sys_win.c src/gui/core.c
+
+$(B_N)/serve_unit: $(WEBUNIT) $(WEBHDR) $(WEBGEN)
+	@mkdir -p $(B_N)
+	$(CC) $(CFLAGS_N) -Isrc -o $@ $(WEBUNIT) $(WEBGEN) $(LDFLAGS_N)
+
+# not in build/win32: it is not one of the programs
+$(GEN)/serve_unit.exe: $(WEBUNIT) $(WEBHDR) $(WEBGEN)
+	$(WINCC) $(CFLAGS_W) -Isrc -o $@ $(WEBUNIT) $(WEBGEN) $(LDFLAGS_W)
+
+check-serve: native $(B_N)/serve_unit
+	@rm -rf build/check-serve && mkdir -p build/check-serve
+	$(B_N)/serve_unit build/check-serve $(B_N)
+	sh tests/serve/run.sh $(B_N)
+
+check-serve-win32: win32 $(GEN)/serve_unit.exe
+	@rm -rf build/check-serve-win32 && mkdir -p build/check-serve-win32
+	wine $(GEN)/serve_unit.exe build/check-serve-win32 $(B_W)
+	RUN=wine EXE=.exe sh tests/serve/run.sh $(B_W)
 
 test: all
 	@if [ -f tests/run_tests.sh ]; then FIX_DEFAULT='$(FIX_DEFAULT)' sh tests/run_tests.sh; \

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p14p4v  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            G9005
@@ -48,4 +48,4 @@ Location        x
 *V0017 XXXXXX10XNX10XHXX10N
 *V0018 XXXXXX11XN100HHHH00N
 *V0019 XXXXXX00XN010HLHL00N
-*31B4
+*31B5

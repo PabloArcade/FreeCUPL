@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g18v10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -23,4 +23,4 @@ Location        x
 *L03456 00000000010000000010010100100011
 *L03488 01110011000000110000001100010000
 *C157D
-*83F0
+*83F1

@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p22v10  Library DLIB-h-40-17
 Created         Thu Jan  1 00:00:00 1970
 Name            v10_oe_a
@@ -31,4 +31,4 @@ Location        x
 *L05760 00001111111111111111011111111111
 *L05792 11111111111111111010110000000000
 *C2F78
-*C907
+*C908

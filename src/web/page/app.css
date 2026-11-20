@@ -1,0 +1,130 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* freecupl serve - the page.  DARKSOFT. */
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex; flex-direction: column;
+  font: 13px system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #000; background: #f0f0f0;
+}
+button, select, input { font: inherit; }
+button {
+  padding: 2px 8px; border: 1px solid #999; border-radius: 2px;
+  background: #fafafa; color: #000;
+}
+button:hover:enabled { background: #e6eefc; border-color: #5a7fbf; }
+button:disabled { color: #999; }
+[hidden] { display: none !important; }
+
+#bar {
+  display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 6px;
+  border-bottom: 1px solid #aaa;
+}
+.grp { display: inline-flex; gap: 3px; }
+
+#main { flex: 1; display: flex; min-height: 0; }
+#side {
+  width: 190px; display: flex; flex-direction: column;
+  border-right: 1px solid #aaa; background: #fff;
+}
+#side .head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 3px 6px; background: #e4e4e4; border-bottom: 1px solid #aaa;
+}
+#files { flex: 1; overflow: auto; padding: 2px 0; }
+#files div {
+  padding: 1px 8px; cursor: default; white-space: nowrap;
+  font: 12px/17px Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+#files div:hover { background: #e6eefc; }
+#files div.ro { color: #666; }
+#files div.open { font-weight: bold; }
+
+#work { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+#tabs {
+  display: flex; flex-wrap: wrap; min-height: 24px;
+  background: #e4e4e4; border-bottom: 1px solid #aaa;
+}
+.tab {
+  padding: 3px 4px 3px 10px; border-right: 1px solid #aaa; cursor: default;
+  white-space: nowrap;
+}
+.tab.on { background: #fff; }
+.tab .x { margin-left: 8px; padding: 0 4px; color: #666; }
+.tab .x:hover { color: #c00000; }
+
+#eds { flex: 1; position: relative; min-height: 0; background: #fff; }
+#empty { padding: 12px; color: #666; }
+.ed { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; }
+.ed.off { visibility: hidden; }
+.gut {
+  width: 48px; overflow: hidden; background: #f4f4f4; color: #888;
+  border-right: 1px solid #ddd; text-align: right;
+}
+.code { flex: 1; position: relative; overflow: hidden; min-width: 0; }
+.gut pre, .hl, .code textarea {
+  margin: 0; border: 0; padding: 4px 6px;
+  font: 13px/18px Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  letter-spacing: 0; white-space: pre; tab-size: 8; -moz-tab-size: 8;
+}
+.hl {
+  position: absolute; left: 0; top: 0; color: #000;
+  pointer-events: none;
+}
+.code textarea {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  box-sizing: border-box; resize: none; outline: 0; overflow: auto;
+  background: transparent; color: transparent;
+  -webkit-text-fill-color: transparent; caret-color: #000;
+}
+.code textarea::selection { background: rgba(60, 120, 220, 0.3); }
+.c1 { color: #008000; }
+.c2 { color: #0000c8; }
+.c3 { color: #a00060; }
+.hl mark { background: #ffe060; color: inherit; }
+
+#find {
+  display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center;
+  padding: 3px 6px; border-top: 1px solid #aaa;
+}
+#find input[type=text] { width: 150px; }
+#split { height: 5px; cursor: ns-resize; background: #d0d0d0; border-top: 1px solid #aaa; }
+#msgs {
+  height: 150px; overflow: auto; background: #fff;
+  font: 13px/18px Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+#msgs div { padding: 0 6px; white-space: pre; }
+#msgs .go { cursor: pointer; }
+#msgs .go:hover { background: #e6eefc; }
+.k-error, .k-abort { color: #c00000; }
+.k-warn, .k-note { color: #806000; }
+.k-file { color: #0000c0; }
+.k-cmd, .k-summary { font-weight: bold; }
+
+#status {
+  display: flex; gap: 14px; align-items: center; padding: 2px 8px;
+  border-top: 1px solid #aaa; white-space: nowrap;
+}
+#st-msg { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+
+dialog { border: 1px solid #666; padding: 12px 14px; background: #f0f0f0; color: #000; }
+dialog::backdrop { background: rgba(0, 0, 0, 0.25); }
+dialog h1 { font-size: 13px; margin: 0 0 8px; }
+dialog p { margin: 0 0 8px; max-width: 420px; }
+fieldset { border: 1px solid #aaa; margin: 0 0 8px; padding: 4px 10px 8px; }
+fieldset label, dialog form > label { display: block; margin: 3px 0; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.row { display: flex; gap: 8px; align-items: center; margin: 4px 0; }
+.btns { display: flex; justify-content: flex-end; gap: 6px; margin-top: 10px; }
+.btns button { min-width: 70px; }
+.err { color: #c00000; min-height: 16px; }
+#dv-box { width: 520px; max-width: 80vw; height: 300px; overflow: auto; border: 1px solid #999; background: #fff; }
+#dv-table { border-collapse: collapse; width: 100%; font: 12px/17px Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+#dv-table th { position: sticky; top: 0; background: #e4e4e4; text-align: left; padding: 1px 8px; }
+#dv-table th { cursor: pointer; user-select: none; -webkit-user-select: none; white-space: nowrap; }
+#dv-table th.up::after { content: " \25B2"; font-size: 9px; }
+#dv-table th.down::after { content: " \25BC"; font-size: 9px; }
+#dv-table td:nth-child(2), #dv-table th:nth-child(2) { text-align: right; }
+#dv-table td { padding: 0 8px; white-space: nowrap; cursor: default; }
+#dv-table tr.sel td { background: #3c78dc; color: #fff; }
+#dv-count { margin-left: auto; }
+#ended { padding: 20px; }

@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Linux and macOS: build and make check.  Windows: i686 mingw build
-# (console tools and the front end freecuplw.exe) and the XP check.
+# Linux and macOS: build, make check and make check-serve (freecupl
+# serve, tested with curl).  Windows: i686 mingw build (console tools and
+# the front end freecuplw.exe) and the XP check.  macOS package: programs
+# for arm64 and x86_64, signed ad hoc, with the launcher.
 name: build
 
 on:
@@ -26,6 +28,56 @@ jobs:
           "$d/freecsim" -V
       - name: Golden test suite
         run: make check
+      - name: freecupl serve
+        run: make check-serve
+
+  macos-package:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build for arm64 and x86_64
+        run: make native CC="cc -arch arm64 -arch x86_64 -mmacosx-version-min=11.0"
+      - name: Golden test suite
+        run: make check
+      - name: freecupl serve
+        run: make check-serve
+      - name: Package
+        run: sh tools/mkmacpkg.sh dist
+      - name: Test the unpacked package
+        run: |
+          mkdir unpacked
+          cd unpacked
+          unzip -q ../dist/freecupl-*-macos.zip
+          d=$(echo freecupl-*-macos)
+          lipo -archs "$d/bin/freecupl"
+          codesign --verify --strict --verbose "$d/bin/freecupl"
+          test -x "$d/FreeCUPL.command"
+          "$d/bin/freecupl" -V
+          sh ../tests/serve/run.sh "$d/bin"
+          # the Intel code, where the runner can run it
+          if arch -x86_64 /usr/bin/true 2>/dev/null; then
+            arch -x86_64 "$d/bin/freecupl" -V
+            (cd "$d/examples" && arch -x86_64 ../bin/freecupl -jas counter4.pld)
+          fi
+          # the launcher, with a home folder of its own
+          export HOME="$PWD/home"
+          mkdir "$HOME"
+          "$d/FreeCUPL.command" --no-browser > launcher.log 2>&1 &
+          pid=$!
+          n=0
+          while [ $n -lt 100 ] && ! grep -q '^Open ' launcher.log; do sleep 0.1; n=$((n + 1)); done
+          cat launcher.log
+          grep -q "^Created the folder $HOME/FreeCUPL " launcher.log
+          url=$(sed -n 's/^Open //p' launcher.log)
+          curl -s -m 10 -H "X-FreeCUPL-Token: ${url##*=}" "${url%%/#*}/api/files" | grep -q '"name":"counter4.pld"'
+          kill -INT $pid
+          wait $pid
+          test -f "$HOME/FreeCUPL/counter4.si"
+      - name: Upload the package
+        uses: actions/upload-artifact@v7
+        with:
+          name: freecupl-macos
+          path: dist/freecupl-*-macos.zip
 
   win32:
     runs-on: ubuntu-24.04

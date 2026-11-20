@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          p20ra10  Library 
 Created         Thu Jan  1 00:00:00 1970
 Name            R7001
@@ -29,4 +29,4 @@ Location        x
 *L01120 11101111011101111111111111111111
 *L01152 11111111000000000000000000000000
 *C27BF
-*B2CC
+*B2CD

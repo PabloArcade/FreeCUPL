@@ -1,4 +1,4 @@
-FreeCUPL 2.2.0 USER GUIDE
+FreeCUPL 2.3.0 USER GUIDE
 
 FreeCUPL consists of two programs with the command lines of the WinCUPL
 5.0a command-line tools.  freecupl compiles CUPL source (.pld) into a
@@ -8,7 +8,9 @@ with -s it also runs the simulator.  freecsim applies test vectors
 (.si) to a compiled design (.abs) and writes a listing (.so), a waveform
 file (.wo) and optionally the test vectors into the JEDEC file.  The
 helper tools jedsim, equiv and jedtool are described in section 7.  On
-Windows, freecuplw is an editor and front end for both (section 8).
+Windows, freecuplw is an editor and front end for both (section 8); on
+Linux and macOS, freecupl serve gives the same in the web browser
+(section 9).
 
   1. freecupl
   2. freecsim
@@ -18,7 +20,8 @@ Windows, freecuplw is an editor and front end for both (section 8).
   6. Limitations
   7. Helper tools
   8. freecuplw (Windows)
-  9. Supported devices
+  9. freecupl serve (browser)
+ 10. Supported devices
 
 
 1. FREECUPL
@@ -26,7 +29,7 @@ Windows, freecuplw is an editor and front end for both (section 8).
     freecupl [-flags] [library] [device] file[.pld]
 
 If file has no extension and does not exist as given, file.pld and then
-file.PLD are tried.  device is a mnemonic from section 9 and overrides
+file.PLD are tried.  device is a mnemonic from section 10 and overrides
 the Device statement of the source.  library is accepted and ignored;
 an argument is taken as the library when -u is given, when there are
 three positional arguments, or when it ends in .dl.
@@ -38,34 +41,66 @@ Output flags:
 
   -j     write the JEDEC file NAME.jed.  It is also written when none
          of -x -l -e -a is given.
-  -x     write the documentation file NAME.doc (expanded product terms,
-         symbol table)
-  -f     add the fuse plot to NAME.doc (writes NAME.doc without -x too)
+  -x     write the documentation file SOURCE.doc (expanded product
+         terms, symbol table)
+  -f     add the fuse plot to SOURCE.doc (writes SOURCE.doc without -x
+         too)
   -l     write the listing SOURCE.lst (numbered source and messages)
   -e     write the macro expansion SOURCE.mx (source after the
          preprocessor)
-  -a     write the absolute file NAME.abs for freecsim
-  -s     compile, write NAME.abs and simulate SOURCE.si, writing
+  -a     write the absolute file SOURCE.abs for freecsim
+  -s     compile, write SOURCE.abs and simulate SOURCE.si, writing
          SOURCE.so and SOURCE.wo; with -j the test vectors are appended
          to the JEDEC file
-  -n     name the outputs after the source file, not the Name item
+  -n     name the JEDEC file after the source file too, not after the
+         Name item: SOURCE.jed
 
-NAME is the value of the Name header item.  With -n, or when there is no
-Name item, the source file name without extension is used; with no Name
-and no -n the name is no_name and warning 0009cc is given.  SOURCE is
-always the source file name without extension.  Outputs are written in
-the directory of the source file.
+SOURCE is the source file name without extension.  All outputs are
+written in the directory of the source file.  As in WinCUPL, only the
+JEDEC file is named after the Name header item ("Name AB12-(C);" in
+board7.pld gives AB12-(C).jed and board7.doc); FreeCUPL up to 2.2.0
+named the .doc and .abs files after it as well.  NAME is formed from
+the item as cupl.exe does it:
+
+  - the item up to its first blank;
+  - without a directory or drive part ("..\out\x" and "c:x" give x);
+  - cut to 28 characters.
+
+A name that cannot be a file name on Windows is refused with [0001cc]
+could not open, on every system, so that a design gives the same files
+everywhere: one with * ? " < > | or a control character, and the device
+names CON, PRN, AUX, NUL, COM1 to COM9 and LPT1 to LPT9, alone or
+before a dot.  Use -n for such a design, or change the item.  With no
+Name item and no -n the JEDEC file is no_name.jed and warning 0009cc is
+given.
 
 Compilation flags:
 
   -m0    no minimisation
-  -m1    quick minimisation (default), with WinCUPL's term counts
+  -m1    quick minimisation (default): the sums of cupl.exe -m1, which
+         is also the default of cupl.exe and of the WinCUPL program
   -m2 -m3 -m4
-         stronger minimisation (Espresso-style cover).  May
-         fit designs that WinCUPL rejects for too many product terms.
+         stronger minimisation (WinCUPL: Quine-McCluskey, Presto,
+         Expresso; here one Espresso-style method, exact for sums of
+         few variables).  It also removes literals that -m1 leaves in
+         a term.  May fit designs that WinCUPL rejects for too many
+         product terms.
+
+A design compiled in WinCUPL with one of the stronger methods has
+shorter terms than the same design at -m1; give the same level to
+compare.  The levels give equivalent fuse maps.
+
+When a sum has more product terms than the output has (0006cc), the
+design is fitted once more with the shortest sums FreeCUPL finds, at
+any level but -m0.  If it then fits it is compiled, with the note
+0909cb; cupl.exe rejects such a design at that level, and so does
+-compat-refdefect.  A design that fits is not touched: its sums are
+those of the level asked for.
   -kb    choose for each output the polarity needing fewer product
          terms (see bugs B001 and B002)
-  -g     program the security fuse (*G1)
+  -g     program the security fuse: the JEDEC file has *G1 instead of
+         *G0 ("Secure Device" in WinCUPL).  Nothing else in the file
+         changes.  Without -g the fuse is never programmed.
   -u     the next positional argument is the library (ignored)
 
 The MIN statement sets the minimisation level of single variables.
@@ -85,9 +120,10 @@ Options given as separate arguments:
                      latched inputs (timing not verified; by default
                      they show X, as in WinCUPL's simulator)
   -devices           print the supported mnemonics and exit
-  -V, --version      print "FreeCUPL 2.2.0 (DARKSOFT)" and exit
+  -V, --version      print "FreeCUPL 2.3.0 (DARKSOFT)" and exit
 
 Without arguments freecupl prints a usage summary and exits with 1.
+"freecupl serve" starts the editor page of section 9.
 
 The exit status is 0 when the requested outputs were written; warnings
 do not change it.  It is 1 on errors, on an invalid flag, or when the
@@ -126,7 +162,7 @@ docs/SIMFMT.txt.
   -l     write the listing file.so
   -v     also show the listing on the terminal (writes file.so)
   -j     append the test vectors to NAME.jed (NAME from the design's
-         Name item), or to file.jed with -n
+         Name item, formed as in section 1), or to file.jed with -n
   -n     see -j
   -u     the next positional argument is the library (ignored)
   -w -d  accepted, no effect (there is no waveform display)
@@ -186,7 +222,7 @@ Output files:
   .wo    freecsim      waveform data (also freecupl -s)
 
 The headers of .jed, .doc, .lst and .so name the version, "FreeCUPL
-2.2.0 (DARKSOFT)", and the creation date.
+2.3.0 (DARKSOFT)", and the creation date.
 
 If the environment variable SOURCE_DATE_EPOCH is set to a number of
 seconds since 1970-01-01 UTC, that time is written as the creation date
@@ -283,6 +319,8 @@ Compiler messages (E error, W warning, N note):
             B021)
   0908cb W  a pin read through both .IO and .DFB; both read the pin, as
             in WinCUPL
+  0909cb N  the product terms did not fit with the sums of the
+            minimisation level; shorter sums were used (section 1)
 
 Simulator messages:
 
@@ -347,7 +385,7 @@ docs/BUGS.txt, parts A and B).
 
 6. LIMITATIONS
 
-FreeCUPL supports the 327 mnemonics of section 9.  WinCUPL 5.0a compiles
+FreeCUPL supports the 327 mnemonics of section 10.  WinCUPL 5.0a compiles
 93 more mnemonics to a JEDEC file without an external fitter.  FreeCUPL
 has no description of these parts and rejects them with [0006ca] device
 not in library.  The mnemonics not supported, with the reason:
@@ -490,8 +528,11 @@ Vista and later) and Courier New 10 otherwise.
 
 Insert Device (Ctrl+D) lists the supported mnemonics with pin count and
 part name.  The search field takes parts of either, separated by blanks
-("16v8 complex").  Insert replaces the Device statement of the file, or
-puts one on a new line at the caret when there is none.
+("16v8 complex").  A click on a column header sorts the list by that
+column, a second click reverses it; pins sort as numbers, and numbers
+inside a mnemonic by their value (g16v8 before g20v8).  The order is
+kept until the program ends.  Insert replaces the Device statement of
+the file, or puts one on a new line at the caret when there is none.
 
 Compile (F7) saves the changed files and runs freecupl on the source of
 the active tab; on a .si tab, on the .pld of the same name.  Simulate
@@ -502,11 +543,13 @@ Options (F9) sets the flags of both programs:
 
   JEDEC file, Documentation, Fuse plot, Listing,
   Absolute file, Macro expansion           -j -x -f -l -a -e
-  Name the outputs after the source file   -n
+  Name the outputs after the source file   -n (the JEDEC file; the
+                                           others always are)
   Minimisation                             -m0 to -m4
   Device                                   the device argument
   Pick the output polarity                 -kb
-  Program the security fuse                -g
+  Program the security fuse                -g ("Secure Device" in
+                                           WinCUPL)
   WinCUPL compatibility                    -compat-refdefect
   Simulate after compile                   -s on Compile, when the .si
                                            file exists
@@ -547,7 +590,125 @@ administrator rights, Explorer among them, from dragging to it; files
 can still be dropped); the About box says when it runs that way.
 
 
-9. SUPPORTED DEVICES
+9. FREECUPL SERVE (BROWSER)
+
+freecupl serve is the editor and front end for Linux and macOS; it also
+runs on Windows.  It shows a page in the web browser of the same
+machine, with the functions of freecuplw (section 8).  The page is part
+of the freecupl program: nothing is installed and nothing is loaded
+from the network.
+
+    freecupl serve [--port N] [--no-browser] [directory]
+
+The program prints the address of the page, opens it in the default
+browser and runs until Ctrl+C or the Quit button of the page.  The page
+works on the files of the directory (default: the current one).
+--port sets the TCP port (default: a free one); --no-browser only
+prints the address.  A source file called serve is compiled as
+"freecupl ./serve".
+
+Compile and Simulate run freecupl and freecsim from the directory of
+the freecupl program, so a design gives the same files and messages as
+on the command line.  Keep the two programs in one directory.  The
+outputs are written in the directory, whatever the Name item says
+(section 1).
+
+Files.  The list on the left has the regular files of the directory;
+subdirectories, links and names starting with a dot are left out.  A
+click opens a file in a tab.  The output files .jed .doc .lst .so .wo
+.abs .mx are opened read only; anything else can be edited.  New starts
+a source with the header items; Save As asks for a name in the same
+directory.
+
+Editor.  Undo and redo are those of the browser, separate for each tab.
+Find and Replace (wraps round), Go To line, the Tab key puts in a tab.
+The status line shows line and column and whether the file has CRLF or
+LF line ends; the file is saved as it was read.  A file is read as
+UTF-8; one that is not valid UTF-8 is read and written byte for byte.
+The tab width (2, 4, 8) and syntax colouring (comments, keywords,
+numbers; the rules of freecuplw) are set at the right of the status
+line; files of more than 400000 characters are not coloured.
+
+Device lists the supported mnemonics with pin count and part name and
+searches and sorts like freecuplw (a click on a column header, a second
+one to reverse); Insert replaces the Device statement or puts one on a
+new line at the caret.
+
+Compile saves the changed files and runs freecupl on the source of the
+active tab; on a .si tab, on the .pld of the same name.  Simulate
+compiles with -a and then runs freecsim on the .si of the same name.
+Stop ends the running program.  Options is the dialog of freecuplw
+with the same flags (section 8), "WinCUPL compatibility" and "Simulate
+latches (not verified)" included, for every file or for the source of
+the active tab alone.
+
+Messages.  The lower pane shows the command line, the output, the
+files written and the summary line.  A click on a message with a line
+number goes to that line of the source (of the .si file for simulator
+messages, of the listing for messages freecsim wrote into it); a click
+on a file name opens the file.  The buttons .pld .si .jed .doc .lst .so
+open the files of the active design.  Open viewers are read again
+after every run.
+
+Keys: F7 Compile, F8 Simulate, F9 Options, F1 this guide, F3 and
+Shift+F3 find next and previous, Esc closes the find bar, Ctrl+G go to
+line; Ctrl+S, Ctrl+F, Ctrl+H (replace) and Ctrl+D (devices), on macOS
+Cmd+S, Cmd+F and Cmd+Option+F.  Keys the browser keeps for itself are
+on the buttons.
+
+Settings.  The options and the tab width are kept in
+$XDG_CONFIG_HOME/freecupl/serve.ini or ~/.config/freecupl/serve.ini; on
+Windows in freecupl-serve.ini in the directory of the program.  The
+environment variable FREECUPL_SERVE_INI names another file.
+
+Access.  The program listens on the address 127.0.0.1 only, so the
+page cannot be reached from another machine.  Every run has a random
+token, the part after "#t=" of the address the program prints.  The
+page keeps it for its browser tab (sessionStorage) and sends it in a
+header field with every request for files, options, runs and devices;
+a request without it is refused.  No cookie is used, so the browser
+gives the token to nobody else, and the token is not part of any
+request line.  The page itself and its scripts are sent without the
+token; they hold nothing secret.  The browser the program opens is
+given a ticket ("#k=") that the page trades for the token and that
+works once, because other users of the machine can see the arguments
+of a program.  Also refused: a request whose Host is not 127.0.0.1 or
+localhost with the port of the program, and one that comes from a page
+of another site.  Whoever has the printed address can read and write
+the files of the directory while the program runs: do not pass it on.
+A second tab or another browser needs the printed address; a tab that
+is loaded again keeps its access.  Only regular files directly in the
+directory can be read or written, with names of one component; files
+of more than 4 MB are refused.
+
+macOS package.  freecupl-VERSION-macos.zip has the programs in bin
+(for Apple and Intel processors), the documentation, the examples and
+FreeCUPL.command.  A double click on FreeCUPL.command opens a Terminal
+window that runs "freecupl serve" on the folder FreeCUPL in the home
+folder.  The first start creates that folder, copies the examples into
+it and says so in the Terminal window; nothing else is written outside
+the package (the options go to ~/.config/freecupl/serve.ini).  To use
+another folder, change the line DIR= in FreeCUPL.command.  Quit, or
+closing the Terminal window, ends it.  The programs
+are not signed with a developer certificate, so macOS refuses the
+first start of a downloaded copy.  Either open FreeCUPL.command with
+the right mouse button and Open (macOS 15: start it once, then allow
+it under System Settings, Privacy & Security, Open Anyway), or remove
+the mark of the download in Terminal:
+
+    xattr -dr com.apple.quarantine FOLDER
+
+where FOLDER is the unpacked package.  FreeCUPL.command removes the
+mark from the programs in bin when it is allowed to start.
+
+Limits: no printing; the font is Menlo, Consolas or the fixed-pitch
+font of the browser; on Windows only file names in ASCII are listed;
+the waveform file (.wo) is shown as text.  The page was tested with
+Chrome and Firefox on Linux; Safari and the macOS package were not
+tested on a Mac.
+
+
+10. SUPPORTED DEVICES
 
 The mnemonic goes in the Device statement or on the command line.
 freecupl -devices prints the same list.  The PLCC/LCC package variant of

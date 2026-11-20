@@ -1,5 +1,5 @@
 
-FreeCUPL 2.2.0 (DARKSOFT)
+FreeCUPL 2.3.0 (DARKSOFT)
 Device          g22v10  Library DLIB-h-40-1
 Created         Thu Jan  1 00:00:00 1970
 Name            inter_ba
@@ -29,4 +29,4 @@ Location        x
 *L05856 01010101001001011111010000100100
 *L05888 0001
 *C2372
-*B453
+*B454
